@@ -12,6 +12,8 @@
 		23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430D1FB210FA008DCE5B /* Assets.xcassets */; };
 		23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */; };
 		23DD431F1FB212DB008DCE5B /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD431E1FB212DB008DCE5B /* Account.swift */; };
+		23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43261FB227ED008DCE5B /* Transaction.swift */; };
+		23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43281FB22805008DCE5B /* BudgetItem.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -30,6 +32,8 @@
 		23DD43101FB210FA008DCE5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23DD43121FB210FA008DCE5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23DD431E1FB212DB008DCE5B /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		23DD43261FB227ED008DCE5B /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		23DD43281FB22805008DCE5B /* BudgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItem.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -110,7 +114,9 @@
 		23DD431A1FB2126A008DCE5B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				23DD43261FB227ED008DCE5B /* Transaction.swift */,
 				23DD431E1FB212DB008DCE5B /* Account.swift */,
+				23DD43281FB22805008DCE5B /* BudgetItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,7 +223,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
+				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
+				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
