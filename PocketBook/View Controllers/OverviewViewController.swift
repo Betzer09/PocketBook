@@ -6,6 +6,13 @@
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
 
+
+//NOTE: tableView cells are called "accountCell"
+//NOTE: plus button to AccountDetailsVC segue is called "toAccountDetails"
+
+
+
+
 import UIKit
 
 class OverviewViewController: UIViewController {

@@ -119,11 +119,13 @@
                                     <navigationItem title="Account Details" id="zrG-cE-ANx">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="jhw-BB-1Kf">
                                             <connections>
+                                                <action selector="cancelButtonTapped:" destination="LNI-Sk-YMr" id="hXD-lY-BEC"/>
                                                 <segue destination="hbI-v3-vmU" kind="show" identifier="cancelAccountChangeSegue" id="yjr-uT-2Cf"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="j7y-iq-HPi">
                                             <connections>
+                                                <action selector="saveButtonTapped:" destination="LNI-Sk-YMr" id="hPA-8s-7ID"/>
                                                 <segue destination="hbI-v3-vmU" kind="show" identifier="saveAccountChangeSegue" id="3BL-LK-6lV"/>
                                             </connections>
                                         </barButtonItem>
@@ -142,6 +144,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uk8-tI-VPd"/>
                     </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="pLA-sP-CFc" id="2JV-2k-IJ8"/>
+                        <outlet property="nameTextField" destination="U1G-Cc-LZd" id="rkU-AK-tz8"/>
+                        <outlet property="totalLabel" destination="Qce-Wt-4eg" id="KD8-L4-lDm"/>
+                        <outlet property="totalTextField" destination="iV0-5A-8Ah" id="Dwy-ee-0W9"/>
+                        <outlet property="typeLabel" destination="kP1-Yl-619" id="149-Xf-x4p"/>
+                        <outlet property="typePickerView" destination="OIB-X7-u7g" id="T04-dd-grx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WFQ-9r-RvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
