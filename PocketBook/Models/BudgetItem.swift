@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-struct BudgetItem {
+class BudgetItem {
     
     // MARK: - Keys
     static let recordType = "BudgetItem"
@@ -19,9 +19,10 @@ struct BudgetItem {
     static let nameKey = "name"
     
     // MARK: - Properties
-    let spentTotal: Double
-    let name: String // Category
-    let allottedAmount: Double
+    let recordID: CKRecordID
+    var spentTotal: Double
+    var name: String // Category
+    var allottedAmount: Double
     var totalAllotted: Double? {
         // Takes the allotted amount and adds that to the amount of income for that budget item Optional
         // TODO: Add the income for the budget
@@ -32,11 +33,12 @@ struct BudgetItem {
         self.spentTotal = spentTotal
         self.name = name
         self.allottedAmount = allottedAmount
+        self.recordID = CKRecordID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUT
     var cloudKitRecord: CKRecord {
-        let record = CKRecord(recordType: BudgetItem.recordType)
+        let record = CKRecord(recordType: BudgetItem.recordType, recordID: recordID)
         
         record.setValue(spentTotal, forKey: BudgetItem.spentTotalKey)
         record.setValue(name, forKey: BudgetItem.nameKey)
@@ -56,6 +58,7 @@ struct BudgetItem {
         self.name = name
         self.spentTotal = spentTotal
         self.allottedAmount = allottedAmount
+        self.recordID = cloudKitRecord.recordID
     }
     
 }
