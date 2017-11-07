@@ -6,6 +6,11 @@
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
 
+
+//>>>NOTE: Text field heights and Account picker height are not adjusted for iPad v. iPhone aspects. All other label font sizes will adjust appropriately.
+
+
+
 import UIKit
 
 class AccountDetailsViewController: UIViewController {
