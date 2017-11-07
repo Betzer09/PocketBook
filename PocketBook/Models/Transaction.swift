@@ -14,7 +14,7 @@ enum TransactionType: String {
     case Expense = "Expense"
 }
 
-struct Transaction {
+class Transaction {
     
     // MARK: - Keys
     static let recordType = "Transaction"
@@ -26,12 +26,13 @@ struct Transaction {
     static let accountKey = "account"
     
     // MARK: - Properties
-    let date: Date
-    let budget: String
-    let payee: String // Where the money is going
-    let transactionType: String
-    let amount: Double
-    let account: String
+    var date: Date
+    var budget: String
+    var payee: String // Where the money is going
+    var transactionType: String
+    var amount: Double
+    var account: String
+    var recordID: CKRecordID
     
     init(date: Date, budget: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
         self.date = date
@@ -40,11 +41,12 @@ struct Transaction {
         self.transactionType = transactionType
         self.amount = amount
         self.account = account
+        self.recordID = CKRecordID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUT
     var cloudKitRecord: CKRecord {
-        let record = CKRecord(recordType: Transaction.recordType)
+        let record = CKRecord(recordType: Transaction.recordType, recordID: recordID)
         
         record.setValue(date, forKey: Transaction.dateKey)
         record.setValue(budget, forKey: Transaction.budgetKey)
@@ -71,6 +73,7 @@ struct Transaction {
         self.transactionType = transactionType
         self.amount = amount
         self.account = account
+        self.recordID = cloudKitRecord.recordID
     }
     
 }

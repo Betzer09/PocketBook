@@ -15,9 +15,10 @@
 		23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43261FB227ED008DCE5B /* Transaction.swift */; };
 		23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43281FB22805008DCE5B /* BudgetItem.swift */; };
 		23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */; };
-		23DD432D1FB232B4008DCE5B /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD432C1FB232B4008DCE5B /* AccountController.swift */; };
 		23DD43321FB23972008DCE5B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD43311FB23972008DCE5B /* CloudKit.framework */; };
-		23DD43341FB239B6008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43331FB239B6008DCE5B /* CloudKitManager.swift */; };
+		23DD433A1FB259BA008DCE5B /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43391FB259BA008DCE5B /* AccountController.swift */; };
+		23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */; };
+		23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -48,10 +49,11 @@
 		23DD43261FB227ED008DCE5B /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		23DD43281FB22805008DCE5B /* BudgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItem.swift; sourceTree = "<group>"; };
 		23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpense.swift; sourceTree = "<group>"; };
-		23DD432C1FB232B4008DCE5B /* AccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketBook.entitlements; sourceTree = "<group>"; };
 		23DD43311FB23972008DCE5B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		23DD43331FB239B6008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		23DD43391FB259BA008DCE5B /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
+		23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContoller.swift; sourceTree = "<group>"; };
+		23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -88,7 +90,7 @@
 			children = (
 				23DD43051FB210FA008DCE5B /* PocketBook */,
 				23DD43041FB210FA008DCE5B /* Products */,
-				23DD43301FB23972008DCE5B /* Frameworks */,
+				23DD43371FB2539F008DCE5B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,11 +106,11 @@
 			isa = PBXGroup;
 			children = (
 				23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */,
-				23DD432E1FB2391B008DCE5B /* Other Controller */,
 				23DD431A1FB2126A008DCE5B /* Models */,
-				23DD431B1FB21274008DCE5B /* Model Controller */,
+				23DD43381FB259BA008DCE5B /* Model Controller */,
 				D38EF96F1FB22FBB0035B5E3 /* View Controllers */,
 				23DD43191FB21253008DCE5B /* Storyboard */,
+				23DD433D1FB25A33008DCE5B /* Other Controller */,
 				23DD43181FB21250008DCE5B /* Resources */,
 			);
 			path = PocketBook;
@@ -150,6 +152,31 @@
 				23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		23DD43371FB2539F008DCE5B /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				23DD43311FB23972008DCE5B /* CloudKit.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		23DD43381FB259BA008DCE5B /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				23DD43391FB259BA008DCE5B /* AccountController.swift */,
+				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
+		23DD433D1FB25A33008DCE5B /* Other Controller */ = {
+			isa = PBXGroup;
+			children = (
+				23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */,
+			);
+			path = "Other Controller";
 			sourceTree = "<group>";
 		};
 		D38EF96F1FB22FBB0035B5E3 /* View Controllers */ = {
@@ -260,14 +287,17 @@
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
 				D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
+				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
+				23DD433A1FB259BA008DCE5B /* AccountController.swift in Sources */,
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				D38EF97C1FB230950035B5E3 /* AnalysisViewController.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D38EF97F1FB230950035B5E3 /* OverviewViewController.swift in Sources */,
 				D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */,
+				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
 			);

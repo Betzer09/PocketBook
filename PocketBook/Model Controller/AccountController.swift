@@ -44,10 +44,47 @@ class AccountController {
             completion?(account)
             return
         }
+    }
+    
+    // MARK: - Update
+    func updateAccountWith(name: String, type: String, total: Double, account: Account, completion: @escaping (Account?) -> Void) {
         
+        account.name = name
+        account.accountType = type
+        account.total = total
+        
+        cloudKitManager.modifyRecords([account.cloudKitRecord], perRecordCompletion: nil, completion: { (records, error) in
+            
+            // Check for an error
+            if let error = error {
+                print("Error saving new records: \(error.localizedDescription) in file: \(#file)")
+                completion(nil)
+                return
+            }
+            
+            // Update the first Account that comes back
+            guard let record = records?.first else {return}
+            let updatedAccount = Account(cloudKitRecord: record)
+            completion(updatedAccount)
+            
+        })
         
     }
-
+    
+    func delete(account: Account) {
+        
+        cloudKitManager.deleteRecordWithID(account.recordID) { (recordID, error) in
+            if let error = error {
+                print("Error deleting Account: \(error.localizedDescription) in file: \(#file)")
+                return
+            } else {
+                print("Successfully deleted Account!")
+            }
+        }
+        
+    }
+    
+    
     // MARK: - Fetch the data from cloudKit
     func fetchAccountsFromCloudKit() {
         
@@ -75,75 +112,5 @@ class AccountController {
         
     }
     
-    
-    // MARK: - Update
-    func updateContactWith(name: String, type: String, total: Double, account: Account, completion: @escaping (Account?) -> Void) {
-        
-        account.name = name
-        account.accountType = type
-        account.total = total
-        
-        cloudKitManager.modifyRecords([account.cloudKitRecord], perRecordCompletion: nil, completion: { (records, error) in
-            
-            // Check for an error
-            if let error = error {
-                print("Error saving new records: \(error.localizedDescription) in file: \(#file)")
-                completion(nil)
-                return
-            }
-            
-            // Update the first Account that comes back
-            guard let record = records?.first else {return}
-            let updatedAccount = Account(cloudKitRecord: record)
-            completion(updatedAccount)
-            
-        })
-        
-    }
-    
-    func deleteContact(account: Account) {
-        
-        cloudKitManager.deleteRecordWithID(account.recordID) { (recordID, error) in
-            if let error = error {
-                print("Error deleting Account: \(error.localizedDescription) in file: \(#file)")
-                return
-            } else {
-                print("Successfully deleted Account!")
-            }
-        }
-        
-    }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
