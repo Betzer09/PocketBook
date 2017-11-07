@@ -106,8 +106,11 @@
 				23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */,
 				23DD432E1FB2391B008DCE5B /* Other Controller */,
 				23DD431A1FB2126A008DCE5B /* Models */,
+<<<<<<< HEAD
 				23DD431B1FB21274008DCE5B /* Model Controller */,
+=======
 				D38EF96F1FB22FBB0035B5E3 /* View Controllers */,
+>>>>>>> develop
 				23DD43191FB21253008DCE5B /* Storyboard */,
 				23DD43181FB21250008DCE5B /* Resources */,
 			);
@@ -152,6 +155,20 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+		23DD431B1FB21274008DCE5B /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				23DD432C1FB232B4008DCE5B /* AccountController.swift */,
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
+		23DD432E1FB2391B008DCE5B /* Other Controller */ = {
+			isa = PBXGroup;
+			children = (
+				23DD43331FB239B6008DCE5B /* CloudKitManager.swift */,
+=======
 		D38EF96F1FB22FBB0035B5E3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,10 +181,22 @@
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */,
+>>>>>>> develop
 			);
-			path = "View Controllers";
+			path = "Other Controller";
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+		23DD43301FB23972008DCE5B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23DD43311FB23972008DCE5B /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+=======
+>>>>>>> develop
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -258,13 +287,21 @@
 			files = (
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
+<<<<<<< HEAD
+				23DD432D1FB232B4008DCE5B /* AccountController.swift in Sources */,
+=======
 				D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */,
+>>>>>>> develop
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
+<<<<<<< HEAD
+				23DD43341FB239B6008DCE5B /* CloudKitManager.swift in Sources */,
+=======
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				D38EF97C1FB230950035B5E3 /* AnalysisViewController.swift in Sources */,
+>>>>>>> develop
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D38EF97F1FB230950035B5E3 /* OverviewViewController.swift in Sources */,
 				D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */,
