@@ -16,7 +16,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="zga-GF-SBb" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VRp-61-mMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-634" y="-300"/>
+            <point key="canvasLocation" x="-594" y="-300"/>
         </scene>
         <!--Analysis View Controller-->
         <scene sceneID="NgP-ah-eve">
@@ -45,7 +45,7 @@
                                 <rect key="frame" x="0.0" y="180" width="375" height="340"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="zga-GF-SBb" kind="embed" id="NZ2-ZZ-sh0"/>
+                                    <segue destination="zga-GF-SBb" kind="embed" id="0p8-yd-YlU"/>
                                 </connections>
                             </containerView>
                         </subviews>

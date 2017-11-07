@@ -36,7 +36,7 @@
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="r9s-UQ-FRV">
                                             <connections>
                                                 <action selector="addButtonTapped:" destination="RqW-vs-M9G" id="2VR-ub-tRt"/>
-                                                <segue destination="hrq-QD-CqU" kind="show" id="lNS-Dw-zN4"/>
+                                                <segue destination="hrq-QD-CqU" kind="show" identifier="toAccountDetails" id="lNS-Dw-zN4"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -99,7 +99,7 @@
                 <viewControllerPlaceholder storyboardName="AccountDetails" id="hrq-QD-CqU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMc-Qe-ejL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-956" y="-300"/>
+            <point key="canvasLocation" x="-734" y="-326"/>
         </scene>
     </scenes>
 </document>

@@ -7,7 +7,11 @@
 //
 
 
-//>>>NOTE: Text field heights and Account picker height are not adjusted for iPad v. iPhone aspects. All other label font sizes will adjust appropriately.
+//NOTE: Text field heights and Account picker height are not adjusted for iPad v. iPhone aspects. All other label font sizes will adjust appropriately.
+
+
+//NOTE: save button to OverviewVC segue is called "saveAccountChangeSegue"
+//NOTE: cancel button to OverviewVC segue is called "cancelAccountChangeSegue"
 
 
 
@@ -15,6 +19,23 @@ import UIKit
 
 class AccountDetailsViewController: UIViewController {
 
+    //MARK: - Outlets
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var typePickerView: UIPickerView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalTextField: UITextField!
+    
+    //MARK: - Actions
+    @IBAction func saveButtonTapped(_ sender: Any) {
+    }
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
