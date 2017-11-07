@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43061FB210FA008DCE5B /* AppDelegate.swift */; };
-		23DD430C1FB210FA008DCE5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430A1FB210FA008DCE5B /* Main.storyboard */; };
 		23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430D1FB210FA008DCE5B /* Assets.xcassets */; };
 		23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */; };
 		23DD431F1FB212DB008DCE5B /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD431E1FB212DB008DCE5B /* Account.swift */; };
@@ -32,12 +31,12 @@
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
 		D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */; };
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
+		D38EF9851FB238CB0035B5E3 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Overview.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		23DD43031FB210FA008DCE5B /* PocketBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD43061FB210FA008DCE5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		23DD430B1FB210FA008DCE5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		23DD430D1FB210FA008DCE5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23DD43101FB210FA008DCE5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23DD43121FB210FA008DCE5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewController.swift; sourceTree = "<group>"; };
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
+		D38EF9841FB238CB0035B5E3 /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +96,7 @@
 			children = (
 				23DD431A1FB2126A008DCE5B /* Models */,
 				D38EF96F1FB22FBB0035B5E3 /* View Controllers */,
+				D38EF9861FB240850035B5E3 /* Views */,
 				23DD43191FB21253008DCE5B /* Storyboard */,
 				23DD43181FB21250008DCE5B /* Resources */,
 			);
@@ -115,15 +116,15 @@
 		23DD43191FB21253008DCE5B /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				D38EF9841FB238CB0035B5E3 /* Overview.storyboard */,
 				D38EF9641FB218610035B5E3 /* AccountDetails.storyboard */,
 				D38EF9611FB218610035B5E3 /* Analysis.storyboard */,
+				D38EF95D1FB218610035B5E3 /* Transactions.storyboard */,
+				D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */,
 				D38EF9621FB218610035B5E3 /* MonthlyBudget.storyboard */,
 				D38EF9601FB218610035B5E3 /* MonthlyBudgetDetailView.storyboard */,
 				D38EF9631FB218610035B5E3 /* PlannedExpenses.storyboard */,
 				D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */,
-				D38EF95D1FB218610035B5E3 /* Transactions.storyboard */,
-				D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */,
-				23DD430A1FB210FA008DCE5B /* Main.storyboard */,
 				23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
@@ -154,6 +155,13 @@
 				D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D38EF9861FB240850035B5E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,8 +228,8 @@
 				D38EF96B1FB218620035B5E3 /* PlannedExpenses.storyboard in Resources */,
 				D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */,
 				23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */,
+				D38EF9851FB238CB0035B5E3 /* Overview.storyboard in Resources */,
 				D38EF96A1FB218620035B5E3 /* MonthlyBudget.storyboard in Resources */,
-				23DD430C1FB210FA008DCE5B /* Main.storyboard in Resources */,
 				D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */,
 				D38EF96C1FB218620035B5E3 /* AccountDetails.storyboard in Resources */,
 				D38EF9691FB218620035B5E3 /* Analysis.storyboard in Resources */,
@@ -256,14 +264,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		23DD430A1FB210FA008DCE5B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				23DD430B1FB210FA008DCE5B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

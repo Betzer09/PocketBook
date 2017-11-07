@@ -10,6 +10,17 @@ import UIKit
 
 class OverviewViewController: UIViewController {
 
+    //Outlets
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var totalLabel: UILabel!
+    
+    
+    //Actions
+    @IBAction func addButtonTapped(_ sender: Any) {
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
