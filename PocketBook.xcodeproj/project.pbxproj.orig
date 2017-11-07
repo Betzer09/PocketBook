@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43061FB210FA008DCE5B /* AppDelegate.swift */; };
+		23DD430C1FB210FA008DCE5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430A1FB210FA008DCE5B /* Main.storyboard */; };
 		23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430D1FB210FA008DCE5B /* Assets.xcassets */; };
 		23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */; };
 		23DD431F1FB212DB008DCE5B /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD431E1FB212DB008DCE5B /* Account.swift */; };
 		23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43261FB227ED008DCE5B /* Transaction.swift */; };
 		23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43281FB22805008DCE5B /* BudgetItem.swift */; };
 		23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */; };
+		23DD432D1FB232B4008DCE5B /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD432C1FB232B4008DCE5B /* AccountController.swift */; };
 		23DD43321FB23972008DCE5B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD43311FB23972008DCE5B /* CloudKit.framework */; };
-		23DD433A1FB259BA008DCE5B /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43391FB259BA008DCE5B /* AccountController.swift */; };
-		23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */; };
-		23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */; };
+		23DD43341FB239B6008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43331FB239B6008DCE5B /* CloudKitManager.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -35,12 +35,12 @@
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
 		D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */; };
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
-		D38EF9851FB238CB0035B5E3 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Overview.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		23DD43031FB210FA008DCE5B /* PocketBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD43061FB210FA008DCE5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		23DD430B1FB210FA008DCE5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		23DD430D1FB210FA008DCE5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23DD43101FB210FA008DCE5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23DD43121FB210FA008DCE5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,11 +48,10 @@
 		23DD43261FB227ED008DCE5B /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		23DD43281FB22805008DCE5B /* BudgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItem.swift; sourceTree = "<group>"; };
 		23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpense.swift; sourceTree = "<group>"; };
+		23DD432C1FB232B4008DCE5B /* AccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketBook.entitlements; sourceTree = "<group>"; };
 		23DD43311FB23972008DCE5B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		23DD43391FB259BA008DCE5B /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
-		23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContoller.swift; sourceTree = "<group>"; };
-		23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		23DD43331FB239B6008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -70,7 +69,6 @@
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewController.swift; sourceTree = "<group>"; };
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
-		D38EF9841FB238CB0035B5E3 /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +88,7 @@
 			children = (
 				23DD43051FB210FA008DCE5B /* PocketBook */,
 				23DD43041FB210FA008DCE5B /* Products */,
-				23DD43371FB2539F008DCE5B /* Recovered References */,
+				23DD43301FB23972008DCE5B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,12 +104,14 @@
 			isa = PBXGroup;
 			children = (
 				23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */,
+				23DD432E1FB2391B008DCE5B /* Other Controller */,
 				23DD431A1FB2126A008DCE5B /* Models */,
-				23DD43381FB259BA008DCE5B /* Model Controller */,
+<<<<<<< HEAD
+				23DD431B1FB21274008DCE5B /* Model Controller */,
+=======
 				D38EF96F1FB22FBB0035B5E3 /* View Controllers */,
-				D38EF9861FB240850035B5E3 /* Views */,
+>>>>>>> develop
 				23DD43191FB21253008DCE5B /* Storyboard */,
-				23DD433D1FB25A33008DCE5B /* Other Controller */,
 				23DD43181FB21250008DCE5B /* Resources */,
 			);
 			path = PocketBook;
@@ -130,15 +130,15 @@
 		23DD43191FB21253008DCE5B /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				D38EF9841FB238CB0035B5E3 /* Overview.storyboard */,
 				D38EF9641FB218610035B5E3 /* AccountDetails.storyboard */,
 				D38EF9611FB218610035B5E3 /* Analysis.storyboard */,
-				D38EF95D1FB218610035B5E3 /* Transactions.storyboard */,
-				D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */,
 				D38EF9621FB218610035B5E3 /* MonthlyBudget.storyboard */,
 				D38EF9601FB218610035B5E3 /* MonthlyBudgetDetailView.storyboard */,
 				D38EF9631FB218610035B5E3 /* PlannedExpenses.storyboard */,
 				D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */,
+				D38EF95D1FB218610035B5E3 /* Transactions.storyboard */,
+				D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */,
+				23DD430A1FB210FA008DCE5B /* Main.storyboard */,
 				23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
@@ -155,31 +155,20 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		23DD43371FB2539F008DCE5B /* Recovered References */ = {
+<<<<<<< HEAD
+		23DD431B1FB21274008DCE5B /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
-				23DD43311FB23972008DCE5B /* CloudKit.framework */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		23DD43381FB259BA008DCE5B /* Model Controller */ = {
-			isa = PBXGroup;
-			children = (
-				23DD43391FB259BA008DCE5B /* AccountController.swift */,
-				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
+				23DD432C1FB232B4008DCE5B /* AccountController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
 		};
-		23DD433D1FB25A33008DCE5B /* Other Controller */ = {
+		23DD432E1FB2391B008DCE5B /* Other Controller */ = {
 			isa = PBXGroup;
 			children = (
-				23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */,
-			);
-			path = "Other Controller";
-			sourceTree = "<group>";
-		};
+				23DD43331FB239B6008DCE5B /* CloudKitManager.swift */,
+=======
 		D38EF96F1FB22FBB0035B5E3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,17 +181,22 @@
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */,
+>>>>>>> develop
 			);
-			path = "View Controllers";
+			path = "Other Controller";
 			sourceTree = "<group>";
 		};
-		D38EF9861FB240850035B5E3 /* Views */ = {
+<<<<<<< HEAD
+		23DD43301FB23972008DCE5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23DD43311FB23972008DCE5B /* CloudKit.framework */,
 			);
-			path = Views;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> develop
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -275,8 +269,8 @@
 				D38EF96B1FB218620035B5E3 /* PlannedExpenses.storyboard in Resources */,
 				D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */,
 				23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */,
-				D38EF9851FB238CB0035B5E3 /* Overview.storyboard in Resources */,
 				D38EF96A1FB218620035B5E3 /* MonthlyBudget.storyboard in Resources */,
+				23DD430C1FB210FA008DCE5B /* Main.storyboard in Resources */,
 				D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */,
 				D38EF96C1FB218620035B5E3 /* AccountDetails.storyboard in Resources */,
 				D38EF9691FB218620035B5E3 /* Analysis.storyboard in Resources */,
@@ -293,19 +287,24 @@
 			files = (
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
+<<<<<<< HEAD
+				23DD432D1FB232B4008DCE5B /* AccountController.swift in Sources */,
+=======
 				D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */,
+>>>>>>> develop
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
-				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
-				23DD433A1FB259BA008DCE5B /* AccountController.swift in Sources */,
+<<<<<<< HEAD
+				23DD43341FB239B6008DCE5B /* CloudKitManager.swift in Sources */,
+=======
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				D38EF97C1FB230950035B5E3 /* AnalysisViewController.swift in Sources */,
+>>>>>>> develop
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D38EF97F1FB230950035B5E3 /* OverviewViewController.swift in Sources */,
 				D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */,
-				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
 			);
@@ -314,6 +313,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		23DD430A1FB210FA008DCE5B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23DD430B1FB210FA008DCE5B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
