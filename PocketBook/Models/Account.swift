@@ -16,7 +16,7 @@ enum AccountType: String {
     
 }
 
-struct Account {
+class Account {
     
     // MARK: - Keys
     static let recordType = "Account"
@@ -26,24 +26,27 @@ struct Account {
     static let totalKey = "total"
     
     // MARK: - Properties
-    let accountType: String
-    let name: String
-    let total: Double
+    var accountType: String
+    var name: String
+    var total: Double
+    var recordID: CKRecordID
     
     init(name: String, total: Double, accountType: AccountType.RawValue) {
         self.accountType = accountType
         self.name = name
         self.total = total
+        self.recordID = CKRecordID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUT
     var cloudKitRecord: CKRecord {
-        let record = CKRecord(recordType: Account.recordType)
+        
+        let record = CKRecord(recordType: Account.recordType, recordID: recordID)
         
         record.setValue(name, forKey: Account.nameKey)
         record.setValue(accountType, forKey: Account.accountTypeKey)
         record.setValue(total, forKey: Account.totalKey)
-        
+                
         return record
     }
     
@@ -56,7 +59,7 @@ struct Account {
         self.name = name
         self.accountType = accountType
         self.total = total
-        
+        self.recordID = cloudKitRecord.recordID
     }
     
     

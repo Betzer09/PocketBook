@@ -15,6 +15,9 @@
 		23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43261FB227ED008DCE5B /* Transaction.swift */; };
 		23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43281FB22805008DCE5B /* BudgetItem.swift */; };
 		23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */; };
+		23DD432D1FB232B4008DCE5B /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD432C1FB232B4008DCE5B /* AccountController.swift */; };
+		23DD43321FB23972008DCE5B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23DD43311FB23972008DCE5B /* CloudKit.framework */; };
+		23DD43341FB239B6008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43331FB239B6008DCE5B /* CloudKitManager.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -36,6 +39,10 @@
 		23DD43261FB227ED008DCE5B /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		23DD43281FB22805008DCE5B /* BudgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItem.swift; sourceTree = "<group>"; };
 		23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpense.swift; sourceTree = "<group>"; };
+		23DD432C1FB232B4008DCE5B /* AccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
+		23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketBook.entitlements; sourceTree = "<group>"; };
+		23DD43311FB23972008DCE5B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		23DD43331FB239B6008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -51,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23DD43321FB23972008DCE5B /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +70,7 @@
 			children = (
 				23DD43051FB210FA008DCE5B /* PocketBook */,
 				23DD43041FB210FA008DCE5B /* Products */,
+				23DD43301FB23972008DCE5B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,10 +85,10 @@
 		23DD43051FB210FA008DCE5B /* PocketBook */ = {
 			isa = PBXGroup;
 			children = (
+				23DD432F1FB2396B008DCE5B /* PocketBook.entitlements */,
+				23DD432E1FB2391B008DCE5B /* Other Controller */,
 				23DD431A1FB2126A008DCE5B /* Models */,
 				23DD431B1FB21274008DCE5B /* Model Controller */,
-				23DD431D1FB21286008DCE5B /* Views */,
-				23DD431C1FB21280008DCE5B /* View Controllers */,
 				23DD43191FB21253008DCE5B /* Storyboard */,
 				23DD43181FB21250008DCE5B /* Resources */,
 			);
@@ -127,22 +136,25 @@
 		23DD431B1FB21274008DCE5B /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
+				23DD432C1FB232B4008DCE5B /* AccountController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
 		};
-		23DD431C1FB21280008DCE5B /* View Controllers */ = {
+		23DD432E1FB2391B008DCE5B /* Other Controller */ = {
 			isa = PBXGroup;
 			children = (
+				23DD43331FB239B6008DCE5B /* CloudKitManager.swift */,
 			);
-			path = "View Controllers";
+			path = "Other Controller";
 			sourceTree = "<group>";
 		};
-		23DD431D1FB21286008DCE5B /* Views */ = {
+		23DD43301FB23972008DCE5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23DD43311FB23972008DCE5B /* CloudKit.framework */,
 			);
-			path = Views;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +190,14 @@
 					23DD43021FB210FA008DCE5B = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -226,8 +246,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
+				23DD432D1FB232B4008DCE5B /* AccountController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
+				23DD43341FB239B6008DCE5B /* CloudKitManager.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 			);
@@ -366,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
@@ -381,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
