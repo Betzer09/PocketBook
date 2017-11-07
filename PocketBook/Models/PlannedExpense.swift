@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-struct PlannedExpense {
+class PlannedExpense {
     
     // MARK: - Keys
     static let recordType = "PlannedExpense"
@@ -21,11 +21,12 @@ struct PlannedExpense {
     static let totalSavedKey = "totalSaved"
     
     // MARK: - Properties
-    let name: String
-    let account: String
-    let dueDate: Date
-    let initialAmount: Double
-    let goalAmount: Double
+    var recordID: CKRecordID
+    var name: String
+    var account: String
+    var dueDate: Date
+    var initialAmount: Double
+    var goalAmount: Double
     var totalSaved: Double {
         
         // initial amount Plus the income for the planned expense -> income dictionary
@@ -41,13 +42,14 @@ struct PlannedExpense {
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
+        self.recordID = CKRecordID(recordName: UUID().uuidString)
         
     }
     
     // MARK: - cloudKitRecord PUT
     
     var cloudKitRecord: CKRecord {
-        let record = CKRecord(recordType: PlannedExpense.recordType)
+        let record = CKRecord(recordType: PlannedExpense.recordType, recordID: recordID)
         
         record.setValue(name, forKey: PlannedExpense.nameKey)
         record.setValue(account, forKey: PlannedExpense.accountKey)
@@ -76,6 +78,7 @@ struct PlannedExpense {
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
+        self.recordID = cloudKitRecord.recordID
     }
     
 }

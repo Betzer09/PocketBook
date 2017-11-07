@@ -19,6 +19,7 @@
 		23DD433A1FB259BA008DCE5B /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43391FB259BA008DCE5B /* AccountController.swift */; };
 		23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */; };
 		23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */; };
+		23DD43441FB263D4008DCE5B /* PlannedExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -54,6 +55,7 @@
 		23DD43391FB259BA008DCE5B /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionContoller.swift; sourceTree = "<group>"; };
 		23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpenseController.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				23DD43391FB259BA008DCE5B /* AccountController.swift */,
 				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
+				23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
+				23DD43441FB263D4008DCE5B /* PlannedExpenseController.swift in Sources */,
 				23DD433A1FB259BA008DCE5B /* AccountController.swift in Sources */,
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
