@@ -21,6 +21,7 @@
 		23DD43441FB263D4008DCE5B /* PlannedExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */; };
 		23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43451FB26E39008DCE5B /* BudgetItemController.swift */; };
 		23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */; };
+		23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */; };
 		D314F1301FB379A70051C5BE /* OverviewTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */; };
 		D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
@@ -59,6 +60,7 @@
 		23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpenseController.swift; sourceTree = "<group>"; };
 		23DD43451FB26E39008DCE5B /* BudgetItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItemController.swift; sourceTree = "<group>"; };
 		23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
+		23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewController.swift; sourceTree = "<group>"; };
 		D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OverviewTabBar.storyboard; sourceTree = "<group>"; };
 		D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
+				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
+				23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */,
 				23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */,
 				23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
