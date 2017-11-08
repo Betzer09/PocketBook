@@ -17,8 +17,18 @@ class AccountController {
     let cloudKitManager: CloudKitManager
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
+    // MARK: - Notifications
+    let accountsWhereUpdatedNotification = Notification.Name("accountWasUpdated")
+    
     // Source of truth
-    var accounts: [Account] = []
+    var accounts: [Account] = [] {
+        
+        didSet {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: self.accountsWhereUpdatedNotification, object: nil)
+            }
+        }
+    }
     
     
     init() {

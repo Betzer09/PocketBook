@@ -18,6 +18,9 @@
 import UIKit
 
 class AccountDetailsViewController: UIViewController {
+    
+    // MARK: - Properites
+    var account: Account? // This is where the Segue from the overviewViewController will pass its information
 
     //MARK: - Outlets
     @IBOutlet weak var typeLabel: UILabel!
@@ -26,36 +29,79 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     
+    // We shoudn't need an outlet for the lables
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalTextField: UITextField!
     
-    //MARK: - Actions
-    @IBAction func saveButtonTapped(_ sender: Any) {
-    }
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-    }
     
-    
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        updateViews()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: - Actions
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        checkSave()
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        
     }
-    */
+    
+    // MARK: - Methods
+    func updateViews() {
+        // Check to see if there is an account
+        guard let account = account else {return}
+        
+        // If there is an account update the views
+        nameTextField.text = account.name
+        totalTextField.text = "\(account.total)"
+    }
+    
+    func checkSave() {
+        
+        // If there is an account update it
+        if account != nil {
+            guard let name = nameTextField.text,
+            let total = totalTextField.text,
+            let account = account else {return}
+            
+            AccountController.shared.updateAccountWith(name: name, type: typePickerView.description, total: Double(total)!, account: account, completion: { (_) in
+                // TODO: Maybe change this in the AccountController
+                
+                // Might need to add another notification to update the tableView
+            })
+            
+        } else {
+            // If there isn't an account save it
+            guard let name = nameTextField.text,
+                let total = totalTextField.text, !name.isEmpty, !total.isEmpty else {
+                   // Alert the user that they must put something in the fields
+                    return
+            }
+            
+            AccountController.shared.createAccount(name: name, type: typePickerView.description, total: Double(total)!, completion: nil)
+            
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
