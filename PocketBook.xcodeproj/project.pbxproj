@@ -20,6 +20,8 @@
 		23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */; };
 		23DD43441FB263D4008DCE5B /* PlannedExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */; };
 		23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43451FB26E39008DCE5B /* BudgetItemController.swift */; };
+		23DD434A1FB27B00008DCE5B /* OverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43491FB27B00008DCE5B /* OverviewTableViewController.swift */; };
+		23DD434C1FB28DCA008DCE5B /* OverviewTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD434B1FB28DCA008DCE5B /* OverviewTabBar.storyboard */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -32,7 +34,6 @@
 		D38EF97C1FB230950035B5E3 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9731FB230950035B5E3 /* AnalysisViewController.swift */; };
 		D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */; };
 		D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */; };
-		D38EF97F1FB230950035B5E3 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9761FB230950035B5E3 /* OverviewViewController.swift */; };
 		D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */; };
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
 		D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */; };
@@ -57,6 +58,8 @@
 		23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpenseController.swift; sourceTree = "<group>"; };
 		23DD43451FB26E39008DCE5B /* BudgetItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItemController.swift; sourceTree = "<group>"; };
+		23DD43491FB27B00008DCE5B /* OverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewController.swift; sourceTree = "<group>"; };
+		23DD434B1FB28DCA008DCE5B /* OverviewTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OverviewTabBar.storyboard; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -69,7 +72,6 @@
 		D38EF9731FB230950035B5E3 /* AnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyBudgetViewController.swift; sourceTree = "<group>"; };
 		D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpensesTableViewController.swift; sourceTree = "<group>"; };
-		D38EF9761FB230950035B5E3 /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyBudgetDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				D38EF9631FB218610035B5E3 /* PlannedExpenses.storyboard */,
 				D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */,
 				23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */,
+				23DD434B1FB28DCA008DCE5B /* OverviewTabBar.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -193,11 +196,11 @@
 				D38EF9731FB230950035B5E3 /* AnalysisViewController.swift */,
 				D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */,
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
-				D38EF9761FB230950035B5E3 /* OverviewViewController.swift */,
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */,
+				23DD43491FB27B00008DCE5B /* OverviewTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */,
 				D38EF9851FB238CB0035B5E3 /* Overview.storyboard in Resources */,
 				D38EF96A1FB218620035B5E3 /* MonthlyBudget.storyboard in Resources */,
+				23DD434C1FB28DCA008DCE5B /* OverviewTabBar.storyboard in Resources */,
 				D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */,
 				D38EF96C1FB218620035B5E3 /* AccountDetails.storyboard in Resources */,
 				D38EF9691FB218620035B5E3 /* Analysis.storyboard in Resources */,
@@ -302,6 +306,7 @@
 				D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
+				23DD434A1FB27B00008DCE5B /* OverviewTableViewController.swift in Sources */,
 				23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
@@ -311,7 +316,6 @@
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				D38EF97C1FB230950035B5E3 /* AnalysisViewController.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
-				D38EF97F1FB230950035B5E3 /* OverviewViewController.swift in Sources */,
 				D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
