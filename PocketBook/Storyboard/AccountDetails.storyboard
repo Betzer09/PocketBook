@@ -20,35 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="HtL-Fn-ikK">
-                                <rect key="frame" x="23.5" y="181.5" width="328" height="324"/>
+                                <rect key="frame" x="23.5" y="257.5" width="328" height="172"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ePv-4X-vur">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="120"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kP1-Yl-619">
-                                                <rect key="frame" x="0.0" y="0.0" width="328" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="widthClass=compact">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                </variation>
-                                                <variation key="widthClass=regular">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                                </variation>
-                                            </label>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIB-X7-u7g">
-                                                <rect key="frame" x="0.0" y="40" width="328" height="80"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="I2d-Hl-qel"/>
-                                                </constraints>
-                                            </pickerView>
-                                        </subviews>
-                                        <variation key="heightClass=regular-widthClass=compact" spacing="16"/>
-                                        <variation key="heightClass=regular-widthClass=regular" spacing="32"/>
-                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zuz-Si-cE3">
-                                        <rect key="frame" x="0.0" y="152" width="328" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="328" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLA-sP-CFc">
                                                 <rect key="frame" x="0.0" y="0.0" width="328" height="24"/>
@@ -79,7 +54,7 @@
                                         <variation key="heightClass=regular-widthClass=regular" spacing="32"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qHf-QW-Gpo">
-                                        <rect key="frame" x="0.0" y="254" width="328" height="70"/>
+                                        <rect key="frame" x="0.0" y="102" width="328" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qce-Wt-4eg">
                                                 <rect key="frame" x="0.0" y="0.0" width="328" height="24"/>
@@ -149,8 +124,6 @@
                         <outlet property="nameTextField" destination="U1G-Cc-LZd" id="rkU-AK-tz8"/>
                         <outlet property="totalLabel" destination="Qce-Wt-4eg" id="KD8-L4-lDm"/>
                         <outlet property="totalTextField" destination="iV0-5A-8Ah" id="Dwy-ee-0W9"/>
-                        <outlet property="typeLabel" destination="kP1-Yl-619" id="149-Xf-x4p"/>
-                        <outlet property="typePickerView" destination="OIB-X7-u7g" id="T04-dd-grx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WFQ-9r-RvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
