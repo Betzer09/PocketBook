@@ -1,5 +1,5 @@
 //
-//  OverviewTableViewController.swift
+//  AccountTableViewController.swift
 //  PocketBook
 //
 //  Created by Austin Betzer on 11/7/17.
@@ -12,7 +12,7 @@
 
 import UIKit
 
-class OverviewTableViewController: UITableViewController {
+class AccountTableViewController: UITableViewController {
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
