@@ -13,7 +13,7 @@
         <scene sceneID="W79-F5-keR">
             <objects>
                 <viewControllerPlaceholder storyboardName="Account" id="C6k-6R-08i" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Account" id="RMB-f5-M1a"/>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="RMB-f5-M1a"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWZ-RD-xyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -59,10 +59,10 @@
             </objects>
             <point key="canvasLocation" x="81" y="-8"/>
         </scene>
-        <!--Custom Tab Bar View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="Ml3-fL-zhO">
             <objects>
-                <tabBarController id="B1K-hW-xeG" customClass="CustomTabBarViewController" sceneMemberID="viewController">
+                <tabBarController id="B1K-hW-xeG" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y2M-tl-EUS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

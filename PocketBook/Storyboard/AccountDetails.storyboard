@@ -163,7 +163,7 @@
                 <viewControllerPlaceholder id="hbI-v3-vmU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geI-oL-iGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="796" y="-310"/>
+            <point key="canvasLocation" x="720" y="17"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
