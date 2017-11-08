@@ -25,9 +25,9 @@ class TransactionController {
     }
     
     // MARK: - Save Data
-    func createTransactionWith(date: Date, budget: String, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
+    func createTransactionWith(date: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
         
-        let transaction = Transaction(date: date, budget: budget, payee: payee, transactionType: transactionType, amount: amount, account: account)
+        let transaction = Transaction(date: date, category: category, payee: payee, transactionType: transactionType, amount: amount, account: account)
         transactions.append(transaction)
         
         cloudKitManager.saveRecord(transaction.cloudKitRecord) { (record, error) in
@@ -40,13 +40,14 @@ class TransactionController {
             completion?(transaction)
             return
         }
+    }
         
         // MARK: - Update Data
         
-        func updateTransactionWith(transaction: Transaction, date: Date, budget: String, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
+        func updateTransactionWith(transaction: Transaction, date: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
             
             transaction.date = date
-            transaction.budget = budget
+            transaction.catagory = category
             transaction.payee = payee
             transaction.transactionType = transactionType
             transaction.amount = amount
@@ -109,7 +110,5 @@ class TransactionController {
                 self.transactions = transaction
             }
         }
-        
-    }
     
 }
