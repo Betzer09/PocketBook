@@ -18,14 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-dq-dXZ">
-                                <rect key="frame" x="39" y="84" width="299" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Income"/>
-                                    <segment title="Expense"/>
-                                </segments>
-                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gd4-4h-Tmt">
                                 <rect key="frame" x="11" y="161" width="41" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -51,6 +43,9 @@
                                 <date key="date" timeIntervalSinceReferenceDate="531858380.44901901">
                                     <!--2017-11-08 18:26:20 +0000-->
                                 </date>
+                                <connections>
+                                    <action selector="dateButtonWasPressed:" destination="g7B-q7-SZN" eventType="valueChanged" id="8Uo-0d-VQf"/>
+                                </connections>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yz-zw-gqO">
                                 <rect key="frame" x="11" y="376" width="75" height="21"/>
@@ -70,6 +65,9 @@
                                 <rect key="frame" x="185" y="262" width="56" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="accountButtonWasPressed:" destination="g7B-q7-SZN" eventType="touchUpInside" id="JjI-CA-TF4"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9t-g2-xY3">
                                 <rect key="frame" x="99" y="227" width="229" height="91"/>
@@ -93,6 +91,9 @@
                                 <rect key="frame" x="185" y="372" width="56" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="categoryButtonWasPressed:" destination="g7B-q7-SZN" eventType="touchUpInside" id="uif-ow-ywV"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Auh-26-16F">
                                 <rect key="frame" x="99" y="337" width="229" height="91"/>
@@ -124,15 +125,33 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-dq-dXZ">
+                                <rect key="frame" x="121" y="74" width="133" height="29"/>
+                                <segments>
+                                    <segment title="Income"/>
+                                    <segment title="Expense"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yBz-dq-dXZ" firstAttribute="top" secondItem="dP9-va-Igc" secondAttribute="top" constant="8" id="IJB-rf-p5u"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="dP9-va-Igc"/>
                     </view>
                     <navigationItem key="navigationItem" title="Transaction Details" id="gbO-zV-Scc">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="D0Y-W8-B01"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="accountPicker" destination="f9t-g2-xY3" id="Esg-MQ-0Xq"/>
+                        <outlet property="amountTextField" destination="CCK-h1-dG4" id="M25-wi-sSi"/>
+                        <outlet property="categoryPicker" destination="Auh-26-16F" id="auY-Tu-MHv"/>
+                        <outlet property="datePicker" destination="wX0-oH-aaV" id="hkM-lE-gm3"/>
+                        <outlet property="payeeTextField" destination="Uzz-6q-Mbo" id="8A7-hy-dYj"/>
+                        <outlet property="transactionType" destination="yBz-dq-dXZ" id="9Ts-Xt-fGM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aof-li-ROY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pickerView contentMode="scaleToFill" id="Ihw-Zf-uOK">
