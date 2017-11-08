@@ -21,6 +21,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var categoryButton: UIButton!
     
     // MARK: - Properties
+    var transaction: Transaction?
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
