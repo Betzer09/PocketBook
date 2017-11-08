@@ -6,10 +6,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Transactions Table View Controller-->
+        <!--Transactions-->
         <scene sceneID="Q8k-Nj-Osh">
             <objects>
                 <tableViewController id="a2R-a5-qV7" customClass="TransactionsTableViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,36 +19,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="PlH-nB-SeR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
-                                    <rect key="frame" x="0.0" y="8" width="375" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
+                                    <rect key="frame" x="23.5" y="8" width="328" height="29"/>
+                                    <segments>
+                                        <segment title="All"/>
+                                        <segment title="Expenses"/>
+                                        <segment title="Incomes"/>
+                                    </segments>
+                                </segmentedControl>
+                                <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
+                                    <rect key="frame" x="24" y="44" width="328" height="45"/>
                                 </pickerView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="AmX-22-qJs"/>
+                                <constraint firstItem="FkZ-U8-GW8" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="IwB-cX-7zF"/>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="width" secondItem="PlH-nB-SeR" secondAttribute="width" multiplier="7/8" id="PHf-vK-TUG"/>
+                                <constraint firstItem="FkZ-U8-GW8" firstAttribute="top" secondItem="PlH-nB-SeR" secondAttribute="top" constant="8" id="TSe-Tj-4zj"/>
+                                <constraint firstItem="FkZ-U8-GW8" firstAttribute="width" secondItem="PlH-nB-SeR" secondAttribute="width" multiplier="7/8" id="U8A-av-WLq"/>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="top" secondItem="FkZ-U8-GW8" secondAttribute="bottom" constant="8" id="rcC-q5-b7a"/>
+                            </constraints>
                         </view>
-                        <tabBar key="tableFooterView" contentMode="scaleToFill" id="GCj-X9-dUj">
-                            <rect key="frame" x="0.0" y="171" width="375" height="49"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <items>
-                                <tabBarItem title="Overview" id="5Hh-Es-sFX"/>
-                                <tabBarItem title="Analysis" id="9pc-Fe-B9h"/>
-                                <tabBarItem title="Transactions" id="802-ZN-cDW"/>
-                                <tabBarItem title="Monthly Budget" id="YA4-u8-P0Y"/>
-                                <tabBarItem title="Planned Expenses" id="lTG-nr-NqT"/>
-                            </items>
-                        </tabBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QIH-bH-fbE">
-                                <rect key="frame" x="0.0" y="127" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionCell" id="QIH-bH-fbE">
+                                <rect key="frame" x="0.0" y="126" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QIH-bH-fbE" id="MDs-hr-MEV">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="T53-2d-1NU" kind="show" identifier="toPersistedTransactionDetailSegue" id="9s7-gr-lgm"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -55,13 +62,12 @@
                             <outlet property="delegate" destination="a2R-a5-qV7" id="xlt-Cd-XHY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="mGg-sd-CfO">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="IGG-f6-R2T">
-                            <rect key="frame" x="187.5" y="22" width="0.0" height="0.0"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
+                    <navigationItem key="navigationItem" title="Transactions" id="mGg-sd-CfO">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="nXh-zN-VwF">
+                            <connections>
+                                <segue destination="T53-2d-1NU" kind="show" id="lxS-nz-eaL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OcO-HC-WQ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -85,12 +91,21 @@
                     </items>
                 </navigationBar>
             </objects>
-            <point key="canvasLocation" x="-1687.2" y="-302.6986506746627"/>
+            <point key="canvasLocation" x="-1348" y="-302.6986506746627"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--TransactionsDetailView-->
+        <scene sceneID="8Oo-ri-Hyh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TransactionsDetailView" id="T53-2d-1NU" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yOE-Jl-CCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-681" y="-304"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="0XX-JJ-LDf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jgq-5c-Zwu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Usm-NH-NbU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fek-wm-j8z">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -103,7 +118,27 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obe-mA-ui7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2433" y="-303"/>
+            <point key="canvasLocation" x="-2095.1999999999998" y="-303.59820089955025"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="8fc-ZK-8t9">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="PHU-dm-vBF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qPh-0n-ByH">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="jgq-5c-Zwu" kind="relationship" relationship="viewControllers" id="w32-em-PCm"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zi6-n6-9Ou" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2870" y="-304"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="9s7-gr-lgm"/>
+    </inferredMetricsTieBreakers>
 </document>
