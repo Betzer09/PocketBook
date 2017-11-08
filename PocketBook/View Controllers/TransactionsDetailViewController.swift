@@ -17,6 +17,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var payeeTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var accountButton: UIButton!
+    @IBOutlet weak var categoryButton: UIButton!
     
     // MARK: - Properties
     
@@ -33,6 +35,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         accountPicker.isHidden = false
         datePicker.isHidden = true
         categoryPicker.isHidden = true
+        accountButton.isHidden = true
     }
     
     @IBAction func dateButtonWasPressed(_ sender: Any) {
@@ -44,6 +47,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         accountPicker.isHidden = true
         datePicker.isHidden = true
         categoryPicker.isHidden = false
+        categoryPicker.isHidden = true
     }
     
     
