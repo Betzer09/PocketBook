@@ -12,7 +12,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Outlets
     @IBOutlet weak var categoryTableView: UITableView!
-    
+    @IBOutlet weak var amountTextField: UITextField!
     
     // MARK: - Properties
     var projectedIncome: Double?
@@ -58,6 +58,17 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         cell.updateCell(budgetItem: budgetItem)
         
         return cell
+    }
+    
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            
+            let budgetItem = BudgetItemController.shared.budgetItems[indexPath.row]
+            BudgetItemController.shared.budgetItems.remove(at: indexPath.row)
+            BudgetItemController.shared.delete(budgetItem: budgetItem)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
    private func createBugetItemAlert() {
@@ -112,6 +123,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     private func updateUI() {
+        
+        amountTextField.delegate = self
+        
         // the amount should come from the plannedExpenseModelController
         plannedExpenseLabel.text = "Planned Exspense for the Month: 1500.32"
         //Projected income - plannedExpense
@@ -125,12 +139,32 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
 
 extension MonthlyBudgetViewController: UITextFieldDelegate {
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let income = Double(textField.text!) else {return}
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = "$"
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let aSet = NSCharacterSet(charactersIn: "0123456789.").inverted
+        let componentSeperatedByCharInSet = string.components(separatedBy: aSet)
+        let numberTextField = componentSeperatedByCharInSet.joined(separator: "")
+        return string == numberTextField
+    }
+    
+     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        guard let string = textField.text else {return false}
+        let stringToChange = string.dropFirst()
+        
+        guard let income = Double(stringToChange) else {
+            presentSimpleAlert(title: "Error", message: "You entered an invalid amount!")
+            return false
+            
+        }
         // Store the number in the projectedIncome Variable
         projectedIncome = income
-        
-        }
+        textField.resignFirstResponder()
+        return false
+    }
     
 }
 

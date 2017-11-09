@@ -39,7 +39,7 @@
                                                 <rect key="frame" x="171.5" y="0.0" width="166" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="decimalPad" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -161,6 +161,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountLeftLabel" destination="CL1-Ca-eOO" id="ba8-pN-qTz"/>
+                        <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
                         <outlet property="categoryTableView" destination="YtF-jv-d0C" id="pof-1s-DNV"/>
                         <outlet property="plannedExpenseLabel" destination="iwb-h0-5rZ" id="i2g-AN-BQN"/>
                         <outlet property="totalSpentLabel" destination="CL1-Ca-eOO" id="zod-a7-Y0P"/>
