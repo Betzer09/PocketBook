@@ -1,28 +1,14 @@
 //
-//  AnalysisViewController.swift
+//  BudgetLineGraphViewController.swift
 //  PocketBook
 //
-//  Created by Laura O'Brien on 11/6/17.
+//  Created by Michael Meyers on 11/9/17.
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
 
-
-
-// >>>
-
-//MAY NEED TO CHANGE TO A PAGE VIEW CONTROLLER FILE?? / research embedding a Page VC in the Container View UI Element
-
-// >>>
-
 import UIKit
 
-class AnalysisViewController: UIViewController {
-    
-    // MARK: - Properties
-    var timeFrameTextField: UITextField!
-    
-    // MARK: - Outlets
-    
+class BudgetLineGraphViewController: UIPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +20,6 @@ class AnalysisViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
-    
     
     // MARK: BudgetLineGraphViewController
     
@@ -80,7 +52,7 @@ class AnalysisViewController: UIViewController {
     func filterTransactionsByTimeFrame(){
         
         guard let transactions = transactions,
-        let text = timeFrameTextField.text else {return}
+            let text = timeFrameTextField.text else {return}
         var internalFilteredTransactions: [Transaction] = []
         switch text {
         case TimeFrame.pastYear.rawValue:
@@ -90,17 +62,17 @@ class AnalysisViewController: UIViewController {
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
                     let dateYear = calendarDate.year else {return}
-                    if dateYear == year {
-                        if dateMonth <= month {
-                            internalFilteredTransactions.append(transaction)
-                        }
-                    }
-                    if dateYear == (year - 1) {
-                        if dateMonth > month {
-                            internalFilteredTransactions.append(transaction)
-                        }
+                if dateYear == year {
+                    if dateMonth <= month {
+                        internalFilteredTransactions.append(transaction)
                     }
                 }
+                if dateYear == (year - 1) {
+                    if dateMonth > month {
+                        internalFilteredTransactions.append(transaction)
+                    }
+                }
+            }
         case TimeFrame.yearToDate.rawValue:
             for transaction in transactions {
                 guard let month = currentMonth,
@@ -149,7 +121,7 @@ class AnalysisViewController: UIViewController {
     func filterTransactionsByCategory() {
         var internalFilteredTransactions: [Transaction] = []
         guard let name = categoryButton.titleLabel?.text,
-        let filteredTransactions = filteredByTimeFrameTransactions else {return}
+            let filteredTransactions = filteredByTimeFrameTransactions else {return}
         for transaction in filteredTransactions {
             if transaction.budget == name {
                 internalFilteredTransactions.append(transaction)
@@ -166,117 +138,117 @@ class AnalysisViewController: UIViewController {
         var totals: [Double] = []
         guard let filteredByCatagoryTransactions = filteredByCatagoryTransactions else {return}
         guard let text = timeFrameTextField.text else {return}
-            switch text {
-                case TimeFrame.pastYear.rawValue:
-                    time = 12
-                    guard let month = currentMonth else {return}
-                    var count = month - 1
-                    while count < 12 {
-                        let month = monthsOfTheYear[count]
-                        array.append(month)
-                        var total: Double = 0.0
-                        for transaction in filteredByCatagoryTransactions {
-                            let thisCount = count + 1
-                            let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
-                            if thisCount == calendarDate.month {
-                                total += transaction.amount
-                            }
-                        }
-                        totals.append(total)
-                        count += 1
+        switch text {
+        case TimeFrame.pastYear.rawValue:
+            time = 12
+            guard let month = currentMonth else {return}
+            var count = month - 1
+            while count < 12 {
+                let month = monthsOfTheYear[count]
+                array.append(month)
+                var total: Double = 0.0
+                for transaction in filteredByCatagoryTransactions {
+                    let thisCount = count + 1
+                    let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
+                    if thisCount == calendarDate.month {
+                        total += transaction.amount
                     }
-                    count = 0
-                    while count < month - 1 {
-                        let month = monthsOfTheYear[count]
-                        array.append(month)
-                        var total: Double = 0.0
-                        for transaction in filteredByCatagoryTransactions {
-                            let thisCount = count + 1
-                            let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
-                            if thisCount == calendarDate.month {
-                                total += transaction.amount
-                            }
-                        }
-                        totals.append(total)
-                        count += 1
-                    }
-                case TimeFrame.yearToDate.rawValue:
-                    guard let time = currentMonth else {return}
-                    for number in 1...time {
-                        let month = monthsOfTheYear[number - 1]
-                        array.append(month)
-                        var total: Double = 0.0
-                        for transaction in filteredByCatagoryTransactions {
-                            let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
-                            if number == calendarDate.month {
-                                total += transaction.amount
-                            }
-                        }
-                        totals.append(total)
-                    }
-                case TimeFrame.lastMonth.rawValue:
-                    time = 4
-                    array = weeksOfTheMonth
-                    guard let thisMonth = currentMonth else {return}
-                    let lastMonth = thisMonth - 1
-                    var week1Total: Double = 0
-                    var week2Total: Double = 0
-                    var week3Total: Double = 0
-                    var week4Total: Double = 0
-                    for transaction in filteredByCatagoryTransactions {
-                        let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
-                        if lastMonth == calendarDate.month {
-                            guard let day = calendarDate.day else {return}
-                            if day <= 7 {
-                                week1Total += transaction.amount
-                            }
-                            if day <= 14 {
-                                week2Total += transaction.amount
-                            }
-                            if day <= 21 {
-                                week3Total += transaction.amount
-                            }
-                            if day > 21 {
-                                week4Total += transaction.amount
-                            }
-                        }
                 }
-                totals.append(week1Total)
-                totals.append(week2Total)
-                totals.append(week3Total)
-                totals.append(week4Total)
-                case TimeFrame.thisMonth.rawValue:
-                    time = 4
-                    array = weeksOfTheMonth
-                    guard let thisMonth = currentMonth else {return}
-                    var week1Total: Double = 0
-                    var week2Total: Double = 0
-                    var week3Total: Double = 0
-                    var week4Total: Double = 0
-                    for transaction in filteredByCatagoryTransactions {
-                        let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
-                        if thisMonth == calendarDate.month {
-                            guard let day = calendarDate.day else {return}
-                            if day <= 7 {
-                                week1Total += transaction.amount
-                            }
-                            if day <= 14 {
-                                week2Total += transaction.amount
-                            }
-                            if day <= 21 {
-                                week3Total += transaction.amount
-                            }
-                            if day > 21 {
-                                week4Total += transaction.amount
-                            }
-                        }
+                totals.append(total)
+                count += 1
+            }
+            count = 0
+            while count < month - 1 {
+                let month = monthsOfTheYear[count]
+                array.append(month)
+                var total: Double = 0.0
+                for transaction in filteredByCatagoryTransactions {
+                    let thisCount = count + 1
+                    let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
+                    if thisCount == calendarDate.month {
+                        total += transaction.amount
                     }
-                    totals.append(week1Total)
-                    totals.append(week2Total)
-                    totals.append(week3Total)
-                    totals.append(week4Total)
-                default: fatalError()
                 }
+                totals.append(total)
+                count += 1
+            }
+        case TimeFrame.yearToDate.rawValue:
+            guard let time = currentMonth else {return}
+            for number in 1...time {
+                let month = monthsOfTheYear[number - 1]
+                array.append(month)
+                var total: Double = 0.0
+                for transaction in filteredByCatagoryTransactions {
+                    let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
+                    if number == calendarDate.month {
+                        total += transaction.amount
+                    }
+                }
+                totals.append(total)
+            }
+        case TimeFrame.lastMonth.rawValue:
+            time = 4
+            array = weeksOfTheMonth
+            guard let thisMonth = currentMonth else {return}
+            let lastMonth = thisMonth - 1
+            var week1Total: Double = 0
+            var week2Total: Double = 0
+            var week3Total: Double = 0
+            var week4Total: Double = 0
+            for transaction in filteredByCatagoryTransactions {
+                let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
+                if lastMonth == calendarDate.month {
+                    guard let day = calendarDate.day else {return}
+                    if day <= 7 {
+                        week1Total += transaction.amount
+                    }
+                    if day <= 14 {
+                        week2Total += transaction.amount
+                    }
+                    if day <= 21 {
+                        week3Total += transaction.amount
+                    }
+                    if day > 21 {
+                        week4Total += transaction.amount
+                    }
+                }
+            }
+            totals.append(week1Total)
+            totals.append(week2Total)
+            totals.append(week3Total)
+            totals.append(week4Total)
+        case TimeFrame.thisMonth.rawValue:
+            time = 4
+            array = weeksOfTheMonth
+            guard let thisMonth = currentMonth else {return}
+            var week1Total: Double = 0
+            var week2Total: Double = 0
+            var week3Total: Double = 0
+            var week4Total: Double = 0
+            for transaction in filteredByCatagoryTransactions {
+                let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
+                if thisMonth == calendarDate.month {
+                    guard let day = calendarDate.day else {return}
+                    if day <= 7 {
+                        week1Total += transaction.amount
+                    }
+                    if day <= 14 {
+                        week2Total += transaction.amount
+                    }
+                    if day <= 21 {
+                        week3Total += transaction.amount
+                    }
+                    if day > 21 {
+                        week4Total += transaction.amount
+                    }
+                }
+            }
+            totals.append(week1Total)
+            totals.append(week2Total)
+            totals.append(week3Total)
+            totals.append(week4Total)
+        default: fatalError()
+        }
         distanceOfEachXCatagory = calculateDistanceOfEachXCatagory(number: time)
         createXView(time: time, array: array)
         createYView(totals: totals)
@@ -372,36 +344,16 @@ class AnalysisViewController: UIViewController {
         let totalSpentCGFloat = CGFloat(totalSpent)
         return (bugetItemCGFloat/totalSpentCGFloat) * maxY
     }
+    
+    
+    /*
+    // MARK: - Navigation
 
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
 
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
