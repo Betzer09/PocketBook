@@ -15,12 +15,25 @@ import UIKit
 class AccountTableViewController: UITableViewController {
     
     // MARK: - View LifeCycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            
+            self.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkToSeeIfTheTableViewNeedsUpdated()
-
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: AccountController.shared.accountWasUpdatedNotification, object: nil)
+        
     }
-
+    @objc func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()            
+        }
+    }
     // MARK: - Actions
 
     
@@ -37,7 +50,7 @@ class AccountTableViewController: UITableViewController {
         
         let account = AccountController.shared.accounts[indexPath.row]
         cell.textLabel?.text = account.name
-        cell.detailTextLabel?.text = account.accountType
+        cell.detailTextLabel?.text = String(format: "%.2f", account.total)
         
         return cell
     }
@@ -48,6 +61,7 @@ class AccountTableViewController: UITableViewController {
             // Delete the row from the data source
             
             let account = AccountController.shared.accounts[indexPath.row]
+            AccountController.shared.accounts.remove(at: indexPath.row)
             AccountController.shared.delete(account: account)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -55,27 +69,12 @@ class AccountTableViewController: UITableViewController {
 
     // MARK: - Methods
     
-    func checkToSeeIfTheTableViewNeedsUpdated() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: AccountController.shared.accountsWhereUpdatedNotification, object: nil)
-        
-        // When the view has loaded fetch the Accounts
-        AccountController.shared.fetchAccountsFromCloudKit()
-        
-    }
-    
-    @objc func reloadTableView() {
-        DispatchQueue.main.async {
-         self.tableView.reloadData()
-        }
-    }
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toAccountDetails" {
+        if segue.identifier == "toAccountDetail" {
             
             guard let destinationVC = segue.destination as? AccountDetailsViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
             
