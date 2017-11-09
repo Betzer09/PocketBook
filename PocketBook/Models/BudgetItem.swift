@@ -22,7 +22,7 @@ class BudgetItem {
     let recordID: CKRecordID
     var spentTotal: Double
     var name: String // Category
-    var allottedAmount: Double
+    let allottedAmount: Double
     var totalAllotted: Double? {
         // Takes the allotted amount and adds that to the amount of income for that budget item Optional
         // TODO: Add the income for the budget

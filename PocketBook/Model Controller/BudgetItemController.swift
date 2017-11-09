@@ -17,8 +17,15 @@ class BudgetItemController {
     let cloudKitManager: CloudKitManager
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
+    // MARK: - Notification
+    let budgetItemWasUpdatedNotifaction = Notification.Name("bugetItemWasUpdated")
+    
     // Source of truth
-    var budgetItems: [BudgetItem] = []
+    var budgetItems: [BudgetItem] = [] {
+        didSet {
+            NotificationCenter.default.post(name: budgetItemWasUpdatedNotifaction, object: nil)
+        }
+    }
     
     init() {
         self.cloudKitManager = CloudKitManager()
@@ -47,7 +54,7 @@ class BudgetItemController {
         
         budgetItem.name = name
         budgetItem.spentTotal = spentTotal
-        budgetItem.allottedAmount = allottedAmount
+//        budgetItem.allottedAmount = allottedAmount
         
         cloudKitManager.modifyRecords([budgetItem.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
             if let error = error {
@@ -79,7 +86,7 @@ class BudgetItemController {
     
     
     // MARK: - Fetching Data from cloudKit
-    func fetchTransActionsFromCloudKit() {
+    func fetchBugetItemFromCloudKit() {
         
         
         // Get all of the accounts

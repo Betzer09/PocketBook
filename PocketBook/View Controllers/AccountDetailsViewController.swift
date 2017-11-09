@@ -57,11 +57,14 @@ class AccountDetailsViewController: UIViewController {
         // If there is an account update it
         if account != nil {
             guard let name = nameTextField.text,
-            let total = totalTextField.text,
-            let account = account else {return}
+            let total = Double(totalTextField.text!),
+            let account = account else {
+                presentSimpleAlert(title: "Error", message: "You entered an invalid Total Amount")
+                return
+            }
             let accountType = checkToSeeWhichSegmentIsPressed()
             
-            AccountController.shared.updateAccountWith(name: name, type: accountType, total: Double(total)!, account: account, completion: { (_) in
+            AccountController.shared.updateAccountWith(name: name, type: accountType, total: total, account: account, completion: { (_) in
                 // TODO: Maybe change this in the AccountController
                 
                 // Might need to add another notification to update the tableView
