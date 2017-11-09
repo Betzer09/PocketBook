@@ -196,7 +196,6 @@
 		D38EF96F1FB22FBB0035B5E3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
 				23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */,
 				D38EF9721FB230950035B5E3 /* AccountDetailsViewController.swift */,
 				D38EF9731FB230950035B5E3 /* AnalysisViewController.swift */,
@@ -214,6 +213,7 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
