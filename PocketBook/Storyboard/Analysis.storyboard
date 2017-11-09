@@ -4,9 +4,9 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Unknown constraint types" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -48,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cbe-IB-bPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1230" y="310"/>
+            <point key="canvasLocation" x="1230" y="257"/>
         </scene>
         <!--Pie Chart View Controller-->
         <scene sceneID="zO2-LM-66W">
@@ -66,50 +66,67 @@
             </objects>
             <point key="canvasLocation" x="1230" y="-854"/>
         </scene>
-        <!--Item-->
+        <!--Analysis-->
         <scene sceneID="NgP-ah-eve">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IXN-kx-eiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="r2b-YN-0nb" customClass="AnalysisViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="caM-xC-gqN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIx-Io-hKN">
-                                <rect key="frame" x="16" y="20" width="343" height="36"/>
+                            <pickerView contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-5D-CRx">
+                                <rect key="frame" x="8" y="53" width="359" height="107"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="107" id="RdB-Qm-vVs"/>
+                                </constraints>
+                            </pickerView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fYL-u6-BRc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="TimeFramPicker"/>
-                            </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-KB-rH2">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIx-Io-hKN">
+                                        <rect key="frame" x="8" y="23" width="359" height="30"/>
+                                        <state key="normal" title="TimeFramPicker"/>
+                                        <connections>
+                                            <action selector="timeFrameButtonTapped:" destination="r2b-YN-0nb" eventType="touchUpInside" id="Ns3-KS-EAd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-KB-rH2" userLabel="ContainerView">
                                 <rect key="frame" x="0.0" y="75" width="375" height="543"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="zga-GF-SBb" kind="embed" id="0p8-yd-YlU"/>
+                                    <segue destination="zga-GF-SBb" kind="embed" id="5Ui-9n-lf3"/>
                                 </connections>
                             </containerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-5D-CRx">
-                                <rect key="frame" x="0.0" y="20" width="375" height="117"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="47e-y6-qk4" secondAttribute="trailing" id="47H-Di-aAR"/>
-                            <constraint firstItem="47e-y6-qk4" firstAttribute="leading" secondItem="yGi-gk-cWm" secondAttribute="leading" id="Dtc-BG-bJN"/>
-                            <constraint firstItem="47e-y6-qk4" firstAttribute="top" secondItem="caM-xC-gqN" secondAttribute="top" constant="8" id="fQs-wu-mtV"/>
+                            <constraint firstAttribute="leading" secondItem="yGi-gk-cWm" secondAttribute="leading" id="Dtc-BG-bJN"/>
+                            <constraint firstItem="6zg-5D-CRx" firstAttribute="trailing" secondItem="NIx-Io-hKN" secondAttribute="trailing" id="OIg-tA-psQ"/>
+                            <constraint firstItem="6zg-5D-CRx" firstAttribute="top" secondItem="NIx-Io-hKN" secondAttribute="bottom" id="TRk-C4-fAF"/>
+                            <constraint firstAttribute="top" secondItem="caM-xC-gqN" secondAttribute="top" constant="8" id="fQs-wu-mtV"/>
+                            <constraint firstItem="6zg-5D-CRx" firstAttribute="leading" secondItem="NIx-Io-hKN" secondAttribute="leading" id="mIe-IM-JV4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yGi-gk-cWm"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analysis" id="uTq-C4-Zme"/>
                     <navigationItem key="navigationItem" id="9r5-M9-pZm"/>
+                    <connections>
+                        <outlet property="timeFrameButton" destination="NIx-Io-hKN" id="po7-qp-jdr"/>
+                        <outlet property="timeFramePickerView" destination="6zg-5D-CRx" id="HA7-oS-2yo"/>
+                        <outlet property="timeFrameViewPicker" destination="vn0-KB-rH2" id="hiM-KC-pQB"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IXN-kx-eiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-381.60000000000002" y="-299.10044977511245"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="sQ4-RV-g3u">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vcw-NO-D0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xfr-Gg-WbF" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yFZ-jo-CBn">
@@ -121,6 +138,7 @@
                         <segue destination="r2b-YN-0nb" kind="relationship" relationship="viewControllers" id="T6f-MI-F02"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vcw-NO-D0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1658" y="-320"/>
         </scene>

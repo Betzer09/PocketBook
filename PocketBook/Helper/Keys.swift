@@ -15,5 +15,6 @@ struct Keys {
     static let budgetLineGraphVCIdentifier = "budgetLineGraph"
     static let plannedExpensesGraphVCIdentifer = "plannedExpensesLineGraph"
     
-    
+    // MARK: - Notification Dictionary Keys
+    static let timeFrameKey = "timeFrame"
 }

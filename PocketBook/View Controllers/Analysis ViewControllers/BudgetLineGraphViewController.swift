@@ -9,23 +9,12 @@
 import UIKit
 
 class BudgetLineGraphViewController: UIPageViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: BudgetLineGraphViewController
     
     // MARK: - Properties
+    var timeFrame: String?
+    var dots: [UIView] = []
     let calendar = Calendar.autoupdatingCurrent
-    var transactions: [Transaction]?
+    let transactions: [Transaction]? = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredByCatagoryTransactions: [Transaction]?
     var currentYear: Int? {
@@ -46,13 +35,36 @@ class BudgetLineGraphViewController: UIPageViewController {
     var xView: UIView!
     var yView: UIView!
     var superView: UIView!
+
     
-    // MARK: - SetUp Functions
-    var dots: [UIView] = []
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: Notifications.sendingTimeFrameInfoToVCs, object: nil)
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    // MARK: - Notification Functions
+    @objc func reloadView(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
+        DispatchQueue.main.async {
+            self.timeFrame = localTimeFrame
+            self.reloadInputViews()
+        }
+    }
+    
+    // MARK: - Setup Functions
     func filterTransactionsByTimeFrame(){
         
         guard let transactions = transactions,
-            let text = timeFrameTextField.text else {return}
+            let text = timeFrame else {return}
         var internalFilteredTransactions: [Transaction] = []
         switch text {
         case TimeFrame.pastYear.rawValue:
@@ -123,7 +135,7 @@ class BudgetLineGraphViewController: UIPageViewController {
         guard let name = categoryButton.titleLabel?.text,
             let filteredTransactions = filteredByTimeFrameTransactions else {return}
         for transaction in filteredTransactions {
-            if transaction.budget == name {
+            if transaction.catagory == name {
                 internalFilteredTransactions.append(transaction)
             }
         }
@@ -137,7 +149,7 @@ class BudgetLineGraphViewController: UIPageViewController {
         var array: [String] = []
         var totals: [Double] = []
         guard let filteredByCatagoryTransactions = filteredByCatagoryTransactions else {return}
-        guard let text = timeFrameTextField.text else {return}
+        guard let text = timeFrame else {return}
         switch text {
         case TimeFrame.pastYear.rawValue:
             time = 12
@@ -343,6 +355,10 @@ class BudgetLineGraphViewController: UIPageViewController {
         let bugetItemCGFloat = CGFloat(budgetItemSpentTotal)
         let totalSpentCGFloat = CGFloat(totalSpent)
         return (bugetItemCGFloat/totalSpentCGFloat) * maxY
+    }
+    
+    func double () {
+        Double(
     }
     
     

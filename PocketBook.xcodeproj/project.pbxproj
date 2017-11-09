@@ -30,6 +30,7 @@
 		92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C841FB4C45600D22373 /* BudgetLineGraphViewController.swift */; };
 		92993C871FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C861FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift */; };
 		92993C891FB4C58300D22373 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C881FB4C58300D22373 /* Keys.swift */; };
+		92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C8A1FB4E1FA00D22373 /* Notifications.swift */; };
 		D314F1301FB379A70051C5BE /* OverviewTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */; };
 		D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
@@ -48,7 +49,6 @@
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
-		F56663A61FB3C01800DD205A /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +78,7 @@
 		92993C841FB4C45600D22373 /* BudgetLineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetLineGraphViewController.swift; sourceTree = "<group>"; };
 		92993C861FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesLineGraphViewController.swift; sourceTree = "<group>"; };
 		92993C881FB4C58300D22373 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		92993C8A1FB4E1FA00D22373 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OverviewTabBar.storyboard; sourceTree = "<group>"; };
 		D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
@@ -218,6 +219,7 @@
 				92993C4F1FB3AF2300D22373 /* PieChartView.swift */,
 				92993C511FB3AFFB00D22373 /* Arrays.swift */,
 				92993C881FB4C58300D22373 /* Keys.swift */,
+				92993C8A1FB4E1FA00D22373 /* Notifications.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -246,7 +248,6 @@
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
-				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -350,16 +351,15 @@
 			files = (
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
 				92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */,
+				92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */,
 				92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
-				D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */,
 				92993C871FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				92993C811FB4C43100D22373 /* AnaylsisPageViewController.swift in Sources */,
 				92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */,
 				92993C4C1FB3938F00D22373 /* Enums.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
-				23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */,
 				23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */,
 				23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,

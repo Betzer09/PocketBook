@@ -9,16 +9,29 @@
 import UIKit
 
 class PlannedExpensesLineGraphViewController: UIPageViewController {
+    
+    var timeFrame: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: Notifications.sendingTimeFrameInfoToVCs, object: nil)
 
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    // MARK: - Setup Functions
+    @objc func reloadView(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
+        DispatchQueue.main.async {
+            self.timeFrame = localTimeFrame
+            self.reloadInputViews()
+        }
     }
     
 
