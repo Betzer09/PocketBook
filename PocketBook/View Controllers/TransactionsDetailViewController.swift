@@ -36,7 +36,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         accountPicker.isHidden = false
         datePicker.isHidden = true
         categoryPicker.isHidden = true
-        accountButton.isHidden = true
     }
     
     @IBAction func dateButtonWasPressed(_ sender: Any) {
@@ -93,6 +92,19 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        switch pickerView {
+        case accountPicker:
+            accountButton.setTitle("\(AccountController.shared.accounts[row])", for: .normal)
+        case categoryPicker:
+            let category = combinedCategoryNames()
+            categoryButton.setTitle(category[row], for: .normal)
+        default:
+            print("Error seting up picker in function: \(#function)")
+        }
+    }
+    
     
     func setUpUI() {
         accountPicker.isHidden = true
@@ -100,8 +112,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     func setPickerDelegates() {
+        
         accountPicker.dataSource = self
+        categoryPicker.dataSource = self
+        
         accountPicker.delegate = self
+        categoryPicker.delegate = self
+        
     }
 
     
