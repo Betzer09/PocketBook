@@ -61,6 +61,4 @@ class Account {
         self.total = total
         self.recordID = cloudKitRecord.recordID
     }
-    
-    
 }

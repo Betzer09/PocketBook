@@ -22,17 +22,11 @@ class AccountDetailsViewController: UIViewController {
     
     // MARK: - Properites
     var account: Account? // This is where the Segue from the overviewViewController will pass its information
-
+    
     //MARK: - Outlets
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var typePickerView: UIPickerView!
-    
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
-    
-    // We shoudn't need an outlet for the lables
-    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalTextField: UITextField!
+    @IBOutlet weak var accountTypeSegmentedControl: UISegmentedControl!
     
     
     // MARK: - View LifeCycle
@@ -45,12 +39,8 @@ class AccountDetailsViewController: UIViewController {
     //MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         checkSave()
-        
     }
-    
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        
-    }
+
     
     // MARK: - Methods
     func updateViews() {
@@ -62,15 +52,16 @@ class AccountDetailsViewController: UIViewController {
         totalTextField.text = "\(account.total)"
     }
     
-    func checkSave() {
+    private func checkSave() {
         
         // If there is an account update it
         if account != nil {
             guard let name = nameTextField.text,
             let total = totalTextField.text,
             let account = account else {return}
+            let accountType = checkToSeeWhichSegmentIsPressed()
             
-            AccountController.shared.updateAccountWith(name: name, type: typePickerView.description, total: Double(total)!, account: account, completion: { (_) in
+            AccountController.shared.updateAccountWith(name: name, type: accountType, total: Double(total)!, account: account, completion: { (_) in
                 // TODO: Maybe change this in the AccountController
                 
                 // Might need to add another notification to update the tableView
@@ -81,12 +72,39 @@ class AccountDetailsViewController: UIViewController {
             guard let name = nameTextField.text,
                 let total = totalTextField.text, !name.isEmpty, !total.isEmpty else {
                    // Alert the user that they must put something in the fields
+                    presentSimpleAlert(title: "Make sure to fill all fields!", message: "Got it")
                     return
             }
+            let accountType = checkToSeeWhichSegmentIsPressed()
             
-            AccountController.shared.createAccount(name: name, type: typePickerView.description, total: Double(total)!, completion: nil)
-            
+            let totalDouble = Double(total)!
+            AccountController.shared.createAccount(name: name, type: accountType, total: totalDouble, completion: nil)
         }
+        navigationController?.popViewController(animated: true)
+    }
+    
+   private func checkToSeeWhichSegmentIsPressed() -> String {
+        
+        if accountTypeSegmentedControl.selectedSegmentIndex == 0 {
+            return "Checking"
+        } else if accountTypeSegmentedControl.selectedSegmentIndex == 1 {
+            return "Savings"
+        } else {
+            // This is a credit account
+            return "Credit"
+        }
+        
+    }
+    
+    private func presentSimpleAlert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(dismissAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 
 }
