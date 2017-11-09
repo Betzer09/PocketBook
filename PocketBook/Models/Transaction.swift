@@ -75,5 +75,4 @@ class Transaction {
         self.account = account
         self.recordID = cloudKitRecord.recordID
     }
-    
 }
