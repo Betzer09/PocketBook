@@ -19,7 +19,7 @@ class Transaction {
     // MARK: - Keys
     static let recordType = "Transaction"
     static let dateKey = "date"
-    static let budgetKey = "budget"
+    static let catagoryKey = "category"
     static let payeeKey = "payee"
     static let transactionTypeKey = "transaction"
     static let amountKey = "amount"
@@ -27,16 +27,16 @@ class Transaction {
     
     // MARK: - Properties
     var date: Date
-    var budget: String
+    var catagory: String
     var payee: String // Where the money is going
     var transactionType: String
     var amount: Double
     var account: String
     var recordID: CKRecordID
     
-    init(date: Date, budget: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
+    init(date: Date, category: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
         self.date = date
-        self.budget = budget
+        self.catagory = category
         self.payee = payee
         self.transactionType = transactionType
         self.amount = amount
@@ -49,7 +49,7 @@ class Transaction {
         let record = CKRecord(recordType: Transaction.recordType, recordID: recordID)
         
         record.setValue(date, forKey: Transaction.dateKey)
-        record.setValue(budget, forKey: Transaction.budgetKey)
+        record.setValue(catagory, forKey: Transaction.catagoryKey)
         record.setValue(payee, forKey: Transaction.payeeKey)
         record.setValue(transactionType, forKey: Transaction.transactionTypeKey)
         record.setValue(amount, forKey: Transaction.amountKey)
@@ -61,19 +61,18 @@ class Transaction {
     // MARK: - Failiable Initalizer for cloudKit
     init?(cloudKitRecord: CKRecord) {
         guard let date = cloudKitRecord[Transaction.dateKey] as? Date,
-            let budget = cloudKitRecord[Transaction.budgetKey] as? String,
+            let budget = cloudKitRecord[Transaction.catagoryKey] as? String,
             let payee = cloudKitRecord[Transaction.payeeKey] as? String,
             let transactionType = cloudKitRecord[Transaction.transactionTypeKey] as? String,
             let amount = cloudKitRecord[Transaction.amountKey] as? Double,
             let account = cloudKitRecord[Transaction.accountKey] as? String else {return nil}
         
         self.date = date
-        self.budget = budget
+        self.catagory = budget
         self.payee = payee
         self.transactionType = transactionType
         self.amount = amount
         self.account = account
         self.recordID = cloudKitRecord.recordID
     }
-    
 }

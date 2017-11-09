@@ -41,9 +41,9 @@
 		D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */; };
 		D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */; };
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
-		D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */; };
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
+		F56663A61FB3C01800DD205A /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,9 +84,9 @@
 		D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpensesTableViewController.swift; sourceTree = "<group>"; };
 		D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyBudgetDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
-		D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewController.swift; sourceTree = "<group>"; };
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,8 +222,8 @@
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
-				D38EF9791FB230950035B5E3 /* TransactionsTableViewController.swift */,
 				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
+				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -231,6 +231,7 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -328,11 +329,11 @@
 				92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */,
 				92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
-				D38EF9821FB230950035B5E3 /* TransactionsTableViewController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */,
 				92993C4C1FB3938F00D22373 /* Enums.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
+				23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */,
 				23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */,
 				23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
@@ -478,8 +479,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RE524LJXV2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -494,8 +496,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RE524LJXV2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -18,7 +18,7 @@
             </objects>
             <point key="canvasLocation" x="423.19999999999999" y="-300.44977511244377"/>
         </scene>
-        <!--Item-->
+        <!--Analysis-->
         <scene sceneID="NgP-ah-eve">
             <objects>
                 <viewController id="r2b-YN-0nb" customClass="AnalysisViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -27,43 +27,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-5D-CRx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                                <rect key="frame" x="0.0" y="71" width="375" height="62"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-KB-rH2">
-                                <rect key="frame" x="0.0" y="180" width="375" height="340"/>
+                                <rect key="frame" x="0.0" y="233" width="375" height="340"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="zga-GF-SBb" kind="embed" id="0p8-yd-YlU"/>
                                 </connections>
                             </containerView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47e-y6-qk4">
+                                <rect key="frame" x="0.0" y="8" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Analysis" id="FTZ-sl-5Cz"/>
+                                </items>
+                            </navigationBar>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Vi-yA-k9P">
+                                <rect key="frame" x="0.0" y="141" width="375" height="62"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="47e-y6-qk4" secondAttribute="trailing" id="47H-Di-aAR"/>
+                            <constraint firstItem="47e-y6-qk4" firstAttribute="leading" secondItem="yGi-gk-cWm" secondAttribute="leading" id="Dtc-BG-bJN"/>
+                            <constraint firstItem="47e-y6-qk4" firstAttribute="top" secondItem="caM-xC-gqN" secondAttribute="top" constant="8" id="fQs-wu-mtV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="yGi-gk-cWm"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="uTq-C4-Zme"/>
+                    <tabBarItem key="tabBarItem" title="Analysis" id="uTq-C4-Zme"/>
                     <navigationItem key="navigationItem" id="9r5-M9-pZm"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IXN-kx-eiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-381.60000000000002" y="-299.10044977511245"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="sQ4-RV-g3u">
-            <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xfr-Gg-WbF" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yFZ-jo-CBn">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="r2b-YN-0nb" kind="relationship" relationship="viewControllers" id="T6f-MI-F02"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vcw-NO-D0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1110" y="-299"/>
         </scene>
     </scenes>
 </document>
