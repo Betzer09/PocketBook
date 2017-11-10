@@ -50,6 +50,7 @@ class AccountDetailsViewController: UIViewController {
         // If there is an account update the views
         nameTextField.text = account.name
         totalTextField.text = String(format: "%.2f", account.total)
+        accountTypeSegmentedControl.selectedSegmentIndex = updateAccountTypeSegment()
     }
     
     private func checkSave() {
@@ -97,6 +98,16 @@ class AccountDetailsViewController: UIViewController {
             return "Credit"
         }
         
+    }
+    
+    private func updateAccountTypeSegment() -> Int {
+        if account?.accountType == "Checking" {
+            return 0
+        } else if account?.accountType == "Savings" {
+            return 1
+        } else {
+            return 2
+        }
     }
     
     private func presentSimpleAlert(title: String, message: String) {
