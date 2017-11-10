@@ -8,7 +8,13 @@
 
 import UIKit
 
-class TransactionTableViewController: UITableViewController {
+class TransactionTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: - Eventually Delete
     enum TimeFrame: String {
@@ -16,18 +22,32 @@ class TransactionTableViewController: UITableViewController {
         case yearToDate = "Year to Current Date"
         case lastMonth = "Last Month"
         case thisMonth = "This Month"
+        
+        var localizedString: String {
+            
+            switch self {
+            case .pastYear:
+                return NSLocalizedString("Past Year", comment: "Past Year")
+            default:
+                <#code#>
+            }
+        }
     }
     
     // MARK: Properties
     var transactions = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredByCatagoryTransactions: [Transaction]?
-    var timeFrame: String? 
     
+    var allTransactions: [Transaction]?
+    var incomeTransactions: [Transaction]?
+    var expenseTransactions: [Transaction]?
+    
+    var timeFrame: String?
     var category: String?
     
-    var dots: [UIView] = []
     let calendar = Calendar.autoupdatingCurrent
+    
     var currentYear: Int? {
         let current = calendar.dateComponents([.year, .month], from: Date())
         guard let year = current.year else {return nil}
@@ -56,19 +76,12 @@ class TransactionTableViewController: UITableViewController {
             names.append(budgetItem.name)
         }
         let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
-        
         for plannedExpense in plannedExpenses {
             names.append(plannedExpense.name)
         }
         return names
     }
     
-    
-    // MARK: - Outlets
-    
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var timePicker: UIPickerView!
-    @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: View Lifecycle
     
@@ -82,6 +95,9 @@ class TransactionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.timePicker.dataSource = self
+        self.timePicker.delegate = self
+        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
     }
     
@@ -93,12 +109,46 @@ class TransactionTableViewController: UITableViewController {
     
     // MARK: Actions
     
+    
+    // MARK: - UIPicker
+    
+    // We need an array of categorys and array of timeFrames
+    
+    func setUpPicker() -> ([String], [String]) {
+        let times: [TimeFrame] = [.lastMonth, .thisMonth, .yearToDate, .pastYear]
+        
+        let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        
+        let combined: [String] = (times)
+        
+        return combined
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return times[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedValueTime = pickerView.selectedRow(inComponent: 1)
+        let selectedValueTransaction = pickerView.selectedRow(inComponent: 0)
+        
+        // timeLabel.text? = "\(selections[1][selectedValueTime])"
+        // transactionLabel.text? = "\(selections[0][selectedValueTransaction])"
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TransactionController.shared.transactions.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -121,9 +171,9 @@ class TransactionTableViewController: UITableViewController {
     }
     
     // MARK: - Filters
-    func filterTransactionsByTimeFrame(){
+    func filterTransactionsByTimeFrame() {
         
-        guard let text = timeFrame else {return}
+        guard let text = timeFrame else {return} // FIXME: Make text the value from the picker
         var internalFilteredTransactions: [Transaction] = []
         switch text {
         case TimeFrame.pastYear.rawValue:
