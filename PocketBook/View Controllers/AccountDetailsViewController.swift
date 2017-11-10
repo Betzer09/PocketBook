@@ -50,7 +50,6 @@ class AccountDetailsViewController: UIViewController {
         // If there is an account update the views
         nameTextField.text = account.name
         totalTextField.text = String(format: "%.2f", account.total)
-//        "\(account.total)"
     }
     
     private func checkSave() {
