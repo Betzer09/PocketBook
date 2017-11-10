@@ -456,7 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -473,7 +473,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
