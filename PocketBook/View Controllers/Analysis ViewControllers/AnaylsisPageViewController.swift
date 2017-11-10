@@ -12,7 +12,7 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
     
     let pageControl = UIPageControl()
     
-    var orderedViewControllers: [UIViewController] = {
+    lazy var orderedViewControllers: [UIViewController] = {
         return [
             UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.pieCharVCIdentifier),
             UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.budgetLineGraphVCIdentifier),
@@ -24,9 +24,9 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
-        
-
-        // Do any additional setup after loading the view.
+        if let firstVC = orderedViewControllers.first {
+            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -39,16 +39,12 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
             }
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: - PageView DataSource
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        let pageContentViewController = pageViewController.viewControllers![0]
-        self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+        guard let pageContentViewController = pageViewController.viewControllers?.first,
+        let currentPage = orderedViewControllers.index(of: pageContentViewController) else {return}
+        self.pageControl.currentPage = currentPage
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -85,15 +81,4 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
             let firstViewControllerIndex = orderedViewControllers.index(of: firstViewController) else {return 0}
         return firstViewControllerIndex
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

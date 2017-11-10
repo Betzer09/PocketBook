@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Page View Controller-->
+        <!--Anaylsis Page View Controller-->
         <scene sceneID="siA-Lv-Xw5">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="zga-GF-SBb" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="zga-GF-SBb" customClass="AnaylsisPageViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VRp-61-mMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-81" y="-333"/>
@@ -36,6 +36,9 @@
                                             <constraint firstAttribute="height" constant="30" id="rkv-cr-HqV"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="timeFrameButtonTapped:" destination="8Er-sV-PWb" eventType="touchUpInside" id="e9B-Ep-Jd9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,12 +52,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5J-wa-ZxH">
                                 <rect key="frame" x="0.0" y="80" width="375" height="538"/>
                                 <subviews>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-fU-QG8">
-                                        <rect key="frame" x="47" y="-26" width="281" height="111"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="111" id="K8c-Y8-sEx"/>
-                                        </constraints>
-                                    </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-tN-kgc" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,19 +76,26 @@
                                     <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="wl3-tN-kgc" secondAttribute="bottom" id="zrq-hC-YLc"/>
                                 </constraints>
                             </view>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-fU-QG8">
+                                <rect key="frame" x="47" y="55" width="281" height="111"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="111" id="K8c-Y8-sEx"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="0oS-zm-jMT"/>
                             <constraint firstItem="v5J-wa-ZxH" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="2y1-U0-gKz"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="trailing" secondItem="9vB-nF-C9F" secondAttribute="trailing" id="9Gr-A0-ocx"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="leading" secondItem="9vB-nF-C9F" secondAttribute="leading" id="Bxq-0O-9Gk"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="top" secondItem="9vB-nF-C9F" secondAttribute="bottom" constant="-1" id="HPm-zd-e8a"/>
                             <constraint firstItem="v5J-wa-ZxH" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="bottom" id="J50-BI-ZZI"/>
                             <constraint firstItem="0Wz-q2-BYV" firstAttribute="bottom" secondItem="v5J-wa-ZxH" secondAttribute="bottom" constant="49" id="Mp8-z3-OaT"/>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="top" secondItem="y8R-1h-6yU" secondAttribute="top" id="Phe-Xr-0le"/>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="RC6-Ln-vuz"/>
+                            <constraint firstItem="XNB-fU-QG8" firstAttribute="top" secondItem="9vB-nF-C9F" secondAttribute="bottom" id="UfK-PN-KUg"/>
                             <constraint firstItem="v5J-wa-ZxH" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="Vvi-i1-Q4Q"/>
+                            <constraint firstItem="XNB-fU-QG8" firstAttribute="trailing" secondItem="9vB-nF-C9F" secondAttribute="trailing" id="Ywk-B7-PFr"/>
+                            <constraint firstItem="XNB-fU-QG8" firstAttribute="centerX" secondItem="y8R-1h-6yU" secondAttribute="centerX" id="sWq-Bu-BLJ"/>
+                            <constraint firstItem="XNB-fU-QG8" firstAttribute="leading" secondItem="9vB-nF-C9F" secondAttribute="leading" id="va5-A1-Oj2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0Wz-q2-BYV"/>
                     </view>
@@ -99,7 +103,7 @@
                         <outlet property="legendView" destination="9ZY-P5-7gU" id="eow-Mx-LZV"/>
                         <outlet property="pieChartView" destination="wl3-tN-kgc" id="Bbc-kI-Gai"/>
                         <outlet property="timeFrameButton" destination="9vB-nF-C9F" id="Q9S-RX-s9y"/>
-                        <outlet property="timeFramePickerView" destination="XNB-fU-QG8" id="cfY-eO-8U4"/>
+                        <outlet property="timeFramePickerView" destination="XNB-fU-QG8" id="Pt0-Lc-ayi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofr-Jo-zmB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -260,6 +264,9 @@
                                             <constraint firstAttribute="height" constant="30" id="tMA-Ab-bQb"/>
                                         </constraints>
                                         <state key="normal" title="TimeFrameButton"/>
+                                        <connections>
+                                            <action selector="timeFrameButtonTapped:" destination="jVZ-GY-ynJ" eventType="touchUpInside" id="lCv-4b-YlI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -290,7 +297,7 @@
                                             <constraint firstAttribute="height" constant="80" id="nvU-Yg-o6F"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSj-52-BgD">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSj-52-BgD" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
                                         <rect key="frame" x="80" y="80" width="295" height="378"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vyf-bM-DsE" userLabel="Category Picker View">
@@ -311,6 +318,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="oLp-ho-h9k"/>
                                                 </constraints>
                                                 <state key="normal" title="CategoryButton"/>
+                                                <connections>
+                                                    <action selector="categoryButtonTapped:" destination="jVZ-GY-ynJ" eventType="touchUpInside" id="HqW-FR-4DV"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -360,6 +370,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Fnu-6Q-6Ic"/>
                     </view>
+                    <connections>
+                        <outlet property="categoryButton" destination="GV0-Hl-T6R" id="udi-PL-KXR"/>
+                        <outlet property="categoryPickerView" destination="vyf-bM-DsE" id="kBv-vm-TAr"/>
+                        <outlet property="lineGraphView" destination="eSj-52-BgD" id="UxZ-n8-JgZ"/>
+                        <outlet property="timeFrameButton" destination="OUO-8o-4ty" id="rYu-eg-vRg"/>
+                        <outlet property="timeFramePickerView" destination="hMe-ey-PYk" id="A7l-Y0-y28"/>
+                        <outlet property="xView" destination="D9N-lE-uZy" id="9Tx-ON-S38"/>
+                        <outlet property="yView" destination="LSH-GI-cGM" id="ojy-Rn-nG2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CH1-Uq-pnR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

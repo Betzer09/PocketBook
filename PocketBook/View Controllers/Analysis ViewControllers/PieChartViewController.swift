@@ -11,9 +11,17 @@ import UIKit
 class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // MARK: - Properties
-    var timeFrame: String?
+    var timeFrame: String? {
+        didSet {
+            filterTransactionsByTimeFrame()
+            filterTransactionsByCategory()
+            self.reloadInputViews()
+        }
+    }
+    
     let calendar = Calendar.autoupdatingCurrent
-    let transactions: [Transaction] = TransactionController.shared.transactions
+    let transactions = loop(number: 300)
+//    let transactions: [Transaction] = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredTransactionDictionary: [String: Double]?
     
@@ -47,12 +55,11 @@ class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPi
         return month
     }
     
-    
     // MARK: - Outlets
-    @IBOutlet weak var pieChartView: PieChartView!
-    @IBOutlet weak var legendView: UIView!
-    @IBOutlet weak var timeFramePickerView: UIPickerView!
-    @IBOutlet weak var timeFrameButton: UIButton!
+    @IBOutlet  var pieChartView: PieChartView!
+    @IBOutlet  var legendView: UIView!
+    @IBOutlet  var timeFrameButton: UIButton!
+    @IBOutlet  var timeFramePickerView: UIPickerView!
     
     // MARK: - Actions
     @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
@@ -62,14 +69,17 @@ class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPi
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: Notifications.sendingTimeFrameInfoToVCs, object: nil)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpPickerViews()
+        setUpTimeFrameVar()
+        createPieChart()
     }
     
     // MARK: - Setup ViewPicker
@@ -79,6 +89,7 @@ class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPi
         timeFramePickerView.delegate = self
         timeFramePickerView.isHidden = true
     }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -102,11 +113,10 @@ class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPi
             let name = timeFrames[row]
             timeFrameButton.setTitle(name, for: .normal)
             timeFrame = name
-            view.reloadInputViews()
         }
     }
     
-    // MARK: - Setup Functions
+    // MARK: - Setup Vars and Reload Functions
     
     func setUpTimeFrameVar() {
         timeFrameButton.setTitle(timeFrames[0], for: .normal)
@@ -122,30 +132,82 @@ class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPi
         }
     }
     
-    // TODO FIX THIS CODE
+    // TODO FIX THIS CODE FOR THE DIFFERENT VIEWS
+    //
     // MARK: - Setup PieChart
     func createPieChart(){
-        let colors: [UIColor] = []
-        let pieChart2 = PieChartView()
-        pieChart2.frame = pieChartView.frame
-        var segments2: [Segment] = []
+        configureLegendView()
+        let nameStackView = legendView.subviews[0].subviews[0]
+        let colorStackView = legendView.subviews[0].subviews[1]
+        var colors: [UIColor] = [
+            .red,
+            .blue,
+            .green,
+            .magenta,
+            .yellow,
+            .purple,
+            .orange,
+            .cyan
+        ]
+        let pieChart = PieChartView()
+        pieChart.frame = pieChartView.frame
+        var segments: [Segment] = []
         var count = 0
-        for string in categories {
-            let segment = Segment(color: colors[count], value: 0)
+        for catagory in categories {
+            guard let dictionary = filteredTransactionDictionary,
+            let value = dictionary[catagory] else {return}
+            if colors.count <= count {
+                let colorRandom = getRandomColor()
+                colors.append(colorRandom)
+            }
+            let color = colors[count]
+            let segment = Segment(color: color, value: CGFloat(value))
+            let nameLabel = UILabel()
+            nameLabel.text = catagory
+            nameStackView.addSubview(nameLabel)
+            let colorLabel = UILabel()
+            colorLabel.text = ""
+            colorLabel.backgroundColor = color
+            colorStackView.addSubview(colorLabel)
             count += 1
-            segments2.append(segment)
+            segments.append(segment)
         }
-        pieChart2.segments = segments2
-        view.addSubview(pieChart2)
+        pieChart.segments = segments
+        pieChartView.center = pieChart.center
+        pieChartView.addSubview(pieChart)
         
-        pieChartView.center = pieChart2.center
         let whiteCircle = PieChartView()
-        whiteCircle.frame = CGRect(x: 0, y: 0, width: pieChart2.frame.width/3, height: pieChart2.frame.height/3)
-        whiteCircle.center = pieChart2.center
+        whiteCircle.frame = CGRect(x: 0, y: 0, width: pieChart.frame.width/3, height: pieChart.frame.height/3)
+        whiteCircle.center = pieChart.center
         whiteCircle.segments = [
             Segment(color: .white, value: 150)
         ]
-        view.addSubview(whiteCircle)
+        pieChartView.addSubview(whiteCircle)
+    }
+    
+    func configureLegendView() {
+        let colorStackView = UIStackView()
+        colorStackView.axis = .vertical
+        colorStackView.spacing = 8.0
+        let nameStackView = UIStackView()
+        nameStackView.axis = .vertical
+        nameStackView.spacing = 8.0
+        let bothStackView = UIStackView()
+        bothStackView.axis = .horizontal
+        bothStackView.spacing = 8.0
+        bothStackView.insertArrangedSubview(nameStackView, at: 0)
+        bothStackView.insertArrangedSubview(colorStackView, at: 1)
+        bothStackView.frame = legendView.frame
+        legendView.addSubview(bothStackView)
+    }
+    
+    func getRandomColor() -> UIColor{
+        
+        let randomRed:CGFloat = CGFloat(drand48())
+        let randomGreen:CGFloat = CGFloat(drand48())
+        let randomBlue:CGFloat = CGFloat(drand48())
+        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+        
     }
     
     // MARK: - Filter Transactions
@@ -231,15 +293,4 @@ class PieChartViewController: UIPageViewController, UIPickerViewDataSource, UIPi
         }
         filteredTransactionDictionary = internalFilteredTransactionsDictionary
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

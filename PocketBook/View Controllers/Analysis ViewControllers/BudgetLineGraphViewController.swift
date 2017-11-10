@@ -12,12 +12,24 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
     
     
     // MARK: - Properties
-    var timeFrame: String?
-    var category: String?
+    var timeFrame: String? {
+        didSet {
+            filterTransactionsByTimeFrame()
+            filterTransactionsByCategory()
+            reloadInputViews()
+        }
+    }
+    var category: String? {
+        didSet {
+            filterTransactionsByCategory()
+            reloadInputViews()
+        }
+    }
     
     var dots: [UIView] = []
     let calendar = Calendar.autoupdatingCurrent
-    let transactions: [Transaction]? = TransactionController.shared.transactions
+    let transactions = loop(number: 300)
+//    let transactions: [Transaction]? = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredByCatagoryTransactions: [Transaction]?
     var currentYear: Int? {
@@ -124,13 +136,11 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
             let name = categories[row]
             categoryButton.setTitle(name, for: .normal)
             category = name
-            view.reloadInputViews()
         }
         if pickerView == timeFramePickerView {
             let name = timeFrames[row]
             timeFrameButton.setTitle(name, for: .normal)
             timeFrame = name
-            view.reloadInputViews()
         }
     }
     
@@ -158,8 +168,7 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
     
     func filterTransactionsByTimeFrame(){
         
-        guard let transactions = transactions,
-            let text = timeFrame else {return}
+        guard let text = timeFrame else {return}
         var internalFilteredTransactions: [Transaction] = []
         switch text {
         case TimeFrame.pastYear.rawValue:
@@ -345,6 +354,19 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
         return localTotals
     }
     
+    func calculatePercentValue(withBudgetItemSpentTotal budgetItemSpentTotal: Double, totalSpent: Double, maxY: CGFloat) -> CGFloat {
+        let bugetItemCGFloat = CGFloat(budgetItemSpentTotal)
+        let totalSpentCGFloat = CGFloat(totalSpent)
+        return (bugetItemCGFloat/totalSpentCGFloat) * maxY
+    }
+    
+    func calculateDistanceOfEachXCatagory(number: Int) -> CGFloat {
+        let segmentDivision = CGFloat(number + 2)
+        let segment = (xView.bounds.maxX / segmentDivision)
+        return segment
+    }
+
+    
     // MARK: - LineGraphView Setup
     func createDot(inView view:UIView, withCoordinatesX x: CGFloat, y: CGFloat) {
         let dot = UIView()
@@ -366,12 +388,6 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
         }
         lineGraphView.dots = dots
         lineGraphView.setNeedsDisplay()
-    }
-    
-    func calculateDistanceOfEachXCatagory(number: Int) -> CGFloat {
-        let segmentDivision = CGFloat(number + 2)
-        let segment = (xView.bounds.maxX / segmentDivision)
-        return segment
     }
     
     // MARK: - XView Setup
@@ -428,21 +444,4 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
         label.clipsToBounds = true
         yView.addSubview(label)
     }
-    
-    func calculatePercentValue(withBudgetItemSpentTotal budgetItemSpentTotal: Double, totalSpent: Double, maxY: CGFloat) -> CGFloat {
-        let bugetItemCGFloat = CGFloat(budgetItemSpentTotal)
-        let totalSpentCGFloat = CGFloat(totalSpent)
-        return (bugetItemCGFloat/totalSpentCGFloat) * maxY
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
