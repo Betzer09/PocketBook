@@ -145,15 +145,21 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 44))
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.sizeToFit()
+        let label: UILabel!
         
         if component == 0 {
+            label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 44))
+            label.lineBreakMode = .byWordWrapping
+            label.numberOfLines = 0
+            label.textAlignment = .left
+            label.sizeToFit()
             label.text = setUpPicker().0[row]
         } else {
+            label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 43))
+            label.lineBreakMode = .byWordWrapping
+            label.numberOfLines = 2
+            label.textAlignment = .left
+            label.sizeToFit()
             label.text = setUpPicker().1[row]
         }
         
@@ -161,6 +167,10 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         
     }
     
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 43
+    }
+
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
