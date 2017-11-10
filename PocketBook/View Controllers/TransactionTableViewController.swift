@@ -22,7 +22,7 @@ class TransactionTableViewController: UITableViewController {
     var transactions = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredByCatagoryTransactions: [Transaction]?
-    var timeFrame: String? // FIXME: Add logic
+    var timeFrame: String? 
     
     var category: String?
     

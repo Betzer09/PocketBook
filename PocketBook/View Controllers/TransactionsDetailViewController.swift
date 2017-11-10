@@ -69,7 +69,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     func returnFormattedDate() -> Date {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "MMM dd, yyyy"
         let strDate = dateFormatter.string(from: datePicker.date)
         let date: Date? = dateFormatter.date(from: strDate)
         return date ?? Date()
@@ -80,7 +80,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     func returnFormattedDateString() -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "MMM dd, yyyy"
         let strDate = dateFormatter.string(from: datePicker.date)
         return strDate
         
