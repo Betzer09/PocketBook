@@ -40,6 +40,7 @@
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
+		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
 		F56663A61FB3C01800DD205A /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
+				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				D38EF97C1FB230950035B5E3 /* AnalysisViewController.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */,
+				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
