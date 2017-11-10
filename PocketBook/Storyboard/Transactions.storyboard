@@ -85,7 +85,7 @@
                                     <outlet property="amountLabel" destination="bcc-Ti-Gg2" id="xzv-Ln-pfn"/>
                                     <outlet property="dateLabel" destination="hBZ-FD-UiH" id="EWr-lC-fON"/>
                                     <outlet property="payeeLabel" destination="adh-iB-pNW" id="fbz-2c-qBh"/>
-                                    <segue destination="T53-2d-1NU" kind="show" identifier="toPersistedTransactionDetailSegue" id="9s7-gr-lgm"/>
+                                    <segue destination="T53-2d-1NU" kind="show" identifier="toTransactionDVC" id="9s7-gr-lgm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

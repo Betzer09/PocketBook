@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g7B-q7-SZN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g7B-q7-SZN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jq-yK-etH">
-                                <rect key="frame" x="185" y="372" width="56" height="21"/>
+                                <rect key="frame" x="97" y="372" width="229" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
@@ -87,7 +86,15 @@
                                     <segment title="Expense"/>
                                 </segments>
                             </segmentedControl>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="wX0-oH-aaV">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHb-Ea-B4w" userLabel="Date Button">
+                                <rect key="frame" x="97" y="156" width="229" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="dateButtonPressed:" destination="g7B-q7-SZN" eventType="touchUpInside" id="p7l-Fm-iJs"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="wX0-oH-aaV">
                                 <rect key="frame" x="71" y="119" width="284" height="104"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="531858380.44901901">
@@ -95,10 +102,11 @@
                                 </date>
                                 <connections>
                                     <action selector="dateButtonWasPressed:" destination="g7B-q7-SZN" eventType="valueChanged" id="8Uo-0d-VQf"/>
+                                    <action selector="datePickerChanged:" destination="g7B-q7-SZN" eventType="valueChanged" id="JBk-ge-C8u"/>
                                 </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3S-pl-PpI">
-                                <rect key="frame" x="117" y="260" width="188" height="21"/>
+                                <rect key="frame" x="97" y="260" width="229" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
@@ -119,7 +127,11 @@
                         <viewLayoutGuide key="safeArea" id="dP9-va-Igc"/>
                     </view>
                     <navigationItem key="navigationItem" title="Transaction Details" id="gbO-zV-Scc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="D0Y-W8-B01"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="D0Y-W8-B01">
+                            <connections>
+                                <action selector="SaveButtonPressed:" destination="g7B-q7-SZN" id="YT3-YD-7ol"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="accountButton" destination="N3S-pl-PpI" id="MzV-dF-lob"/>
@@ -127,6 +139,7 @@
                         <outlet property="amountTextField" destination="CCK-h1-dG4" id="M25-wi-sSi"/>
                         <outlet property="categoryButton" destination="2jq-yK-etH" id="ZHC-hh-V84"/>
                         <outlet property="categoryPicker" destination="Auh-26-16F" id="auY-Tu-MHv"/>
+                        <outlet property="dateButton" destination="AHb-Ea-B4w" id="GBW-gQ-gHn"/>
                         <outlet property="datePicker" destination="wX0-oH-aaV" id="hkM-lE-gm3"/>
                         <outlet property="payeeTextField" destination="Uzz-6q-Mbo" id="8A7-hy-dYj"/>
                         <outlet property="transactionType" destination="yBz-dq-dXZ" id="9Ts-Xt-fGM"/>
