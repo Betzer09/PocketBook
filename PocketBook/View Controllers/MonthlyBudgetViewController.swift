@@ -131,11 +131,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: - UI
-    
     private func updateUI() {
         
         amountTextField.delegate = self
-        
+        categoryTableView.estimatedRowHeight = 50
+        categoryTableView.rowHeight = UITableViewAutomaticDimension
         // the amount should come from the plannedExpenseModelController
         plannedExpenseLabel.text = "Planned Exspense for the Month: 1500.32"
         //Projected income - plannedExpense
