@@ -29,15 +29,15 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
-
+        
     }
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
-         self.categoryTableView.reloadData()
+            self.categoryTableView.reloadData()
         }
     }
-
+    
     
     // MARK: - Actions
     @IBAction func createBugetItemAlertButtonPressed(_ sender: Any) {
@@ -60,7 +60,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         return cell
     }
     
-     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             
@@ -71,7 +71,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-   private func createBugetItemAlert() {
+    private func createBugetItemAlert() {
         
         var nameTextField: UITextField!
         var amountTextField: UITextField!
@@ -134,15 +134,16 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         totalSpentLabel.text = "Total Spent of Budget $300"
         
     }
-
+    
 }
 
+// MARK: - Textfield Delegate Functions
 extension MonthlyBudgetViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = "$"
     }
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let aSet = NSCharacterSet(charactersIn: "0123456789.").inverted
         let componentSeperatedByCharInSet = string.components(separatedBy: aSet)
@@ -150,7 +151,7 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
         return string == numberTextField
     }
     
-     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         guard let string = textField.text else {return false}
         let stringToChange = string.dropFirst()

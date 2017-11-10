@@ -9,7 +9,7 @@
 import UIKit
 
 class CategroyTableViewCell: UITableViewCell {
-
+    
     
     // MARK: - Outlets
     @IBOutlet weak var categoryNameLabel: UILabel!
@@ -17,6 +17,17 @@ class CategroyTableViewCell: UITableViewCell {
     
     func updateCell(budgetItem: BudgetItem) {
         categoryNameLabel.text = budgetItem.name
+        configureProgressBar(withBudgetItem: budgetItem)
     }
-
+    
+    func configureProgressBar(withBudgetItem budgetItem: BudgetItem ) {
+        self.progressBar.progress = 0
+        self.progressBar.progressTintColor = .red
+        progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
+        // This is just for testing purposes 
+        self.progressBar.progress = Float(10) / Float(budgetItem.allottedAmount)
+        
+//      self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
+    }
+    
 }

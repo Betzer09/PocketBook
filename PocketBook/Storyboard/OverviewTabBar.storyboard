@@ -32,7 +32,7 @@
         <scene sceneID="E1U-8p-kpo">
             <objects>
                 <viewControllerPlaceholder storyboardName="MonthlyBudget" id="ZAJ-gs-omh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Monthly Budget" id="0Xe-XI-X2O"/>
+                    <tabBarItem key="tabBarItem" title="Monthly Budget  " id="0Xe-XI-X2O"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Jw-ng-4w3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
