@@ -8,10 +8,13 @@
 
 import UIKit
 
-class BudgetLineGraphViewController: UIPageViewController {
+class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     
     // MARK: - Properties
     var timeFrame: String?
+    var category: String?
+    
     var dots: [UIView] = []
     let calendar = Calendar.autoupdatingCurrent
     let transactions: [Transaction]? = TransactionController.shared.transactions
@@ -28,19 +31,50 @@ class BudgetLineGraphViewController: UIPageViewController {
         return month
     }
     
+    var timeFrames: [String] {
+        var array: [String] = []
+        array.append(TimeFrame.pastYear.rawValue)
+        array.append(TimeFrame.yearToDate.rawValue)
+        array.append(TimeFrame.lastMonth.rawValue)
+        array.append(TimeFrame.thisMonth.rawValue)
+        return array
+    }
+    
+    var categories: [String] {
+        let budgetItems = BudgetItemController.shared.budgetItems
+        var names: [String] = []
+        for budgetItem in budgetItems {
+            names.append(budgetItem.name)
+        }
+        return names
+    }
+    
     // MARK: - Outlets
     
-    var categoryButton: UIButton!
-    var lineGraphView: LineGraphView!
-    var xView: UIView!
-    var yView: UIView!
-    var superView: UIView!
-
+    @IBOutlet weak var timeFrameButton: UIButton!
+    @IBOutlet weak var categoryButton: UIButton!
+    @IBOutlet weak var timeFramePickerView: UIPickerView!
+    @IBOutlet weak var categoryPickerView: UIPickerView!
+    @IBOutlet weak var yView: UIView!
+    @IBOutlet weak var xView: UIView!
+    @IBOutlet weak var lineGraphView: LineGraphView!
+    
+    // MARK: - Actions
+    @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
+        timeFramePickerView.isHidden = false
+    }
+    
+    @IBAction func categoryButtonTapped(_ sender: UIButton) {
+        categoryPickerView.isHidden = false
+        categoryPickerView.transform = CGAffineTransform()
+    }
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: Notifications.sendingTimeFrameInfoToVCs, object: nil)
+        
         
         // Do any additional setup after loading the view.
     }
@@ -48,6 +82,56 @@ class BudgetLineGraphViewController: UIPageViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    // MARK: - Setup PickerViews
+    
+    func setUpPickerViews() {
+        categoryPickerView.dataSource = self
+        categoryPickerView.delegate = self
+        categoryPickerView.isHidden = true
+        
+        timeFramePickerView.dataSource = self
+        timeFramePickerView.delegate = self
+        timeFramePickerView.isHidden = true
+    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == categoryPickerView {
+            return categories.count
+        }
+        if pickerView == timeFramePickerView {
+            return timeFrames.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == categoryPickerView {
+            return categories[row]
+        }
+        if pickerView == timeFramePickerView {
+            return timeFrames[row]
+        }
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == categoryPickerView {
+            let name = categories[row]
+            categoryButton.setTitle(name, for: .normal)
+            category = name
+            view.reloadInputViews()
+        }
+        if pickerView == timeFramePickerView {
+            let name = timeFrames[row]
+            timeFrameButton.setTitle(name, for: .normal)
+            timeFrame = name
+            view.reloadInputViews()
+        }
     }
     
     // MARK: - Notification Functions
@@ -60,7 +144,18 @@ class BudgetLineGraphViewController: UIPageViewController {
         }
     }
     
-    // MARK: - Setup Functions
+    // MARK: - Setup Line Graph Views
+    
+    func setUpTimeFrameVar() {
+        timeFrameButton.setTitle(timeFrames[0], for: .normal)
+        timeFrame = timeFrameButton.titleLabel?.text
+    }
+    
+    func setUpCategoryVar() {
+        categoryButton.setTitle(categories[0], for: .normal)
+        category = categoryButton.titleLabel?.text
+    }
+    
     func filterTransactionsByTimeFrame(){
         
         guard let transactions = transactions,
@@ -132,7 +227,7 @@ class BudgetLineGraphViewController: UIPageViewController {
     
     func filterTransactionsByCategory() {
         var internalFilteredTransactions: [Transaction] = []
-        guard let name = categoryButton.titleLabel?.text,
+        guard let name = category,
             let filteredTransactions = filteredByTimeFrameTransactions else {return}
         for transaction in filteredTransactions {
             if transaction.catagory == name {
@@ -203,68 +298,51 @@ class BudgetLineGraphViewController: UIPageViewController {
             array = weeksOfTheMonth
             guard let thisMonth = currentMonth else {return}
             let lastMonth = thisMonth - 1
-            var week1Total: Double = 0
-            var week2Total: Double = 0
-            var week3Total: Double = 0
-            var week4Total: Double = 0
-            for transaction in filteredByCatagoryTransactions {
-                let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
-                if lastMonth == calendarDate.month {
-                    guard let day = calendarDate.day else {return}
-                    if day <= 7 {
-                        week1Total += transaction.amount
-                    }
-                    if day <= 14 {
-                        week2Total += transaction.amount
-                    }
-                    if day <= 21 {
-                        week3Total += transaction.amount
-                    }
-                    if day > 21 {
-                        week4Total += transaction.amount
-                    }
-                }
-            }
-            totals.append(week1Total)
-            totals.append(week2Total)
-            totals.append(week3Total)
-            totals.append(week4Total)
+            totals = calculateMonthTotals(transactions: filteredByCatagoryTransactions, month: lastMonth)
         case TimeFrame.thisMonth.rawValue:
             time = 4
             array = weeksOfTheMonth
             guard let thisMonth = currentMonth else {return}
-            var week1Total: Double = 0
-            var week2Total: Double = 0
-            var week3Total: Double = 0
-            var week4Total: Double = 0
-            for transaction in filteredByCatagoryTransactions {
-                let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
-                if thisMonth == calendarDate.month {
-                    guard let day = calendarDate.day else {return}
-                    if day <= 7 {
-                        week1Total += transaction.amount
-                    }
-                    if day <= 14 {
-                        week2Total += transaction.amount
-                    }
-                    if day <= 21 {
-                        week3Total += transaction.amount
-                    }
-                    if day > 21 {
-                        week4Total += transaction.amount
-                    }
-                }
-            }
-            totals.append(week1Total)
-            totals.append(week2Total)
-            totals.append(week3Total)
-            totals.append(week4Total)
+            totals = calculateMonthTotals(transactions: filteredByCatagoryTransactions, month: thisMonth)
         default: fatalError()
         }
         distanceOfEachXCatagory = calculateDistanceOfEachXCatagory(number: time)
         createXView(time: time, array: array)
         createYView(totals: totals)
         createScatterPlot(xDistance: distanceOfEachXCatagory, totals: totals)
+    }
+    
+    // MARK: - Calculate Functions
+    
+    func calculateMonthTotals(transactions: [Transaction], month: Int) -> [Double] {
+        var localTotals: [Double] = []
+        var week1Total: Double = 0
+        var week2Total: Double = 0
+        var week3Total: Double = 0
+        var week4Total: Double = 0
+        for transaction in transactions {
+            let calendarDate = calendar.dateComponents([.month, .year, .day], from: transaction.date)
+            if month == calendarDate.month {
+                guard let day = calendarDate.day else {return []}
+                if day <= 7 {
+                    week1Total += transaction.amount
+                }
+                if day <= 14 {
+                    week2Total += transaction.amount
+                }
+                if day <= 21 {
+                    week3Total += transaction.amount
+                }
+                if day > 21 {
+                    week4Total += transaction.amount
+                }
+            }
+        }
+        localTotals.append(week1Total)
+        localTotals.append(week2Total)
+        localTotals.append(week3Total)
+        localTotals.append(week4Total)
+        return localTotals
     }
     
     // MARK: - LineGraphView Setup
@@ -356,11 +434,6 @@ class BudgetLineGraphViewController: UIPageViewController {
         let totalSpentCGFloat = CGFloat(totalSpent)
         return (bugetItemCGFloat/totalSpentCGFloat) * maxY
     }
-    
-    func double () {
-        Double(
-    }
-    
     
     /*
     // MARK: - Navigation
