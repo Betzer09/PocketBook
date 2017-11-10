@@ -244,7 +244,11 @@
 				92993C7F1FB4C3EE00D22373 /* Analysis ViewControllers */,
 				23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */,
 				D38EF9721FB230950035B5E3 /* AccountDetailsViewController.swift */,
+<<<<<<< HEAD
+				D38EF9731FB230950035B5E3 /* AnalysisViewController.swift */,
+=======
 				D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */,
+>>>>>>> develop
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
@@ -258,8 +262,13 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
 				232CD3EB1FB4ED5200AAFE8C /* CategroyTableViewCell.swift */,
+=======
+				23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */,
+				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
+>>>>>>> develop
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -375,7 +384,13 @@
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
+<<<<<<< HEAD
 				232CD3EC1FB4ED5200AAFE8C /* CategroyTableViewCell.swift in Sources */,
+=======
+				D38EF9801FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift in Sources */,
+				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
+				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+>>>>>>> develop
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,

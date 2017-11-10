@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="PlH-nB-SeR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
@@ -30,23 +30,28 @@
                                         <segment title="Incomes"/>
                                     </segments>
                                 </segmentedControl>
-                                <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
-                                    <rect key="frame" x="24" y="44" width="328" height="45"/>
+                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
+                                    <rect key="frame" x="8" y="44" width="359" height="111"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="111" id="PZw-nX-iPf"/>
+                                    </constraints>
                                 </pickerView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="yb3-92-19L" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="AmX-22-qJs"/>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="leading" secondItem="PlH-nB-SeR" secondAttribute="leading" constant="8" id="1dd-zU-hXl"/>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="FQd-UH-lOX"/>
                                 <constraint firstItem="FkZ-U8-GW8" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="IwB-cX-7zF"/>
-                                <constraint firstItem="yb3-92-19L" firstAttribute="width" secondItem="PlH-nB-SeR" secondAttribute="width" multiplier="7/8" id="PHf-vK-TUG"/>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="top" secondItem="FkZ-U8-GW8" secondAttribute="bottom" constant="8" id="TLu-mn-c5e"/>
                                 <constraint firstItem="FkZ-U8-GW8" firstAttribute="top" secondItem="PlH-nB-SeR" secondAttribute="top" constant="8" id="TSe-Tj-4zj"/>
                                 <constraint firstItem="FkZ-U8-GW8" firstAttribute="width" secondItem="PlH-nB-SeR" secondAttribute="width" multiplier="7/8" id="U8A-av-WLq"/>
-                                <constraint firstItem="yb3-92-19L" firstAttribute="top" secondItem="FkZ-U8-GW8" secondAttribute="bottom" constant="8" id="rcC-q5-b7a"/>
+                                <constraint firstAttribute="trailing" secondItem="yb3-92-19L" secondAttribute="trailing" constant="8" id="XEV-k4-lST"/>
+                                <constraint firstAttribute="bottom" secondItem="yb3-92-19L" secondAttribute="bottom" constant="8" id="e01-3z-qfY"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionCell" rowHeight="60" id="QIH-bH-fbE" customClass="TransactionTableViewCell" customModule="PocketBook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="126" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="191" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QIH-bH-fbE" id="MDs-hr-MEV">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
@@ -85,7 +90,7 @@
                                     <outlet property="amountLabel" destination="bcc-Ti-Gg2" id="xzv-Ln-pfn"/>
                                     <outlet property="dateLabel" destination="hBZ-FD-UiH" id="EWr-lC-fON"/>
                                     <outlet property="payeeLabel" destination="adh-iB-pNW" id="fbz-2c-qBh"/>
-                                    <segue destination="T53-2d-1NU" kind="show" identifier="toPersistedTransactionDetailSegue" id="9s7-gr-lgm"/>
+                                    <segue destination="T53-2d-1NU" kind="show" identifier="toTransactionDVC" id="9s7-gr-lgm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
