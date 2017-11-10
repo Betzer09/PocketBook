@@ -13,7 +13,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     // MARK: - Outlets
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var transactionPickerView: UIPickerView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: - Eventually Delete
@@ -34,10 +34,9 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     var incomeTransactions: [Transaction]?
     var expenseTransactions: [Transaction]?
     
-    var timeFrame: String?
-    var category: String?
-    
     let calendar = Calendar.autoupdatingCurrent
+    
+    var timeFrame: String?
     
     var currentYear: Int? {
         let current = calendar.dateComponents([.year, .month], from: Date())
@@ -60,7 +59,15 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         return array
     }
     
-    var categories: [String] {
+    var categories: [String] = []
+    
+    
+    @objc func updateArray() {
+        CreateCategory()
+        
+    }
+    
+    private func CreateCategory() {
         let budgetItems = BudgetItemController.shared.budgetItems
         var names: [String] = [] // This is the array that I will use to fill the categories
         for budgetItem in budgetItems {
@@ -70,24 +77,25 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         for plannedExpense in plannedExpenses {
             names.append(plannedExpense.name)
         }
-        return names
+        
+        self.categories = names
     }
     
     
     // MARK: View Lifecycle
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.transactionPickerView.reloadAllComponents()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.timePicker.dataSource = self
-        self.timePicker.delegate = self
+        self.transactionPickerView.dataSource = self
+        self.transactionPickerView.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
     }
@@ -102,7 +110,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     
     // MARK: - UIPicker
-    
     func setUpPicker() -> ([String], [String]) {
         let times: [TimeFrame] = [.lastMonth, .thisMonth, .yearToDate, .pastYear]
         
@@ -172,7 +179,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
 
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TransactionController.shared.transactions.count
     }
@@ -266,7 +272,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         filteredByTimeFrameTransactions = internalFilteredTransactions
     }
     
-    func filterTransactionsByCategory() {
+    func filterTransactionsByCategory(category: String?) {
         var internalFilteredTransactions: [Transaction] = []
         guard let name = category,
             let filteredTransactions = filteredByTimeFrameTransactions else {return}
