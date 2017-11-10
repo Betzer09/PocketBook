@@ -19,6 +19,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
+    @IBOutlet weak var dateButton: UIButton!
     
     // MARK: - Properties
     var transaction: Transaction?
@@ -27,30 +28,74 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
-        setUpUI()
         
     }
     
-    // MARK: - Picker Button Actions
-    @IBAction func accountButtonWasPressed(_ sender: Any) {
-        accountPicker.isHidden = false
-        datePicker.isHidden = true
-        categoryPicker.isHidden = true
-        accountButton.isHidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpUI()
     }
+    
+    // MARK: - Actions
+    
+    // MARK: - Picker Button Actions
     
     @IBAction func dateButtonWasPressed(_ sender: Any) {
         accountPicker.isHidden = true
         datePicker.isHidden = false
         categoryPicker.isHidden = true
     }
-    @IBAction func categoryButtonWasPressed(_ sender: Any) {
-        accountPicker.isHidden = true
-        datePicker.isHidden = true
-        categoryPicker.isHidden = false
+    
+    @IBAction func accountButtonWasPressed(_ sender: Any) {
+        accountPicker.isHidden = false
         categoryPicker.isHidden = true
+        accountButton.isHidden = true
     }
     
+    @IBAction func categoryButtonWasPressed(_ sender: Any) {
+        accountPicker.isHidden = true
+        categoryPicker.isHidden = false
+        categoryButton.isHidden = true
+    }
+    
+    @IBAction func dateButtonPressed(_ sender: UIButton) {
+        datePicker.isHidden = false
+        dateButton.isHidden = true
+        categoryPicker.isHidden = true
+        accountPicker.isHidden = true
+    }
+    
+    // This function returns a date as a date in the format "dd-MM-yyyy"
+    func returnFormattedDate() -> Date {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        let strDate = dateFormatter.string(from: datePicker.date)
+        let date: Date? = dateFormatter.date(from: strDate)
+        return date ?? Date()
+        
+    }
+    
+    // This function return a date as a String in the format "dd-MM-yyyy"
+    func returnFormattedDateString() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        let strDate = dateFormatter.string(from: datePicker.date)
+        return strDate
+        
+    }
+    
+    // Date Picker Action
+    @IBAction func datePickerChanged(_ sender: UIDatePicker) {
+        self.dateButton.setTitle(returnFormattedDateString(), for: .normal)
+        datePicker.isHidden = true
+        dateButton.isHidden = false
+    }
+    
+    @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
+        saveTransaction()
+    }
     
     // MARK: - Account Picker Delegates
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -58,8 +103,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        
         
         switch pickerView {
         case accountPicker:
@@ -93,30 +136,72 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        switch pickerView {
+        case accountPicker:
+            var stringArray = AccountController.shared.accounts.map { $0.name }
+            accountButton.setTitle(stringArray[row], for: .normal)
+            accountPicker.isHidden = true
+            accountButton.isHidden = false
+        case categoryPicker:
+            let category = combinedCategoryNames()
+            categoryButton.setTitle(category[row], for: .normal)
+            categoryPicker.isHidden = true
+            categoryButton.isHidden = false
+        default:
+            print("Error seting up picker in function: \(#function)")
+        }
+    }
+    
     
     func setUpUI() {
+        
         accountPicker.isHidden = true
         categoryPicker.isHidden = true
+        dateButton.isHidden = true
+        
+        accountButton.setTitle("Choose Account", for: .normal)
+        categoryButton.setTitle("Choose Category", for: .normal)
+        
+        // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction data
+        
+        if transaction != nil {
+            guard let transaction = transaction else { return }
+            
+            amountTextField.text = "\(transaction.amount)"
+            payeeTextField.text = transaction.payee
+            datePicker.date = transaction.date
+            accountButton.setTitle(transaction.account, for: .normal)
+            categoryButton.setTitle(transaction.catagory, for: .normal)
+        }
     }
     
     func setPickerDelegates() {
+        
         accountPicker.dataSource = self
+        categoryPicker.dataSource = self
+        
         accountPicker.delegate = self
+        categoryPicker.delegate = self
+        
     }
-
     
-    func checkWhichControlIsPressed() {
+    
+    func checkWhichControlIsPressed() -> String {
         
         if transactionType.selectedSegmentIndex == 0 {
-            // This is an income
+            print("Income selected segment")
+            return "Income"
             
         } else {
-            // This is an expense
+            print("Expenses selected segment")
+            return "Expense"
         }
     }
     
     func combinedCategoryNames() -> [String] {
-    
+        
         // Go though each budgetItem and grab the name
         let budgetItemNames = AccountController.shared.accounts.map({ $0.name })
         
@@ -127,15 +212,35 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         return category
     }
     
-    // MARK: - Save Transactions
+    // MARK: - Save Button Pressed
+    
+    
+    
     func saveTransaction() {
         
+        if transaction != nil {
+            // We want to update
+            guard let transaction = transaction,
+                let payee = payeeTextField.text,
+                let categoryButton = categoryButton.currentTitle,
+                let accountButton = accountButton.currentTitle,
+                let amount = amountTextField.text else {return}
+            
+            TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: Double(amount)!, account: accountButton, completion: { (_) in
+            })
+            
+        } else {
+            // We want to create
+            guard let payee = payeeTextField.text,
+                let categoryButton = categoryButton.currentTitle,
+                let accountButton = accountButton.currentTitle,
+                let amount = amountTextField.text else {return}
+            
+            TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: Double(amount)!, account: accountButton, completion: nil )
+        }
+        navigationController?.popViewController(animated: true)
     }
-    
-    
 }
-
-
 
 
 
