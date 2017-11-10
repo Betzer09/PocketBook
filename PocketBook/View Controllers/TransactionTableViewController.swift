@@ -22,16 +22,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         case yearToDate = "Year to Current Date"
         case lastMonth = "Last Month"
         case thisMonth = "This Month"
-        
-        var localizedString: String {
-            
-            switch self {
-            case .pastYear:
-                return NSLocalizedString("Past Year", comment: "Past Year")
-            default:
-                <#code#>
-            }
-        }
+
     }
     
     // MARK: Properties
@@ -112,14 +103,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     // MARK: - UIPicker
     
-    // We need an array of categorys and array of timeFrames
-    
     func setUpPicker() -> ([String], [String]) {
         let times: [TimeFrame] = [.lastMonth, .thisMonth, .yearToDate, .pastYear]
         
         let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         
-        let combined: [String] = (times)
+        let combined: ([String], [String]) = (times.map({$0.rawValue}), transactionCategories)
         
         return combined
     }
@@ -129,19 +118,47 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return
+        
+        if component == 0 {
+            return setUpPicker().0.count
+        } else {
+            return setUpPicker().1.count
+        }
+    
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return times[row].rawValue
+        
+        if component == 0 {
+            return setUpPicker().0[row]
+        } else {
+            return  setUpPicker().1[row]
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedValueTime = pickerView.selectedRow(inComponent: 1)
-        let selectedValueTransaction = pickerView.selectedRow(inComponent: 0)
+//        let selectedValueTime = pickerView.selectedRow(inComponent: 1)
+//        let selectedValueTransaction = pickerView.selectedRow(inComponent: 0)
         
         // timeLabel.text? = "\(selections[1][selectedValueTime])"
         // transactionLabel.text? = "\(selections[0][selectedValueTransaction])"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 44))
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        label.sizeToFit()
+        
+        if component == 0 {
+            label.text = setUpPicker().0[row]
+        } else {
+            label.text = setUpPicker().1[row]
+        }
+        
+        return label
+        
     }
     
     // MARK: - Table view data source
