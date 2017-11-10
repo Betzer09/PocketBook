@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="r2b-YN-0nb">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Page View Controller-->
+        <scene sceneID="siA-Lv-Xw5">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="zga-GF-SBb" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VRp-61-mMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="482" y="-299"/>
+        </scene>
+        <!--Budget Line Graph View Controller-->
+        <scene sceneID="J7F-Es-1e0">
+            <objects>
+                <viewController storyboardIdentifier="budgetLineGraph" id="85l-cX-r1H" customClass="BudgetLineGraphViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uLs-OY-zR6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="esv-EY-1wQ"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="543"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qvC-ik-aNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="-299"/>
+        </scene>
+        <!--Planned Expenses Line Graph View Controller-->
+        <scene sceneID="xuh-JF-pQE">
+            <objects>
+                <viewController storyboardIdentifier="plannedExpensesLineGraph" id="A0V-Zc-j1H" customClass="PlannedExpensesLineGraphViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5qA-pm-ApE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="e31-b6-Ajq"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="543"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cbe-IB-bPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="310"/>
+        </scene>
+        <!--Pie Chart View Controller-->
+        <scene sceneID="zO2-LM-66W">
+            <objects>
+                <viewController storyboardIdentifier="pieChart" id="A2n-rZ-TZR" customClass="PieChartViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6bg-cA-HPc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="X6f-c9-yoI"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="543"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mcK-rQ-EUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="-854"/>
+        </scene>
+        <!--Analysis-->
+        <scene sceneID="NgP-ah-eve">
+            <objects>
+                <viewController id="r2b-YN-0nb" customClass="AnalysisViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="caM-xC-gqN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+<<<<<<< Updated upstream
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-5D-CRx">
+                                <rect key="frame" x="0.0" y="71" width="375" height="62"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-KB-rH2">
+                                <rect key="frame" x="0.0" y="233" width="375" height="340"/>
+=======
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIx-Io-hKN">
+                                <rect key="frame" x="16" y="20" width="343" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="TimeFramPicker"/>
+                            </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-KB-rH2">
+                                <rect key="frame" x="0.0" y="75" width="375" height="543"/>
+>>>>>>> Stashed changes
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="zga-GF-SBb" kind="embed" id="0p8-yd-YlU"/>
+                                </connections>
+                            </containerView>
+<<<<<<< Updated upstream
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47e-y6-qk4">
+                                <rect key="frame" x="0.0" y="8" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Analysis" id="FTZ-sl-5Cz"/>
+                                </items>
+                            </navigationBar>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Vi-yA-k9P">
+                                <rect key="frame" x="0.0" y="141" width="375" height="62"/>
+=======
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-5D-CRx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="117"/>
+>>>>>>> Stashed changes
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="47e-y6-qk4" secondAttribute="trailing" id="47H-Di-aAR"/>
+                            <constraint firstItem="47e-y6-qk4" firstAttribute="leading" secondItem="yGi-gk-cWm" secondAttribute="leading" id="Dtc-BG-bJN"/>
+                            <constraint firstItem="47e-y6-qk4" firstAttribute="top" secondItem="caM-xC-gqN" secondAttribute="top" constant="8" id="fQs-wu-mtV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yGi-gk-cWm"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Analysis" id="uTq-C4-Zme"/>
+                    <navigationItem key="navigationItem" id="9r5-M9-pZm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IXN-kx-eiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-381.60000000000002" y="-299.10044977511245"/>
+        </scene>
+<<<<<<< Updated upstream
+=======
+        <!--Tab Bar Controller-->
+        <scene sceneID="sQ4-RV-g3u">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vcw-NO-D0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xfr-Gg-WbF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yFZ-jo-CBn">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="r2b-YN-0nb" kind="relationship" relationship="viewControllers" id="T6f-MI-F02"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-1658" y="-320"/>
+        </scene>
+>>>>>>> Stashed changes
+    </scenes>
+</document>
