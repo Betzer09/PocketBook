@@ -22,6 +22,7 @@
 		23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43451FB26E39008DCE5B /* BudgetItemController.swift */; };
 		23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */; };
 		23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */; };
+		23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */; };
 		92993C4C1FB3938F00D22373 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4B1FB3938F00D22373 /* Enums.swift */; };
 		92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4D1FB3AF0000D22373 /* LineGraphView.swift */; };
 		92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4F1FB3AF2300D22373 /* PieChartView.swift */; };
@@ -33,7 +34,6 @@
 		92993C891FB4C58300D22373 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C881FB4C58300D22373 /* Keys.swift */; };
 		92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C8A1FB4E1FA00D22373 /* Notifications.swift */; };
 		92E6603F1FB5531500D871BE /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E6603E1FB5531500D871BE /* Test.swift */; };
-		92E660461FB64E4D00D871BE /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E660451FB64E4D00D871BE /* TransactionTableViewCell.swift */; };
 		D314F1301FB379A70051C5BE /* OverviewTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */; };
 		D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
@@ -52,7 +52,6 @@
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
-		F56663A61FB3C01800DD205A /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +73,7 @@
 		23DD43451FB26E39008DCE5B /* BudgetItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItemController.swift; sourceTree = "<group>"; };
 		23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewController.swift; sourceTree = "<group>"; };
+		23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		92993C4B1FB3938F00D22373 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		92993C4D1FB3AF0000D22373 /* LineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphView.swift; sourceTree = "<group>"; };
 		92993C4F1FB3AF2300D22373 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
@@ -85,7 +85,6 @@
 		92993C881FB4C58300D22373 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		92993C8A1FB4E1FA00D22373 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		92E6603E1FB5531500D871BE /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
-		92E660451FB64E4D00D871BE /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OverviewTabBar.storyboard; sourceTree = "<group>"; };
 		D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
@@ -104,7 +103,6 @@
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,7 +261,7 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
+				23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */,
 				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
 			);
 			path = Views;
@@ -359,8 +357,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
+				23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */,
 				92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */,
-				92E660461FB64E4D00D871BE /* TransactionTableViewCell.swift in Sources */,
 				92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */,
 				92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
