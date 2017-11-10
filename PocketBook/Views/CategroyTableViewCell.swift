@@ -14,10 +14,13 @@ class CategroyTableViewCell: UITableViewCell {
     // MARK: - Outlets
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressBarDescriptionLabel: UILabel!
     
     func updateCell(budgetItem: BudgetItem) {
+        guard let totalAlloted = budgetItem.totalAllotted else {return}
         categoryNameLabel.text = budgetItem.name
         configureProgressBar(withBudgetItem: budgetItem)
+        progressBarDescriptionLabel.text = "\(budgetItem.spentTotal) / \(totalAlloted)"
     }
     
     func configureProgressBar(withBudgetItem budgetItem: BudgetItem ) {
@@ -27,7 +30,7 @@ class CategroyTableViewCell: UITableViewCell {
         // This is just for testing purposes 
         self.progressBar.progress = Float(10) / Float(budgetItem.allottedAmount)
         
-//      self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
+//        self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
     }
     
 }

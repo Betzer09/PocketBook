@@ -71,6 +71,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+        
+    }
+    
+    
+    // MARK: - Alerts
     private func createBugetItemAlert() {
         
         var nameTextField: UITextField!
@@ -121,6 +128,8 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    // MARK: - UI
     
     private func updateUI() {
         
