@@ -94,6 +94,7 @@ class BudgetItemController {
         
         // Create a query
         let query = CKQuery(recordType: BudgetItem.recordType, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: BudgetItem.nameKey, ascending: true)]
         
         // Fetch the data form cloudkit
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
@@ -104,10 +105,8 @@ class BudgetItemController {
             }
             
             guard let records = records else {return}
-            
             // Send the accounts through the cloudKit Initilizer
-            let budgetItem = records.flatMap( {BudgetItem(cloudKitRecord: $0)})
-            
-            self.budgetItems = budgetItem
+            let bugetItems = records.flatMap( {BudgetItem(cloudKitRecord: $0)})
+            self.budgetItems = bugetItems
         }
     }}
