@@ -18,24 +18,27 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     // MARK: - Eventually Delete
     enum TimeFrame: String {
-        case pastYear = "Past Year"
-        case yearToDate = "Year to Current Date"
-        case lastMonth = "Last Month"
+        case all = "All"
         case thisMonth = "This Month"
-
+        case lastMonth = "Last Month"
+        case yearToDate = "Year to Current Date"
+        case pastYear = "Past Year"
     }
     
+    
+    
     // MARK: Properties
-    var transactions = TransactionController.shared.transactions
-    var filteredByTimeFrameTransactions: [Transaction]?
-    var filteredByCatagoryTransactions: [Transaction]?
     
-    var allTransactions: [Transaction]?
-    var incomeTransactions: [Transaction]?
-    var expenseTransactions: [Transaction]?
+    var filteredTimeFrameTransactions: [Transaction]?
+    var filteredCatagoryTransactions: [Transaction]?
+    var filteredTransactions: [Transaction] = [] // This array is the source of all truth for filtered transactions
     
-    var timeFrame: String?
-    var category: String?
+    
+    // UIPicker Properties: All properties that are used by the UIPickers
+    var categorySelection: String? // Value selected by UIPicker
+    var timeframeSelection: String?  // Value selected by UIPicker
+    
+    let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
     
     let calendar = Calendar.autoupdatingCurrent
     
@@ -52,17 +55,17 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     var timeFrames: [String] {
         var array: [String] = []
-        array.append(TimeFrame.pastYear.rawValue)
-        array.append(TimeFrame.yearToDate.rawValue)
-        array.append(TimeFrame.lastMonth.rawValue)
+        array.append(TimeFrame.all.rawValue)
         array.append(TimeFrame.thisMonth.rawValue)
-        array.append("All") // This is the array that I will use to fill the time picker
+        array.append(TimeFrame.lastMonth.rawValue)
+        array.append(TimeFrame.yearToDate.rawValue)
+        array.append(TimeFrame.pastYear.rawValue)
         return array
     }
     
     var categories: [String] {
         let budgetItems = BudgetItemController.shared.budgetItems
-        var names: [String] = [] // This is the array that I will use to fill the categories
+        var names: [String] = [] 
         for budgetItem in budgetItems {
             names.append(budgetItem.name)
         }
@@ -78,6 +81,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -89,6 +93,8 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         self.timePicker.dataSource = self
         self.timePicker.delegate = self
         
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
     }
     
@@ -98,15 +104,49 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         }
     }
     
-    // MARK: Actions
+    // MARK: - Actions
+    
+    // MARK: Segmented Control
+    
+    @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
+        
+        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
+        let filterByCategory = Set(filterTransactionsByCategory())
+        let filterByTransactionType = Set(filterTransactionsByTransactionType())
+        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
+        let combinedTimeframeTransactionsSet = Array(filterAllSets)
+        let combinedTimeframeTransactionsArray = Array(combinedTimeframeTransactionsSet)
+        self.filteredTransactions = combinedTimeframeTransactionsArray
+        self.tableView.reloadData()
+        
+    }
+    
+    
+    func checkWhichControlIsPressed() -> String {
+        
+        var currentSegmentedControlSelection = String()
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            currentSegmentedControlSelection = "All"
+        } else if
+            segmentedControl.selectedSegmentIndex == 1 {
+            currentSegmentedControlSelection = "Income"
+        } else {
+            currentSegmentedControlSelection = "Expense"
+        }
+        return currentSegmentedControlSelection
+    }
+    
     
     
     // MARK: - UIPicker
     
     func setUpPicker() -> ([String], [String]) {
-        let times: [TimeFrame] = [.lastMonth, .thisMonth, .yearToDate, .pastYear]
         
-        let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        let times: [TimeFrame] = [.all, .thisMonth, .lastMonth, .yearToDate, .pastYear, ]
+        
+        var transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        transactionCategories.insert("All", at: 0)
         
         let combined: ([String], [String]) = (times.map({$0.rawValue}), transactionCategories)
         
@@ -124,7 +164,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         } else {
             return setUpPicker().1.count
         }
-    
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -137,11 +177,40 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        let selectedValueTime = pickerView.selectedRow(inComponent: 1)
-//        let selectedValueTransaction = pickerView.selectedRow(inComponent: 0)
         
-        // timeLabel.text? = "\(selections[1][selectedValueTime])"
-        // transactionLabel.text? = "\(selections[0][selectedValueTransaction])"
+        let times: [TimeFrame] = [.all, .thisMonth, .lastMonth, .yearToDate, .pastYear, ]
+        
+        let selectedTimeFrame = pickerView.selectedRow(inComponent: 0)
+        let selectedCategory = pickerView.selectedRow(inComponent: 1)
+        
+        let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        let timesStringArray = times.map({$0.rawValue})
+        let combinedPickerArrays = [transactionCategories, timesStringArray]
+        
+        let categorySelection = combinedPickerArrays[0][selectedCategory]
+        self.categorySelection = categorySelection
+        
+        let filteredTimeFrame = Set(filterTransactionsByTimeFrame())
+        let filterCategory = Set(filterTransactionsByCategory())
+        let filterTransactionType = Set(filterTransactionsByTransactionType())
+        let filterAll = filteredTimeFrame.intersection(filterCategory).intersection(filterTransactionType)
+        let combinedCategoryTransactionsSet = Array(filterAll)
+        let combinedCatetoryTransactionsArray = Array(combinedCategoryTransactionsSet)
+        
+        self.filteredTransactions = combinedCatetoryTransactionsArray
+        self.tableView.reloadData()
+        
+        let timeframeSelection = combinedPickerArrays[1][selectedTimeFrame]
+        self.timeframeSelection = timeframeSelection
+        
+        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
+        let filterByCategory = Set(filterTransactionsByCategory())
+        let filterByTransactionType = Set(filterTransactionsByTransactionType())
+        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
+        let combinedTimeframeTransactionsSet = Array(filterAllSets)
+        let combinedTimeframeTransactionsArray = Array(combinedTimeframeTransactionsSet)
+        self.filteredTransactions = combinedTimeframeTransactionsArray
+        self.tableView.reloadData()
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -151,14 +220,14 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 44))
             label.lineBreakMode = .byWordWrapping
             label.numberOfLines = 0
-            label.textAlignment = .left
+            label.textAlignment = .center
             label.sizeToFit()
             label.text = setUpPicker().0[row]
         } else {
             label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 43))
             label.lineBreakMode = .byWordWrapping
             label.numberOfLines = 2
-            label.textAlignment = .left
+            label.textAlignment = .center
             label.sizeToFit()
             label.text = setUpPicker().1[row]
         }
@@ -170,18 +239,19 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 43
     }
-
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TransactionController.shared.transactions.count
+        
+        return filteredTransactions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath) as? TransactionTableViewCell ?? TransactionTableViewCell()
         
-        cell.transactions = TransactionController.shared.transactions[indexPath.row]
+        cell.transactions = filteredTransactions[indexPath.row]
         
         return cell
     }
@@ -198,18 +268,20 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     // MARK: - Filters
-    func filterTransactionsByTimeFrame() {
+    
+    func filterTransactionsByTimeFrame() -> [Transaction] {
         
-        guard let text = timeFrame else {return} // FIXME: Make text the value from the picker
+        guard let text = timeframeSelection else { return [] }
         var internalFilteredTransactions: [Transaction] = []
+        let allTransactions = TransactionController.shared.transactions
         switch text {
         case TimeFrame.pastYear.rawValue:
-            for transaction in transactions {
+            for transaction in allTransactions {
                 guard let month = currentMonth,
-                    let year = currentYear else {return}
+                    let year = currentYear else { return [] }
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else {return}
+                    let dateYear = calendarDate.year else { return [] }
                 if dateYear == year {
                     if dateMonth <= month {
                         internalFilteredTransactions.append(transaction)
@@ -222,12 +294,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
                 }
             }
         case TimeFrame.yearToDate.rawValue:
-            for transaction in transactions {
+            for transaction in allTransactions {
                 guard let month = currentMonth,
-                    let year = currentYear else {return}
+                    let year = currentYear else { return [] }
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else {return}
+                    let dateYear = calendarDate.year else { return [] }
                 if dateYear == year {
                     if dateMonth <= month {
                         internalFilteredTransactions.append(transaction)
@@ -235,12 +307,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
                 }
             }
         case TimeFrame.lastMonth.rawValue:
-            for transaction in transactions {
+            for transaction in allTransactions {
                 guard let month = currentMonth,
-                    let year = currentYear else {return}
+                    let year = currentYear else { return [] }
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else {return}
+                    let dateYear = calendarDate.year else { return [] }
                 if dateYear == year {
                     if dateMonth == (month - 1) {
                         internalFilteredTransactions.append(transaction)
@@ -248,12 +320,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
                 }
             }
         case TimeFrame.thisMonth.rawValue:
-            for transaction in transactions {
+            for transaction in allTransactions {
                 guard let month = currentMonth,
-                    let year = currentYear else {return}
+                    let year = currentYear else { return [] }
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else {return}
+                    let dateYear = calendarDate.year else { return [] }
                 if dateYear == year {
                     if dateMonth == month {
                         internalFilteredTransactions.append(transaction)
@@ -261,22 +333,42 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
                 }
             }
         default:
-            filteredByTimeFrameTransactions = transactions
-        }
-        filteredByTimeFrameTransactions = internalFilteredTransactions
-    }
-    
-    func filterTransactionsByCategory() {
-        var internalFilteredTransactions: [Transaction] = []
-        guard let name = category,
-            let filteredTransactions = filteredByTimeFrameTransactions else {return}
-        for transaction in filteredTransactions {
-            if transaction.catagory == name {
+            for transaction in allTransactions {
                 internalFilteredTransactions.append(transaction)
             }
         }
-        filteredByCatagoryTransactions = internalFilteredTransactions
+        return internalFilteredTransactions
     }
+    
+    func filterTransactionsByCategory() -> [Transaction] {
+        var internalFilteredTransactions: [Transaction] = []
+        let allTransactions = TransactionController.shared.transactions
+        
+        for transaction in allTransactions {
+            if categorySelection == "All" {
+                internalFilteredTransactions.append(transaction)
+            } else if transaction.catagory == categorySelection {
+                internalFilteredTransactions.append(transaction)
+            }
+        }
+        return internalFilteredTransactions
+    }
+    
+    func filterTransactionsByTransactionType() -> [Transaction] {
+        var internalFilteredTransactions: [Transaction] = []
+        let selectedControl = checkWhichControlIsPressed()
+        let allTransactions = TransactionController.shared.transactions
+        for transaction in allTransactions {
+            if selectedControl == "All" {
+                for transaction in allTransactions {
+                    internalFilteredTransactions.append(transaction) }
+            } else if transaction.transactionType == selectedControl {
+                internalFilteredTransactions.append(transaction)
+            }
+        }
+        return internalFilteredTransactions
+    }
+    
     
     // MARK: - Methods
     

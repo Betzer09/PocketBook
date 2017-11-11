@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -29,6 +30,9 @@
                                         <segment title="Expenses"/>
                                         <segment title="Incomes"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="SegmentedControlButtonPressed:" destination="a2R-a5-qV7" eventType="valueChanged" id="Z8H-6Z-lsG"/>
+                                    </connections>
                                 </segmentedControl>
                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
                                     <rect key="frame" x="8" y="44" width="359" height="111"/>
