@@ -29,17 +29,8 @@ class AccountTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: AccountController.shared.accountWasUpdatedNotification, object: nil)
         
     }
-    @objc func reloadTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()            
-        }
-    }
-    // MARK: - Actions
-
     
     // MARK: - Table view data source
-
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return AccountController.shared.accounts.count
     }
@@ -50,12 +41,13 @@ class AccountTableViewController: UITableViewController {
         
         let account = AccountController.shared.accounts[indexPath.row]
         cell.textLabel?.text = account.name
-        cell.detailTextLabel?.text = String(format: "%.2f", account.total)
+        
+        let stringAmount = String(format: "$%.2f", account.total)        
+        cell.detailTextLabel?.text = stringAmount
         
         return cell
     }
     
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
@@ -67,11 +59,14 @@ class AccountTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Methods
+    // MARK: - All Methods
+    @objc func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toAccountDetail" {
