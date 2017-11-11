@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var accountPicker: UIPickerView!
@@ -24,20 +24,14 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Properties
     var transaction: Transaction?
-
+    
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
-        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        
         view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,31 +40,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-
+        
     }
-
-    
-   @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
-            let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if keyboardSize.height == offSet.height {
-                if self.view.frame.origin.y == 0{
-                    self.view.frame.origin.y -= keyboardSize.height
-                }
-            } else {
-                self.view.frame.origin.y += keyboardSize.height - offSet.height
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
-    
     
     // MARK: - Actions
     
@@ -101,26 +72,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         accountPicker.isHidden = true
     }
     
-    // This function returns a date as a date in the format "dd-MM-yyyy"
-    func returnFormattedDate() -> Date {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        let strDate = dateFormatter.string(from: datePicker.date)
-        let date: Date? = dateFormatter.date(from: strDate)
-        return date ?? Date()
-        
-    }
-    
-    // This function return a date as a String in the format "dd-MM-yyyy"
-    func returnFormattedDateString() -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        let strDate = dateFormatter.string(from: datePicker.date)
-        return strDate
-        
-    }
     
     // Date Picker Action
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
@@ -191,7 +142,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     
+    // MARK: - UI View Preperation
     func setUpUI() {
+        
+        payeeTextField.delegate = self
         
         accountPicker.isHidden = true
         categoryPicker.isHidden = true
@@ -205,11 +159,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             guard let transaction = transaction else { return }
             
-            amountTextField.text = "\(transaction.amount)"
+            amountTextField.text = String(format: "%.2f", transaction.amount)
             payeeTextField.text = transaction.payee
             datePicker.date = transaction.date
             accountButton.setTitle(transaction.account, for: .normal)
             categoryButton.setTitle(transaction.catagory, for: .normal)
+            transactionType.selectedSegmentIndex = updateTransactionType()
         }
     }
     
@@ -223,7 +178,41 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
     }
     
+    // MARK: - Keyboard Methods
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if keyboardSize.height == offSet.height {
+                if self.view.frame.origin.y == 0{
+                    self.view.frame.origin.y -= keyboardSize.height
+                }
+            } else {
+                self.view.frame.origin.y += keyboardSize.height - offSet.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    // MARK: - Text Field Methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }    
+    
+    // MARK: - Methods
     func checkWhichControlIsPressed() -> String {
         
         if transactionType.selectedSegmentIndex == 0 {
@@ -236,7 +225,19 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
     }
     
-    func combinedCategoryNames() -> [String] {
+    ///Checks to see which segment should be highlighted
+    private func updateTransactionType() -> Int {
+        
+        if transaction?.transactionType == "Income" {
+            return 0
+        } else {
+            return 1
+        }
+        
+    }
+    
+    
+    private func combinedCategoryNames() -> [String] {
         
         // Go though each budgetItem and grab the name
         let budgetItemNames = AccountController.shared.accounts.map({ $0.name })
@@ -248,10 +249,29 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         return category
     }
     
+    
+    // This function returns a date as a date in the format "dd-MM-yyyy"
+    private  func returnFormattedDate() -> Date {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        let strDate = dateFormatter.string(from: datePicker.date)
+        let date: Date? = dateFormatter.date(from: strDate)
+        return date ?? Date()
+        
+    }
+    
+    // This function return a date as a String in the format "dd-MM-yyyy"
+    func returnFormattedDateString() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        let strDate = dateFormatter.string(from: datePicker.date)
+        return strDate
+        
+    }
+    
     // MARK: - Save Button Pressed
-    
-    
-    
     func saveTransaction() {
         
         if transaction != nil {
@@ -277,20 +297,5 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         navigationController?.popViewController(animated: true)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
