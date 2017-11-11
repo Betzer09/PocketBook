@@ -6,7 +6,6 @@
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
 
-import Foundation
 import CoreGraphics
 import UIKit
 
@@ -77,3 +76,8 @@ struct Segment {
     // the value of a given segment – will be used to automatically calculate a ratio
     var value: CGFloat
 }
+
+
+
+
+

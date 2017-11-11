@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zga-GF-SBb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4UT-4I-F0D">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -12,12 +13,12 @@
     </dependencies>
     <scenes>
         <!--Anaylsis Page View Controller-->
-        <scene sceneID="siA-Lv-Xw5">
+        <scene sceneID="MA4-fZ-UUT">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="zga-GF-SBb" customClass="AnaylsisPageViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VRp-61-mMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="4UT-4I-F0D" customClass="AnaylsisPageViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tEi-Uq-YN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-81" y="-333"/>
+            <point key="canvasLocation" x="-196" y="-333"/>
         </scene>
         <!--Pie Chart View Controller-->
         <scene sceneID="GU0-bi-tff">
@@ -50,30 +51,29 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5J-wa-ZxH">
-                                <rect key="frame" x="0.0" y="80" width="375" height="538"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-tN-kgc" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                        <rect key="frame" x="30" y="30" width="315" height="315"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wl3-tN-kgc" secondAttribute="height" multiplier="1:1" id="Rv2-3h-536"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZY-P5-7gU">
-                                        <rect key="frame" x="0.0" y="375" width="375" height="163"/>
+                                        <rect key="frame" x="0.0" y="375" width="375" height="212"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="wl3-tN-kgc" secondAttribute="bottom" id="4uH-d1-4aK"/>
-                                    <constraint firstAttribute="trailing" secondItem="wl3-tN-kgc" secondAttribute="trailing" id="AGf-Vz-0Fo"/>
-                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="leading" secondItem="v5J-wa-ZxH" secondAttribute="leading" id="KED-3E-SZC"/>
+                                    <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="wl3-tN-kgc" secondAttribute="bottom" constant="30" id="4uH-d1-4aK"/>
+                                    <constraint firstAttribute="trailing" secondItem="wl3-tN-kgc" secondAttribute="trailing" constant="30" id="AGf-Vz-0Fo"/>
+                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="leading" secondItem="v5J-wa-ZxH" secondAttribute="leading" constant="30" id="KED-3E-SZC"/>
                                     <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="v5J-wa-ZxH" secondAttribute="leading" id="MpY-2X-Q8G"/>
                                     <constraint firstAttribute="trailing" secondItem="9ZY-P5-7gU" secondAttribute="trailing" id="cMf-cF-z6W"/>
-                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="top" secondItem="v5J-wa-ZxH" secondAttribute="top" id="gQu-Sh-Ozj"/>
+                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="top" secondItem="v5J-wa-ZxH" secondAttribute="top" constant="30" id="gQu-Sh-Ozj"/>
                                     <constraint firstAttribute="bottom" secondItem="9ZY-P5-7gU" secondAttribute="bottom" id="p4k-Td-vif"/>
-                                    <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="wl3-tN-kgc" secondAttribute="bottom" id="zrq-hC-YLc"/>
                                 </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-fU-QG8">
@@ -88,7 +88,7 @@
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="0oS-zm-jMT"/>
                             <constraint firstItem="v5J-wa-ZxH" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="2y1-U0-gKz"/>
                             <constraint firstItem="v5J-wa-ZxH" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="bottom" id="J50-BI-ZZI"/>
-                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="bottom" secondItem="v5J-wa-ZxH" secondAttribute="bottom" constant="49" id="Mp8-z3-OaT"/>
+                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="bottom" secondItem="v5J-wa-ZxH" secondAttribute="bottom" id="Mp8-z3-OaT"/>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="top" secondItem="y8R-1h-6yU" secondAttribute="top" id="Phe-Xr-0le"/>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="RC6-Ln-vuz"/>
                             <constraint firstItem="XNB-fU-QG8" firstAttribute="top" secondItem="9vB-nF-C9F" secondAttribute="bottom" id="UfK-PN-KUg"/>
@@ -102,6 +102,7 @@
                     <connections>
                         <outlet property="legendView" destination="9ZY-P5-7gU" id="eow-Mx-LZV"/>
                         <outlet property="pieChartView" destination="wl3-tN-kgc" id="Bbc-kI-Gai"/>
+                        <outlet property="superView" destination="v5J-wa-ZxH" id="F9E-lg-SgK"/>
                         <outlet property="timeFrameButton" destination="9vB-nF-C9F" id="Q9S-RX-s9y"/>
                         <outlet property="timeFramePickerView" destination="XNB-fU-QG8" id="Pt0-Lc-ayi"/>
                     </connections>
@@ -141,7 +142,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sk-3t-5tM">
-                                <rect key="frame" x="0.0" y="80" width="375" height="538"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Wt-SI-jvB" userLabel="Time Frame Picker View">
                                         <rect key="frame" x="47" y="-25" width="281" height="111"/>
@@ -150,18 +151,18 @@
                                         </constraints>
                                     </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPa-am-bjo">
-                                        <rect key="frame" x="0.0" y="80" width="80" height="378"/>
+                                        <rect key="frame" x="0.0" y="80" width="80" height="427"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tu3-vc-k2K">
-                                        <rect key="frame" x="80" y="458" width="295" height="80"/>
+                                        <rect key="frame" x="80" y="507" width="295" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="lFS-2D-lA8"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFQ-0i-CjG" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="80" y="80" width="295" height="378"/>
+                                        <rect key="frame" x="80" y="80" width="295" height="427"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ef1-I0-FnH" userLabel="Category Picker View">
                                                 <rect key="frame" x="-33" y="-25" width="281" height="111"/>
@@ -220,7 +221,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="J1j-0d-GXI" firstAttribute="bottom" secondItem="0sk-3t-5tM" secondAttribute="bottom" constant="49" id="3h6-dD-vty"/>
+                            <constraint firstItem="J1j-0d-GXI" firstAttribute="bottom" secondItem="0sk-3t-5tM" secondAttribute="bottom" id="3h6-dD-vty"/>
                             <constraint firstItem="H7y-AV-BfE" firstAttribute="trailing" secondItem="J1j-0d-GXI" secondAttribute="trailing" id="A7o-p4-hfP"/>
                             <constraint firstItem="0sk-3t-5tM" firstAttribute="top" secondItem="H7y-AV-BfE" secondAttribute="bottom" id="E52-hm-Lyn"/>
                             <constraint firstItem="1Wt-SI-jvB" firstAttribute="top" secondItem="Oa7-t1-PBX" secondAttribute="bottom" id="LXh-wF-gD9"/>
@@ -278,7 +279,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8im-gi-opQ">
-                                <rect key="frame" x="0.0" y="80" width="375" height="538"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMe-ey-PYk" userLabel="Time Frame Picker View">
                                         <rect key="frame" x="47" y="-25" width="281" height="111"/>
@@ -287,18 +288,18 @@
                                         </constraints>
                                     </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LSH-GI-cGM">
-                                        <rect key="frame" x="0.0" y="80" width="80" height="378"/>
+                                        <rect key="frame" x="0.0" y="80" width="80" height="427"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D9N-lE-uZy">
-                                        <rect key="frame" x="80" y="458" width="295" height="80"/>
+                                        <rect key="frame" x="80" y="507" width="295" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="nvU-Yg-o6F"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSj-52-BgD" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="80" y="80" width="295" height="378"/>
+                                        <rect key="frame" x="80" y="80" width="295" height="427"/>
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vyf-bM-DsE" userLabel="Category Picker View">
                                                 <rect key="frame" x="-33" y="-25" width="281" height="111"/>
@@ -360,7 +361,7 @@
                             <constraint firstItem="8im-gi-opQ" firstAttribute="top" secondItem="cQ8-We-t0k" secondAttribute="bottom" id="3lW-aJ-3Cd"/>
                             <constraint firstItem="8im-gi-opQ" firstAttribute="trailing" secondItem="Fnu-6Q-6Ic" secondAttribute="trailing" id="48v-2g-ZpT"/>
                             <constraint firstItem="cQ8-We-t0k" firstAttribute="top" secondItem="bYa-z7-eVJ" secondAttribute="top" id="Bsg-6Z-Vjq"/>
-                            <constraint firstItem="Fnu-6Q-6Ic" firstAttribute="bottom" secondItem="8im-gi-opQ" secondAttribute="bottom" constant="49" id="Pt7-Gg-Mr7"/>
+                            <constraint firstItem="Fnu-6Q-6Ic" firstAttribute="bottom" secondItem="8im-gi-opQ" secondAttribute="bottom" id="Pt7-Gg-Mr7"/>
                             <constraint firstItem="cQ8-We-t0k" firstAttribute="leading" secondItem="Fnu-6Q-6Ic" secondAttribute="leading" id="d2K-qG-kyX"/>
                             <constraint firstItem="cQ8-We-t0k" firstAttribute="trailing" secondItem="Fnu-6Q-6Ic" secondAttribute="trailing" id="eoj-Xd-BNb"/>
                             <constraint firstItem="8im-gi-opQ" firstAttribute="leading" secondItem="Fnu-6Q-6Ic" secondAttribute="leading" id="f5m-nv-GFL"/>

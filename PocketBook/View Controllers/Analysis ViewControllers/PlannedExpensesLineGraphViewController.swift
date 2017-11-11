@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlannedExpensesLineGraphViewController: UIPageViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     

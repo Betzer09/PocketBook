@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     // MARK: - Properties
@@ -52,14 +52,25 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
         return array
     }
     
-    var categories: [String] {
-        let budgetItems = BudgetItemController.shared.budgetItems
-        var names: [String] = []
-        for budgetItem in budgetItems {
-            names.append(budgetItem.name)
-        }
-        return names
-    }
+//    var categories: [String] {
+//        let budgetItems = BudgetItemController.shared.budgetItems
+//        var names: [String] = []
+//        for budgetItem in budgetItems {
+//            names.append(budgetItem.name)
+//        }
+//        return names
+//    }
+    let categories: [String] = [
+        "Food",
+        "Gas",
+        "Clothes",
+        "Household",
+        "CarPayment",
+        "CellPhone",
+        "TV/Internet",
+        "Emergency",
+        "Hospital Bills"
+    ]
     
     // MARK: - Outlets
     
@@ -84,9 +95,9 @@ class BudgetLineGraphViewController: UIPageViewController, UIPickerViewDelegate,
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadView(notification:)), name: Notifications.sendingTimeFrameInfoToVCs, object: nil)
-        
+        setUpPickerViews()
+        setUpTimeFrameVar()
+        setUpCategoryVar()
         
         // Do any additional setup after loading the view.
     }
