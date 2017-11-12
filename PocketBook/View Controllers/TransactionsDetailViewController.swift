@@ -30,8 +30,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,6 +144,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - UI View Preperation
     func setUpUI() {
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         payeeTextField.delegate = self
         amountTextField.delegate = self
         
@@ -160,7 +162,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             guard let transaction = transaction else { return }
             
-            amountTextField.text = String(format: "%.2f", transaction.amount)
+            var stringAmount = String(format: "%.2f", transaction.amount)
+            stringAmount.insert("$", at: stringAmount.startIndex)
+            
+            amountTextField.text = stringAmount
             payeeTextField.text = transaction.payee
             datePicker.date = transaction.date
             accountButton.setTitle(transaction.account, for: .normal)
@@ -213,10 +218,26 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         return false
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        amountTextField.text = "$"
+    }
+    
     
     
     // MARK: - Methods
-    func checkWhichControlIsPressed() -> String {
+    
+    private func presentSimpleAlert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(dismissAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func checkWhichControlIsPressed() -> String {
         
         if transactionType.selectedSegmentIndex == 0 {
             print("Income selected segment")
@@ -275,7 +296,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - Save Button Pressed
-    func saveTransaction() {
+    private func saveTransaction() {
         
         if transaction != nil {
             // We want to update
@@ -285,7 +306,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 let accountButton = accountButton.currentTitle,
                 let amount = amountTextField.text else {return}
             
-            TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: Double(amount)!, account: accountButton, completion: { (_) in
+            guard let amountToSave = Double(amount.dropFirst()) else {
+                presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+                return
+            }
+            
+            TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
             })
             
         } else {
@@ -293,9 +319,17 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             guard let payee = payeeTextField.text,
                 let categoryButton = categoryButton.currentTitle,
                 let accountButton = accountButton.currentTitle,
-                let amount = amountTextField.text else {return}
+                let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
+                    presentSimpleAlert(title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
+                    return
+            }
             
-            TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: Double(amount)!, account: accountButton, completion: nil )
+            guard let amountToSave = Double(amount.dropFirst()) else {
+                presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+                return
+            }
+            
+            TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: nil )
         }
         navigationController?.popViewController(animated: true)
     }

@@ -34,7 +34,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
-           BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+            BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
             self.categoryTableView.reloadData()
         }
     }
@@ -84,7 +84,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         var nameTextField: UITextField!
         var amountTextField: UITextField!
         
-        let alertController = UIAlertController(title: "Create A Buget Categroy", message: "Where is your money going?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Create A Budget Categroy", message: "Where is your money going?", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
             textField.placeholder = "Name"
@@ -133,6 +133,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - UI
     private func updateUI() {
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         amountTextField.delegate = self
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
@@ -143,6 +146,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         // TODO: - FIX ME
         totalSpentLabel.text = "Total Spent of Budget $300"
         
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
 }
@@ -166,13 +173,16 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
         guard let string = textField.text else {return false}
         let stringToChange = string.dropFirst()
         
-        guard let income = Double(stringToChange) else {
-            presentSimpleAlert(title: "Error", message: "You entered an invalid amount!")
-            return false
+        if textField.text != "$" {
+            guard let income = Double(stringToChange) else {
+                presentSimpleAlert(title: "Error", message: "You entered an invalid amount!")
+                return false
+                
+            }
             
+            // Store the number in the projectedIncome Variable
+            projectedIncome = income
         }
-        // Store the number in the projectedIncome Variable
-        projectedIncome = income
         textField.resignFirstResponder()
         return false
     }
