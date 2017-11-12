@@ -146,6 +146,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     func setUpUI() {
         
         payeeTextField.delegate = self
+        amountTextField.delegate = self
         
         accountPicker.isHidden = true
         categoryPicker.isHidden = true
@@ -179,7 +180,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - Keyboard Methods
-    
+    // FIXME: Keyboard doesn't work on the iphone five
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
             let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -210,7 +211,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
-    }    
+    }
+    
+    
     
     // MARK: - Methods
     func checkWhichControlIsPressed() -> String {
