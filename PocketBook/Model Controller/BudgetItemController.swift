@@ -37,6 +37,8 @@ class BudgetItemController {
         let budgetItem = BudgetItem(spentTotal: spentTotal, name: name, allottedAmount: allottedAmount)
         budgetItems.append(budgetItem)
         
+        self.budgetItems = budgetItems.sorted(by: {$0.name < $1.name})
+        
         cloudKitManager.saveRecord(budgetItem.cloudKitRecord) { (record, error) in
             if let error = error {
                 print("Error saving Budget Item: \(error.localizedDescription) in file \(#file)")

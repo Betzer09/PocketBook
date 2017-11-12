@@ -34,7 +34,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
-            BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+            // FIXME: this uses a lot of cpu
+//                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+            
             self.categoryTableView.reloadData()
         }
     }
