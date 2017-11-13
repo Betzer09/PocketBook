@@ -112,8 +112,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="nXh-zN-VwF" id="6ad-OE-56m"/>
-                        <outlet property="picker" destination="yb3-92-19L" id="eW9-l5-PK8"/>
                         <outlet property="segmentedControl" destination="FkZ-U8-GW8" id="eWT-V8-6sx"/>
+                        <outlet property="timePicker" destination="yb3-92-19L" id="eBL-ZD-ANg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OcO-HC-WQ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
