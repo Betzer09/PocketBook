@@ -27,12 +27,7 @@ class PlannedExpense {
     var dueDate: Date
     var initialAmount: Double
     var goalAmount: Double
-    var totalSaved: Double {
-        
-        // initial amount Plus the income for the planned expense -> income dictionary
-        // TODO: Create a income dictionary
-        return initialAmount + 0
-    }
+    var totalSaved: Double?
     
     // MARK: - Init
     init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double) {
@@ -78,6 +73,7 @@ class PlannedExpense {
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
+        self.totalSaved = totalSaved
         self.recordID = cloudKitRecord.recordID
     }
     
