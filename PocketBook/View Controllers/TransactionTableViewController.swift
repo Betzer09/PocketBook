@@ -13,7 +13,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     // MARK: - Outlets
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var transactionPickerView: UIPickerView!
+    @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: View Lifecycle
@@ -67,23 +67,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         let current = calendar.dateComponents([.year, .month], from: Date())
         guard let month = current.month else {return nil}
         return month
-    }
-    
-    var categories: [String] {
-        let budgetItems = BudgetItemController.shared.budgetItems
-        var names: [String] = []
-        for budgetItem in budgetItems {
-            names.append(budgetItem.name)
-        }
-        let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
-        for plannedExpense in plannedExpenses {
-            names.append(plannedExpense.name)
-        }
-        
-        self.categories = names
-    }
-    
-    
+    }    
     
     // MARK: - Actions
     
@@ -257,7 +241,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         guard let text = timeframeSelection else { return [] }
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
-        print("TIMEFRAME: \(timeframeSelection)")
         switch text {
         case TimeFrame.pastYear.rawValue:
             for transaction in allTransactions {
@@ -322,11 +305,9 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         return internalFilteredTransactions
     }
     
-    func filterTransactionsByCategory(category: String?) {
+    func filterTransactionsByCategory() -> [Transaction] {
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
-        print("CATEGORY: \(categorySelection)")
-        
         for transaction in allTransactions {
             if categorySelection == "All" {
                  internalFilteredTransactions = allTransactions
