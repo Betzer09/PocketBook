@@ -9,16 +9,34 @@
 import UIKit
 
 class plannedExpenseTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    //MARK: - Outlets
+    
+    @IBOutlet weak var plannedExpenseNameLabel: UILabel!
+    @IBOutlet weak var byDueDateLabel: UILabel!
+    @IBOutlet weak var PEProgressBar: UIProgressView!
+    
+    //MARK: - Properties
+    weak var delegate: PlannedExpenseTableViewCellDelegate?
+    
+    var plannedExpense: PlannedExpense? {
+        didSet {
+            updateViews()
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    //MARK: - Functions
+    func updateViews() {
+        guard let plannedExpense = plannedExpense else { return }
+        
+        plannedExpenseNameLabel.text = plannedExpense.name
+        byDueDateLabel.text = "\(plannedExpense.dueDate)"
+        PEProgressBar.progress = Float(plannedExpense.totalSaved)
     }
-
 }
+
+//MARK: - Cell Delegate Protocol
+protocol PlannedExpenseTableViewCellDelegate: class {
+    
+}
+
