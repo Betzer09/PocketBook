@@ -13,27 +13,19 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     // MARK: - Outlets
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: View Lifecycle
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpInitialTableView()
-        self.timePicker.dataSource = self
-        self.timePicker.delegate = self
+        self.picker.dataSource = self
+        self.picker.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
        
     }
-    
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -71,27 +63,39 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     // MARK: - Actions
     
+    /// This function is run when the view first loads and the user hasn't made any selections
     func setUpInitialTableView() {
-        self.filteredTransactions = TransactionController.shared.transactions
+        self.categorySelection = "All"
+        self.timeframeSelection = "All"
+        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
+        let filterByCategory = Set(filterTransactionsByCategory())
+        let filterByTransactionType = Set(filterTransactionsByTransactionType())
+        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
+        let combinedTransactionsSet = Array(filterAllSets)
+        let combinedTransactionsArray = Array(combinedTransactionsSet)
+        self.filteredTransactions = combinedTransactionsArray
+        self.tableView.reloadData()
+    }
+    
+    /// This function is run everytime a user changes any of the controls to resort the tableview. This function is called everyaction method connected to the segmented control & picker.
+    func setUpTableView() {
+        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
+        let filterByCategory = Set(filterTransactionsByCategory())
+        let filterByTransactionType = Set(filterTransactionsByTransactionType())
+        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
+        let combinedTransactionsSet = Array(filterAllSets)
+        let combinedTransactionsArray = Array(combinedTransactionsSet)
+        self.filteredTransactions = combinedTransactionsArray
         self.tableView.reloadData()
     }
 
     // Segmented Control Buttons Selected
     @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
-        
-        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
-        let filterByCategory = Set(filterTransactionsByCategory())
-        let filterByTransactionType = Set(filterTransactionsByTransactionType())
-        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
-        let combinedTimeframeTransactionsSet = Array(filterAllSets)
-        let combinedTimeframeTransactionsArray = Array(combinedTimeframeTransactionsSet)
-        self.filteredTransactions = combinedTimeframeTransactionsArray
-        self.tableView.reloadData()
+        setUpTableView()
     }
     
     /// This function checks to see which segmented control is currently pressed and returns a string value matching the segmented control
     func checkWhichControlIsPressed() -> String {
-        
         var currentSegmentedControlSelection = String()
         if segmentedControl.selectedSegmentIndex == 0 {
             currentSegmentedControlSelection = "All"
@@ -103,8 +107,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         }
         return currentSegmentedControlSelection
     }
-    
-    
     
     // MARK: - UIPicker
     func setUpPicker() -> ([String], [String]) {
@@ -145,40 +147,22 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        // Set up the controls that the user will use to filter tableview
         let times: [TimeFrame] = [.all, .thisMonth, .lastMonth, .yearToDate, .pastYear, ]
-        
         let selectedTimeFrame = pickerView.selectedRow(inComponent: 0)
         let selectedCategory = pickerView.selectedRow(inComponent: 1)
-        
         var transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         transactionCategories.insert("All", at: 0)
         let timesStringArray = times.map({$0.rawValue})
-        let combinedPickerArrays = [transactionCategories, timesStringArray]
+        let combinedPickerArrays = [transactionCategories, timesStringArray] // Source of truth for pickerview
         
         let categorySelection = combinedPickerArrays[0][selectedCategory]
         self.categorySelection = categorySelection
-        
-        let filteredTimeFrame = Set(filterTransactionsByTimeFrame())
-        let filterCategory = Set(filterTransactionsByCategory())
-        let filterTransactionType = Set(filterTransactionsByTransactionType())
-        let filterAll = filteredTimeFrame.intersection(filterCategory).intersection(filterTransactionType)
-        let combinedCategoryTransactionsSet = Array(filterAll)
-        let combinedCatetoryTransactionsArray = Array(combinedCategoryTransactionsSet)
-        
-        self.filteredTransactions = combinedCatetoryTransactionsArray
-        self.tableView.reloadData()
+        setUpTableView()
         
         let timeframeSelection = combinedPickerArrays[1][selectedTimeFrame]
         self.timeframeSelection = timeframeSelection
-        
-        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
-        let filterByCategory = Set(filterTransactionsByCategory())
-        let filterByTransactionType = Set(filterTransactionsByTransactionType())
-        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
-        let combinedTimeframeTransactionsSet = Array(filterAllSets)
-        let combinedTimeframeTransactionsArray = Array(combinedTimeframeTransactionsSet)
-        self.filteredTransactions = combinedTimeframeTransactionsArray
-        self.tableView.reloadData()
+        setUpTableView()
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -208,7 +192,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         return 43
     }
     
-    // MARK: - Table view data source
+    // MARK: - Tableview
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return filteredTransactions.count
@@ -322,7 +306,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         var internalFilteredTransactions: [Transaction] = []
         let selectedControl = checkWhichControlIsPressed()
         let allTransactions = TransactionController.shared.transactions
-        print("TRANSACTION: \(checkWhichControlIsPressed())")
         for transaction in allTransactions {
             if selectedControl == "All" {
                 internalFilteredTransactions = allTransactions
@@ -332,7 +315,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         }
         return internalFilteredTransactions
     }
-    
     
     // MARK: - Methods
     
