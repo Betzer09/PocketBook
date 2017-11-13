@@ -94,7 +94,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         case accountPicker:
             return AccountController.shared.accounts.count
         case categoryPicker:
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems
             return category.count
             
         default:
@@ -111,7 +111,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return account.name
         case categoryPicker:
             // Category is a combination between planned expense and budgetItem names
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
             return category[row]
             
         default:
@@ -130,7 +130,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             accountPicker.isHidden = true
             accountButton.isHidden = false
         case categoryPicker:
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
             categoryButton.setTitle(category[row], for: .normal)
             categoryPicker.isHidden = true
             categoryButton.isHidden = false
@@ -184,7 +184,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - Keyboard Methods
-    // FIXME: Keyboard doesn't work on the iphone five
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
             let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -263,19 +262,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     
-    private func combinedCategoryNames() -> [String] {
-        
-        // Go though each budgetItem and grab the name
-        let budgetItemNames = BudgetItemController.shared.budgetItems.map({ $0.name })
-        
-        let plannedExpenseNames = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
-        
-        // A category is a combination between planned expense and budget Items
-        let category = plannedExpenseNames + budgetItemNames
-        return category
-    }
-    
-    
     // This function returns a date as a date in the format "dd-MM-yyyy"
     private  func returnFormattedDate() -> Date {
         
@@ -343,7 +329,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
             
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
             
             // Check the name and see which object it is
             let plannedExpenses = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })

@@ -113,7 +113,7 @@ class BudgetItemController {
             self.budgetItems = bugetItems
         }
     }
-
+    
     
     // MARK: - Methods
     
@@ -135,32 +135,27 @@ class BudgetItemController {
     /// Configures the monthly budget for the budgetItem
     public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem) {
         
+        
+        AccountController.shared.modifyAccountTotal(account: account, transaction: transaction, transactionType: transactionType)
+        
+        // Make sure the right category is being manipuleted
+        
         if transactionType == .expense {
             
-            account.total = account.total - transaction.amount
+            guard let totalAllotted = budgetItem.totalAllotted else {return}
+            budgetItem.totalAllotted = totalAllotted - transaction.amount
+            budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
             
-            // Make sure the right category is being manipuleted
-            if transaction.category == budgetItem.name {
-                
-                guard let totalAllotted = budgetItem.totalAllotted else {return}
-                budgetItem.totalAllotted = totalAllotted - transaction.amount
-                budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
-                
-            }
             
         } else {
-            // add
             
-            account.total = account.total + transaction.amount
+            guard let totalAllotted = budgetItem.totalAllotted else {return}
+            budgetItem.totalAllotted = totalAllotted + transaction.amount
             
-            if transaction.category == budgetItem.name {
-                guard let totalAllotted = budgetItem.totalAllotted else {return}
-                budgetItem.totalAllotted = totalAllotted + transaction.amount
-            }
         }
         
     }
-    
+        
 }
 
 

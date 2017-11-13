@@ -120,5 +120,25 @@ class AccountController {
         
     }
     
+    // MARK: - Methods
+    func modifyAccountTotal(account: Account, transaction: Transaction, transactionType: TransactionType) {
+        
+        if transactionType == .expense {
+            account.total = account.total - transaction.amount
+        } else {
+            account.total = account.total + transaction.amount
+        }
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
