@@ -51,12 +51,17 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     // MARK: Properties
     
+<<<<<<< HEAD
     var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - filtered transactions
     
     // UIPicker Properties: All properties that are used by the UIPickers
     var categorySelection: String? // Value selected by UIPicker. This updates each time a value from the picker is selected
     var timeframeSelection: String?  // Value selected by UIPicker. This updates each time a value from the picker is selected
+=======
+>>>>>>> develop
     let calendar = Calendar.autoupdatingCurrent
+    
+    var timeFrame: String?
     
     var currentYear: Int? {
         let current = calendar.dateComponents([.year, .month], from: Date())
@@ -69,7 +74,29 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         return month
     }
     
+<<<<<<< HEAD
     var categories: [String] {
+=======
+    var timeFrames: [String] {
+        var array: [String] = []
+        array.append(TimeFrame.pastYear.rawValue)
+        array.append(TimeFrame.yearToDate.rawValue)
+        array.append(TimeFrame.lastMonth.rawValue)
+        array.append(TimeFrame.thisMonth.rawValue)
+        array.append("All") // This is the array that I will use to fill the time picker
+        return array
+    }
+    
+    var categories: [String] = []
+    
+    
+    @objc func updateArray() {
+        CreateCategory()
+        
+    }
+    
+    private func CreateCategory() {
+>>>>>>> develop
         let budgetItems = BudgetItemController.shared.budgetItems
         var names: [String] = []
         for budgetItem in budgetItems {
@@ -84,6 +111,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     
+<<<<<<< HEAD
     
     // MARK: - Actions
     
@@ -94,6 +122,22 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
 
     // Segmented Control Buttons Selected
     @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
+=======
+    // MARK: View Lifecycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.transactionPickerView.reloadAllComponents()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.transactionPickerView.dataSource = self
+        self.transactionPickerView.delegate = self
+>>>>>>> develop
         
         let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
         let filterByCategory = Set(filterTransactionsByCategory())
@@ -322,7 +366,11 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         return internalFilteredTransactions
     }
     
+<<<<<<< HEAD
+    func filterTransactionsByCategory() -> [Transaction] {
+=======
     func filterTransactionsByCategory(category: String?) {
+>>>>>>> develop
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
         print("CATEGORY: \(categorySelection)")
