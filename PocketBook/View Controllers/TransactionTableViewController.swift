@@ -16,6 +16,30 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
+    // MARK: View Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setUpInitialTableView()
+        self.timePicker.dataSource = self
+        self.timePicker.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
+       
+    }
+    
+    @objc func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     // MARK: - Eventually Delete
     enum TimeFrame: String {
         case all = "All"
@@ -25,21 +49,13 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         case pastYear = "Past Year"
     }
     
-    
-    
     // MARK: Properties
     
-    var filteredTimeFrameTransactions: [Transaction]?
-    var filteredCatagoryTransactions: [Transaction]?
-    var filteredTransactions: [Transaction] = [] // This array is the source of all truth for filtered transactions
-    
+    var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - filtered transactions
     
     // UIPicker Properties: All properties that are used by the UIPickers
-    var categorySelection: String? // Value selected by UIPicker
-    var timeframeSelection: String?  // Value selected by UIPicker
-    
-    let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
-    
+    var categorySelection: String? // Value selected by UIPicker. This updates each time a value from the picker is selected
+    var timeframeSelection: String?  // Value selected by UIPicker. This updates each time a value from the picker is selected
     let calendar = Calendar.autoupdatingCurrent
     
     var currentYear: Int? {
@@ -53,19 +69,9 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         return month
     }
     
-    var timeFrames: [String] {
-        var array: [String] = []
-        array.append(TimeFrame.all.rawValue)
-        array.append(TimeFrame.thisMonth.rawValue)
-        array.append(TimeFrame.lastMonth.rawValue)
-        array.append(TimeFrame.yearToDate.rawValue)
-        array.append(TimeFrame.pastYear.rawValue)
-        return array
-    }
-    
     var categories: [String] {
         let budgetItems = BudgetItemController.shared.budgetItems
-        var names: [String] = [] 
+        var names: [String] = []
         for budgetItem in budgetItems {
             names.append(budgetItem.name)
         }
@@ -77,37 +83,15 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     
-    // MARK: View Lifecycle
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.timePicker.dataSource = self
-        self.timePicker.delegate = self
-        
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
-    }
-    
-    @objc func reloadTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
     
     // MARK: - Actions
     
-    // MARK: Segmented Control
-    
+    func setUpInitialTableView() {
+        self.filteredTransactions = TransactionController.shared.transactions
+        self.tableView.reloadData()
+    }
+
+    // Segmented Control Buttons Selected
     @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
         
         let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
@@ -118,14 +102,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         let combinedTimeframeTransactionsArray = Array(combinedTimeframeTransactionsSet)
         self.filteredTransactions = combinedTimeframeTransactionsArray
         self.tableView.reloadData()
-        
     }
     
-    
+    /// This function checks to see which segmented control is currently pressed and returns a string value matching the segmented control
     func checkWhichControlIsPressed() -> String {
         
         var currentSegmentedControlSelection = String()
-        
         if segmentedControl.selectedSegmentIndex == 0 {
             currentSegmentedControlSelection = "All"
         } else if
@@ -147,6 +129,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         
         var transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         transactionCategories.insert("All", at: 0)
+   
         
         let combined: ([String], [String]) = (times.map({$0.rawValue}), transactionCategories)
         
@@ -183,7 +166,8 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         let selectedTimeFrame = pickerView.selectedRow(inComponent: 0)
         let selectedCategory = pickerView.selectedRow(inComponent: 1)
         
-        let transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        var transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        transactionCategories.insert("All", at: 0)
         let timesStringArray = times.map({$0.rawValue})
         let combinedPickerArrays = [transactionCategories, timesStringArray]
         
@@ -274,6 +258,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         guard let text = timeframeSelection else { return [] }
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
+        print("TIMEFRAME: \(timeframeSelection)")
         switch text {
         case TimeFrame.pastYear.rawValue:
             for transaction in allTransactions {
@@ -333,9 +318,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
                 }
             }
         default:
-            for transaction in allTransactions {
-                internalFilteredTransactions.append(transaction)
-            }
+            internalFilteredTransactions = allTransactions
         }
         return internalFilteredTransactions
     }
@@ -343,10 +326,11 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     func filterTransactionsByCategory() -> [Transaction] {
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
+        print("CATEGORY: \(categorySelection)")
         
         for transaction in allTransactions {
             if categorySelection == "All" {
-                internalFilteredTransactions.append(transaction)
+                 internalFilteredTransactions = allTransactions
             } else if transaction.catagory == categorySelection {
                 internalFilteredTransactions.append(transaction)
             }
@@ -358,10 +342,10 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         var internalFilteredTransactions: [Transaction] = []
         let selectedControl = checkWhichControlIsPressed()
         let allTransactions = TransactionController.shared.transactions
+        print("TRANSACTION: \(checkWhichControlIsPressed())")
         for transaction in allTransactions {
             if selectedControl == "All" {
-                for transaction in allTransactions {
-                    internalFilteredTransactions.append(transaction) }
+                internalFilteredTransactions = allTransactions
             } else if transaction.transactionType == selectedControl {
                 internalFilteredTransactions.append(transaction)
             }

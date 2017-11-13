@@ -27,8 +27,8 @@
                                     <rect key="frame" x="23.5" y="8" width="328" height="29"/>
                                     <segments>
                                         <segment title="All"/>
-                                        <segment title="Expenses"/>
-                                        <segment title="Incomes"/>
+                                        <segment title="Income"/>
+                                        <segment title="Expense"/>
                                     </segments>
                                     <connections>
                                         <action selector="SegmentedControlButtonPressed:" destination="a2R-a5-qV7" eventType="valueChanged" id="Z8H-6Z-lsG"/>
