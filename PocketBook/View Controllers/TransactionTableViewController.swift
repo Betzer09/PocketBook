@@ -277,7 +277,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         guard let name = category,
             let filteredTransactions = filteredByTimeFrameTransactions else {return}
         for transaction in filteredTransactions {
-            if transaction.catagory == name {
+            if transaction.category == name {
                 internalFilteredTransactions.append(transaction)
             }
         }

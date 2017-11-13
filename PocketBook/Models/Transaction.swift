@@ -9,10 +9,6 @@
 import Foundation
 import CloudKit
 
-enum TransactionType: String {
-    case Income = "Income"
-    case Expense = "Expense"
-}
 
 class Transaction {
     
@@ -27,7 +23,7 @@ class Transaction {
     
     // MARK: - Properties
     var date: Date
-    var catagory: String
+    var category: String
     var payee: String // Where the money is going
     var transactionType: String
     var amount: Double
@@ -36,7 +32,7 @@ class Transaction {
     
     init(date: Date, category: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
         self.date = date
-        self.catagory = category
+        self.category = category
         self.payee = payee
         self.transactionType = transactionType
         self.amount = amount
@@ -49,7 +45,7 @@ class Transaction {
         let record = CKRecord(recordType: Transaction.recordType, recordID: recordID)
         
         record.setValue(date, forKey: Transaction.dateKey)
-        record.setValue(catagory, forKey: Transaction.catagoryKey)
+        record.setValue(category, forKey: Transaction.catagoryKey)
         record.setValue(payee, forKey: Transaction.payeeKey)
         record.setValue(transactionType, forKey: Transaction.transactionTypeKey)
         record.setValue(amount, forKey: Transaction.amountKey)
@@ -68,7 +64,7 @@ class Transaction {
             let account = cloudKitRecord[Transaction.accountKey] as? String else {return nil}
         
         self.date = date
-        self.catagory = budget
+        self.category = budget
         self.payee = payee
         self.transactionType = transactionType
         self.amount = amount

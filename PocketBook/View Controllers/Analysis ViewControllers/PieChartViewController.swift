@@ -324,7 +324,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
             guard let filteredTransactions = filteredByTimeFrameTransactions else {return}
             var categoryTotal = 0.0
             for transaction in filteredTransactions {
-                if transaction.catagory == category {
+                if transaction.category == category {
                     categoryTotal += transaction.amount
                 }
             }

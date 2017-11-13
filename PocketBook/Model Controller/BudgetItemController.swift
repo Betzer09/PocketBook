@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import UIKit
 
 class BudgetItemController {
     
@@ -56,7 +57,7 @@ class BudgetItemController {
         
         budgetItem.name = name
         budgetItem.spentTotal = spentTotal
-//        budgetItem.allottedAmount = allottedAmount
+        budgetItem.allottedAmount = allottedAmount
         
         cloudKitManager.modifyRecords([budgetItem.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
             if let error = error {
@@ -111,4 +112,73 @@ class BudgetItemController {
             let bugetItems = records.flatMap( {BudgetItem(cloudKitRecord: $0)})
             self.budgetItems = bugetItems
         }
-    }}
+    }
+
+    
+    // MARK: - Methods
+    
+    ///Returns the transactionType
+    public func checkTransactionType(transactionSegmentedControl: UISegmentedControl) -> TransactionType {
+        
+        var transactionType = TransactionType.all
+        
+        if transactionSegmentedControl.titleForSegment(at: transactionSegmentedControl.selectedSegmentIndex) == "Income" {
+            transactionType = TransactionType.income
+        } else {
+            transactionType = TransactionType.income
+        }
+        
+        
+        return transactionType
+    }
+    
+    /// Configures the monthly budget for the budgetItem
+    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem) {
+        
+        if transactionType == .expense {
+            
+            account.total = account.total - transaction.amount
+            
+            // Make sure the right category is being manipuleted
+            if transaction.category == budgetItem.name {
+                
+                guard let totalAllotted = budgetItem.totalAllotted else {return}
+                budgetItem.totalAllotted = totalAllotted - transaction.amount
+                budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
+                
+            }
+            
+        } else {
+            // add
+            
+            account.total = account.total + transaction.amount
+            
+            if transaction.category == budgetItem.name {
+                guard let totalAllotted = budgetItem.totalAllotted else {return}
+                budgetItem.totalAllotted = totalAllotted + transaction.amount
+            }
+        }
+        
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

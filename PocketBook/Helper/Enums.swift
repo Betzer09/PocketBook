@@ -14,3 +14,9 @@ enum TimeFrame: String {
     case lastMonth = "Last Month"
     case thisMonth = "This Month"
 }
+
+enum TransactionType: String {
+    case income = "Income"
+    case expense = "Expense"
+    case all = "All"
+}
