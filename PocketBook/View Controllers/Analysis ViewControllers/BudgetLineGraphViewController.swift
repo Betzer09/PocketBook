@@ -10,25 +10,26 @@ import UIKit
 
 class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
     // MARK: - Properties
     var timeFrame: String? {
         didSet {
             filterTransactionsByTimeFrame()
             filterTransactionsByCategory()
-            reloadInputViews()
+            configureLineGraph()
+            view.setNeedsDisplay()
         }
     }
+    
     var category: String? {
         didSet {
             filterTransactionsByCategory()
-            reloadInputViews()
+            configureLineGraph()
+            view.setNeedsDisplay()
         }
     }
     
     var dots: [UIView] = []
     let calendar = Calendar.autoupdatingCurrent
-    let transactions = loop(number: 300)
 //    let transactions: [Transaction]? = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredByCatagoryTransactions: [Transaction]?
@@ -60,6 +61,8 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
 //        }
 //        return names
 //    }
+    
+    // MARK: - TESTING
     let categories: [String] = [
         "Food",
         "Gas",
@@ -72,8 +75,16 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
         "Hospital Bills"
     ]
     
-    // MARK: - Outlets
+    let transactions = [
+        Transaction(date: Date(), category: "Food", payee: "Wal-Mart", transactionType: "expense", amount: 50.00, account: "Savings"),
+        Transaction(date: Date(dateString: "2017-10-20"), category: "Gas", payee: "Chevron", transactionType: "expense", amount: 19.58, account: "Checking"),
+        Transaction(date: Date(dateString: "2016-12-20"), category: "Clothes", payee: "Target", transactionType: "expense", amount: 400.30, account: "Credit Card"),
+        Transaction(date: Date(dateString: "2017-01-01"), category: "CellPhone", payee: "Sprint", transactionType: "expense", amount: 99.00, account: "Checking"),
+        Transaction(date: Date(dateString: "2017-10-15"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 47.39, account: "Checking"),
+        Transaction(date: Date(dateString: "2017-11-02"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 28.34, account: "Checking")
+    ]
     
+    // MARK: - Outlets
     @IBOutlet weak var timeFrameButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var timeFramePickerView: UIPickerView!
@@ -85,11 +96,12 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     // MARK: - Actions
     @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
         timeFramePickerView.isHidden = false
+        categoryButton.isHidden = true
     }
     
     @IBAction func categoryButtonTapped(_ sender: UIButton) {
         categoryPickerView.isHidden = false
-        categoryPickerView.transform = CGAffineTransform()
+        timeFrameButton.isHidden = true
     }
     
     // MARK: - View Lifecycle
@@ -98,7 +110,6 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
         setUpPickerViews()
         setUpTimeFrameVar()
         setUpCategoryVar()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -118,6 +129,7 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
         timeFramePickerView.delegate = self
         timeFramePickerView.isHidden = true
     }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -147,11 +159,15 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
             let name = categories[row]
             categoryButton.setTitle(name, for: .normal)
             category = name
+            timeFrameButton.isHidden = false
+            pickerView.isHidden = true
         }
         if pickerView == timeFramePickerView {
             let name = timeFrames[row]
             timeFrameButton.setTitle(name, for: .normal)
             timeFrame = name
+            categoryButton.isHidden = false
+            pickerView.isHidden = true
         }
     }
     
@@ -259,48 +275,54 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     
     func configureLineGraph() {
         
+        dots = []
+        xView.subviews.forEach { $0.removeFromSuperview() }
+        yView.subviews.forEach { $0.removeFromSuperview() }
+        lineGraphView.subviews.forEach { $0.removeFromSuperview() }
+        
         var distanceOfEachXCatagory: CGFloat = 0
         var time: Int = 0
         var array: [String] = []
         var totals: [Double] = []
-        guard let filteredByCatagoryTransactions = filteredByCatagoryTransactions else {return}
-        guard let text = timeFrame else {return}
+        guard let filteredByCatagoryTransactions = filteredByCatagoryTransactions,
+        let text = timeFrame else {return}
         switch text {
         case TimeFrame.pastYear.rawValue:
             time = 12
-            guard let month = currentMonth else {return}
-            var count = month - 1
-            while count < 12 {
-                let month = monthsOfTheYear[count]
-                array.append(month)
+            guard let currentMonth = currentMonth else {return}
+            var count = currentMonth - 1
+            while count >= 0 {
+                let monthString = monthsOfTheYear[count]
+                array.append(monthString)
                 var total: Double = 0.0
                 for transaction in filteredByCatagoryTransactions {
-                    let thisCount = count + 1
+                    let month = count + 1
                     let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
-                    if thisCount == calendarDate.month {
+                    if month == calendarDate.month {
                         total += transaction.amount
                     }
                 }
                 totals.append(total)
-                count += 1
+                count -= 1
             }
-            count = 0
-            while count < month - 1 {
-                let month = monthsOfTheYear[count]
-                array.append(month)
+            count = 11
+            while count + 1  > currentMonth {
+                let monthString = monthsOfTheYear[count]
+                array.append(monthString)
                 var total: Double = 0.0
                 for transaction in filteredByCatagoryTransactions {
-                    let thisCount = count + 1
+                    let month = count + 1
                     let calendarDate = calendar.dateComponents([.month, .year], from: transaction.date)
-                    if thisCount == calendarDate.month {
+                    if month == calendarDate.month {
                         total += transaction.amount
                     }
                 }
                 totals.append(total)
-                count += 1
+                count -= 1
             }
         case TimeFrame.yearToDate.rawValue:
-            guard let time = currentMonth else {return}
+            guard let localTime = currentMonth else {return}
+            time = localTime
             for number in 1...time {
                 let month = monthsOfTheYear[number - 1]
                 array.append(month)
@@ -394,7 +416,11 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
             guard let maxTotal = totals.max() else {return}
             let totals = maxTotal + (maxTotal * 0.1)
             let cgFloatTotal = calculatePercentValue(withBudgetItemSpentTotal: total, totalSpent:totals , maxY: lineGraphView.bounds.maxY)
-            createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y:cgFloatTotal )
+            if total == 0.0 {
+                createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y: 15)
+            } else {
+                createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y:cgFloatTotal )
+            }
             segmentCount += 1
         }
         lineGraphView.dots = dots
@@ -412,7 +438,7 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
             let y:CGFloat = 1
             let width = xView.bounds.height
             let height: CGFloat = 15.0
-            print (segment, x, y, width, height)
+//            print (segment, x, y, width, height)
             let frame = CGRect(x: x, y: y, width: width, height: height)
             let label = UILabel(frame: frame)
             label.center = CGPoint(x: (count * segment), y: xView.bounds.midY)
@@ -429,7 +455,9 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     
     // MARK: - YView Setup
     func createYView(totals: [Double]) {
-        guard let greatestValue = totals.max() else {return}
+        guard let greatestValue = totals.max(), greatestValue != 0 else {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "No Data Available", message: "")
+            return}
         let maxY = yView.bounds.maxY
         let maxYValue = greatestValue + (greatestValue * 0.1)
         let halfGreatestValue = greatestValue/2

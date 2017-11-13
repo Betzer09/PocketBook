@@ -12,8 +12,6 @@ import UIKit
 
 class LineGraphView: UIView {
     var dots: [UIView]?
-    var maxX: CGFloat?
-    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

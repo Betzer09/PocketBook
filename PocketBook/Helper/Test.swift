@@ -22,7 +22,7 @@ let categories: [String] = [
 ]
 
 func createTransaction() -> Transaction? {
-    guard let date = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(365)))) else {return nil}
+    guard let date = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(10)))) else {return nil}
     let category = categories[Int(arc4random_uniform(UInt32(categories.count)))]
     let payee = "Walmart"
     let transActionType = "Expense"
@@ -56,4 +56,15 @@ func generateRandomDate(daysBack: Int)-> Date?{
     
     let randomDate = gregorian?.date(byAdding: offsetComponents, to: today, options: .init(rawValue: 0) )
     return randomDate
+}
+
+extension Date
+{
+    init(dateString:String) {
+        let dateStringFormatter = DateFormatter()
+        dateStringFormatter.dateFormat = "yyyy-MM-dd"
+        dateStringFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
+        let d = dateStringFormatter.date(from: dateString)!
+        self.init(timeInterval:0, since:d)
+    }
 }

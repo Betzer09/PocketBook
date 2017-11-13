@@ -210,12 +210,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         bothStackView.spacing = 8.0
         bothStackView.distribution = .fillEqually
         
-//        let label = UILabel(frame: frame)
-//        label.backgroundColor = .blue
         let nameStackView = UIStackView(frame: frame)
-//        nameStackView.addSubview(label)
-//        nameStackView.addSubview(label)
-//        nameStackView.addSubview(label)
         nameStackView.translatesAutoresizingMaskIntoConstraints = false
         bothStackView.insertArrangedSubview(nameStackView, at: 0)
         nameStackView.axis = .vertical
@@ -288,8 +283,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
                     let dateYear = calendarDate.year else {return}
-                print(dateYear)
-                print(dateMonth)
                 if dateYear == year {
                     if dateMonth == (lastMonth) {
                         internalFilteredTransactions.append(transaction)
@@ -303,8 +296,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
                 guard let dateMonth = calendarDate.month,
                     let dateYear = calendarDate.year else {return}
-                print(dateYear)
-                print(dateMonth)
                 if dateYear == year {
                     if dateMonth == month {
                         internalFilteredTransactions.append(transaction)
