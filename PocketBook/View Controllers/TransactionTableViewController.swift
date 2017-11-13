@@ -18,6 +18,11 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     // MARK: View Lifecycle
     
+    override func viewDidAppear(_ animated: Bool) {
+        setUpTableView()
+        print("View did appear")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpInitialTableView()
@@ -71,9 +76,9 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         let filterByCategory = Set(filterTransactionsByCategory())
         let filterByTransactionType = Set(filterTransactionsByTransactionType())
         let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
-        let combinedTransactionsSet = Array(filterAllSets)
-        let combinedTransactionsArray = Array(combinedTransactionsSet)
-        self.filteredTransactions = combinedTransactionsArray
+        let filteredTransactionsArray = Array(filterAllSets)
+        let filteredByDateTransactionsArray = filteredTransactionsArray.sorted(by: { $0.date > $1.date })
+        self.filteredTransactions = filteredByDateTransactionsArray
         self.tableView.reloadData()
     }
     
@@ -83,12 +88,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         let filterByCategory = Set(filterTransactionsByCategory())
         let filterByTransactionType = Set(filterTransactionsByTransactionType())
         let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
-        let combinedTransactionsSet = Array(filterAllSets)
-        let combinedTransactionsArray = Array(combinedTransactionsSet)
-        self.filteredTransactions = combinedTransactionsArray
+        let filteredTransactionsArray = Array(filterAllSets)
+        let filteredByDateTransactionsArray = filteredTransactionsArray.sorted(by: { $0.date > $1.date })
+        self.filteredTransactions = filteredByDateTransactionsArray
         self.tableView.reloadData()
     }
-
+    
     // Segmented Control Buttons Selected
     @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
         setUpTableView()
@@ -212,9 +217,11 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let transaction = TransactionController.shared.transactions[indexPath.row]
+            let transaction = filteredTransactions[indexPath.row]
             TransactionController.shared.transactions.remove(at: indexPath.row)
             TransactionController.shared.delete(transaction: transaction)
+            filteredTransactions = TransactionController.shared.transactions
+            reloadTableView()
         }
     }
     
