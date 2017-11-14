@@ -26,10 +26,16 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        reloadCategoryTableView()
     }
     
     @objc func reloadCategoryTableView() {
@@ -144,7 +150,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         amountLeftLabel.text = "$532 Left to buget"
         // TODO: - FIX ME
         totalSpentLabel.text = "Total Spent of Budget $300"
-        
     }
     
     @objc func dismissKeyboard() {

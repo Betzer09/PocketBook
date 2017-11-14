@@ -31,8 +31,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
-        assignBudgetItem()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,8 +44,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Actions
     
-    // MARK: - Picker Button Actions
+    @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
+        saveTransaction()
+    }
     
+    // MARK: - Picker Button Actions
     @IBAction func dateButtonWasPressed(_ sender: Any) {
         accountPicker.isHidden = true
         datePicker.isHidden = false
@@ -79,10 +80,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         self.dateButton.setTitle(returnFormattedDateString(), for: .normal)
         datePicker.isHidden = true
         dateButton.isHidden = false
-    }
-    
-    @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
-        saveTransaction()
     }
     
     // MARK: - Account Picker Delegates
@@ -172,6 +169,15 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             accountButton.setTitle(transaction.account, for: .normal)
             categoryButton.setTitle(transaction.category, for: .normal)
             transactionType.selectedSegmentIndex = updateTransactionType()
+            
+            let budgetItems = BudgetItemController.shared.budgetItems
+            guard let selectedBugetItem = budgetItems.index(where: { $0.name == transaction.category }) else {return}
+            categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
+            
+            let accounts = AccountController.shared.accounts
+            guard let selectedAccount = accounts.index(where: { $0.name == transaction.account }) else {return}
+            accountPicker.selectRow(selectedAccount, inComponent: 0, animated: true)
+            
         }
     }
     
@@ -228,6 +234,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     
     // MARK: - Methods
+    
+    private func updatePickerStatus() {
+        
+    }
     
     private func presentSimpleAlert(title: String, message: String) {
         
@@ -290,7 +300,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             
             var convertedAmount: Double?
-            guard let transaction = transaction, let budgetItem = budgetItem else {return}
+            guard let transaction = transaction else {return}
             
             
             if let amountString = amountTextField.text?.dropFirst() {
@@ -307,7 +317,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
                 let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+                budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
                 
+                guard let budgetItem = budgetItem else {return}
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
             } else {
@@ -319,7 +331,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
                 let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                
+                budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+                guard let budgetItem = budgetItem else {return}
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
             }
@@ -332,7 +345,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         navigationController?.popViewController(animated: true)
     }
     
-    ;private func createTransaction() {
+    private func createTransaction() {
         // We want to create
         guard let payee = payeeTextField.text,
             let categoryButton = categoryButton.currentTitle,
@@ -349,11 +362,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+        budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
 
-        assignBudgetItem()
         
         TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (transaction) in
             
+            // FIXME: If it looks like something is weird try commenting me out and trying agian
             guard let budgetItem = self.budgetItem else {return}
             BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
             
@@ -374,29 +388,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return
         }
         
-        assignBudgetItem()
-        
         TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
+
         })
     }
-    
-    private func assignBudgetItem() {
-        
-        let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
-        
-        // Check the name and see which object it is
-        let budgetItems = BudgetItemController.shared.budgetItems.map({ $0.name })
-        for name in budgetItems {
-            
-            if category.contains(name) {
-                // This is a budget item
-                let budgetItems = BudgetItemController.shared.budgetItems.filter({ $0.name == name })
-                budgetItem = budgetItems.first
-            }
-            
-        }
-        
-    }
+
     
 }
 

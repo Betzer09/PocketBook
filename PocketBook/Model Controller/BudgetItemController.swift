@@ -145,16 +145,18 @@ class BudgetItemController {
             budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
             
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            
             
         } else {
             
             guard let totalAllotted = budgetItem.totalAllotted else {return}
             budgetItem.totalAllotted = totalAllotted + transaction.amount
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+
         }
-        
-        
-        
+ 
     }
     
 }

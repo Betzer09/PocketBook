@@ -127,11 +127,11 @@ class AccountController {
         
         if transactionType == .expense {
             account.total = account.total - transaction.amount
-            print("$\(account.total) has been subtracted from \(account.name)")
+            print("$\(transaction.amount) has been subtracted from \(account.name) leaving you with: $\(account.total)")
 
         } else {
             account.total = account.total + transaction.amount
-            print("$\(account.total) has been added to \(account.name)")
+            print("$\(transaction.amount) has been added to \(account.name) leaving you with: $\(account.total)")
 
         }
       
