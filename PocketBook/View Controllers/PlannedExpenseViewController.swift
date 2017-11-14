@@ -9,31 +9,35 @@
 import UIKit
 
 /*STILL NEED:
+ completion?!
+
+ initialAmount is saved as an int for calculations, but comes up as a string
+ 
+ 1. TotalSaved > Progress Bar
+ 
  need totalSaved on update function? Do we even need an update function in the DVC?
  
- totalSaved
- update views? - plannedExpense.initialAmount + (if Transaction Expense = plannedExpense.name, use the transaction.amount)
+ totalSaved = plannedExpense.initialAmount + (add button amount)
  
+
+ 2. Deposit button
+ >Alert w/ "+"
+ >segues immediately back to TVC where you can see the progress bar has been updated
  
+ 3. Withdraw button
+ >Alert w/ "-"
+ >segues immediately back to TVC where you can see the progress bar has been updated
+ 
+ 4. Complete button
+ >Creates a transaction, segues to DVC
+ 
+ 5. Ideal Monthly Contribution calculations
  TO ADD TO MODEL
  var dueDate: Date? {
  guard let currentDate = DateHelper.currentDate else { return nil }
- 
- // var timeUntilDueDate: TimeInterval
- 
- // var dueDate: Date? {
- // guard let currentDate = currentDate else { return nil }
- // let monthsUntilDueDate = Int(timeUntilDueDate / 30)
- // let fireTimeInSeconds = TimeInterval(fireTimeInMinutes * 60)
- // let fireDateFromThisMorning = Date(timeInterval: fireTimeInSeconds, since: thisMorningAtMidnight)
- // return fireDateFromThisMorning
- // }
- 
  Need to set dueDate as date selected on dueDateDatePicker
  use currentDate to calculate idealMonthlyContributionAmount
  
- 
- completion?!
  */
 
 class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
@@ -70,7 +74,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     let calendar = Calendar.autoupdatingCurrent
-    let idealMonthlyContributionAmount = (plannedExpense.goalAmount - plannedExpense.initialAmount) / calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: currentDate)
+    let idealMonthlyContributionAmount = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: plannedExpense.initialAmount) / calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: DateHelper.currentDate)
     
     //MARK: - Functions
     private func updateViews() {
@@ -96,6 +100,11 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         return total
     }
     
+    func amountDifference(goalAmount: Int, initialAmount: Int) -> Int? {
+        let difference = goalAmount - initialAmount
+        return difference
+    }
+    
     //MARK: - Actions
     @IBAction func depositButtonTapped(_ sender: Any) {
     }
@@ -111,12 +120,13 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             guard let plannedExpense = plannedExpense,
                 let account = accountPickerButton.currentTitle,
                 let name = nameTextField.text,
-                let initialAmount = initialAmountTextField.text,
-                let goalAmount = goalAmountTextField.text,
+                let initialAmount = Double(initialAmountTextField.text!),
+                let goalAmount = Double(goalAmountTextField.text!),
+                let dueDate = datePickerButton.currentTitle, //needs editing
                 let idealMonthlyContributionAmount = idealMonthlyContributionAmountLabel.text
                 else { return }
             
-            //            PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: dueDate, completion: <#T##((PlannedExpense) -> Void)?##((PlannedExpense) -> Void)?##(PlannedExpense) -> Void#>)
+            PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: dueDate, completion: <#T##((PlannedExpense) -> Void)?##((PlannedExpense) -> Void)?##(PlannedExpense) -> Void#>)
             
         } else {
             
@@ -125,10 +135,11 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
                 let name = nameTextField.text,
                 let initialAmount = initialAmountTextField.text,
                 let goalAmount = goalAmountTextField.text,
+                let dueDate = datePickerButton.currentTitle, //needs editing
                 let idealMonthlyContributionAmount = idealMonthlyContributionAmountLabel.text
                 else { return }
             
-            //            PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, totalSaved: totalSaved, dueDate: dueDate, plannedExpense: plannedExpense, completion: <#T##(PlannedExpense?) -> Void#>)
+            PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, totalSaved: totalSaved, dueDate: dueDate, plannedExpense: plannedExpense, completion: <#T##(PlannedExpense?) -> Void#>)
         }
         navigationController?.popViewController(animated: true)
     }

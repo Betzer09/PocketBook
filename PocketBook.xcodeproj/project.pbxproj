@@ -50,6 +50,7 @@
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
+		D3C5240F1FBA55E40064C5C9 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C5240E1FBA55E40064C5C9 /* DateHelper.swift */; };
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		D3C5240E1FBA55E40064C5C9 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -182,6 +184,7 @@
 				23DD431E1FB212DB008DCE5B /* Account.swift */,
 				23DD43281FB22805008DCE5B /* BudgetItem.swift */,
 				23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */,
+				D3C5240E1FBA55E40064C5C9 /* DateHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				92993C871FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				92993C811FB4C43100D22373 /* AnaylsisPageViewController.swift in Sources */,
+				D3C5240F1FBA55E40064C5C9 /* DateHelper.swift in Sources */,
 				92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */,
 				92993C4C1FB3938F00D22373 /* Enums.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,

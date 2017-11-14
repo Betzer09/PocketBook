@@ -15,23 +15,31 @@ class plannedExpenseTableViewCell: UITableViewCell {
     @IBOutlet weak var plannedExpenseNameLabel: UILabel!
     @IBOutlet weak var byDueDateLabel: UILabel!
     @IBOutlet weak var PEProgressBar: UIProgressView!
+    @IBOutlet weak var progressBarLabel: UILabel!
+    
     
     //MARK: - Properties
-    weak var delegate: PlannedExpenseTableViewCellDelegate?
-    
-    var plannedExpense: PlannedExpense? {
-        didSet {
-            updateViews()
-        }
-    }
-    
+//    weak var delegate: PlannedExpenseTableViewCellDelegate?
+//
+//    var plannedExpense: PlannedExpense? {
+//        didSet {
+//            updateViews()
+//        }
+//    }
+//
     //MARK: - Functions
-    func updateViews() {
-        guard let plannedExpense = plannedExpense else { return }
-        
+    func updateCell(plannedExpense: PlannedExpense) {
         plannedExpenseNameLabel.text = plannedExpense.name
         byDueDateLabel.text = "\(plannedExpense.dueDate)"
         PEProgressBar.progress = Float(plannedExpense.totalSaved)
+    }
+    
+    func configureProgressBar(withPlannedExpense plannedExpense: PlannedExpense) {
+        self.PEProgressBar.progress = 0
+        self.PEProgressBar.progressTintColor = .blue
+        PEProgressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
+        
+        self.PEProgressBar.progress = Float(plannedExpense.totalSaved) / Float(plannedExpense.goalAmount)
     }
 }
 
