@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -33,11 +34,11 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="60" translatesAutoresizingMaskIntoConstraints="NO" id="Et4-Dy-SVg">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="60" translatesAutoresizingMaskIntoConstraints="NO" id="Et4-Dy-SVg">
                                         <rect key="frame" x="0.0" y="28" width="281" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                         <variation key="heightClass=regular-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         </variation>
@@ -57,11 +58,11 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iqJ-75-klp">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iqJ-75-klp">
                                         <rect key="frame" x="0.0" y="90" width="281" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                         <variation key="heightClass=regular-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         </variation>

@@ -20,20 +20,18 @@ import UIKit
 
 class AccountDetailsViewController: UIViewController {
     
-    // MARK: - Properites
-    var account: Account? // This is where the Segue from the overviewViewController will pass its information
-    
     //MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var totalTextField: UITextField!
     @IBOutlet weak var accountTypeSegmentedControl: UISegmentedControl!
+    // MARK: - Properites
     
+    var account: Account?
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        updateViews()
+        setUpUI()
     }
 
     //MARK: - Actions
@@ -43,14 +41,24 @@ class AccountDetailsViewController: UIViewController {
 
     
     // MARK: - Methods
-    func updateViews() {
+    func setUpUI() {
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         // Check to see if there is an account
         guard let account = account else {return}
         
         // If there is an account update the views
         nameTextField.text = account.name
-        totalTextField.text = String(format: "%.2f", account.total)
+        var totalString = String(format: "%.2f", account.total)
+        totalString.insert("$", at: totalString.startIndex)
+        totalTextField.text = totalString
         accountTypeSegmentedControl.selectedSegmentIndex = updateAccountTypeSegment()
+    }
+    
+    @objc func dissmissKeyboard() {
+        self.view.endEditing(true)
     }
     
     private func checkSave() {
@@ -76,7 +84,7 @@ class AccountDetailsViewController: UIViewController {
             guard let name = nameTextField.text,
                 let total = totalTextField.text, !name.isEmpty, !total.isEmpty else {
                    // Alert the user that they must put something in the fields
-                    presentSimpleAlert(title: "Make sure to fill all fields!", message: "Got it")
+                    presentSimpleAlert(title: "Make sure to fill all fields!", message: "")
                     return
             }
             let accountType = checkToSeeWhichSegmentIsPressed()

@@ -76,7 +76,7 @@ class PlannedExpenseController {
     }
     
     // MARK: - Fetch from cloudKit
-    func fetchTransActionsFromCloudKit() {
+    func fetchPlannedExpensesFromCloudKit() {
         
         
         // Get all of the accounts

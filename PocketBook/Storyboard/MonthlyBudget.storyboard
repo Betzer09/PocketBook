@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -220,7 +221,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQT-fB-jY5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1924" y="-644"/>
+            <point key="canvasLocation" x="-1759" y="-629"/>
         </scene>
     </scenes>
 </document>

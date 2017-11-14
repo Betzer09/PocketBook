@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AccountController.shared.fetchAccountsFromCloudKit()
         BudgetItemController.shared.fetchBugetItemFromCloudKit()
         TransactionController.shared.fetchTransActionsFromCloudKit()
+        PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
         return true
     }
 
