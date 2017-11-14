@@ -94,7 +94,7 @@ func filterByCategoryIntoDictionary(forThisArray transactions:[Transaction]) -> 
     for category in categories {
         var categoryTotal = 0.0
         for transaction in transactions {
-            if transaction.catagory == category {
+            if transaction.category == category {
                 categoryTotal += transaction.amount
             }
         }
@@ -108,7 +108,7 @@ func filterByCategoryIntoArray(forCategory name: String, forThisArray transactio
     var internalFilteredTransactions: [Transaction] = []
     
     for transaction in transactions {
-        if transaction.catagory == name {
+        if transaction.category == name {
             internalFilteredTransactions.append(transaction)
         }
     }
