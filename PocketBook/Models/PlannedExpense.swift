@@ -18,6 +18,7 @@ class PlannedExpense {
     static let dueDateKey = "dueDate"
     static let initialAmountKey = "initialAmount"
     static let goalAmountKey = "goalAmount"
+/**/    static let incomeSavedKey = "incomeSaved"
     static let totalSavedKey = "totalSaved"
     
     // MARK: - Properties
@@ -27,24 +28,21 @@ class PlannedExpense {
     var dueDate: Date
     var initialAmount: Double
     var goalAmount: Double
-    var totalSaved: Double {
-        
-        
-        
-        
-        // initial amount Plus the income for the planned expense -> income dictionary
+/**/    var incomeSaved: Double
+    /// initial amount Plus the income for the planned expense -> income dictionary
+    var totalSaved: Double?
         // TODO: Create a income dictionary
-        return initialAmount + 0
-    }
     
     // MARK: - Init
-    init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double) {
+    init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double, incomeSaved: Double = 0) {
         
         self.name = name
         self.account = account
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
+        self.incomeSaved = incomeSaved
+        self.totalSaved = initialAmount + incomeSaved
         self.recordID = CKRecordID(recordName: UUID().uuidString)
         
     }
@@ -59,6 +57,7 @@ class PlannedExpense {
         record.setValue(dueDate, forKey: PlannedExpense.dueDateKey)
         record.setValue(initialAmount, forKey: PlannedExpense.initialAmountKey)
         record.setValue(goalAmount, forKey: PlannedExpense.goalAmountKey)
+/**/        record.setValue(incomeSaved, forKey: PlannedExpense.incomeSavedKey)
         record.setValue(totalSaved, forKey: PlannedExpense.totalSavedKey)
         
         return record
@@ -73,14 +72,15 @@ class PlannedExpense {
             let dueDate = cloudKitRecord[PlannedExpense.dueDateKey] as? Date,
             let initialAmount = cloudKitRecord[PlannedExpense.initialAmountKey] as? Double,
             let goalAmount = cloudKitRecord[PlannedExpense.goalAmountKey] as? Double,
+/**/            let incomeSaved = cloudKitRecord[PlannedExpense.incomeSavedKey] as? Double,
             let totalSaved = cloudKitRecord[PlannedExpense.totalSavedKey] as? Double else {return nil}
-        
         
         self.name = name
         self.account = account
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
+/**/        self.incomeSaved = incomeSaved
         self.totalSaved = totalSaved
         self.recordID = cloudKitRecord.recordID
     }

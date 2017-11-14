@@ -11,7 +11,7 @@ import UIKit
 
 //>> Needs a cell delegate?? <<
 //Need a way to calculate totalSaved where? model controller?
-//    let totalSaved = initialAmount + transactions??
+//    let totalSaved = initialAmount + add button amounts??
 
 
 class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseTableViewCellDelegate {
@@ -55,8 +55,8 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
         
         cell.plannedExpense = plannedExpense
-        cell.delegate = self
-        cell.updateViews()
+//        cell.delegate = self
+//        cell.updateViews()
         
         return cell
     }

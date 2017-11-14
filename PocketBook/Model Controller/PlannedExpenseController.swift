@@ -39,7 +39,6 @@ class PlannedExpenseController {
             return
             
         }
-        
     }
     
     
@@ -50,6 +49,8 @@ class PlannedExpenseController {
         plannedExpense.account = account
         plannedExpense.initialAmount = initialAmount
         plannedExpense.goalAmount = goalAmount
+/*        plannedExpense.incomeSaved = incomeSaved
+*/        plannedExpense.totalSaved = totalSaved
         plannedExpense.dueDate = dueDate
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
@@ -78,7 +79,6 @@ class PlannedExpenseController {
     // MARK: - Fetch from cloudKit
     func fetchPlannedExpensesFromCloudKit() {
         
-        
         // Get all of the accounts
         let predicate = NSPredicate(value: true)
         
@@ -96,10 +96,9 @@ class PlannedExpenseController {
             guard let records = records else {return}
             
             // Send the accounts through the cloudKit Initilizer
-            let plannedExpense = records.flatMap( {PlannedExpense(cloudKitRecord: $0)})
+            let plannedExpense = records.flatMap( { PlannedExpense(cloudKitRecord: $0)})
             
             self.plannedExpenses = plannedExpense
         }
     }
-    
 }
