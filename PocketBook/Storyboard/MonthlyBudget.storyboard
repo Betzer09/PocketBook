@@ -231,10 +231,10 @@
             </objects>
             <point key="canvasLocation" x="-938.39999999999998" y="-629.2353823088456"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Monthly Budget-->
         <scene sceneID="tUR-Fc-4H7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7vX-lX-jh0" sceneMemberID="viewController">
+                <navigationController title="Monthly Budget" automaticallyAdjustsScrollViewInsets="NO" id="7vX-lX-jh0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h0I-C1-ihB">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

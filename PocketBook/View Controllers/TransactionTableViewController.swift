@@ -302,7 +302,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         for transaction in allTransactions {
             if categorySelection == "All" {
                  internalFilteredTransactions = allTransactions
-            } else if transaction.catagory == categorySelection {
+            } else if transaction.category == categorySelection {
                 internalFilteredTransactions.append(transaction)
             }
         }

@@ -20,7 +20,7 @@ class CategroyTableViewCell: UITableViewCell {
         guard let totalAlloted = budgetItem.totalAllotted else {return}
         categoryNameLabel.text = budgetItem.name
         configureProgressBar(withBudgetItem: budgetItem)
-        progressBarDescriptionLabel.text = "\(budgetItem.spentTotal) / \(totalAlloted)"
+        progressBarDescriptionLabel.text = "$\(budgetItem.spentTotal) / $\(totalAlloted)"
     }
     
     func configureProgressBar(withBudgetItem budgetItem: BudgetItem ) {
@@ -28,9 +28,8 @@ class CategroyTableViewCell: UITableViewCell {
         self.progressBar.progressTintColor = .red
         progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
         // This is just for testing purposes 
-        self.progressBar.progress = Float(10) / Float(budgetItem.allottedAmount)
-        
-//        self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
+//        self.progressBar.progress = Float(10) / Float(budgetItem.allottedAmount)
+        self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
     }
     
 }
