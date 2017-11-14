@@ -24,10 +24,11 @@
 		23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */; };
 		23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */; };
 		23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */; };
-		92993C4C1FB3938F00D22373 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4B1FB3938F00D22373 /* Enums.swift */; };
+		9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255C39F1FBA8024002EBE5D /* Theme.swift */; };
+		9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255C3A31FBB5DFB002EBE5D /* Globals.swift */; };
+		9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F09B1FBA1AD700114CD1 /* Functions.swift */; };
 		92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4D1FB3AF0000D22373 /* LineGraphView.swift */; };
 		92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4F1FB3AF2300D22373 /* PieChartView.swift */; };
-		92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C511FB3AFFB00D22373 /* Arrays.swift */; };
 		92993C811FB4C43100D22373 /* AnaylsisPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C801FB4C43100D22373 /* AnaylsisPageViewController.swift */; };
 		92993C831FB4C44200D22373 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C821FB4C44200D22373 /* PieChartViewController.swift */; };
 		92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C841FB4C45600D22373 /* BudgetLineGraphViewController.swift */; };
@@ -75,10 +76,11 @@
 		23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewController.swift; sourceTree = "<group>"; };
 		23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
-		92993C4B1FB3938F00D22373 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		9255C39F1FBA8024002EBE5D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9255C3A31FBB5DFB002EBE5D /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		9291F09B1FBA1AD700114CD1 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		92993C4D1FB3AF0000D22373 /* LineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphView.swift; sourceTree = "<group>"; };
 		92993C4F1FB3AF2300D22373 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
-		92993C511FB3AFFB00D22373 /* Arrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrays.swift; sourceTree = "<group>"; };
 		92993C801FB4C43100D22373 /* AnaylsisPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaylsisPageViewController.swift; sourceTree = "<group>"; };
 		92993C821FB4C44200D22373 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		92993C841FB4C45600D22373 /* BudgetLineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetLineGraphViewController.swift; sourceTree = "<group>"; };
@@ -219,13 +221,14 @@
 		92993C4A1FB3936C00D22373 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				92993C4B1FB3938F00D22373 /* Enums.swift */,
 				92993C4D1FB3AF0000D22373 /* LineGraphView.swift */,
 				92993C4F1FB3AF2300D22373 /* PieChartView.swift */,
-				92993C511FB3AFFB00D22373 /* Arrays.swift */,
 				92993C881FB4C58300D22373 /* Keys.swift */,
 				92993C8A1FB4E1FA00D22373 /* Notifications.swift */,
 				92E6603E1FB5531500D871BE /* Test.swift */,
+				9291F09B1FBA1AD700114CD1 /* Functions.swift */,
+				9255C39F1FBA8024002EBE5D /* Theme.swift */,
+				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -357,7 +360,6 @@
 			files = (
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
 				23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */,
-				92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */,
 				92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */,
 				92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
@@ -366,7 +368,6 @@
 				92993C811FB4C43100D22373 /* AnaylsisPageViewController.swift in Sources */,
 				D3C5240F1FBA55E40064C5C9 /* DateHelper.swift in Sources */,
 				92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */,
-				92993C4C1FB3938F00D22373 /* Enums.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
 				23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */,
 				23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */,
@@ -382,12 +383,15 @@
 				232CD3EC1FB4ED5200AAFE8C /* CategroyTableViewCell.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
 				92993C831FB4C44200D22373 /* PieChartViewController.swift in Sources */,
 				92993C891FB4C58300D22373 /* Keys.swift in Sources */,
 				D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */,
+				9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */,
+				9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

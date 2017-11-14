@@ -120,5 +120,35 @@ class AccountController {
         
     }
     
+    // MARK: - Methods
+    func modifyAccountTotal(account: Account, transaction: Transaction, transactionType: TransactionType) {
+        
+        print("Account is currently at \(account.total)")
+        
+        if transactionType == .expense {
+            account.total = account.total - transaction.amount
+            print("$\(account.total) has been subtracted from \(account.name)")
+
+        } else {
+            account.total = account.total + transaction.amount
+            print("$\(account.total) has been added to \(account.name)")
+
+        }
+      
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
+            
+        }
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
 

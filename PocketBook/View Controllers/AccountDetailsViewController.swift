@@ -33,12 +33,12 @@ class AccountDetailsViewController: UIViewController {
         super.viewDidLoad()
         setUpUI()
     }
-
+    
     //MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         checkSave()
     }
-
+    
     
     // MARK: - Methods
     func setUpUI() {
@@ -62,40 +62,49 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func checkSave() {
+        let accountType = checkToSeeWhichSegmentIsPressed()
         
         // If there is an account update it
         if account != nil {
-            guard let name = nameTextField.text,
-            let total = Double(totalTextField.text!),
-            let account = account else {
-                presentSimpleAlert(title: "Error", message: "You entered an invalid Total Amount")
+            guard let name = nameTextField.text, let account = account, !name.isEmpty else {
+                presentSimpleAlert(title: "Error", message: "You need to give your account a name.")
                 return
             }
-            let accountType = checkToSeeWhichSegmentIsPressed()
             
-            AccountController.shared.updateAccountWith(name: name, type: accountType, total: total, account: account, completion: { (_) in
-                // TODO: Maybe change this in the AccountController
+            if let stringTotal = totalTextField.text?.dropFirst() {
                 
-                // Might need to add another notification to update the tableView
-            })
-            
+                guard let total = Double(stringTotal) else {
+                    self.presentSimpleAlert(title: "Error", message: "You have entered an invalid total.")
+                    return
+                }
+                
+                AccountController.shared.updateAccountWith(name: name, type: accountType, total: total, account: account, completion: { (_) in
+                    // TODO: Maybe change this in the AccountController                    
+                })
+            }
+
         } else {
             // If there isn't an account save it
-            guard let name = nameTextField.text,
-                let total = totalTextField.text, !name.isEmpty, !total.isEmpty else {
-                   // Alert the user that they must put something in the fields
-                    presentSimpleAlert(title: "Make sure to fill all fields!", message: "")
-                    return
+            guard let name = nameTextField.text, !name.isEmpty else {
+                
+                // Alert the user that they must put something in the fields
+                self.presentSimpleAlert(title: "Make sure to fill all fields!", message: "")
+                return
             }
-            let accountType = checkToSeeWhichSegmentIsPressed()
             
-            let totalDouble = Double(total)!
-            AccountController.shared.createAccount(name: name, type: accountType, total: totalDouble, completion: nil)
+            if let stringTotal = totalTextField.text?.dropFirst() {
+                guard let total = Double(stringTotal) else {
+                    self.presentSimpleAlert(title: "Error", message: "You have entered an invalid total.")
+                    return
+                }
+                
+                AccountController.shared.createAccount(name: name, type: accountType, total: total, completion: nil)
+            }
         }
         navigationController?.popViewController(animated: true)
     }
     
-   private func checkToSeeWhichSegmentIsPressed() -> String {
+    private func checkToSeeWhichSegmentIsPressed() -> String {
         
         if accountTypeSegmentedControl.selectedSegmentIndex == 0 {
             return "Checking"
@@ -128,7 +137,7 @@ class AccountDetailsViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
-
+    
 }
 
 

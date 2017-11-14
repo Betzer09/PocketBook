@@ -19,7 +19,7 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
             UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.plannedExpensesGraphVCIdentifer)
         ]
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -43,7 +43,7 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
     // MARK: - PageView DataSource
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let pageContentViewController = pageViewController.viewControllers?.first,
-        let currentPage = orderedViewControllers.index(of: pageContentViewController) else {return}
+            let currentPage = orderedViewControllers.index(of: pageContentViewController) else {return}
         self.pageControl.currentPage = currentPage
     }
     

@@ -24,13 +24,15 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Properties
     var transaction: Transaction?
+    var budgetItem: BudgetItem?
     
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
-
+        assignBudgetItem()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +96,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         case accountPicker:
             return AccountController.shared.accounts.count
         case categoryPicker:
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems
             return category.count
             
         default:
@@ -105,14 +107,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        
         switch pickerView {
         case accountPicker:
             let account = AccountController.shared.accounts[row]
             return account.name
         case categoryPicker:
             // Category is a combination between planned expense and budgetItem names
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
             return category[row]
             
         default:
@@ -131,7 +132,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             accountPicker.isHidden = true
             accountButton.isHidden = false
         case categoryPicker:
-            let category = combinedCategoryNames()
+            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
             categoryButton.setTitle(category[row], for: .normal)
             categoryPicker.isHidden = true
             categoryButton.isHidden = false
@@ -169,7 +170,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             payeeTextField.text = transaction.payee
             datePicker.date = transaction.date
             accountButton.setTitle(transaction.account, for: .normal)
-            categoryButton.setTitle(transaction.catagory, for: .normal)
+            categoryButton.setTitle(transaction.category, for: .normal)
             transactionType.selectedSegmentIndex = updateTransactionType()
         }
     }
@@ -185,7 +186,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - Keyboard Methods
-    // FIXME: Keyboard doesn't work on the iphone five
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
             let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -219,7 +219,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        amountTextField.text = "$"
+        
+        if textField == amountTextField {
+            amountTextField.text = "$"
+        }
     }
     
     
@@ -261,19 +264,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     
-    private func combinedCategoryNames() -> [String] {
-        
-        // Go though each budgetItem and grab the name
-        let budgetItemNames = AccountController.shared.accounts.map({ $0.name })
-        
-        let plannedExpenseNames = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
-        
-        // A category is a combination between planned expense and budget Items
-        let category = plannedExpenseNames + budgetItemNames
-        return category
-    }
-    
-    
     // This function returns a date as a date in the format "dd-MM-yyyy"
     private  func returnFormattedDate() -> Date {
         
@@ -297,42 +287,135 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Save Button Pressed
     private func saveTransaction() {
-        
         if transaction != nil {
-            // We want to update
-            guard let transaction = transaction,
-                let payee = payeeTextField.text,
-                let categoryButton = categoryButton.currentTitle,
-                let accountButton = accountButton.currentTitle,
-                let amount = amountTextField.text else {return}
             
-            guard let amountToSave = Double(amount.dropFirst()) else {
-                presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
-                return
+            var convertedAmount: Double?
+            guard let transaction = transaction, let budgetItem = budgetItem else {return}
+            
+            
+            if let amountString = amountTextField.text?.dropFirst() {
+                guard let amount = Double(amountString) else {return}
+                convertedAmount = amount
+                
             }
             
-            TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
-            })
+            if transaction.amount == convertedAmount {
+                // We want to update everything except the amount
+                guard let convertedAmount = convertedAmount else {return}
+                transaction.amount = convertedAmount - transaction.amount
+                print("Difference: \(transaction.amount)")
+                
+                let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+                let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+                
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+                
+            } else {
+                // Update everything including the amount
+                
+                guard let convertedAmount = convertedAmount else {return}
+                transaction.amount = convertedAmount - transaction.amount
+                print("Difference: \(transaction.amount)")
+                
+                let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+                let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+                
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+                
+            }
+            
+            updateTransaction()
             
         } else {
-            // We want to create
-            guard let payee = payeeTextField.text,
-                let categoryButton = categoryButton.currentTitle,
-                let accountButton = accountButton.currentTitle,
-                let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
-                    presentSimpleAlert(title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
-                    return
-            }
-            
-            guard let amountToSave = Double(amount.dropFirst()) else {
-                presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
-                return
-            }
-            
-            TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: nil )
+            createTransaction()
         }
         navigationController?.popViewController(animated: true)
     }
+    
+    ;private func createTransaction() {
+        // We want to create
+        guard let payee = payeeTextField.text,
+            let categoryButton = categoryButton.currentTitle,
+            let accountButton = accountButton.currentTitle,
+            let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
+                presentSimpleAlert(title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
+                return
+        }
+        
+        guard let amountToSave = Double(amount.dropFirst()) else {
+            presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+            return
+        }
+        
+        let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+
+        assignBudgetItem()
+        
+        TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (transaction) in
+            
+            guard let budgetItem = self.budgetItem else {return}
+            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+            
+        })
+
+    }
+    
+    private func updateTransaction() {
+        // We want to update
+        guard let transaction = transaction,
+            let payee = payeeTextField.text,
+            let categoryButton = categoryButton.currentTitle,
+            let accountButton = accountButton.currentTitle,
+            let amount = amountTextField.text else {return}
+        
+        guard let amountToSave = Double(amount.dropFirst()) else {
+            presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+            return
+        }
+        
+        assignBudgetItem()
+        
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
+        })
+    }
+    
+    private func assignBudgetItem() {
+        
+        let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
+        
+        // Check the name and see which object it is
+        let budgetItems = BudgetItemController.shared.budgetItems.map({ $0.name })
+        for name in budgetItems {
+            
+            if category.contains(name) {
+                // This is a budget item
+                let budgetItems = BudgetItemController.shared.budgetItems.filter({ $0.name == name })
+                budgetItem = budgetItems.first
+            }
+            
+        }
+        
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

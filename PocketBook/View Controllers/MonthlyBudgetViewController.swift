@@ -16,27 +16,42 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Properties
     var projectedIncome: Double?
+    var budgetItems: [BudgetItem] = []
+ 
+//    var budgetItems = [
+//        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
+//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
+//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
+//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
+//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
+//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
+//    ]
     
     // MARK: - Outlets
     @IBOutlet weak var plannedExpenseLabel: UILabel!
     @IBOutlet weak var amountLeftLabel: UILabel!
     @IBOutlet weak var totalSpentLabel: UILabel!
-    
+    @IBOutlet weak var superView: UIView!
+    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var whiteCircle: PieChartView!
+    @IBOutlet weak var legendView: UIView!
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.budgetItems = BudgetItemController.shared.budgetItems
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
-        
+        updatePieChartAndLegendView()
+        view.setNeedsDisplay()
     }
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
             // FIXME: this uses a lot of cpu
 //                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
-            
+            self.updatePieChartAndLegendView()
+            self.view.setNeedsDisplay()
             self.categoryTableView.reloadData()
         }
     }
@@ -154,6 +169,18 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         view.endEditing(true)
     }
     
+    // MARK: - Setup PieChart
+    func updatePieChartAndLegendView() {
+        var filteredDictionary: [String: Double] = [:]
+        for budgetItem in budgetItems {
+            let name = budgetItem.name
+            let amount = budgetItem.spentTotal
+            filteredDictionary[name] = amount
+        }
+        PieChartView.shared.createLegendView(fromView: legendView)
+        PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
+        PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
+    }
 }
 
 // MARK: - Textfield Delegate Functions

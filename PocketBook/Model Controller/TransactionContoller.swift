@@ -54,7 +54,7 @@ class TransactionController {
         func updateTransactionWith(transaction: Transaction, date: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
             
             transaction.date = date
-            transaction.catagory = category
+            transaction.category = category
             transaction.payee = payee
             transaction.transactionType = transactionType
             transaction.amount = amount

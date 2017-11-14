@@ -22,17 +22,16 @@ class BudgetItem {
     let recordID: CKRecordID
     var spentTotal: Double
     var name: String // Category
-    let allottedAmount: Double
-    var totalAllotted: Double? {
-        // Takes the allotted amount and adds that to the amount of income for that budget item Optional
-        // TODO: Add the income for the budget
-        return allottedAmount + 0
-    }
+    
+    /// This should only be modified by the user not the developer! If changes need to be made do it to the totalAllotted.
+    var allottedAmount: Double
+    var totalAllotted: Double?
     
     init(spentTotal: Double, name: String, allottedAmount: Double) {
         self.spentTotal = spentTotal
         self.name = name
         self.allottedAmount = allottedAmount
+        self.totalAllotted = allottedAmount
         self.recordID = CKRecordID(recordName: UUID().uuidString)
     }
     
@@ -58,6 +57,7 @@ class BudgetItem {
         self.name = name
         self.spentTotal = spentTotal
         self.allottedAmount = allottedAmount
+        self.totalAllotted = totalAllotted
         self.recordID = cloudKitRecord.recordID
     }
     
