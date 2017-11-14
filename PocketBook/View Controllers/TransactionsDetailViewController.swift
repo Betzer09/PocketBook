@@ -24,12 +24,14 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Properties
     var transaction: Transaction?
+    var budgetItem: BudgetItem?
     
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
+        assignBudgetItem()
         
     }
     
@@ -285,78 +287,117 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Save Button Pressed
     private func saveTransaction() {
-        
         if transaction != nil {
-            // We want to update
-            guard let transaction = transaction,
-                let payee = payeeTextField.text,
-                let categoryButton = categoryButton.currentTitle,
-                let accountButton = accountButton.currentTitle,
-                let amount = amountTextField.text else {return}
             
-            guard let amountToSave = Double(amount.dropFirst()) else {
-                presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
-                return
-            }
+            var convertedAmount: Double?
+            guard let transaction = transaction, let budgetItem = budgetItem else {return}
             
             
-            let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
-            
-            let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-            let budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-            
-            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
-            
-            TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
-            })
-            
-        } else {
-            // We want to create
-            guard let payee = payeeTextField.text,
-                let categoryButton = categoryButton.currentTitle,
-                let accountButton = accountButton.currentTitle,
-                let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
-                    presentSimpleAlert(title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
-                    return
-            }
-            
-            guard let amountToSave = Double(amount.dropFirst()) else {
-                presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
-                return
-            }
-            
-            let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
-            
-            let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-            
-            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
-            
-            // Check the name and see which object it is
-            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
-            
-            var budgetItem: BudgetItem?
-            
-            for name in plannedExpenses {
-                
-                if category.contains(name) {
-                    // This is a budget item
-                    let budgetItems = BudgetItemController.shared.budgetItems.filter({ $0.name == name })
-                    budgetItem = budgetItems.first
-                }
+            if let amountString = amountTextField.text?.dropFirst() {
+                guard let amount = Double(amountString) else {return}
+                convertedAmount = amount
                 
             }
             
-            
-            TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (transaction) in
+            if transaction.amount == convertedAmount {
+                // We want to update everything except the amount
+                guard let convertedAmount = convertedAmount else {return}
+                transaction.amount = convertedAmount - transaction.amount
+                print("Difference: \(transaction.amount)")
                 
-                guard let budgetItem = budgetItem else {return}
+                let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+                let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+                
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
-            })
+            } else {
+                // Update everything including the amount
+                
+                guard let convertedAmount = convertedAmount else {return}
+                transaction.amount = convertedAmount - transaction.amount
+                print("Difference: \(transaction.amount)")
+                
+                let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+                let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+                
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+                
+            }
             
+            updateTransaction()
+            
+        } else {
+            createTransaction()
         }
         navigationController?.popViewController(animated: true)
     }
+    
+    ;private func createTransaction() {
+        // We want to create
+        guard let payee = payeeTextField.text,
+            let categoryButton = categoryButton.currentTitle,
+            let accountButton = accountButton.currentTitle,
+            let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
+                presentSimpleAlert(title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
+                return
+        }
+        
+        guard let amountToSave = Double(amount.dropFirst()) else {
+            presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+            return
+        }
+        
+        let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+
+        assignBudgetItem()
+        
+        TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (transaction) in
+            
+            guard let budgetItem = self.budgetItem else {return}
+            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+            
+        })
+
+    }
+    
+    private func updateTransaction() {
+        // We want to update
+        guard let transaction = transaction,
+            let payee = payeeTextField.text,
+            let categoryButton = categoryButton.currentTitle,
+            let accountButton = accountButton.currentTitle,
+            let amount = amountTextField.text else {return}
+        
+        guard let amountToSave = Double(amount.dropFirst()) else {
+            presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+            return
+        }
+        
+        assignBudgetItem()
+        
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
+        })
+    }
+    
+    private func assignBudgetItem() {
+        
+        let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
+        
+        // Check the name and see which object it is
+        let budgetItems = BudgetItemController.shared.budgetItems.map({ $0.name })
+        for name in budgetItems {
+            
+            if category.contains(name) {
+                // This is a budget item
+                let budgetItems = BudgetItemController.shared.budgetItems.filter({ $0.name == name })
+                budgetItem = budgetItems.first
+            }
+            
+        }
+        
+    }
+    
 }
 
 

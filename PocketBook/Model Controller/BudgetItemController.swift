@@ -125,7 +125,7 @@ class BudgetItemController {
         if transactionSegmentedControl.titleForSegment(at: transactionSegmentedControl.selectedSegmentIndex) == "Income" {
             transactionType = TransactionType.income
         } else {
-            transactionType = TransactionType.income
+            transactionType = TransactionType.expense
         }
         
         
@@ -142,20 +142,21 @@ class BudgetItemController {
         
         if transactionType == .expense {
             
-            guard let totalAllotted = budgetItem.totalAllotted else {return}
-            budgetItem.totalAllotted = totalAllotted - transaction.amount
             budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
             
             
         } else {
             
             guard let totalAllotted = budgetItem.totalAllotted else {return}
             budgetItem.totalAllotted = totalAllotted + transaction.amount
-            
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
         }
         
-    }
         
+        
+    }
+    
 }
 
 
