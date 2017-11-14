@@ -52,30 +52,34 @@
                                     <constraint firstItem="9vB-nF-C9F" firstAttribute="centerY" secondItem="Xid-Ia-6ly" secondAttribute="centerY" id="bAT-qU-DXp"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5J-wa-ZxH">
-                                <rect key="frame" x="0.0" y="144" width="375" height="523"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTt-wf-RtT">
+                                <rect key="frame" x="0.0" y="144" width="375" height="375"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-tN-kgc" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
                                         <rect key="frame" x="30" y="30" width="315" height="315"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVx-xU-z72" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
+                                                <rect key="frame" x="78.5" y="79" width="157.5" height="157.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="315" id="6eM-sC-wLU"/>
+                                            <constraint firstItem="mVx-xU-z72" firstAttribute="height" secondItem="wl3-tN-kgc" secondAttribute="height" multiplier="1/2" id="Jo6-Up-UZj"/>
+                                            <constraint firstItem="mVx-xU-z72" firstAttribute="centerY" secondItem="wl3-tN-kgc" secondAttribute="centerY" id="Na8-Wm-TTs"/>
                                             <constraint firstAttribute="width" secondItem="wl3-tN-kgc" secondAttribute="height" multiplier="1:1" id="Rv2-3h-536"/>
+                                            <constraint firstItem="mVx-xU-z72" firstAttribute="width" secondItem="wl3-tN-kgc" secondAttribute="width" multiplier="1/2" id="UGa-wW-ObD"/>
+                                            <constraint firstItem="mVx-xU-z72" firstAttribute="centerX" secondItem="wl3-tN-kgc" secondAttribute="centerX" id="eC1-JA-jBv"/>
                                         </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZY-P5-7gU">
-                                        <rect key="frame" x="0.0" y="375" width="375" height="148"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="wl3-tN-kgc" secondAttribute="bottom" constant="30" id="4uH-d1-4aK"/>
-                                    <constraint firstAttribute="trailing" secondItem="wl3-tN-kgc" secondAttribute="trailing" constant="30" id="AGf-Vz-0Fo"/>
-                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="leading" secondItem="v5J-wa-ZxH" secondAttribute="leading" constant="30" id="KED-3E-SZC"/>
-                                    <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="v5J-wa-ZxH" secondAttribute="leading" id="MpY-2X-Q8G"/>
-                                    <constraint firstAttribute="trailing" secondItem="9ZY-P5-7gU" secondAttribute="trailing" id="cMf-cF-z6W"/>
-                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="top" secondItem="v5J-wa-ZxH" secondAttribute="top" constant="30" id="gQu-Sh-Ozj"/>
-                                    <constraint firstAttribute="bottom" secondItem="9ZY-P5-7gU" secondAttribute="bottom" id="p4k-Td-vif"/>
+                                    <constraint firstAttribute="bottom" secondItem="wl3-tN-kgc" secondAttribute="bottom" constant="30" id="090-oW-qlK"/>
+                                    <constraint firstAttribute="height" priority="750" constant="375" id="Pd4-Ya-uSd"/>
+                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="top" secondItem="xTt-wf-RtT" secondAttribute="top" constant="30" id="boM-YZ-ru0"/>
+                                    <constraint firstItem="wl3-tN-kgc" firstAttribute="centerX" secondItem="xTt-wf-RtT" secondAttribute="centerX" id="ieJ-RX-Fjh"/>
                                 </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-fU-QG8">
@@ -84,18 +88,25 @@
                                     <constraint firstAttribute="height" constant="111" id="K8c-Y8-sEx"/>
                                 </constraints>
                             </pickerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZY-P5-7gU">
+                                <rect key="frame" x="0.0" y="519" width="375" height="148"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="0oS-zm-jMT"/>
-                            <constraint firstItem="v5J-wa-ZxH" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="2y1-U0-gKz"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="bottom" secondItem="0Wz-q2-BYV" secondAttribute="bottom" id="2wE-eW-EFR"/>
                             <constraint firstItem="0Wz-q2-BYV" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="top" id="5rO-eO-Njk"/>
-                            <constraint firstItem="v5J-wa-ZxH" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="bottom" id="J50-BI-ZZI"/>
-                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="bottom" secondItem="v5J-wa-ZxH" secondAttribute="bottom" id="Mp8-z3-OaT"/>
+                            <constraint firstItem="xTt-wf-RtT" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="bottom" id="JJN-tI-ieb"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="xTt-wf-RtT" secondAttribute="bottom" id="LWQ-jG-roG"/>
+                            <constraint firstItem="xTt-wf-RtT" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="NDG-nC-Uie"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="Oze-vy-rS2"/>
                             <constraint firstItem="Xid-Ia-6ly" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="RC6-Ln-vuz"/>
                             <constraint firstItem="XNB-fU-QG8" firstAttribute="top" secondItem="9vB-nF-C9F" secondAttribute="bottom" id="UfK-PN-KUg"/>
-                            <constraint firstItem="v5J-wa-ZxH" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="Vvi-i1-Q4Q"/>
                             <constraint firstItem="XNB-fU-QG8" firstAttribute="trailing" secondItem="9vB-nF-C9F" secondAttribute="trailing" id="Ywk-B7-PFr"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="fLl-A9-7Ba"/>
+                            <constraint firstItem="xTt-wf-RtT" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="lhN-GH-wAa"/>
                             <constraint firstItem="XNB-fU-QG8" firstAttribute="centerX" secondItem="y8R-1h-6yU" secondAttribute="centerX" id="sWq-Bu-BLJ"/>
                             <constraint firstItem="XNB-fU-QG8" firstAttribute="leading" secondItem="9vB-nF-C9F" secondAttribute="leading" id="va5-A1-Oj2"/>
                         </constraints>
@@ -105,14 +116,15 @@
                     <connections>
                         <outlet property="legendView" destination="9ZY-P5-7gU" id="eow-Mx-LZV"/>
                         <outlet property="pieChartView" destination="wl3-tN-kgc" id="Bbc-kI-Gai"/>
-                        <outlet property="superView" destination="v5J-wa-ZxH" id="F9E-lg-SgK"/>
+                        <outlet property="superView" destination="xTt-wf-RtT" id="xIc-mf-UL8"/>
                         <outlet property="timeFrameButton" destination="9vB-nF-C9F" id="Q9S-RX-s9y"/>
                         <outlet property="timeFramePickerView" destination="XNB-fU-QG8" id="Pt0-Lc-ayi"/>
+                        <outlet property="whiteCircle" destination="mVx-xU-z72" id="I6h-7Y-5bK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofr-Jo-zmB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1514" y="-1050"/>
+            <point key="canvasLocation" x="1512.8" y="-1050.224887556222"/>
         </scene>
         <!--Budget-->
         <scene sceneID="NyY-cS-RVx">

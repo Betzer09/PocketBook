@@ -22,7 +22,7 @@ let categories: [String] = [
 ]
 
 func createTransaction() -> Transaction? {
-    guard let date = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(10)))) else {return nil}
+    guard let date = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(365)))) else {return nil}
     let category = categories[Int(arc4random_uniform(UInt32(categories.count)))]
     let payee = "Walmart"
     let transActionType = "Expense"

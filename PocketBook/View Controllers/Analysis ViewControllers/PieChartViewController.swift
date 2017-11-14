@@ -16,13 +16,12 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
             filterTransactionsByTimeFrame()
             filterTransactionsByCategory()
             formatPieChartViewAndLegend()
+            formatInnerCircle()
             legendView.setNeedsDisplay()
         }
     }
     
     let calendar = Calendar.autoupdatingCurrent
-    // FOR TESTING
-    let transactions = loop(number: 40)
 //    let transactions: [Transaction] = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
     var filteredTransactionDictionary: [String: Double]?
@@ -56,12 +55,43 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         return month
     }
     
+    // FOR TESTING
+//    let transactions = [
+//        Transaction(date: Date(), category: "Food", payee: "Wal-Mart", transactionType: "expense", amount: 50.00, account: "Savings"),
+//        Transaction(date: Date(dateString: "2017-10-20"), category: "Gas", payee: "Chevron", transactionType: "expense", amount: 19.58, account: "Checking"),
+//        Transaction(date: Date(dateString: "2016-12-20"), category: "Clothes", payee: "Target", transactionType: "expense", amount: 400.30, account: "Credit Card"),
+//        Transaction(date: Date(dateString: "2017-01-01"), category: "CellPhone", payee: "Sprint", transactionType: "expense", amount: 99.00, account: "Checking"),
+//        Transaction(date: Date(dateString: "2017-10-15"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 47.39, account: "Checking"),
+//        Transaction(date: Date(dateString: "2017-11-02"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 28.34, account: "Checking")
+//    ]
+    
+    let transactions = loop(number: 30)
+    
+    let categories: [String] = [
+        "Food",
+        "Gas",
+        "Clothes",
+        "Household",
+        "CarPayment",
+        "CellPhone",
+        "TV/Internet",
+        "Emergency",
+        "Hospital Bills",
+        "Cats",
+        "Dogs",
+        "Parrot",
+        "Avacado",
+        "Julius"
+    ]
+    
     // MARK: - Outlets
-    @IBOutlet  var pieChartView: PieChartView!
-    @IBOutlet  var legendView: UIView!
-    @IBOutlet  var timeFrameButton: UIButton!
-    @IBOutlet  var timeFramePickerView: UIPickerView!
+    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var legendView: UIView!
+    @IBOutlet weak var timeFrameButton: UIButton!
+    @IBOutlet weak var timeFramePickerView: UIPickerView!
     @IBOutlet weak var superView: UIView!
+    @IBOutlet weak var whiteCircle: PieChartView!
+    
     
     // MARK: - Actions
     @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
@@ -74,7 +104,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         configureLegendView()
         setUpPickerViews()
         setUpTimeFrameVar()
-        createInnerCircle()
         view.setNeedsDisplay()
     }
     
@@ -130,14 +159,66 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
     }
     
-    // TODO FIX THIS CODE FOR THE DIFFERENT VIEWS
-    //
+    // MARK: - LEGEND AND PIE CHART
+    
+    // MARK: - Legend View
+    func configureLegendView() {
+        let frame = legendView.frame
+        let allStackViews = UIStackView(frame: frame)
+        legendView.addSubview(allStackViews)
+        let stackView1 = UIStackView(frame: frame)
+        let stackView2 = UIStackView(frame: frame)
+        allStackViews.addArrangedSubview(stackView1)
+        allStackViews.addArrangedSubview(stackView2)
+        
+        NSLayoutConstraint(item: allStackViews, attribute: .top, relatedBy: .equal, toItem: legendView, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: allStackViews, attribute: .bottom, relatedBy: .equal, toItem: legendView, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: allStackViews, attribute: .leading, relatedBy: .equal, toItem: legendView, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: allStackViews, attribute: .trailing, relatedBy: .equal, toItem: legendView, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        
+        configureStackView(stackView: allStackViews, distribution: .fillEqually)
+        configureStackView(stackView: stackView1, distribution: .fillProportionally)
+        configureStackView(stackView: stackView2, distribution: .fillProportionally)
+        
+        createNameAndColorStacks(inSuperView: stackView1)
+        createNameAndColorStacks(inSuperView: stackView2)
+    }
+    
+    func configureStackView(stackView: UIStackView, distribution: UIStackViewDistribution) {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8.0
+        stackView.distribution = distribution
+    }
+    
+    func createNameAndColorStacks(inSuperView stackView: UIStackView) {
+        let frame = legendView.frame
+        let nameStackView = UIStackView(frame: frame)
+        nameStackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(nameStackView)
+        nameStackView.axis = .vertical
+        nameStackView.spacing = 8.0
+        nameStackView.distribution = .fillEqually
+        
+        let colorStackView = UIStackView(frame: frame)
+        stackView.addArrangedSubview(colorStackView)
+        colorStackView.translatesAutoresizingMaskIntoConstraints = false
+        colorStackView.axis = .vertical
+        colorStackView.spacing = 8.0
+        colorStackView.distribution = .fillEqually
+        NSLayoutConstraint(item: colorStackView, attribute: .width, relatedBy: .equal, toItem: stackView, attribute: .width, multiplier: 1/4, constant: 0).isActive = true
+    }
+    
     // MARK: - Setup PieChart
     func formatPieChartViewAndLegend(){
-        guard let nameStackView = legendView.subviews[0].subviews[0] as? UIStackView,
-            let colorStackView = legendView.subviews[0].subviews[1] as? UIStackView else {return}
+        guard let nameStackView = legendView.subviews[0].subviews[0].subviews[0] as? UIStackView,
+            let colorStackView = legendView.subviews[0].subviews[0].subviews[1] as? UIStackView,
+            let nameStackView2 = legendView.subviews[0].subviews[1].subviews[0] as? UIStackView,
+            let colorStackView2 = legendView.subviews[0].subviews[1].subviews[1] as? UIStackView else {return}
         nameStackView.subviews.forEach { $0.removeFromSuperview() }
         colorStackView.subviews.forEach{ $0.removeFromSuperview() }
+        nameStackView2.subviews.forEach { $0.removeFromSuperview() }
+        colorStackView2.subviews.forEach{ $0.removeFromSuperview() }
 
         var colors: [UIColor] = [
             // Make Colors Array longer
@@ -153,78 +234,51 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         var segments: [Segment] = []
         var count = 0
         
+        guard let dictionary = filteredTransactionDictionary else {return}
         for catagory in categories {
-            guard let dictionary = filteredTransactionDictionary,
-            let value = dictionary[catagory] else {return}
+            
+            guard let value = dictionary[catagory], value != 0.0 else {continue}
+            
             if colors.count <= count {
                 let colorRandom = getRandomColor()
                 colors.append(colorRandom)
             }
             let color = colors[count]
             let segment = Segment(color: color, value: CGFloat(value))
-            let frame = CGRect(x: 0, y: 0, width: 50, height: 25)
+            segments.append(segment)
             
-            let nameLabel = UILabel(frame: frame)
-            nameStackView.addArrangedSubview(nameLabel)
-            nameLabel.text = catagory
-            nameLabel.textAlignment = .center
-            NSLayoutConstraint(item: nameLabel, attribute: .width, relatedBy: .equal, toItem: nameStackView, attribute: .width, multiplier: 1/2, constant: 0).isActive = true
-            
-            let colorLabel = UILabel(frame: frame)
-            colorStackView.addArrangedSubview(colorLabel)
-            colorLabel.text = ""
-            colorLabel.textAlignment = .center
-            colorLabel.backgroundColor = color
-            NSLayoutConstraint(item: colorLabel, attribute: .width, relatedBy: .equal, toItem: colorStackView, attribute: .width, multiplier: 1/4, constant: 0).isActive = true
+            if count % 2 == 0 {
+            addNameAndColorLabel(nameStackView: nameStackView, colorStackView: colorStackView, catagory: catagory, color: color)
+            }
+            else {
+                addNameAndColorLabel(nameStackView: nameStackView2, colorStackView: colorStackView2, catagory: catagory, color: color)
+            }
             
             count += 1
-            segments.append(segment)
+            }
+        
+        if count % 2 != 0 {
+            addNameAndColorLabel(nameStackView: nameStackView2, colorStackView: colorStackView2, catagory: "", color: .white)
         }
+        
         pieChartView.segments = segments
     }
     
-    func createInnerCircle() {
-        let frame = CGRect(x: 0, y: 0, width: pieChartView.frame.width/2, height: pieChartView.frame.height/2)
-        let whiteCircle = PieChartView(frame: frame)
-        whiteCircle.segments = [
-        Segment(color: .white, value: 1)
-        ]
-        pieChartView.addSubview(whiteCircle)
-        let x = pieChartView.frame.maxX/2
-        let y = pieChartView.frame.maxY/2
-        whiteCircle.center = CGPoint(x: x, y: y)
-    }
     
-    func configureLegendView() {
-        let frame = legendView.frame
-        let bothStackView = UIStackView(frame: frame)
-        legendView.addSubview(bothStackView)
-
-        NSLayoutConstraint(item: bothStackView, attribute: .top, relatedBy: .equal, toItem: legendView, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: bothStackView, attribute: .bottom, relatedBy: .equal, toItem: legendView, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: bothStackView, attribute: .leading, relatedBy: .equal, toItem: legendView, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: bothStackView, attribute: .trailing, relatedBy: .equal, toItem: legendView, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-
-        bothStackView.translatesAutoresizingMaskIntoConstraints = false
-        bothStackView.axis = .horizontal
-        bothStackView.spacing = 8.0
-        bothStackView.distribution = .fillEqually
+    func addNameAndColorLabel(nameStackView: UIStackView, colorStackView: UIStackView, catagory: String, color: UIColor) {
+        let frame = CGRect(x: 0, y: 0, width: 50, height: 25)
         
-        let nameStackView = UIStackView(frame: frame)
-        nameStackView.translatesAutoresizingMaskIntoConstraints = false
-        bothStackView.insertArrangedSubview(nameStackView, at: 0)
-        nameStackView.axis = .vertical
-        nameStackView.spacing = 8.0
-        nameStackView.distribution = .fillEqually
-        nameStackView.alignment = .trailing
+        let nameLabel = UILabel(frame: frame)
+        nameStackView.addArrangedSubview(nameLabel)
+        nameLabel.text = catagory
+        nameLabel.textAlignment = .right
+//        NSLayoutConstraint(item: nameLabel, attribute: .width, relatedBy: .equal, toItem: nameStackView, attribute: .width, multiplier: 1, constant: 0).isActive = true
         
-        let colorStackView = UIStackView(frame: frame)
-        bothStackView.insertArrangedSubview(colorStackView, at: 1)
-        colorStackView.translatesAutoresizingMaskIntoConstraints = false
-        colorStackView.axis = .vertical
-        colorStackView.spacing = 8.0
-        colorStackView.distribution = .fillEqually
-        colorStackView.alignment = .leading
+        let colorLabel = UILabel(frame: frame)
+        colorStackView.addArrangedSubview(colorLabel)
+        colorLabel.text = "     "
+        colorLabel.textAlignment = .center
+        colorLabel.backgroundColor = color
     }
     
     func getRandomColor() -> UIColor{
@@ -233,6 +287,18 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let randomBlue:CGFloat = CGFloat(drand48())
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     }
+    
+    // MARK: - White Circle
+    func formatInnerCircle() {
+        let segments = [
+        Segment(color: .white, value: 1)
+        ]
+        whiteCircle.segments = segments
+        whiteCircle.backgroundColor = .clear
+    }
+    
+    
+    
     
     // MARK: - Filter Transactions
     func filterTransactionsByTimeFrame(){
