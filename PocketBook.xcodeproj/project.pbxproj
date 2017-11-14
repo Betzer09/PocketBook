@@ -24,6 +24,7 @@
 		23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */; };
 		23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */; };
 		23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */; };
+		9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F09B1FBA1AD700114CD1 /* Functions.swift */; };
 		92993C4C1FB3938F00D22373 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4B1FB3938F00D22373 /* Enums.swift */; };
 		92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4D1FB3AF0000D22373 /* LineGraphView.swift */; };
 		92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4F1FB3AF2300D22373 /* PieChartView.swift */; };
@@ -74,6 +75,7 @@
 		23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewController.swift; sourceTree = "<group>"; };
 		23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
+		9291F09B1FBA1AD700114CD1 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		92993C4B1FB3938F00D22373 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		92993C4D1FB3AF0000D22373 /* LineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphView.swift; sourceTree = "<group>"; };
 		92993C4F1FB3AF2300D22373 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				92993C881FB4C58300D22373 /* Keys.swift */,
 				92993C8A1FB4E1FA00D22373 /* Notifications.swift */,
 				92E6603E1FB5531500D871BE /* Test.swift */,
+				9291F09B1FBA1AD700114CD1 /* Functions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				232CD3EC1FB4ED5200AAFE8C /* CategroyTableViewCell.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,

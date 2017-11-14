@@ -10,7 +10,7 @@ import Foundation
 import CloudKit
 
 
-class Transaction {
+class Transaction: Hashable, Equatable { //
     
     // MARK: - Keys
     static let recordType = "Transaction"
@@ -29,6 +29,10 @@ class Transaction {
     var amount: Double
     var account: String
     var recordID: CKRecordID
+    var hashValue: Int { get {
+        return recordID.hashValue
+        }
+    }
     
     init(date: Date, category: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
         self.date = date
@@ -71,4 +75,9 @@ class Transaction {
         self.account = account
         self.recordID = cloudKitRecord.recordID
     }
+}
+
+// Equatable
+func ==(lhs: Transaction, rhs: Transaction) -> Bool {
+    return lhs.recordID == rhs.recordID
 }
