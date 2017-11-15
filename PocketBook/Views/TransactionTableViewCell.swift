@@ -9,7 +9,7 @@
 import UIKit
 
 class TransactionTableViewCell: UITableViewCell {
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -39,7 +39,7 @@ class TransactionTableViewCell: UITableViewCell {
             self.updateViews()
         }
     }
-
+    
     // MARK: - Properties
     
     @IBOutlet weak var payeeLabel: UILabel!

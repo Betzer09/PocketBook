@@ -23,7 +23,7 @@ func presentSimpleAlert(controllerToPresentAlert vc: UIViewController, title: St
     vc.present(alert, animated: true, completion: nil)
 }
 
-// MARK: - DateComponents Functions
+// MARK: - Date Functions
 func dateComponentMonth(date: Date) -> Int {
     let dateComponents = calendar.dateComponents([.month], from: date)
     guard let month = dateComponents.month else {return 0}
@@ -35,6 +35,46 @@ func dateComponentYear(date: Date) -> Int {
     guard let year = dateComponents.year else {return 0}
     return year
 }
+
+//DATE FORMATTING - Get rid of only if able to change date formatting?
+func returnFormattedDate(date: Date) -> Date {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MMMM yyyy"
+    let strDate = dateFormatter.string(from: date)
+    let formattedDate: Date? = dateFormatter.date(from: strDate)
+    return formattedDate ?? Date()
+}
+
+// This function return a date as a String in the format "dd-MM-yyyy"
+func returnFormattedDateString(date: Date) -> String {
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MMM dd, yyyy"
+    let strDate = dateFormatter.string(from: date)
+    return strDate
+    
+}
+
+// MARK: - Conversion Functions
+func convertStringToTransactionType (string: String) -> TransactionType {
+    var transactionType: TransactionType
+    switch string {
+    case TransactionType.income.rawValue:
+        transactionType = TransactionType.income
+    case TransactionType.expense.rawValue:
+        transactionType = TransactionType.expense
+    case TransactionType.removeExpense.rawValue:
+        transactionType = TransactionType.removeExpense
+    case TransactionType.removeIncome.rawValue:
+        transactionType = TransactionType.removeIncome
+    case TransactionType.all.rawValue:
+        transactionType = TransactionType.all
+    default:
+        fatalError("String did not match any raw Value of the Enum")
+    }
+    return transactionType
+}
+
 
 // MARK: - Filter Functions
 func filterByTimeFrame(withTimeVariable timeFrame: String, forThisArray transactions: [Transaction]) -> [Transaction] {
@@ -106,6 +146,10 @@ func filterByCategoryIntoDictionary(forThisArray transactions:[Transaction]) -> 
 
 func filterByCategoryIntoArray(forCategory name: String, forThisArray transactions: [Transaction]) -> [Transaction] {
     var internalFilteredTransactions: [Transaction] = []
+    guard name != "All" else {
+        internalFilteredTransactions = transactions
+        return internalFilteredTransactions
+    }
     
     for transaction in transactions {
         if transaction.category == name {
@@ -115,6 +159,39 @@ func filterByCategoryIntoArray(forCategory name: String, forThisArray transactio
     return internalFilteredTransactions
 }
 
+func filterByTransactionType(byThisType selectedControl: String, forThisArray transactions: [Transaction]) -> [Transaction] {
+    var internalFilteredTransactions: [Transaction] = []
+    for transaction in transactions {
+        if selectedControl == "All" {
+            internalFilteredTransactions = transactions
+        } else if transaction.transactionType == selectedControl {
+            internalFilteredTransactions.append(transaction)
+        }
+    }
+    return internalFilteredTransactions
+}
+
+func checkWhichControlIsPressed(segmentedControl: UISegmentedControl, type1: SegmentedControlType, type2: SegmentedControlType, type3: SegmentedControlType? = nil ) -> String {
+    var currentSegmentedControlSelection = ""
+    let index = segmentedControl.selectedSegmentIndex
+    let title = segmentedControl.titleForSegment(at: index)
+
+    if title == type1.rawValue {
+        currentSegmentedControlSelection = type1.rawValue
+    }
+    if title == type2.rawValue {
+        currentSegmentedControlSelection = type2.rawValue
+    }
+    if let type3 = type3 {
+        if title == type3.rawValue {
+            currentSegmentedControlSelection = "Expense"
+        }
+    }
+    else {
+        fatalError("There was not a correct type given in the function.")
+    }
+    return currentSegmentedControlSelection
+}
 
 // MARK: - Fetch Functions
 func getAllBudgetItemNames() -> [String] {

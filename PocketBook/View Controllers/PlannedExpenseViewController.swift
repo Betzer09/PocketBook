@@ -51,7 +51,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     //MARK: - Properties
     let calendar = Calendar.autoupdatingCurrent
-
+    
     var plannedExpense: PlannedExpense? {
         didSet {
             if isViewLoaded { updateViews() }
@@ -93,36 +93,38 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     
     //MARK: - Actions
+    // MARK: - ??????
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let account = txtAccountPicker.text,
             let name = nameTextField.text,
             let initialAmount = Double(initialAmountTextField.text!),
             let goalAmount = Double(goalAmountTextField.text!),
-//            let dueDate = txtDatePicker.text,
+            //            let dueDate = txtDatePicker.text,
             let totalSaved = plannedExpense?.totalSaved
-//            let idealMonthlyContributionAmount = idealMonthlyContributionAmountLabel.text
+            //            let idealMonthlyContributionAmount = idealMonthlyContributionAmountLabel.text
             else { return }
-        if plannedExpense == nil {
-            PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: returnFormattedDate(), completion: { (_) in
-                let plannedExpense = self.plannedExpense
+        let date = dueDateDatePicker.date
+        
+        guard let plannedExpense = self.plannedExpense else {
+            PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount,goalAmount: goalAmount, dueDate: returnFormattedDate(date: date), completion: { (_) in
+//                let plannedExpense = self.plannedExpense
+                self.navigationController?.popViewController(animated: true)
             })
-        } else {
-            
-            guard let plannedExpense = self.plannedExpense else { return }
-            
-            PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, /*incomeSaved: incomeSaved,*/ totalSaved: totalSaved, dueDate: returnFormattedDate(), plannedExpense: plannedExpense, completion: { (_) in
-                guard let plannedExpense = self.plannedExpense else { return }
-            })
+            return
         }
+        
+        PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, /*incomeSaved: incomeSaved,*/ totalSaved: totalSaved, dueDate: returnFormattedDate(date: date), plannedExpense: plannedExpense, completion: { (_) in
+//            guard let plannedExpense = self.plannedExpense else { return }
+        })
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func depositButtonTapped(_ sender: Any) {
-        setUpDepositAlertController()
+        presentDepositAlert()
     }
     
     @IBAction func withdrawButtonTapped(_ sender: Any) {
-        setUpWithdrawalAlertController()
+        presentWithdrawalAlert()
     }
     
     @IBAction func completeButtonTapped(_ sender: Any) {
@@ -135,13 +137,13 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func updateProgressBar() {
         //progress bar progress = plannedExpense?.incomeSaved()
-        let depositAmount = depositAmountTextField?.text
-        let withdrawalAmount = withdrawalAmountTextField?.text
-//        let incomeSavedSaved = depositAmount - withdrawalAmount
+//        let depositAmount = depositAmountTextField?.text
+//        let withdrawalAmount = withdrawalAmountTextField?.text
+        //        let incomeSavedSaved = depositAmount - withdrawalAmount
     }
     
     //Deposit Alert
-    func setUpDepositAlertController() {
+    func presentDepositAlert() {
         
         let depositAlertController = UIAlertController(title: "Deposit", message: "How much money do you want to deposit into your planned expense?", preferredStyle: .alert)
         depositAlertController.addTextField { (textField) in
@@ -155,7 +157,6 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             //adds an amount to the plannedExpenses array?
             //populates updated progress bar & segues to TVC
             //incomeSaved
-
         }
         
         depositAlertController.addAction(addAction)
@@ -169,7 +170,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     //Withdrawal Alert
-    func setUpWithdrawalAlertController() {
+    func presentWithdrawalAlert() {
         
         let withdrawalAlertController = UIAlertController(title: "Withdrawal", message: "How much money do you want to withdraw from your planned expense savings?", preferredStyle: .alert)
         withdrawalAlertController.addTextField { (textField) in
@@ -210,7 +211,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var stringArray = AccountController.shared.accounts.map { $0.name }
+//        var stringArray = AccountController.shared.accounts.map { $0.name }
     }
     
     func setPickerDelegates() {
@@ -234,10 +235,10 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @objc func doneAccountPicker() {
-        var accountNameArray = AccountController.shared.accounts.map { $0.name }
+        let accountNameArray = AccountController.shared.accounts.map { $0.name }
         ///want indexPath.row to display like //let noteDetail = NoteDetailController.sharedInstance.noteDetails[indexPath.row]
-
-        var accountName = accountNameArray
+        
+        let accountName = accountNameArray
         txtAccountPicker.text = "\(accountName)"
         self.view.endEditing(true)
     }
@@ -245,7 +246,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     @objc func cancelAccountPicker() {
         self.view.endEditing(true)
     }
-
+    
     //MARK: - DATE PICKER
     /*NOTE - if we want to make the PICKER to be month & year only, it has to be a custom picker, not a date picker*/
     
@@ -276,16 +277,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     @objc func cancelDatePicker() {
         self.view.endEditing(true)
     }
-
-    //DATE FORMATTING - Get rid of only if able to change date formatting?
-    private  func returnFormattedDate() -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM yyyy"
-        let strDate = dateFormatter.string(from: dueDateDatePicker.date)
-        let date: Date? = dateFormatter.date(from: strDate)
-        return date ?? Date()
-        
-    }
+    
     
     //MARK: - Text Field Properties
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -13,12 +13,12 @@ import UIKit
 //Need a way to calculate totalSaved where? model controller?
 //    let totalSaved = initialAmount + add button amounts??
 
-
 class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseTableViewCellDelegate {
     
     //MARK: - Outlets
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     
+    //MARK: ??????
     //MARK: - Properties
     var plannedExpense: PlannedExpense? {
         didSet {
@@ -39,10 +39,10 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     
     //MARK: - Functions
     private func updateViews() {
-        guard let plannedExpense = plannedExpense else { return }
-        //        totalIdealMonthlyContributionLabel.text = plannedExpense.Sum of planned expenses ideal monthly contributions
+//        guard let plannedExpense = plannedExpense else { return }
+        // MARK: - ??????
+//         totalIdealMonthlyContributionLabel.text = plannedExpense
     }
-    
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,12 +74,10 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "toPersistedPlannedExpenseSegue" {
             guard let destinationVC = segue.destination as? PlannedExpenseViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             destinationVC.plannedExpense = plannedExpense
-            
         }
     }
 }

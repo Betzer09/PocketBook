@@ -9,6 +9,7 @@
 import UIKit
 
 class TransactionTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
     
     // MARK: - Outlets
     
@@ -24,25 +25,17 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpInitialTableView()
         self.picker.dataSource = self
         self.picker.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
-       
+        self.categorySelection = "All"
+        self.timeframeSelection = "All"
+        self.setUpTableView()
     }
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-    }
-    
-    // MARK: - Eventually Delete
-    enum TimeFrame: String {
-        case all = "All"
-        case thisMonth = "This Month"
-        case lastMonth = "Last Month"
-        case yearToDate = "Year to Current Date"
-        case pastYear = "Past Year"
     }
     
     // MARK: Properties
@@ -52,44 +45,20 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     // UIPicker Properties: All properties that are used by the UIPickers
     var categorySelection: String? // Value selected by UIPicker. This updates each time a value from the picker is selected
     var timeframeSelection: String?  // Value selected by UIPicker. This updates each time a value from the picker is selected
-    let calendar = Calendar.autoupdatingCurrent
-    
-    var currentYear: Int? {
-        let current = calendar.dateComponents([.year, .month], from: Date())
-        guard let year = current.year else {return nil}
-        return year
-    }
-    var currentMonth: Int? {
-        let current = calendar.dateComponents([.year, .month], from: Date())
-        guard let month = current.month else {return nil}
-        return month
-    }    
     
     // MARK: - Actions
     
     /// This function is run when the view first loads and the user hasn't made any selections
-    func setUpInitialTableView() {
-        self.categorySelection = "All"
-        self.timeframeSelection = "All"
-        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
-        let filterByCategory = Set(filterTransactionsByCategory())
-        let filterByTransactionType = Set(filterTransactionsByTransactionType())
-        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
-        let filteredTransactionsArray = Array(filterAllSets)
-        let filteredByDateTransactionsArray = filteredTransactionsArray.sorted(by: { $0.date > $1.date })
-        self.filteredTransactions = filteredByDateTransactionsArray
-        self.tableView.reloadData()
-    }
-    
-    /// This function is run everytime a user changes any of the controls to resort the tableview. This function is called everyaction method connected to the segmented control & picker.
     func setUpTableView() {
-        let filteredByTimeFrame = Set(filterTransactionsByTimeFrame())
-        let filterByCategory = Set(filterTransactionsByCategory())
-        let filterByTransactionType = Set(filterTransactionsByTransactionType())
-        let filterAllSets = filteredByTimeFrame.intersection(filterByCategory).intersection(filterByTransactionType)
-        let filteredTransactionsArray = Array(filterAllSets)
-        let filteredByDateTransactionsArray = filteredTransactionsArray.sorted(by: { $0.date > $1.date })
-        self.filteredTransactions = filteredByDateTransactionsArray
+        guard let timeframeSelection = timeframeSelection,
+            let categorySelection = categorySelection else {return}
+        let transactions = TransactionController.shared.transactions
+        let transactionType = checkWhichControlIsPressed(segmentedControl: segmentedControl, type1: .all, type2: .income, type3: .expense)
+        let filteredByTransactionType = filterByTransactionType(byThisType: transactionType, forThisArray: transactions)
+        let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeframeSelection, forThisArray: filteredByTransactionType)
+        let filteredByCategory = filterByCategoryIntoArray(forCategory: categorySelection, forThisArray: filteredByTimeFrame)
+        let filteredByDate = filteredByCategory.sorted(by: { $0.date > $1.date })
+        self.filteredTransactions = filteredByDate
         self.tableView.reloadData()
     }
     
@@ -97,20 +66,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
         setUpTableView()
     }
-    
-    /// This function checks to see which segmented control is currently pressed and returns a string value matching the segmented control
-    func checkWhichControlIsPressed() -> String {
-        var currentSegmentedControlSelection = String()
-        if segmentedControl.selectedSegmentIndex == 0 {
-            currentSegmentedControlSelection = "All"
-        } else if
-            segmentedControl.selectedSegmentIndex == 1 {
-            currentSegmentedControlSelection = "Income"
-        } else {
-            currentSegmentedControlSelection = "Expense"
-        }
-        return currentSegmentedControlSelection
-    }
+
     
     // MARK: - UIPicker
     func setUpPicker() -> ([String], [String]) {
@@ -119,7 +75,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         
         var transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         transactionCategories.insert("All", at: 0)
-   
+        
         
         let combined: ([String], [String]) = (times.map({$0.rawValue}), transactionCategories)
         
@@ -148,7 +104,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             return  setUpPicker().1[row]
         }
     }
-    
+    // MARK: - ??????
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         // Set up the controls that the user will use to filter tableview
@@ -223,107 +179,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             reloadTableView()
         }
     }
-    
-    // MARK: - Filters
-    
-    func filterTransactionsByTimeFrame() -> [Transaction] {
-        
-        guard let text = timeframeSelection else { return [] }
-        var internalFilteredTransactions: [Transaction] = []
-        let allTransactions = TransactionController.shared.transactions
-        switch text {
-        case TimeFrame.pastYear.rawValue:
-            for transaction in allTransactions {
-                guard let month = currentMonth,
-                    let year = currentYear else { return [] }
-                let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
-                guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else { return [] }
-                if dateYear == year {
-                    if dateMonth <= month {
-                        internalFilteredTransactions.append(transaction)
-                    }
-                }
-                if dateYear == (year - 1) {
-                    if dateMonth > month {
-                        internalFilteredTransactions.append(transaction)
-                    }
-                }
-            }
-        case TimeFrame.yearToDate.rawValue:
-            for transaction in allTransactions {
-                guard let month = currentMonth,
-                    let year = currentYear else { return [] }
-                let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
-                guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else { return [] }
-                if dateYear == year {
-                    if dateMonth <= month {
-                        internalFilteredTransactions.append(transaction)
-                    }
-                }
-            }
-        case TimeFrame.lastMonth.rawValue:
-            for transaction in allTransactions {
-                guard let month = currentMonth,
-                    let year = currentYear else { return [] }
-                let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
-                guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else { return [] }
-                if dateYear == year {
-                    if dateMonth == (month - 1) {
-                        internalFilteredTransactions.append(transaction)
-                    }
-                }
-            }
-        case TimeFrame.thisMonth.rawValue:
-            for transaction in allTransactions {
-                guard let month = currentMonth,
-                    let year = currentYear else { return [] }
-                let calendarDate = calendar.dateComponents([.year, .month], from: transaction.date)
-                guard let dateMonth = calendarDate.month,
-                    let dateYear = calendarDate.year else { return [] }
-                if dateYear == year {
-                    if dateMonth == month {
-                        internalFilteredTransactions.append(transaction)
-                    }
-                }
-            }
-        default:
-            internalFilteredTransactions = allTransactions
-        }
-        return internalFilteredTransactions
-    }
-    
-    func filterTransactionsByCategory() -> [Transaction] {
-        var internalFilteredTransactions: [Transaction] = []
-        let allTransactions = TransactionController.shared.transactions
-        let categorySelection = self.categorySelection
-        for transaction in allTransactions {
-            if categorySelection == "All" {
-                 internalFilteredTransactions = allTransactions
-            } else if transaction.account == categorySelection {
-                internalFilteredTransactions.append(transaction)
-            }
-        }
-        return internalFilteredTransactions
-    }
-    
-    func filterTransactionsByTransactionType() -> [Transaction] {
-        var internalFilteredTransactions: [Transaction] = []
-        let selectedControl = checkWhichControlIsPressed()
-        let allTransactions = TransactionController.shared.transactions
-        for transaction in allTransactions {
-            if selectedControl == "All" {
-                internalFilteredTransactions = allTransactions
-            } else if transaction.transactionType == selectedControl {
-                internalFilteredTransactions.append(transaction)
-            }
-        }
-        return internalFilteredTransactions
-    }
-    
-    // MARK: - Methods
     
     // MARK: - Navigation
     

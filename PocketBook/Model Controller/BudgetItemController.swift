@@ -18,13 +18,10 @@ class BudgetItemController {
     let cloudKitManager: CloudKitManager
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
-    // MARK: - Notification
-    let budgetItemWasUpdatedNotifaction = Notification.Name("bugetItemWasUpdated")
-    
     // Source of truth
     var budgetItems: [BudgetItem] = [] {
         didSet {
-            NotificationCenter.default.post(name: budgetItemWasUpdatedNotifaction, object: nil)
+            NotificationCenter.default.post(name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
         }
     }
     
@@ -45,11 +42,9 @@ class BudgetItemController {
                 print("Error saving Budget Item: \(error.localizedDescription) in file \(#file)")
                 return
             }
-            
             completion?(budgetItem)
             return
         }
-        
     }
     
     // MARK: - Modificiation / Update
@@ -70,7 +65,6 @@ class BudgetItemController {
             let updatedBudgetItem = BudgetItem(cloudKitRecord: record)
             completion(updatedBudgetItem)
         }
-        
     }
     
     // MARK: - Deletion
@@ -84,20 +78,18 @@ class BudgetItemController {
                 print("Succesfully deleted Budget Item")
             }
         }
-        
     }
     
     
     // MARK: - Fetching Data from cloudKit
     func fetchBugetItemFromCloudKit() {
         
-        
         // Get all of the accounts
         let predicate = NSPredicate(value: true)
         
         // Create a query
-        let query = CKQuery(recordType: BudgetItem.recordType, predicate: predicate)
-        query.sortDescriptors = [NSSortDescriptor(key: BudgetItem.nameKey, ascending: true)]
+        let query = CKQuery(recordType: Keys.recordBudgetItemType, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: Keys.budgetItemNameKey, ascending: true)]
         
         // Fetch the data form cloudkit
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
@@ -114,49 +106,25 @@ class BudgetItemController {
         }
     }
     
-    
     // MARK: - Methods
-    
-    ///Returns the transactionType
-    public func checkTransactionType(transactionSegmentedControl: UISegmentedControl) -> TransactionType {
-        
-        var transactionType = TransactionType.all
-        
-        if transactionSegmentedControl.titleForSegment(at: transactionSegmentedControl.selectedSegmentIndex) == "Income" {
-            transactionType = TransactionType.income
-        } else {
-            transactionType = TransactionType.expense
-        }
-        
-        
-        return transactionType
-    }
     
     /// Configures the monthly budget for the budgetItem
     public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem) {
         
-        
         AccountController.shared.modifyAccountTotal(account: account, transaction: transaction, transactionType: transactionType)
         
         // Make sure the right category is being manipuleted
-        
         if transactionType == .expense {
             
             budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
-            
-            
         } else {
             
             guard let totalAllotted = budgetItem.totalAllotted else {return}
             budgetItem.totalAllotted = totalAllotted + transaction.amount
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
         }
-        
-        
-        
     }
-    
 }
 
 

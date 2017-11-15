@@ -20,13 +20,13 @@ class plannedExpenseTableViewCell: UITableViewCell {
     
     //MARK: - Properties
     weak var delegate: PlannedExpenseTableViewCellDelegate?
-
+    
     var plannedExpense: PlannedExpense? {
         didSet {
             updateCell(plannedExpense: plannedExpense!)
         }
     }
-
+    
     //MARK: - Functions
     func updateCell(plannedExpense: PlannedExpense) {
         plannedExpenseNameLabel.text = plannedExpense.name

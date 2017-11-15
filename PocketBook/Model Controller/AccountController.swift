@@ -42,9 +42,7 @@ class AccountController {
             if let error = error {
                 print("Error saving account to cloudKit: \(error.localizedDescription) in file: \(#file)")
                 return
-                
             }
-            
             completion?(account)
             return
         }
@@ -70,9 +68,7 @@ class AccountController {
             guard let record = records?.first else {return}
             let updatedAccount = Account(cloudKitRecord: record)
             completion(updatedAccount)
-            
         })
-        
     }
     
     // MARK: - Delete
@@ -86,7 +82,6 @@ class AccountController {
                 print("Successfully deleted Account!")
             }
         }
-        
     }
     
     
@@ -97,7 +92,7 @@ class AccountController {
         let predicate = NSPredicate(value: true)
         
         // Create a query
-        let query = CKQuery(recordType: Account.recordType, predicate: predicate)
+        let query = CKQuery(recordType: Keys.recordAccountType, predicate: predicate)
         
         // Fetch the data form cloudkit
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
@@ -114,7 +109,6 @@ class AccountController {
             
             self.accounts = accounts
         }
-        
     }
     
     // MARK: - Methods
@@ -125,17 +119,13 @@ class AccountController {
         if transactionType == .expense {
             account.total = account.total - transaction.amount
             print("$\(account.total) has been subtracted from \(account.name)")
-
         } else {
             account.total = account.total + transaction.amount
             print("$\(account.total) has been added to \(account.name)")
-
-        }
-      
-        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
-            
         }
         
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
+        }
     }
 }
 

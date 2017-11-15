@@ -79,7 +79,7 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func checkSave() {
-        let accountType = checkToSeeWhichSegmentIsPressed()
+        let accountType = checkWhichControlIsPressed(segmentedControl: accountTypeSegmentedControl, type1: .checking, type2: .saving, type3: .credit)
         
         // If there is an account update it
         if account != nil {
@@ -114,24 +114,10 @@ class AccountDetailsViewController: UIViewController {
                     presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
                     return
                 }
-                
                 AccountController.shared.createAccount(name: name, type: accountType, total: total, completion: nil)
             }
         }
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func checkToSeeWhichSegmentIsPressed() -> String {
-        
-        if accountTypeSegmentedControl.selectedSegmentIndex == 0 {
-            return "Checking"
-        } else if accountTypeSegmentedControl.selectedSegmentIndex == 1 {
-            return "Savings"
-        } else {
-            // This is a credit account
-            return "Credit"
-        }
-        
     }
     
     private func updateAccountTypeSegment() -> Int {
@@ -176,9 +162,6 @@ class AccountDetailsViewController: UIViewController {
                 self.setUpUI()
                 
                 account.total += amount
-                print("\(name) has \(accountVC.total)")
-                print("\(account.name) has \(account.total)")
-                print("\(self.account?.total)")
             })
             alertController.addAction(action)
         }
@@ -188,7 +171,6 @@ class AccountDetailsViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
 }
 
 

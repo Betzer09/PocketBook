@@ -31,7 +31,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
-        assignBudgetItem()
         
     }
     
@@ -76,7 +75,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // Date Picker Action
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        self.dateButton.setTitle(returnFormattedDateString(), for: .normal)
+        self.dateButton.setTitle(returnFormattedDateString(date: datePicker.date), for: .normal)
         datePicker.isHidden = true
         dateButton.isHidden = false
     }
@@ -239,18 +238,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    private func checkWhichControlIsPressed() -> String {
-        
-        if transactionType.selectedSegmentIndex == 0 {
-            print("Income selected segment")
-            return "Income"
-            
-        } else {
-            print("Expenses selected segment")
-            return "Expense"
-        }
-    }
+
     
     ///Checks to see which segment should be highlighted
     private func updateTransactionType() -> Int {
@@ -260,28 +248,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         } else {
             return 1
         }
-        
-    }
-    
-    
-    // This function returns a date as a date in the format "dd-MM-yyyy"
-    private  func returnFormattedDate() -> Date {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        let strDate = dateFormatter.string(from: datePicker.date)
-        let date: Date? = dateFormatter.date(from: strDate)
-        return date ?? Date()
-        
-    }
-    
-    // This function return a date as a String in the format "dd-MM-yyyy"
-    func returnFormattedDateString() -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        let strDate = dateFormatter.string(from: datePicker.date)
-        return strDate
         
     }
     
@@ -305,8 +271,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 transaction.amount = convertedAmount - transaction.amount
                 print("Difference: \(transaction.amount)")
                 
-                let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+                let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+                let type = convertStringToTransactionType(string: typeString)
                 
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
@@ -317,7 +284,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 transaction.amount = convertedAmount - transaction.amount
                 print("Difference: \(transaction.amount)")
                 
-                let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+                let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
+                let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
                 
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
@@ -347,18 +315,18 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return
         }
         
-        let type = BudgetItemController.shared.checkTransactionType(transactionSegmentedControl: transactionType)
+        let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
+        let type = convertStringToTransactionType(string: typeString)
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-
-        assignBudgetItem()
+        budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
         
-        TransactionController.shared.createTransactionWith(date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (transaction) in
+        TransactionController.shared.createTransactionWith(date: returnFormattedDate(date: datePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
             
             guard let budgetItem = self.budgetItem else {return}
+            
             BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
             
         })
-
     }
     
     private func updateTransaction() {
@@ -373,31 +341,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
             return
         }
+        let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
         
-        assignBudgetItem()
-        
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(date: datePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
         })
     }
-    
-    private func assignBudgetItem() {
-        
-        let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
-        
-        // Check the name and see which object it is
-        let budgetItems = BudgetItemController.shared.budgetItems.map({ $0.name })
-        for name in budgetItems {
-            
-            if category.contains(name) {
-                // This is a budget item
-                let budgetItems = BudgetItemController.shared.budgetItems.filter({ $0.name == name })
-                budgetItem = budgetItems.first
-            }
-            
-        }
-        
-    }
-    
 }
 
 

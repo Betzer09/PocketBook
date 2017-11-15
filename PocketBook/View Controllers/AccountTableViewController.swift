@@ -26,7 +26,6 @@ class AccountTableViewController: UITableViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
-        
     }
     
     // MARK: - Table view data source
@@ -75,7 +74,6 @@ class AccountTableViewController: UITableViewController {
             destinationVC.account = AccountController.shared.accounts[indexPath.row]
         }
     }
-
 }
 
 

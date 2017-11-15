@@ -34,7 +34,7 @@ class PlannedExpenseController {
                 print("There was an error creating a Planned Expense: \(error.localizedDescription) in file \(#file)")
                 return
             }
-
+            
             completion?(plannedExpense)
             return
             
@@ -49,8 +49,8 @@ class PlannedExpenseController {
         plannedExpense.account = account
         plannedExpense.initialAmount = initialAmount
         plannedExpense.goalAmount = goalAmount
-/*        plannedExpense.incomeSaved = incomeSaved
-*/        plannedExpense.totalSaved = totalSaved
+        /*        plannedExpense.incomeSaved = incomeSaved
+         */        plannedExpense.totalSaved = totalSaved
         plannedExpense.dueDate = dueDate
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
@@ -83,7 +83,7 @@ class PlannedExpenseController {
         let predicate = NSPredicate(value: true)
         
         // Create a query
-        let query = CKQuery(recordType: PlannedExpense.recordType, predicate: predicate)
+        let query = CKQuery(recordType: Keys.recordPlannedExpenseType, predicate: predicate)
         
         // Fetch the data form cloudkit
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in

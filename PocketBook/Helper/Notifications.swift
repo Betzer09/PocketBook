@@ -19,6 +19,8 @@ struct Notifications {
     static let accountWasUpdatedNotification = Notification.Name("accountWasUpdated")
     
     static let transactionWasUpdatedNotification = Notification.Name("transactionWasUpdated")
+    
+    static let budgetItemWasUpdatedNotifaction = Notification.Name("bugetItemWasUpdated")
 }
 
 

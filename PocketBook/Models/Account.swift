@@ -9,21 +9,7 @@
 import Foundation
 import CloudKit
 
-enum AccountType: String {
-    case Checking = "Checking"
-    case Saving = "Saving"
-    case CreditCard = "CreditCard"
-    
-}
-
 class Account {
-    
-    // MARK: - Keys
-    static let recordType = "Account"
-    
-    static let accountTypeKey = "accountType"
-    static let nameKey = "name"
-    static let totalKey = "total"
     
     // MARK: - Properties
     var accountType: String
@@ -41,20 +27,20 @@ class Account {
     // MARK: - cloudKitRecord PUT
     var cloudKitRecord: CKRecord {
         
-        let record = CKRecord(recordType: Account.recordType, recordID: recordID)
+        let record = CKRecord(recordType: Keys.recordAccountType, recordID: recordID)
         
-        record.setValue(name, forKey: Account.nameKey)
-        record.setValue(accountType, forKey: Account.accountTypeKey)
-        record.setValue(total, forKey: Account.totalKey)
-                
+        record.setValue(name, forKey: Keys.accountNameKey)
+        record.setValue(accountType, forKey: Keys.accountTypeKey)
+        record.setValue(total, forKey: Keys.totalKey)
+        
         return record
     }
     
     // MARK: - Failiable initializer with cloudKitRecord
     init?(cloudKitRecord: CKRecord) {
-        guard let name = cloudKitRecord[Account.nameKey] as? String,
-            let accountType = cloudKitRecord[Account.accountTypeKey] as? String,
-            let total = cloudKitRecord[Account.totalKey] as? Double else {return nil}
+        guard let name = cloudKitRecord[Keys.accountNameKey] as? String,
+            let accountType = cloudKitRecord[Keys.accountTypeKey] as? String,
+            let total = cloudKitRecord[Keys.totalKey] as? Double else {return nil}
         
         self.name = name
         self.accountType = accountType

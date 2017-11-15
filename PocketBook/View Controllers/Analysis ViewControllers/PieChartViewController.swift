@@ -128,12 +128,12 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         timeFrame = timeFrameButton.titleLabel?.text
     }
     
-    @objc func reloadView(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
-        DispatchQueue.main.async {
-            self.timeFrame = localTimeFrame
-            self.reloadInputViews()
-        }
-    }
+//    @objc func reloadView(notification: Notification) {
+//        guard let userInfo = notification.userInfo,
+//            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
+//        DispatchQueue.main.async {
+//            self.timeFrame = localTimeFrame
+//            self.reloadInputViews()
+//        }
+//    }
 }

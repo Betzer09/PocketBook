@@ -11,18 +11,47 @@ import Foundation
 // MARK: - Global Vars
 let calendar = Calendar.autoupdatingCurrent
 
-// MARK: - Global Enums
 enum TimeFrame: String {
-    case pastYear = "Past Year"
-    case yearToDate = "Year to Current Date"
-    case lastMonth = "Last Month"
+    case all = "All"
     case thisMonth = "This Month"
+    case lastMonth = "Last Month"
+    case yearToDate = "Year to Current Date"
+    case pastYear = "Past Year"
 }
 
 enum TransactionType: String {
     case income = "Income"
     case expense = "Expense"
     case all = "All"
+    case removeIncome = "removeIncome"
+    case removeExpense = "removeExpense"
+}
+
+enum DateHelper {
+    // WHAT IS THIS AND WHAT DOES IT DO?
+    static var currentDate: Date? {
+        let calendar = Calendar.current
+        let now = Date()
+        return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: now)
+    }
+}
+
+enum AccountType: String {
+    case Checking = "Checking"
+    case Saving = "Saving"
+    case CreditCard = "CreditCard"
+}
+
+enum SegmentedControlType: String {
+    case all = "All"
+    case income = "Income"
+    case expense = "Expense"
+    case deposit = "Deposit"
+    case withdraw = "Withdraw"
+    case complete = "Complete"
+    case checking = "Checking"
+    case saving = "Saving"
+    case credit = "Credit"
 }
 
 // MARK: - Global Arrays
