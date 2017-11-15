@@ -10,7 +10,7 @@ import UIKit
 
 /*TO DO:
  
- save button
+ save button - completions
  incomeSaved
  txtAccountPicker.text
  
@@ -98,9 +98,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             let name = nameTextField.text,
             let initialAmount = Double(initialAmountTextField.text!),
             let goalAmount = Double(goalAmountTextField.text!),
-            let dueDate = txtDatePicker.text,
-            let totalSaved = plannedExpense?.totalSaved,
-            let idealMonthlyContributionAmount = idealMonthlyContributionAmountLabel.text
+//            let dueDate = txtDatePicker.text,
+            let totalSaved = plannedExpense?.totalSaved
+//            let idealMonthlyContributionAmount = idealMonthlyContributionAmountLabel.text
             else { return }
         if plannedExpense == nil {
             PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: returnFormattedDate(), completion: { (_) in
@@ -119,15 +119,10 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBAction func depositButtonTapped(_ sender: Any) {
         setUpDepositAlertController()
-        //adds an amount to the plannedExpenses array?
-        //populates updated progress bar & segues to TVC
-        //incomeSaved
     }
     
     @IBAction func withdrawButtonTapped(_ sender: Any) {
         setUpWithdrawalAlertController()
-        //subtracts an amount from the plannedExpenses array?
-        //populates updated progress bar & segues to TVC
     }
     
     @IBAction func completeButtonTapped(_ sender: Any) {
@@ -140,6 +135,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func updateProgressBar() {
         //progress bar progress = plannedExpense?.incomeSaved()
+        let depositAmount = depositAmountTextField?.text
+        let withdrawalAmount = withdrawalAmountTextField?.text
+//        let incomeSavedSaved = depositAmount - withdrawalAmount
     }
     
     //Deposit Alert
@@ -154,12 +152,16 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
             self.updateProgressBar()
+            //adds an amount to the plannedExpenses array?
+            //populates updated progress bar & segues to TVC
+            //incomeSaved
+
         }
         
         depositAlertController.addAction(addAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
-            self.updateProgressBar()
+            self.view.endEditing(true)
         }
         
         depositAlertController.addAction(cancelAction)
@@ -178,12 +180,14 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         let addAction = UIAlertAction(title: "Withdraw", style: .default) { (_) in
             self.updateProgressBar()
+            //subtracts an amount from the updateprogressBar
+            //populates updated progress bar & segues to TVC
         }
         
         withdrawalAlertController.addAction(addAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
-            self.updateProgressBar()
+            self.view.endEditing(true)
         }
         
         withdrawalAlertController.addAction(cancelAction)
@@ -192,7 +196,6 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     //MARK: - ACCOUNT PICKER
     //Delegates & Setup
-    ///>>>MAY NEED ADJUSTING; figure out when you have accounts to work with
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
