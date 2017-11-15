@@ -24,9 +24,15 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var totalTextField: UITextField!
     @IBOutlet weak var accountTypeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var transferFundsButton: UIButton!
+    
     // MARK: - Properites
     
-    var account: Account?
+    var account: Account? {
+        didSet{
+            view.setNeedsDisplay()
+        }
+    }
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -37,6 +43,11 @@ class AccountDetailsViewController: UIViewController {
     //MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
         checkSave()
+    }
+    
+    
+    @IBAction func transferFundsButton(_ sender: UIButton) {
+        presentTransferAlert()
     }
     
     
@@ -61,20 +72,26 @@ class AccountDetailsViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    @objc func reloadTableView() {
+        DispatchQueue.main.async {
+            self.view.setNeedsDisplay()
+        }
+    }
+    
     private func checkSave() {
         let accountType = checkToSeeWhichSegmentIsPressed()
         
         // If there is an account update it
         if account != nil {
             guard let name = nameTextField.text, let account = account, !name.isEmpty else {
-                presentSimpleAlert(title: "Error", message: "You need to give your account a name.")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You need to give your account a name.")
                 return
             }
             
             if let stringTotal = totalTextField.text?.dropFirst() {
                 
                 guard let total = Double(stringTotal) else {
-                    self.presentSimpleAlert(title: "Error", message: "You have entered an invalid total.")
+                    presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
                     return
                 }
                 
@@ -88,13 +105,13 @@ class AccountDetailsViewController: UIViewController {
             guard let name = nameTextField.text, !name.isEmpty else {
                 
                 // Alert the user that they must put something in the fields
-                self.presentSimpleAlert(title: "Make sure to fill all fields!", message: "")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Make sure to fill all fields!", message: "")
                 return
             }
             
             if let stringTotal = totalTextField.text?.dropFirst() {
                 guard let total = Double(stringTotal) else {
-                    self.presentSimpleAlert(title: "Error", message: "You have entered an invalid total.")
+                    presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
                     return
                 }
                 
@@ -127,15 +144,49 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
-    private func presentSimpleAlert(title: String, message: String) {
+    // MARK: - Alert Controller
+    func presentTransferAlert() {
+        guard let accountVC = self.account else {return}
+        let name = accountVC.name
+        var amountTextField = UITextField()
+        let alertController = UIAlertController(title: "Transfer Funds", message: "From: \(name) \nTo:", preferredStyle: .alert)
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addTextField { (textfield) in
+            textfield.placeholder = "Enter Amount to Transfer"
+            // Add logic so they can only add nubmers
+            amountTextField = textfield
+        }
         
-        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        var accounts = AccountController.shared.accounts
+        var count = 0
+        for account in accounts {
+            if account.name == name {
+                accounts.remove(at: count)
+            }
+            count += 1
+        }
+        for account in accounts {
+            let action = UIAlertAction(title: account.name, style: .default, handler: { (_) in
+                guard let amountString = (amountTextField.text), amountString != "",
+                    let amount = Double(amountString) else {return}
+                accountVC.total -= amount
+                AccountController.shared.updateAccountWith(name: name, type: accountVC.accountType, total: accountVC.total, account: accountVC, completion: { (account) in
+                    //NOTHING
+                })
+                self.setUpUI()
+                
+                account.total += amount
+                print("\(name) has \(accountVC.total)")
+                print("\(account.name) has \(account.total)")
+                print("\(self.account?.total)")
+            })
+            alertController.addAction(action)
+        }
         
-        alert.addAction(dismissAction)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancel)
         
-        self.present(alert, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }

@@ -17,17 +17,13 @@ class AccountController {
     let cloudKitManager: CloudKitManager
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
-    // MARK: - Notifications
-    let accountWasUpdatedNotification = Notification.Name("accountWasUpdated")
     // Source of truth
     var accounts: [Account] = [] {
         
         didSet {
-            NotificationCenter.default.post(name: accountWasUpdatedNotification, object: nil)
+            NotificationCenter.default.post(name: Notifications.accountWasUpdatedNotification, object: nil)
         }
     }
-    
-    
     
     init() {
         self.cloudKitManager = CloudKitManager()
@@ -79,6 +75,7 @@ class AccountController {
         
     }
     
+    // MARK: - Delete
     func delete(account: Account) {
         
         cloudKitManager.deleteRecordWithID(account.recordID) { (recordID, error) in

@@ -15,6 +15,10 @@ struct Notifications {
     static let viewControllerHasFinishedLoading = Notification.Name("viewControllerHasFinishedLoading")
     
     static let sendingTimeFrameInfoToVCs = Notification.Name("sendingTimeFrameInfoToVCs")
+    
+    static let accountWasUpdatedNotification = Notification.Name("accountWasUpdated")
+    
+    static let transactionWasUpdatedNotification = Notification.Name("transactionWasUpdated")
 }
 
 

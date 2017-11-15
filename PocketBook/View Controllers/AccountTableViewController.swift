@@ -18,7 +18,6 @@ class AccountTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.async {
-            
             self.tableView.reloadData()
         }
     }
@@ -26,7 +25,7 @@ class AccountTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: AccountController.shared.accountWasUpdatedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
         
     }
     

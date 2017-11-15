@@ -80,13 +80,29 @@
                                     <segment title="Credit"/>
                                 </segments>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8Q-mc-Dv0">
+                                <rect key="frame" x="46.5" y="529" width="281" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="boj-pm-aBF"/>
+                                </constraints>
+                                <state key="normal" title="Transfer Funds">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="transferFundsButton:" destination="LNI-Sk-YMr" eventType="touchUpInside" id="mIU-1g-k4S"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="h8Q-mc-Dv0" firstAttribute="leading" secondItem="gz3-T0-Tw3" secondAttribute="leading" constant="-1" id="5Od-7T-q7P"/>
+                            <constraint firstItem="Uk8-tI-VPd" firstAttribute="bottom" secondItem="h8Q-mc-Dv0" secondAttribute="bottom" constant="108" id="Gcl-Gj-cjy"/>
                             <constraint firstItem="gz3-T0-Tw3" firstAttribute="centerY" secondItem="KOe-hC-lOV" secondAttribute="centerY" id="IQm-cD-kQN"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="8" id="XOl-Qf-uzX"/>
                             <constraint firstItem="gz3-T0-Tw3" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="3/4" id="cxs-iu-XgL"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="ey5-1e-zUx"/>
+                            <constraint firstItem="h8Q-mc-Dv0" firstAttribute="trailing" secondItem="gz3-T0-Tw3" secondAttribute="trailing" constant="-1" id="ipP-Dq-fQy"/>
                             <constraint firstItem="gz3-T0-Tw3" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="ncc-hg-LcQ"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="3/4" id="wC2-ge-ddd"/>
                         </constraints>
@@ -103,6 +119,7 @@
                         <outlet property="accountTypeSegmentedControl" destination="PN8-1D-Bnn" id="h3b-E3-SSa"/>
                         <outlet property="nameTextField" destination="Et4-Dy-SVg" id="HB0-g3-YwH"/>
                         <outlet property="totalTextField" destination="iqJ-75-klp" id="pPh-To-DLC"/>
+                        <outlet property="transferFundsButton" destination="h8Q-mc-Dv0" id="WtC-ME-bn9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WFQ-9r-RvS" userLabel="First Responder" sceneMemberID="firstResponder"/>

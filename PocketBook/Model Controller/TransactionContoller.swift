@@ -17,13 +17,10 @@ class TransactionController {
     let cloudKitManager: CloudKitManager
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
-    // MARK: - Notifications
-    let transactionWasUpdatedNotification = Notification.Name("transactionWasUpdated")
-    
     // Source of truth
     var transactions: [Transaction] = [] {
         didSet {
-            NotificationCenter.default.post(name: transactionWasUpdatedNotification, object: nil)
+            NotificationCenter.default.post(name: Notifications.transactionWasUpdatedNotification, object: nil)
         }
     }
     

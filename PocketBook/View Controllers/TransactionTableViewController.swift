@@ -27,7 +27,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         self.setUpInitialTableView()
         self.picker.dataSource = self
         self.picker.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: TransactionController.shared.transactionWasUpdatedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
        
     }
     @objc func reloadTableView() {
