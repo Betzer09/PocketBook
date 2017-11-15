@@ -17,15 +17,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Properties
     var projectedIncome: Double?
     var budgetItems: [BudgetItem] = []
- 
-//    var budgetItems = [
-//        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
-//    ]
     
     //    var budgetItems = [
     //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
@@ -48,24 +39,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
-        updateUI()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
-        
-=======
         self.budgetItems = BudgetItemController.shared.budgetItems
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
->>>>>>> develop
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    
-        reloadCategoryTableView()
     }
     
     @objc func reloadCategoryTableView() {
@@ -200,6 +178,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         amountLeftLabel.text = "$532 Left to buget"
         // TODO: - FIX ME
         totalSpentLabel.text = "Total Spent of Budget $300"
+        
     }
     
     @objc func dismissKeyboard() {

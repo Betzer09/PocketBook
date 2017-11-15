@@ -27,15 +27,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
 //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
 //    ]
     
-    //    var budgetItems = [
-    //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
-    //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-    //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-    //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-    //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-    //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
-    //    ]
-    
     // MARK: - Outlets
     @IBOutlet weak var plannedExpenseLabel: UILabel!
     @IBOutlet weak var amountLeftLabel: UILabel!
@@ -48,30 +39,17 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
-        updateUI()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
-        
-=======
         self.budgetItems = BudgetItemController.shared.budgetItems
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
->>>>>>> develop
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    
-        reloadCategoryTableView()
     }
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
             // FIXME: this uses a lot of cpu
-            //                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+//                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
             self.categoryTableView.reloadData()
@@ -120,17 +98,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Alerts
     private func createBugetItemAlert() {
         
-        // Limit user to 16 monthly budget items
-        let numberOfBudgetItems = BudgetItemController.shared.budgetItems.count
-        if numberOfBudgetItems >= 16 {
-            self.presentSimpleAlert(title: "Budget Category Limit", message: "You may only have 16 different budget categories.")
-            return
-        }
-        
         var nameTextField: UITextField!
         var amountTextField: UITextField!
         
-        let alertController = UIAlertController(title: "Create A Budget Category", message: "Where is your money going? You may input a maximum of 16 categories. You have \(16 - numberOfBudgetItems) budget catories remaining.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Create A Budget Categroy", message: "Where is your money going?", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
             textField.placeholder = "Name"
@@ -146,21 +117,12 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         let createBugetItemAction = UIAlertAction(title: "Add Item", style: .default) { (_) in
             // Create a bugetItem
-        
+            
             guard let name = nameTextField.text, let allottedAmount = Double(amountTextField.text!) else {
                 // In case they don't enter anything into the textfield
                 self.presentSimpleAlert(title: "Oops we are missing information!", message: "Okay")
                 self.createBugetItemAlert()
                 return
-            }
-            
-        
-            // Check to see if the user is duplicating budget item name
-            for budgetItem in self.budgetItems {
-                if budgetItem.name.lowercased() == nameTextField.text?.lowercased() {
-                    self.presentSimpleAlert(title: "Duplicate Budget Category", message: "That budget category already exists. Please enter another category.")
-                    return
-                }
             }
             
             BudgetItemController.shared.createBudgetItemWith(name: name, spentTotal: 0, allottedAmount: allottedAmount, completion: nil)
@@ -200,6 +162,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         amountLeftLabel.text = "$532 Left to buget"
         // TODO: - FIX ME
         totalSpentLabel.text = "Total Spent of Budget $300"
+        
     }
     
     @objc func dismissKeyboard() {

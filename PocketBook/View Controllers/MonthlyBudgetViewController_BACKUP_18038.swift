@@ -17,6 +17,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Properties
     var projectedIncome: Double?
     var budgetItems: [BudgetItem] = []
+<<<<<<< HEAD
  
 //    var budgetItems = [
 //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
@@ -26,6 +27,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
 //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
 //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
 //    ]
+=======
     
     //    var budgetItems = [
     //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
@@ -35,6 +37,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
     //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
     //    ]
+>>>>>>> develop
     
     // MARK: - Outlets
     @IBOutlet weak var plannedExpenseLabel: UILabel!
@@ -48,30 +51,21 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
-        updateUI()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
-        
-=======
         self.budgetItems = BudgetItemController.shared.budgetItems
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
->>>>>>> develop
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    
-        reloadCategoryTableView()
     }
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
             // FIXME: this uses a lot of cpu
+<<<<<<< HEAD
+//                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+=======
             //                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+>>>>>>> develop
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
             self.categoryTableView.reloadData()
@@ -200,6 +194,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         amountLeftLabel.text = "$532 Left to buget"
         // TODO: - FIX ME
         totalSpentLabel.text = "Total Spent of Budget $300"
+        
     }
     
     @objc func dismissKeyboard() {
