@@ -333,8 +333,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             
             guard let destinationVC = segue.destination as? TransactionsDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow else { return }
-            let transaction = TransactionController.shared.transactions[indexPath.row]
-            
+                let transaction = filteredTransactions[indexPath.row]
             destinationVC.transaction = transaction
         }
     }

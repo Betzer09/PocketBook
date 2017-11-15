@@ -1,5 +1,5 @@
 //
-//  PlannedExpensesLineGraphViewController.swift
+//  BudgetLineGraphViewController.swift
 //  PocketBook
 //
 //  Created by Michael Meyers on 11/9/17.
@@ -8,78 +8,51 @@
 
 import UIKit
 
-class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - Properties
     var timeFrame: String? {
         didSet {
-<<<<<<< HEAD
-            guard let timeFrame = timeFrame else {return}
-            let transactions = TransactionController.shared.transactions
+            guard let timeFrame = timeFrame,
+                let category = category else {return}
             let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: transactions)
-            filteredTransactionsByTimeFrame = filteredByTimeFrame
-            guard let category = category else {return}
+            filteredByTimeFrameTransactions = filteredByTimeFrame
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
+            
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
-=======
-            filterTransactionsByTimeFrame()
-            filterTransactionsByCategory()
-            configureLineGraph()
->>>>>>> develop
             view.setNeedsDisplay()
         }
     }
     
     var category: String? {
         didSet {
-<<<<<<< HEAD
-            guard let filterByTimeFrame = filteredTransactionsByTimeFrame,
-                let timeFrame = timeFrame,
-                let category = category else {return}
-            let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filterByTimeFrame)
+            guard let timeFrame = timeFrame,
+                let category = category,
+                let filteredByTimeFrame = filteredByTimeFrameTransactions else {return}
+            
+            let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
-=======
-            filterTransactionsByCategory()
-            configureLineGraph()
->>>>>>> develop
             view.setNeedsDisplay()
         }
     }
     
-<<<<<<< HEAD
-    let transactions: [Transaction]? = TransactionController.shared.transactions
-    var filteredTransactionsByTimeFrame: [Transaction]?
-=======
-    var dots: [UIView] = []
-    let calendar = Calendar.autoupdatingCurrent
-    //    let transactions: [Transaction]? = TransactionController.shared.transactions
+    let transactions: [Transaction] = TransactionController.shared.transactions
     var filteredByTimeFrameTransactions: [Transaction]?
-    var filteredByCatagoryTransactions: [Transaction]?
-    var currentYear: Int? {
-        let current = calendar.dateComponents([.year, .month], from: Date())
-        guard let year = current.year else {return nil}
-        return year
-    }
-    var currentMonth: Int? {
-        let current = calendar.dateComponents([.year, .month], from: Date())
-        guard let month = current.month else {return nil}
-        return month
-    }
->>>>>>> develop
     
     var timeFrames: [String] {
         var array: [String] = []
         array.append(TimeFrame.pastYear.rawValue)
         array.append(TimeFrame.yearToDate.rawValue)
+        array.append(TimeFrame.lastMonth.rawValue)
+        array.append(TimeFrame.thisMonth.rawValue)
         return array
     }
     
-<<<<<<< HEAD
     var categories: [String] {
-        let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+        let budgetItems = BudgetItemController.shared.budgetItems
         var names: [String] = []
-        for plannedExpense in plannedExpenses {
-            names.append(plannedExpense.name)
+        for budgetItem in budgetItems {
+            names.append(budgetItem.name)
         }
         return names
     }
@@ -105,38 +78,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     //        Transaction(date: Date(dateString: "2017-10-15"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 47.39, account: "Checking"),
     //        Transaction(date: Date(dateString: "2017-11-02"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 28.34, account: "Checking")
     //    ]
-=======
-    //            var categories: [String] {
-    //                let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
-    //                var names: [String] = []
-    //                for plannedExpense in plannedExpenses {
-    //                    names.append(plannedExpense.name)
-    //                }
-    //                return names
-    //            }
-    
-    // MARK: - TESTING
-    let categories: [String] = [
-        "Food",
-        "Gas",
-        "Clothes",
-        "Household",
-        "CarPayment",
-        "CellPhone",
-        "TV/Internet",
-        "Emergency",
-        "Hospital Bills"
-    ]
-    
-    let transactions = [
-        Transaction(date: Date(), category: "Food", payee: "Wal-Mart", transactionType: "expense", amount: 50.00, account: "Savings"),
-        Transaction(date: Date(dateString: "2017-10-20"), category: "Gas", payee: "Chevron", transactionType: "expense", amount: 19.58, account: "Checking"),
-        Transaction(date: Date(dateString: "2016-12-20"), category: "Clothes", payee: "Target", transactionType: "expense", amount: 400.30, account: "Credit Card"),
-        Transaction(date: Date(dateString: "2017-01-01"), category: "CellPhone", payee: "Sprint", transactionType: "expense", amount: 99.00, account: "Checking"),
-        Transaction(date: Date(dateString: "2017-10-15"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 47.39, account: "Checking"),
-        Transaction(date: Date(dateString: "2017-11-02"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 28.34, account: "Checking")
-    ]
->>>>>>> develop
     
     // MARK: - Outlets
     @IBOutlet weak var timeFrameButton: UIButton!
@@ -191,120 +132,63 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == categoryPickerView {
             return categories.count
+        }
+        if pickerView == timeFramePickerView {
+            return timeFrames.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == categoryPickerView {
+            return categories[row]
+        }
+        if pickerView == timeFramePickerView {
+            return timeFrames[row]
+        }
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == categoryPickerView {
+            let name = categories[row]
+            categoryButton.setTitle(name, for: .normal)
+            category = name
+            timeFrameButton.isHidden = false
+            pickerView.isHidden = true
+        }
+        if pickerView == timeFramePickerView {
+            let name = timeFrames[row]
+            timeFrameButton.setTitle(name, for: .normal)
+            timeFrame = name
+            categoryButton.isHidden = false
+            pickerView.isHidden = true
+        }
+    }
+    
+    // MARK: - Notification Functions
+    @objc func reloadView(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
+        DispatchQueue.main.async {
+            self.timeFrame = localTimeFrame
+            self.reloadInputViews()
+        }
+    }
+    
+    // MARK: - Setup Line Graph Views
+    
+    func setUpTimeFrameVar() {
+        timeFrameButton.setTitle(timeFrames[0], for: .normal)
+        timeFrame = timeFrameButton.titleLabel?.text
+    }
+    
+    func setUpCategoryVar() {
+        categoryButton.setTitle(categories[0], for: .normal)
+        category = categoryButton.titleLabel?.text
+    }
 <<<<<<< HEAD
-        }
-        if pickerView == timeFramePickerView {
-            return timeFrames.count
-        }
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == categoryPickerView {
-            return categories[row]
-        }
-        if pickerView == timeFramePickerView {
-            return timeFrames[row]
-        }
-        return ""
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == categoryPickerView {
-            let name = categories[row]
-            categoryButton.setTitle(name, for: .normal)
-            category = name
-            timeFrameButton.isHidden = false
-            pickerView.isHidden = true
-        }
-        if pickerView == timeFramePickerView {
-            let name = timeFrames[row]
-            timeFrameButton.setTitle(name, for: .normal)
-            timeFrame = name
-            categoryButton.isHidden = false
-            pickerView.isHidden = true
-        }
-    }
-    
-    // MARK: - Notification Functions
-    @objc func reloadView(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
-        DispatchQueue.main.async {
-            self.timeFrame = localTimeFrame
-            self.reloadInputViews()
-        }
-    }
-    
-    // MARK: - Setup Line Graph Views
-    
-    func setUpTimeFrameVar() {
-        timeFrameButton.setTitle(timeFrames[0], for: .normal)
-        timeFrame = timeFrameButton.titleLabel?.text
-    }
-    
-    func setUpCategoryVar() {
-        categoryButton.setTitle(categories[0], for: .normal)
-        category = categoryButton.titleLabel?.text
-    }
-    
-    
 =======
-        }
-        if pickerView == timeFramePickerView {
-            return timeFrames.count
-        }
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == categoryPickerView {
-            return categories[row]
-        }
-        if pickerView == timeFramePickerView {
-            return timeFrames[row]
-        }
-        return ""
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == categoryPickerView {
-            let name = categories[row]
-            categoryButton.setTitle(name, for: .normal)
-            category = name
-            timeFrameButton.isHidden = false
-            pickerView.isHidden = true
-        }
-        if pickerView == timeFramePickerView {
-            let name = timeFrames[row]
-            timeFrameButton.setTitle(name, for: .normal)
-            timeFrame = name
-            categoryButton.isHidden = false
-            pickerView.isHidden = true
-        }
-    }
-    
-    // MARK: - Notification Functions
-    @objc func reloadView(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
-        DispatchQueue.main.async {
-            self.timeFrame = localTimeFrame
-            self.reloadInputViews()
-        }
-    }
-    
-    // MARK: - Setup Line Graph Views
-    
-    func setUpTimeFrameVar() {
-        timeFrameButton.setTitle(timeFrames[0], for: .normal)
-        timeFrame = timeFrameButton.titleLabel?.text
-    }
-    
-    func setUpCategoryVar() {
-        categoryButton.setTitle(categories[0], for: .normal)
-        category = categoryButton.titleLabel?.text
-    }
     
     func filterTransactionsByTimeFrame(){
         
@@ -382,9 +266,10 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
             if transaction.category == name {
                 internalFilteredTransactions.append(transaction)
             }
-            filteredByCatagoryTransactions = internalFilteredTransactions
         }
+        filteredByCatagoryTransactions = internalFilteredTransactions
     }
+    
     func configureLineGraph() {
         
         dots = []
@@ -397,7 +282,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         var array: [String] = []
         var totals: [Double] = []
         guard let filteredByCatagoryTransactions = filteredByCatagoryTransactions,
-            let text = timeFrame else {return}
+        let text = timeFrame else {return}
         switch text {
         case TimeFrame.pastYear.rawValue:
             time = 12
@@ -510,7 +395,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         let segment = (xView.bounds.maxX / segmentDivision)
         return segment
     }
-    
+
     
     // MARK: - LineGraphView Setup
     func createDot(inView view:UIView, withCoordinatesX x: CGFloat, y: CGFloat) {
@@ -550,7 +435,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
             let y:CGFloat = 1
             let width = xView.bounds.height
             let height: CGFloat = 15.0
-            //            print (segment, x, y, width, height)
+//            print (segment, x, y, width, height)
             let frame = CGRect(x: x, y: y, width: width, height: height)
             let label = UILabel(frame: frame)
             label.center = CGPoint(x: (count * segment), y: xView.bounds.midY)
@@ -595,7 +480,5 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         label.clipsToBounds = true
         yView.addSubview(label)
     }
-
 >>>>>>> develop
 }
-

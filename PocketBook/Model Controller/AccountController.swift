@@ -121,7 +121,7 @@ class AccountController {
     }
     
     // MARK: - Methods
-    func modifyAccountTotal(account: Account, transaction: Transaction, transactionType: TransactionType) {
+    func modifyAccountTotalFor(account: Account, transaction: Transaction, transactionType: TransactionType) {
         
         print("Account is currently at \(account.total)")
         
@@ -129,10 +129,18 @@ class AccountController {
             account.total = account.total - transaction.amount
             print("$\(transaction.amount) has been subtracted from \(account.name) leaving you with: $\(account.total)")
 
-        } else {
+        } else if transactionType == .income {
             account.total = account.total + transaction.amount
             print("$\(transaction.amount) has been added to \(account.name) leaving you with: $\(account.total)")
 
+        } else if transactionType == .removeExpense {
+            // Don't do anyting
+            
+        } else if transactionType == .removieIncome {
+            
+        } else {
+            // This is to account for the 'all' in the transactiontype which shouldn't ever really run
+            
         }
       
         updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in

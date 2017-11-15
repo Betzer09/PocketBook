@@ -39,11 +39,18 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
+        updateUI()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
+        
+=======
         self.budgetItems = BudgetItemController.shared.budgetItems
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: BudgetItemController.shared.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
+>>>>>>> develop
     }
     
     override func viewWillAppear(_ animated: Bool) {

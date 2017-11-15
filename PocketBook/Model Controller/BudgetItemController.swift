@@ -135,11 +135,6 @@ class BudgetItemController {
     /// Configures the monthly budget for the budgetItem
     public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem) {
         
-        
-        AccountController.shared.modifyAccountTotal(account: account, transaction: transaction, transactionType: transactionType)
-        
-        // Make sure the right category is being manipuleted
-        
         if transactionType == .expense {
             
             budgetItem.spentTotal = budgetItem.spentTotal + transaction.amount
@@ -148,15 +143,35 @@ class BudgetItemController {
             AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
             
             
-        } else {
+        } else if transactionType == .income {
             
             guard let totalAllotted = budgetItem.totalAllotted else {return}
             budgetItem.totalAllotted = totalAllotted + transaction.amount
+            
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            
+        } else if transactionType == .removeExpense {
+            
+            budgetItem.spentTotal -= transaction.amount
+            account.total += transaction.amount
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            
+        } else if transactionType == .removieIncome {
+            
+            guard let totalAllotted = budgetItem.totalAllotted else {return}
+            budgetItem.totalAllotted = totalAllotted - transaction.amount
+            account.total -= transaction.amount
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
             AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
 
+        } else {
+            // This accounts for the 'all' part of the transactypeEnum which shoudln't really do anyting. If this runs check the tranasactionType Keys
+            
         }
- 
+        
+        AccountController.shared.modifyAccountTotalFor(account: account, transaction: transaction, transactionType: transactionType)
     }
     
 }
