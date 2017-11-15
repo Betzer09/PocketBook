@@ -54,6 +54,19 @@ class AccountTableViewController: UITableViewController {
             AccountController.shared.accounts.remove(at: indexPath.row)
             AccountController.shared.delete(account: account)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            // When an account is deleted, delete all corresponding transactions
+            for transaction in TransactionController.shared.transactions {
+                if transaction.account == account.name {
+                    let updatedTransactions = TransactionController.shared.transactions.filter { $0.account != account.name }
+                    TransactionController.shared.transactions = updatedTransactions
+                    TransactionController.shared.delete(transaction: transaction)
+                }
+            }
+            
+            // FIXME: Use similiar logic as above to delete all planned expenses when an account is deleted
+       
+            // FIXME: Present alert for the user to make sure that they want to delete an account
         }
     }
 
@@ -63,7 +76,7 @@ class AccountTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-    
+        
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

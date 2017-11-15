@@ -88,6 +88,14 @@ class AccountDetailsViewController: UIViewController {
                 return
             }
             
+<<<<<<< Updated upstream
+            if let stringTotal = totalTextField.text?.dropFirst() {
+                
+                guard let total = Double(stringTotal) else {
+                    presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
+                    return
+                }
+=======
             // Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
             var total: String = ""
             guard let totalString = totalTextField.text else { return }
@@ -99,13 +107,10 @@ class AccountDetailsViewController: UIViewController {
             guard let returnTotal = Double(total) else {
                 self.presentSimpleAlert(title: "Error", message: "You have entered an invalid total.")
                 return
+>>>>>>> Stashed changes
                 
-                guard let total = Double(stringTotal) else {
-                    presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
-                    return
-                }
-                
-                AccountController.shared.updateAccountWith(name: name, type: accountType, total: total, account: account, completion: { (_) in
+            }
+                AccountController.shared.updateAccountWith(name: name, type: accountType, total: returnTotal , account: account, completion: { (_) in
                     // TODO: Maybe change this in the AccountController                    
                 })
 
@@ -123,6 +128,8 @@ class AccountDetailsViewController: UIViewController {
                     presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
                     return
                 }
+<<<<<<< Updated upstream
+=======
                 
                 // Check to see if the user is duplicating budget item name
                 for account in AccountController.shared.accounts {
@@ -132,12 +139,28 @@ class AccountDetailsViewController: UIViewController {
                     }
                 }
                 
+>>>>>>> Stashed changes
                 AccountController.shared.createAccount(name: name, type: accountType, total: total, completion: nil)
             }
         }
         navigationController?.popViewController(animated: true)
     }
     
+<<<<<<< Updated upstream
+=======
+    private func checkToSeeWhichSegmentIsPressed() -> String {
+        
+        if accountTypeSegmentedControl.selectedSegmentIndex == 0 {
+            return "Checking"
+        } else if accountTypeSegmentedControl.selectedSegmentIndex == 1 {
+            return "Savings"
+        } else {
+            return "Credit"
+        }
+        
+    }
+    
+>>>>>>> Stashed changes
     private func updateAccountTypeSegment() -> Int {
         if account?.accountType == "Checking" {
             return 0
@@ -148,12 +171,18 @@ class AccountDetailsViewController: UIViewController {
         }
     }
     
+<<<<<<< Updated upstream
     // MARK: - Alert Controller
     func presentTransferAlert() {
         guard let accountVC = self.account else {return}
         let name = accountVC.name
         var amountTextField = UITextField()
         let alertController = UIAlertController(title: "Transfer Funds", message: "From: \(name) \nTo:", preferredStyle: .alert)
+=======
+    // MARK: - Alerts
+    
+    private func presentSimpleAlert(title: String, message: String) {
+>>>>>>> Stashed changes
         
         alertController.addTextField { (textfield) in
             textfield.placeholder = "Enter Amount to Transfer"
@@ -187,8 +216,35 @@ class AccountDetailsViewController: UIViewController {
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancel)
         
+<<<<<<< Updated upstream
         self.present(alertController, animated: true, completion: nil)
     }
+=======
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+}
+
+
+// MARK: - Textfield Delegate Functions
+extension AccountDetailsViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        totalTextField.text = "$"
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        
+        let aSet = NSCharacterSet(charactersIn: "0123456789.").inverted
+        let componentSeperatedByCharInSet = string.components(separatedBy: aSet)
+        let numberTextField = componentSeperatedByCharInSet.joined(separator: "")
+        
+        
+        return string == numberTextField
+        
+    }
+>>>>>>> Stashed changes
 }
 
 
