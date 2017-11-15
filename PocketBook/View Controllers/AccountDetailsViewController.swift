@@ -91,24 +91,22 @@ class AccountDetailsViewController: UIViewController {
             // Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
             var total: String = ""
             guard let totalString = totalTextField.text else { return }
+            
             if totalString.contains("$") {
                 total = String(totalString.dropFirst())
             } else {
                 total = String(totalString)
             }
+            
             guard let returnTotal = Double(total) else {
-                self.presentSimpleAlert(title: "Error", message: "You have entered an invalid total.")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
                 return
-                
-                guard let total = Double(stringTotal) else {
-                    presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
-                    return
-                }
-                
-                AccountController.shared.updateAccountWith(name: name, type: accountType, total: total, account: account, completion: { (_) in
-                    // TODO: Maybe change this in the AccountController                    
-                })
-
+            }
+            
+            AccountController.shared.updateAccountWith(name: name, type: accountType, total: returnTotal, account: account, completion: { (_) in
+                // TODO: Maybe change this in the AccountController
+            })
+            
         } else {
             // If there isn't an account save it
             guard let name = nameTextField.text, !name.isEmpty else {
@@ -116,6 +114,7 @@ class AccountDetailsViewController: UIViewController {
                 // Alert the user that they must put something in the fields
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Make sure to fill all fields!", message: "")
                 return
+                
             }
             
             if let stringTotal = totalTextField.text {
@@ -127,7 +126,7 @@ class AccountDetailsViewController: UIViewController {
                 // Check to see if the user is duplicating budget item name
                 for account in AccountController.shared.accounts {
                     if account.name.lowercased() == nameTextField.text?.lowercased() {
-                        self.presentSimpleAlert(title: "Duplicate Budget Category", message: "That budget category already exists. Please enter another category.")
+                        presentSimpleAlert(controllerToPresentAlert: self, title: "Duplicate Budget Category", message: "That budget category already exists. Please enter another category.")
                         return
                     }
                 }
@@ -188,6 +187,7 @@ class AccountDetailsViewController: UIViewController {
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: nil)
+        
     }
 }
 
