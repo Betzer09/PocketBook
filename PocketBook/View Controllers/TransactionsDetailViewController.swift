@@ -25,6 +25,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - Properties
     var transaction: Transaction?
     var budgetItem: BudgetItem?
+    var plannedExpenseTransaction: PlannedExpense?
     
     
     // MARK: - View LifeCycles

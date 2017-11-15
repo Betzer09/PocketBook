@@ -29,16 +29,17 @@ class plannedExpenseTableViewCell: UITableViewCell {
     
     //MARK: - Functions
     func updateCell(plannedExpense: PlannedExpense) {
+        guard let totalSaved = plannedExpense.totalSaved else {return}
         plannedExpenseNameLabel.text = plannedExpense.name
         byDueDateLabel.text = "\(plannedExpense.dueDate)"
-        PEProgressBar.progress = Float(plannedExpense.totalSaved!)
+        configureProgressBar(withPlannedExpense: plannedExpense)
+        progressBarLabel.text = "$\(plannedExpense.totalSaved) / $\(plannedExpense.goalAmount)"
     }
     
     func configureProgressBar(withPlannedExpense plannedExpense: PlannedExpense) {
         self.PEProgressBar.progress = 0
         self.PEProgressBar.progressTintColor = .blue
         PEProgressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
-        
         self.PEProgressBar.progress = Float(plannedExpense.totalSaved!) / Float(plannedExpense.goalAmount)
     }
 }

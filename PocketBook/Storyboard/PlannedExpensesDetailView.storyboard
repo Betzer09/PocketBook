@@ -57,6 +57,7 @@
                                                 <state key="normal" title="Complete"/>
                                                 <connections>
                                                     <action selector="completeButtonTapped:" destination="WuS-7R-mpl" eventType="touchUpInside" id="Syc-P4-s5u"/>
+                                                    <segue destination="biH-S8-jhX" kind="show" identifier="toTransactionDVC" id="2Eo-Qo-pla"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -101,7 +102,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: $20,000" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nbm-EE-qx0">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: $2000" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nbm-EE-qx0">
                                                 <rect key="frame" x="0.0" y="85" width="375" height="25.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -238,6 +239,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMP-XF-R6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="653.60000000000002" y="241.52923538230885"/>
+        </scene>
+        <!--TransactionsDetailView-->
+        <scene sceneID="UUF-JB-tVF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TransactionsDetailView" id="biH-S8-jhX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KWf-PR-UTs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1279" y="34"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0Dk-0n-giy">
