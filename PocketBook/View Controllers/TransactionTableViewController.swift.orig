@@ -20,7 +20,10 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         setUpTableView()
+<<<<<<< HEAD
         print("View did appear")
+=======
+>>>>>>> develop
     }
     
     override func viewDidLoad() {
@@ -299,10 +302,15 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     func filterTransactionsByCategory() -> [Transaction] {
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
+        let categorySelection = self.categorySelection
         for transaction in allTransactions {
             if categorySelection == "All" {
                  internalFilteredTransactions = allTransactions
-            } else if transaction.catagory == categorySelection {
+<<<<<<< HEAD
+            } else if transaction.category == categorySelection {
+=======
+            } else if transaction.account == categorySelection {
+>>>>>>> develop
                 internalFilteredTransactions.append(transaction)
             }
         }
@@ -311,19 +319,12 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     func filterTransactionsByTransactionType() -> [Transaction] {
         var internalFilteredTransactions: [Transaction] = []
-<<<<<<< HEAD
-        guard let name = category,
-            let filteredTransactions = filteredByTimeFrameTransactions else {return}
-        for transaction in filteredTransactions {
-            if transaction.category == name {
-=======
         let selectedControl = checkWhichControlIsPressed()
         let allTransactions = TransactionController.shared.transactions
         for transaction in allTransactions {
             if selectedControl == "All" {
                 internalFilteredTransactions = allTransactions
             } else if transaction.transactionType == selectedControl {
->>>>>>> develop
                 internalFilteredTransactions.append(transaction)
             }
         }

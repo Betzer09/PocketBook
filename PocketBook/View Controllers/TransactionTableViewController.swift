@@ -20,7 +20,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         setUpTableView()
-        print("View did appear")
     }
     
     override func viewDidLoad() {
@@ -299,10 +298,11 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     func filterTransactionsByCategory() -> [Transaction] {
         var internalFilteredTransactions: [Transaction] = []
         let allTransactions = TransactionController.shared.transactions
+        let categorySelection = self.categorySelection
         for transaction in allTransactions {
             if categorySelection == "All" {
                  internalFilteredTransactions = allTransactions
-            } else if transaction.category == categorySelection {
+            } else if transaction.account == categorySelection {
                 internalFilteredTransactions.append(transaction)
             }
         }

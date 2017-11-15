@@ -17,6 +17,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Properties
     var projectedIncome: Double?
     var budgetItems: [BudgetItem] = []
+<<<<<<< HEAD
  
 //    var budgetItems = [
 //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
@@ -26,6 +27,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
 //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
 //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
 //    ]
+=======
     
     //    var budgetItems = [
     //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
@@ -35,6 +37,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
     //        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
     //    ]
+>>>>>>> develop
     
     // MARK: - Outlets
     @IBOutlet weak var plannedExpenseLabel: UILabel!
@@ -58,7 +61,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
             // FIXME: this uses a lot of cpu
+<<<<<<< HEAD
+//                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+=======
             //                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
+>>>>>>> develop
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
             self.categoryTableView.reloadData()

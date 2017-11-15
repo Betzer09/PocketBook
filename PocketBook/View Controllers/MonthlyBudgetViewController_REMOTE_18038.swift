@@ -17,15 +17,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Properties
     var projectedIncome: Double?
     var budgetItems: [BudgetItem] = []
- 
-//    var budgetItems = [
-//        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>),
-//        BudgetItem(spentTotal: <#T##Double#>, name: <#T##String#>, allottedAmount: <#T##Double#>)
-//    ]
     
     //    var budgetItems = [
     //        BudgetItem(spentTotal: 20, name: "Food", allottedAmount: 100),
