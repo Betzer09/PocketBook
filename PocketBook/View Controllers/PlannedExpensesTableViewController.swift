@@ -53,10 +53,9 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plannedExpenseCell", for: indexPath) as? plannedExpenseTableViewCell else { return UITableViewCell() }
         
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
-        
+
         cell.plannedExpense = plannedExpense
-//        cell.delegate = self
-//        cell.updateViews()
+        cell.delegate = self
         
         return cell
     }

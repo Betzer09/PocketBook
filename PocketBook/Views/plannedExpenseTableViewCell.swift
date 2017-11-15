@@ -19,8 +19,8 @@ class plannedExpenseTableViewCell: UITableViewCell {
     
     
     //MARK: - Properties
-//    weak var delegate: PlannedExpenseTableViewCellDelegate?
-//
+    weak var delegate: PlannedExpenseTableViewCellDelegate?
+
     var plannedExpense: PlannedExpense? {
         didSet {
             updateCell(plannedExpense: plannedExpense!)
