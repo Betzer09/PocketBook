@@ -250,9 +250,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     private func updateTransactionType() -> Int {
         
         if transaction?.transactionType == "Income" {
-            return 0
-        } else {
             return 1
+        } else {
+            return 0
         }
         
     }
