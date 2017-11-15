@@ -127,7 +127,7 @@ class AccountController {
         } else if transactionType == .removeExpense {
             // Don't do anyting
             
-        } else if transactionType == .removieIncome {
+        } else if transactionType == .removeIncome {
             
         } else {
             // This is to account for the 'all' in the transactiontype which shouldn't ever really run

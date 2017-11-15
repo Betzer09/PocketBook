@@ -18,13 +18,12 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     //MARK: - Outlets
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     
-    //MARK: ??????
     //MARK: - Properties
-    var plannedExpense: PlannedExpense? {
-        didSet {
-            if isViewLoaded { updateViews() }
-        }
-    }
+//    var plannedExpense: PlannedExpense? {
+//        didSet {
+//            if isViewLoaded { updateViews() }
+//        }
+//    }
     
     //MARK: - View Lifecycles
     override func viewDidLoad() {
@@ -40,7 +39,6 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     //MARK: - Functions
     private func updateViews() {
 //        guard let plannedExpense = plannedExpense else { return }
-        // MARK: - ??????
 //         totalIdealMonthlyContributionLabel.text = plannedExpense
     }
     

@@ -16,7 +16,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Properties
     var projectedIncome: Double?
-    var budgetItems: [BudgetItem] = BudgetItemController.shared.budgetItems
     
     // MARK: - Outlets
     @IBOutlet weak var plannedExpenseLabel: UILabel!
@@ -44,9 +43,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
-            // MARK: - ??????
-            // FIXME: this uses a lot of cpu
-            //                BudgetItemController.shared.budgetItems =  BudgetItemController.shared.budgetItems.sorted(by: { $0.name < $1.name })
             self.updateUI()
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
@@ -92,6 +88,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Alerts
     private func createBugetItemAlert() {
         
+        let budgetItems: [BudgetItem] = BudgetItemController.shared.budgetItems
         // Limit user to 16 monthly budget items
         let numberOfBudgetItems = BudgetItemController.shared.budgetItems.count
         if numberOfBudgetItems >= 16 {
@@ -127,7 +124,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             }
             
             // Check to see if the user is duplicating budget item name
-            for budgetItem in self.budgetItems {
+            for budgetItem in budgetItems {
                 if budgetItem.name.lowercased() == nameTextField.text?.lowercased() {
                     presentSimpleAlert(controllerToPresentAlert: self, title: "Duplicate Budget Category", message: "That budget category already exists. Please enter another category.")
                     return
@@ -154,7 +151,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
         
-        // MARK: - ?????
+        // TODO: FIX ME
         // the amount should come from the plannedExpenseModelController
         plannedExpenseLabel.text = "Planned Exspense for the Month: 1500.32"
         //Projected income - plannedExpense
@@ -170,6 +167,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Setup PieChart
     func updatePieChartAndLegendView() {
         var filteredDictionary: [String: Double] = [:]
+        let budgetItems: [BudgetItem] = BudgetItemController.shared.budgetItems
         for budgetItem in budgetItems {
             let name = budgetItem.name
             let amount = budgetItem.spentTotal

@@ -95,7 +95,7 @@ class TransactionController {
                 var type: TransactionType?
                 
                 if transaction.transactionType == TransactionType.income.rawValue {
-                    type = TransactionType.removieIncome
+                    type = TransactionType.removeIncome
                 } else {
                     type = TransactionType.removeExpense
                 }
@@ -116,7 +116,7 @@ class TransactionController {
         let predicate = NSPredicate(value: true)
         
         // Create a query
-        let query = CKQuery(recordType: Transaction.recordType, predicate: predicate)
+        let query = CKQuery(recordType: Keys.recordTransactionType, predicate: predicate)
         
         // Fetch the data form cloudkit
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in

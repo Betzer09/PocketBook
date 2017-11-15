@@ -134,7 +134,7 @@ class BudgetItemController {
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
             AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
             
-        } else if transactionType == .removieIncome {
+        } else if transactionType == .removeIncome {
             
             guard let totalAllotted = budgetItem.totalAllotted else {return}
             budgetItem.totalAllotted = totalAllotted - transaction.amount

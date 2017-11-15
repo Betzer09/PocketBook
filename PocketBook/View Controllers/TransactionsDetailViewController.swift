@@ -256,8 +256,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
         
     }
-    
-    // MARK: - Save Button Pressed
+        // MARK: - Save Button Pressed
     private func saveTransaction() {
         if transaction != nil {
             
@@ -278,10 +277,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 print("Difference: \(transaction.amount)")
                 
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
+                let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                
-                guard let budgetItem = budgetItem else {return}
+                self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
             } else {
@@ -294,8 +292,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                guard let budgetItem = budgetItem else {return}
+                self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
             }
