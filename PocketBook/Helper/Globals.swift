@@ -22,6 +22,8 @@ enum TimeFrame: String {
 enum TransactionType: String {
     case income = "Income"
     case expense = "Expense"
+    case removieIncome = "removeIncome"
+    case removeExpense = "removeExpense"
     case all = "All"
     case removeIncome = "removeIncome"
     case removeExpense = "removeExpense"

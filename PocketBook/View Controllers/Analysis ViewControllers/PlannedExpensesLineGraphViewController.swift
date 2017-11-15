@@ -46,12 +46,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     }
     
     var categories: [String] {
-        let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
-        var names: [String] = []
-        for plannedExpense in plannedExpenses {
-            names.append(plannedExpense.name)
-        }
-        return names
+        return getAllBudgetItemNames()
     }
     
     // MARK: - TESTING

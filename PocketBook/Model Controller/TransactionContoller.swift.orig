@@ -70,18 +70,28 @@ class TransactionController {
             let updatedTransaction = Transaction(cloudKitRecord: record)
             completion(updatedTransaction)
         }
-        
     }
     
     // MARK: - Delete
     func delete(transaction: Transaction) {
         
+<<<<<<< HEAD
+=======
+    }
+    
+    // MARK: - Delete
+    func delete(transaction: Transaction) {
+        
+>>>>>>> develop
         cloudKitManager.deleteRecordWithID(transaction.recordID) { (recordID, error) in
             
             if let error = error {
                 print("Error deleting Transaction: \(error.localizedDescription) in file: \(#file)")
                 return
             } else {
+<<<<<<< HEAD
+                print("Successfully deleted Transaction")
+=======
                 // FIXME: Modify the account
                 guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == transaction.account }) else {return}
                 let account = AccountController.shared.accounts[indexForAccount]
@@ -103,9 +113,22 @@ class TransactionController {
                 guard let returnType = type else {return}
                 
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: returnType, account: account, budgetItem: budgetItem)
+>>>>>>> develop
             }
         }
+    }
+    
+    // MARK: - Fetch Data from CloudKit
+    func fetchTransActionsFromCloudKit() {
         
+        // Get all of the accounts
+        let predicate = NSPredicate(value: true)
+        
+        // Create a query
+        let query = CKQuery(recordType: Keys.recordTransactionType, predicate: predicate)
+        
+<<<<<<< HEAD
+=======
     }
     
     // MARK: - Fetch Data from CloudKit
@@ -118,6 +141,7 @@ class TransactionController {
         // Create a query
         let query = CKQuery(recordType: Transaction.recordType, predicate: predicate)
         
+>>>>>>> develop
         // Fetch the data form cloudkit
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
             
@@ -134,4 +158,8 @@ class TransactionController {
             self.transactions = transaction
         }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> develop
 }

@@ -31,6 +31,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setPickerDelegates()
+<<<<<<< HEAD
+        
+=======
+>>>>>>> develop
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -235,6 +239,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Methods
     
+    private func updatePickerStatus() {
+        
+    }
+    
     private func presentSimpleAlert(title: String, message: String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -245,6 +253,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         self.present(alert, animated: true, completion: nil)
     }
+
     
     ///Checks to see which segment should be highlighted
     private func updateTransactionType() -> Int {
@@ -262,7 +271,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             
             var convertedAmount: Double?
-            guard let transaction = transaction, let budgetItem = budgetItem else {return}
+            guard let transaction = transaction else {return}
             
             
             if let amountString = amountTextField.text?.dropFirst() {
@@ -279,7 +288,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+<<<<<<< HEAD
+                let type = convertStringToTransactionType(string: typeString)
+=======
                 budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+>>>>>>> develop
                 
                 guard let budgetItem = budgetItem else {return}
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
@@ -327,11 +340,16 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let type = convertStringToTransactionType(string: typeString)
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
         budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
         
         TransactionController.shared.createTransactionWith(date: returnFormattedDate(date: datePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
             
             // FIXME: If it looks like something is weird try commenting me out and trying agian
             guard let budgetItem = self.budgetItem else {return}
+            
             BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
             
         })
@@ -351,9 +369,18 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
         let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
         
+<<<<<<< HEAD
         TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(date: datePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
         })
     }
+=======
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(), category: categoryButton, payee: payee, transactionType: checkWhichControlIsPressed(), amount: amountToSave, account: accountButton, completion: { (_) in
+
+        })
+    }
+
+    
+>>>>>>> develop
 }
 
 

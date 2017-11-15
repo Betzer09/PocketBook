@@ -36,6 +36,12 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         view.setNeedsDisplay()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        reloadCategoryTableView()
+    }
+    
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
             // MARK: - ??????

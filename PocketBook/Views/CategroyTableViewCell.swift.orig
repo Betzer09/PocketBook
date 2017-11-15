@@ -27,6 +27,11 @@ class CategroyTableViewCell: UITableViewCell {
         self.progressBar.progress = 0
         self.progressBar.progressTintColor = .red
         progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
+<<<<<<< HEAD
+        // This is just for testing purposes 
+        //        self.progressBar.progress = Float(10) / Float(budgetItem.allottedAmount)
+=======
+>>>>>>> develop
         self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
     }
     

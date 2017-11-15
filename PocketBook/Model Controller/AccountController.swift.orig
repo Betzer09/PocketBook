@@ -118,6 +118,12 @@ class AccountController {
         
         if transactionType == .expense {
             account.total = account.total - transaction.amount
+<<<<<<< HEAD
+            print("$\(account.total) has been subtracted from \(account.name)")
+        } else {
+            account.total = account.total + transaction.amount
+            print("$\(account.total) has been added to \(account.name)")
+=======
             print("$\(transaction.amount) has been subtracted from \(account.name) leaving you with: $\(account.total)")
 
         } else if transactionType == .income {
@@ -132,6 +138,7 @@ class AccountController {
         } else {
             // This is to account for the 'all' in the transactiontype which shouldn't ever really run
             
+>>>>>>> develop
         }
         
         updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
