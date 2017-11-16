@@ -112,7 +112,7 @@ class AccountController {
         }
     }
     
-//    // MARK: - Methods
+    // MARK: - Methods
 
 }
 

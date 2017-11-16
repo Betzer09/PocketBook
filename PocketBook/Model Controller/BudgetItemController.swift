@@ -109,8 +109,7 @@ class BudgetItemController {
     // MARK: - Methods
     
     /// Configures the monthly budget for the budgetItem
-    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem) {
-        
+    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem, difference: Double = 0 ) {
         
         if transactionType == .expense {
             
@@ -125,6 +124,7 @@ class BudgetItemController {
                 account.total -= (transaction.amount * 2)
 
             } else {
+                
                 // This means we are updating something else on the transaction
                 account.total -= transaction.amount
                 budgetItem.spentTotal += transaction.amount
@@ -140,7 +140,7 @@ class BudgetItemController {
             // This means the transaction type in switiching from an Epense to an Income
             if transaction.transactionType != transactionType.rawValue {
                 // Subtracts the budgetItem spent total
-                budgetItem.spentTotal -= transaction.amount
+                budgetItem.spentTotal -= transaction.amount - difference
                 // Adds to the totalAlloted by the transaction amount
                 guard let totalAlloted = budgetItem.totalAllotted else {return}
                 budgetItem.totalAllotted = totalAlloted + transaction.amount
