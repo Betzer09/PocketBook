@@ -26,8 +26,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     var transaction: Transaction?
     var budgetItem: BudgetItem?
     var plannedExpenseTransaction: PlannedExpense?
+<<<<<<< HEAD
+    
+=======
     var currentYShiftForKeyboard: CGFloat = 0
     var textFieldBeingEdited: UITextField?
+>>>>>>> develop
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {

@@ -15,8 +15,9 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
         didSet {
             guard let timeFrame = timeFrame,
                 let category = category else {return}
-            let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: transactions)
-            filteredByTimeFrameTransactions = filteredByTimeFrame
+            let transactions: [Transaction] = TransactionController.shared.transactions
+            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.income.rawValue, forThisArray: transactions)
+            let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
             
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
@@ -27,17 +28,15 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     var category: String? {
         didSet {
             guard let timeFrame = timeFrame,
-                let category = category,
-                let filteredByTimeFrame = filteredByTimeFrameTransactions else {return}
-            
+                let category = category else {return}
+            let transactions: [Transaction] = TransactionController.shared.transactions
+            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.income.rawValue, forThisArray: transactions)
+            let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
             view.setNeedsDisplay()
         }
     }
-    
-    let transactions: [Transaction] = TransactionController.shared.transactions
-    var filteredByTimeFrameTransactions: [Transaction]?
     
     var timeFrames: [String] {
         var array: [String] = []

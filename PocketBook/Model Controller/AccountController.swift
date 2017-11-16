@@ -27,6 +27,7 @@ class AccountController {
     
     init() {
         self.cloudKitManager = CloudKitManager()
+        fetchAccountsFromCloudKit()
     }
     
     // MARK: - Save Data
