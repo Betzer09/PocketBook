@@ -13,16 +13,16 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     // MARK: - Properties
     var timeFrame: String? {
         didSet {
+            let transactions: [Transaction] = TransactionController.shared.transactions
             guard let timeFrame = timeFrame else {return}
-            let filterByTime = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: transactions)
-            let filteredDictionary = filterByCategoryIntoDictionary(forThisArray: filterByTime)
+            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.income.rawValue, forThisArray: transactions)
+            let filteredByTime = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
+            let filteredDictionary = filterByCategoryIntoDictionary(forThisArray: filteredByTime)
             PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
             PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
             legendView.setNeedsDisplay()
         }
     }
-    
-    let transactions: [Transaction] = TransactionController.shared.transactions
     
     var timeFrames: [String] {
         var array: [String] = []
@@ -127,13 +127,5 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         timeFrameButton.setTitle(timeFrames[0], for: .normal)
         timeFrame = timeFrameButton.titleLabel?.text
     }
-    
-//    @objc func reloadView(notification: Notification) {
-//        guard let userInfo = notification.userInfo,
-//            let localTimeFrame = userInfo[Keys.timeFrameKey] as? String else {return}
-//        DispatchQueue.main.async {
-//            self.timeFrame = localTimeFrame
-//            self.reloadInputViews()
-//        }
-//    }
+
 }

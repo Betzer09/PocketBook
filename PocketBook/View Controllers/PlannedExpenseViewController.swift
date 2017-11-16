@@ -135,10 +135,10 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     var withdrawalAmountTextField: UITextField?
     
     func updateProgressBar() {
-        //progress bar progress = plannedExpense?.incomeSaved()
+//        progress bar progress = plannedExpense?.incomeSaved()
 //        let depositAmount = depositAmountTextField?.text
 //        let withdrawalAmount = withdrawalAmountTextField?.text
-        //        let incomeSavedSaved = depositAmount - withdrawalAmount
+//        let incomeSavedSaved = depositAmount - withdrawalAmount
     }
     
     //Deposit Alert
