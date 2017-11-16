@@ -65,6 +65,18 @@ class CloudKitManager {
         
         privateDataBase.add(operation)
     }
+    
+    // MARK: - User Sign In
+    
+    func checkIfUserIsSignedIntoCloudKit() -> Bool {
+        
+        if FileManager.default.ubiquityIdentityToken != nil {
+            print("iCloud Available")
+            return true
+        }
+        return false
+        
+    }
 }
 
 
