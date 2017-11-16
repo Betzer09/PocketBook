@@ -45,7 +45,7 @@ func returnFormattedDate(date: Date) -> Date {
     return formattedDate ?? Date()
 }
 
-// This function return a date as a String in the format "dd-MM-yyyy"
+/// This function return a date as a String in the format "dd-MM-yyyy"
 func returnFormattedDateString(date: Date) -> String {
     
     let dateFormatter = DateFormatter()
