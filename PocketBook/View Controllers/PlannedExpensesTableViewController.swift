@@ -9,9 +9,7 @@
 import UIKit
 
 
-//>> Needs a cell delegate?? <<
-//Need a way to calculate totalSaved where? model controller?
-//    let totalSaved = initialAmount + add button amounts??
+//>> Needs a cell delegate?? Or no? <<
 
 class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseTableViewCellDelegate {
     
@@ -40,11 +38,17 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     private func updateViews() {
 //        guard let plannedExpense = plannedExpense else { return }
 //         totalIdealMonthlyContributionLabel.text = plannedExpense
+        
     }
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return PlannedExpenseController.shared.plannedExpenses.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 100.0;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

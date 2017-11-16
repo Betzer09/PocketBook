@@ -9,7 +9,7 @@
 import UIKit
 
 class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
- 
+    
     // MARK: - Outlets
     @IBOutlet weak var accountPicker: UIPickerView!
     @IBOutlet weak var categoryPicker: UIPickerView!
@@ -25,9 +25,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - Properties
     var transaction: Transaction?
     var budgetItem: BudgetItem?
-    var plannedExpenseTransaction: PlannedExpense?
-    var currentYShiftForKeyboard: CGFloat = 0
-    var textFieldBeingEdited: UITextField?
+    
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
@@ -37,7 +35,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureUIWhenTheViewLoads()
+        setUpUI()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -142,7 +140,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     
     // MARK: - UI View Preperation
-    func configureUIWhenTheViewLoads() {
+    func setUpUI() {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -181,31 +179,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             accountPicker.selectRow(selectedAccount, inComponent: 0, animated: true)
             
         }
-        
-        if plannedExpenseTransaction != nil {
-            
-            transactionType.isHidden = true
-            
-            guard let plannedExpense = plannedExpenseTransaction else { return }
-            
-            var stringAmount = String(format: "%.2f", plannedExpense.totalSaved!)
-            stringAmount.insert("$", at: stringAmount.startIndex)
-            
-            amountTextField.text = stringAmount
-            payeeTextField.text = plannedExpense.account
-            datePicker.date = returnFormattedDate(date: plannedExpense.dueDate)
-            accountButton.setTitle(plannedExpense.account, for: .normal)
-            categoryButton.setTitle(plannedExpense.name, for: .normal)
-            
-            let budgetItems = BudgetItemController.shared.budgetItems
-            guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}
-            categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
-            
-            let accounts = AccountController.shared.accounts
-            guard let selectedAccount = accounts.index(where: { $0.name == plannedExpense.name }) else {return}
-            accountPicker.selectRow(selectedAccount, inComponent: 0, animated: true)
-            
-        }
     }
     
     func setPickerDelegates() {
@@ -218,6 +191,33 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
     }
     
+    // MARK: - Keyboard Methods
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if keyboardSize.height == offSet.height {
+                if self.view.frame.origin.y == 0{
+                    self.view.frame.origin.y -= keyboardSize.height
+                }
+            } else {
+                self.view.frame.origin.y += keyboardSize.height - offSet.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
     // MARK: - Text Field Methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -229,60 +229,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if textField == amountTextField {
             amountTextField.text = "$"
         }
-        textFieldBeingEdited = textField
-    }
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        var keyboardSize: CGRect = .zero
-        
-        if let keyboardRect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
-            keyboardRect.height != 0 {
-            keyboardSize = keyboardRect
-        } else if let keyboardRect = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect {
-            keyboardSize = keyboardRect
-        }
-        
-        if let textField = textFieldBeingEdited {
-            if self.view.frame.origin.y == 0 {
-                
-                let yShift = yShiftWhenKeyboardAppearsFor(textField: textField, keyboardHeight: keyboardSize.height, nextY: keyboardSize.height)
-                self.currentYShiftForKeyboard = yShift
-                self.view.frame.origin.y -= yShift
-            }
-        }
     }
     
-    // MARK: - Keyboard Functions
-    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
-        
-        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
-        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
-        
-        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
-        let maximumY = self.view.frame.height - keyboardHeight
-        
-        if textFieldBottomY > maximumY {
-            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
-            return textFieldBottomY - maximumY + 60
-        } else {
-            // It would go off the screen if moved, and it won't be obscured by the keyboard.
-            return 0
-        }
-    }
-    
-   @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-   @objc func keyboardWillHide(notification: NSNotification) {
-        
-        if self.view.frame.origin.y != 0 {
-            
-            self.view.frame.origin.y += currentYShiftForKeyboard
-        }
-        
-        stopEditingTextField()
-    }
     
     
     // MARK: - Methods
@@ -302,18 +250,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     private func updateTransactionType() -> Int {
         
         if transaction?.transactionType == "Income" {
-            return 1
-        } else {
             return 0
+        } else {
+            return 1
         }
         
     }
-    
-    func stopEditingTextField() {
-        view.endEditing(true)
-    }
-    
-    // MARK: - Save Button Pressed
+        // MARK: - Save Button Pressed
     private func saveTransaction() {
         if transaction != nil {
             
@@ -409,5 +352,23 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         })
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

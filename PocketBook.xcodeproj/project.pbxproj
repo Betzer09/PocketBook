@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		232CD3EC1FB4ED5200AAFE8C /* CategroyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232CD3EB1FB4ED5200AAFE8C /* CategroyTableViewCell.swift */; };
+		23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */; };
 		23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43061FB210FA008DCE5B /* AppDelegate.swift */; };
 		23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430D1FB210FA008DCE5B /* Assets.xcassets */; };
 		23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		232CD3EB1FB4ED5200AAFE8C /* CategroyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategroyTableViewCell.swift; sourceTree = "<group>"; };
+		23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardFunctions.swift; sourceTree = "<group>"; };
 		23DD43031FB210FA008DCE5B /* PocketBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD43061FB210FA008DCE5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23DD430D1FB210FA008DCE5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				9291F09B1FBA1AD700114CD1 /* Functions.swift */,
 				9255C39F1FBA8024002EBE5D /* Theme.swift */,
 				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
+				23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */,
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
 				23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */,
 				928722131FBD00D200DD0555 /* AccountListViewController.swift in Sources */,
@@ -524,6 +528,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -541,6 +546,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

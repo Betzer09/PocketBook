@@ -47,6 +47,7 @@ struct Keys {
     static let dueDateKey = "dueDate"
     static let initialAmountKey = "initialAmount"
     static let goalAmountKey = "goalAmount"
-    /**/    static let incomeSavedKey = "incomeSaved"
+    /**/    static let amountDepositedKey = "amountDeposited"
+    /**/    static let amountWithdrawnKey = "amountWithdrawn"
     static let totalSavedKey = "totalSaved"
 }

@@ -43,14 +43,15 @@ class PlannedExpenseController {
     
     
     // MARK: - Update an existing plannedExpense
-    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, totalSaved: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void) {
+    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalSaved: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void) {
         
         plannedExpense.name = name
         plannedExpense.account = account
         plannedExpense.initialAmount = initialAmount
         plannedExpense.goalAmount = goalAmount
-        /*        plannedExpense.incomeSaved = incomeSaved
-         */        plannedExpense.totalSaved = totalSaved
+        plannedExpense.amountDeposited = amountDeposited
+        plannedExpense.amountWithdrawn = amountWithdrawn
+        plannedExpense.totalSaved = totalSaved
         plannedExpense.dueDate = dueDate
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
