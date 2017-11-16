@@ -22,8 +22,8 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-dq-dXZ">
                                 <rect key="frame" x="47" y="72" width="281" height="29"/>
                                 <segments>
-                                    <segment title="Income"/>
                                     <segment title="Expense"/>
+                                    <segment title="Income"/>
                                 </segments>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dlf-rL-nIf">

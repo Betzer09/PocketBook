@@ -35,6 +35,7 @@ class AccountController {
         
         // Create an account
         let account = Account(name: name, total: total, accountType: type)
+    
         accounts.append(account)
         
         cloudKitManager.saveRecord(account.cloudKitRecord) { (_, error) in
@@ -79,11 +80,10 @@ class AccountController {
                 print("Error deleting Account: \(error.localizedDescription) in file: \(#file)")
                 return
             } else {
-                print("Successfully deleted Account!")
+                print("Successfully deleted Account")
             }
         }
     }
-    
     
     // MARK: - Fetch the data from cloudKit
     func fetchAccountsFromCloudKit() {

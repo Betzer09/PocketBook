@@ -32,6 +32,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         self.timeframeSelection = "All"
         self.setUpTableView()
     }
+    
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -66,7 +67,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     @IBAction func SegmentedControlButtonPressed(_ sender: UISegmentedControl) {
         setUpTableView()
     }
-
     
     // MARK: - UIPicker
     func setUpPicker() -> ([String], [String]) {
@@ -75,7 +75,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         
         var transactionCategories: [String] = AccountController.shared.accounts.map({$0.name}) + PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         transactionCategories.insert("All", at: 0)
-        
         
         let combined: ([String], [String]) = (times.map({$0.rawValue}), transactionCategories)
         
