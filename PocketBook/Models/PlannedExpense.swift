@@ -22,7 +22,6 @@ class PlannedExpense {
     var amountWithdrawn: Double
     /// initial amount Plus the income for the planned expense -> income dictionary
     var totalSaved: Double?
-    // TODO: Create a income dictionary
     
     // MARK: - Init
     init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double, amountDeposited: Double = 0, amountWithdrawn: Double = 0) {

@@ -10,17 +10,14 @@ import UIKit
 
 /*TO DO:
  
-withdraw & deposit buttons update progress bar
- 
 txtAccountPicker.text - func doneAccountPicker
 Complete button -> Transaction
 
  * bonus: Ideal Monthly Contribution calculations
- * bonus: keyboard hiding textfields on portrait views
  
  */
 
-class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     //MARK: - Outlets
     @IBOutlet weak var depositButton: UIButton!
@@ -52,6 +49,8 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     //MARK: - Properties
     let calendar = Calendar.autoupdatingCurrent
+    var currentYShiftForKeyboard: CGFloat = 0
+    var textFieldBeingEdited: UITextField?
     
     var plannedExpense: PlannedExpense? {
         didSet {
@@ -162,19 +161,36 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     //Deposit Alert
     func presentDepositAlert() {
         
+        var depositAmount: UITextField!
+        
         let depositAlertController = UIAlertController(title: "Deposit", message: "How much money do you want to deposit into your planned expense?", preferredStyle: .alert)
         depositAlertController.addTextField { (textField) in
             textField.placeholder = "Enter amount here"
-            self.depositAmountTextField = textField
-            self.textFieldDidBeginEditing(self.depositAmountTextField!)
+            textField.text = "+"
+            depositAmount = textField
         }
         
-        let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
-            self.depositAmountTextField?.text = "\(String(describing: self.plannedExpense?.amountDeposited))"
+        let addAction = UIAlertAction(title: "Deposit", style: .default) { (_) in
+
+            guard let StringAmount = depositAmount.text?.dropFirst() else {
+                return
+            }
+            
+            guard let amountDeposited = Double(StringAmount) else {
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid amount!")
+                return
+            }
+            
+            guard let plannedExpense = self.plannedExpense, let totalSaved = self.plannedExpense?.totalSaved else {return}
+            plannedExpense.totalSaved = totalSaved + amountDeposited
+            
+            guard let total = plannedExpense.totalSaved else {return}
+            
+            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, amountDeposited: 0.0, amountWithdrawn: amountDeposited, totalSaved: total, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
         }
         
         depositAlertController.addAction(addAction)
-        
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
             self.view.endEditing(true)
         }
@@ -315,10 +331,20 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        initialAmountTextField.text = "$"
-        goalAmountTextField.text = "$"
-        depositAmountTextField?.text = "+ "
+        
+        textFieldBeingEdited = textField
+        
+        if textField == initialAmountTextField {
+            initialAmountTextField.text = "$"
+        } else if textField == goalAmountTextField {
+            goalAmountTextField.text = "$"
+        } else if textField == depositAmountTextField {
+            depositAmountTextField?.text = "+ "
+        } else if textField == withdrawalAmountTextField {
         withdrawalAmountTextField?.text = "- "
+        } else {
+            print("Error \(#file)")
+        }
         
     }
     
@@ -334,29 +360,61 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    // MARK: - moves constraints
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
-            let offSet = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if keyboardSize.height == offSet.height {
-                if self.view.frame.origin.y == 0{
-                    self.view.frame.origin.y -= keyboardSize.height
-                }
-            } else {
-                self.view.frame.origin.y += keyboardSize.height - offSet.height
-            }
+    
+    // MARK: - Keyboard Constraints
+    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
+
+        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
+        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
+
+        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
+        let maximumY = self.view.frame.height - keyboardHeight
+
+        if textFieldBottomY > maximumY {
+            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
+            return textFieldBottomY - maximumY + 60
+        } else {
+            // It would go off the screen if moved, and it won't be obscured by the keyboard.
+            return 0
         }
     }
-    
+
+    @objc func keyboardDismissed() {
+        view.endEditing(true)
+    }
+
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
+
+        if self.view.frame.origin.y != 0 {
+
+            self.view.frame.origin.y += currentYShiftForKeyboard
+        }
+
+        stopEditingTextField()
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        var keyboardSize: CGRect = .zero
+        
+        if let keyboardRect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
+            keyboardRect.height != 0 {
+            keyboardSize = keyboardRect
+        } else if let keyboardRect = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect {
+            keyboardSize = keyboardRect
+        }
+        
+        if let textField = textFieldBeingEdited {
+            if self.view.frame.origin.y == 0 {
+                
+                let yShift = yShiftWhenKeyboardAppearsFor(textField: textField, keyboardHeight: keyboardSize.height, nextY: keyboardSize.height)
+                self.currentYShiftForKeyboard = yShift
+                self.view.frame.origin.y -= yShift
             }
         }
     }
-    
-    @objc func keyboardDismiss() {
+
+    func stopEditingTextField() {
         view.endEditing(true)
     }
     
@@ -376,6 +434,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
 }
+
 
 
 
