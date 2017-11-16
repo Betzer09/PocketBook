@@ -318,7 +318,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             
             var convertedAmount: Double?
-            guard let transaction = transaction, let budgetItem = budgetItem else {return}
+            guard let transaction = transaction else { return }
             
             
             if let amountString = amountTextField.text?.dropFirst() {
@@ -327,17 +327,15 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
             }
             
+            // We want to update everything except the amount
             if transaction.amount == convertedAmount {
-                // We want to update everything except the amount
-                guard let convertedAmount = convertedAmount else {return}
-                transaction.amount = convertedAmount - transaction.amount
-                print("Difference: \(transaction.amount)")
                 
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
                 self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+                guard let budgetItem = budgetItem else {return}
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem )
                 
             } else {
                 // Update everything including the amount
@@ -350,6 +348,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
                 self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+                guard let budgetItem = budgetItem else {return}
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
             }
