@@ -10,6 +10,7 @@ import UIKit
 
 class CategroyTableViewCell: UITableViewCell {
 
+    git 
     // MARK: - Outlets
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
