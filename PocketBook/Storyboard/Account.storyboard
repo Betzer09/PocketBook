@@ -63,8 +63,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Zk-6j-btM">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL FUNDS = LOL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVl-Cn-abG">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL FUNDS :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVl-Cn-abG">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hao-hK-UhP">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -74,9 +80,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Aay-bU-B1G"/>
                                     <constraint firstAttribute="bottom" secondItem="uVl-Cn-abG" secondAttribute="bottom" id="M1A-xY-hnR"/>
-                                    <constraint firstAttribute="trailing" secondItem="uVl-Cn-abG" secondAttribute="trailing" id="PD0-pQ-Lxa"/>
+                                    <constraint firstItem="hao-hK-UhP" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="top" id="Swr-zp-xp9"/>
+                                    <constraint firstItem="hao-hK-UhP" firstAttribute="leading" secondItem="uVl-Cn-abG" secondAttribute="trailing" id="WG9-Da-9so"/>
                                     <constraint firstItem="uVl-Cn-abG" firstAttribute="leading" secondItem="1Zk-6j-btM" secondAttribute="leading" id="Wwn-Ts-4OP"/>
+                                    <constraint firstItem="uVl-Cn-abG" firstAttribute="width" secondItem="1Zk-6j-btM" secondAttribute="width" multiplier="1/2" id="ayb-af-N9m"/>
                                     <constraint firstItem="uVl-Cn-abG" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="top" id="g55-b5-BWG"/>
+                                    <constraint firstAttribute="bottom" secondItem="hao-hK-UhP" secondAttribute="bottom" id="wTw-ni-Nvl"/>
+                                    <constraint firstAttribute="trailing" secondItem="hao-hK-UhP" secondAttribute="trailing" id="ywq-5k-GMU"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8TT-MP-x2I">
@@ -325,6 +335,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="accountsTotalLabel" destination="hao-hK-UhP" id="Gdr-wZ-ItP"/>
                         <outlet property="cancelButton" destination="5mS-yp-2Vd" id="mtK-je-g1a"/>
                         <outlet property="fromPickerView" destination="gQQ-h5-SNX" id="pNr-ap-1cy"/>
                         <outlet property="payDayAmountTextField" destination="Pv1-pM-w1C" id="GW9-Xf-vyn"/>

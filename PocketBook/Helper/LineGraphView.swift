@@ -14,7 +14,7 @@ class LineGraphView: UIView {
     
     static let shared = LineGraphView()
     
-    var dots: [UIView]?
+    var dots: [UIView] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +26,6 @@ class LineGraphView: UIView {
     }
     
     func createChartLine() {
-        guard let dots = dots else {return}
         let color = UIColor.green
         let line = UIBezierPath()
         line.lineWidth = 3
@@ -159,25 +158,28 @@ class LineGraphView: UIView {
     }
     
     // MARK: - LineGraphView Setup
-    func createDot(inView lineGraphView: LineGraphView, withCoordinatesX x: CGFloat, y: CGFloat) {
+    func createDot(inView lineGraphView: LineGraphView, withCoordinatesX x: CGFloat, y: CGFloat) -> UIView {
         let dot = UIView()
         let originY = (lineGraphView.bounds.maxY - y)
         dot.frame = CGRect(x: x, y: originY, width: 7, height: 7)
         dot.backgroundColor = .green
         lineGraphView.addSubview(dot)
-        lineGraphView.dots?.append(dot)
+        return dot
     }
     
     func createScatterPlot(inView lineGraphView: LineGraphView, xDistance: CGFloat, totals: [Double]) {
         var segmentCount: CGFloat = 1
+        var dots: [UIView] = []
         for total in totals {
             guard let maxTotal = totals.max() else {return}
             let totals = maxTotal + (maxTotal * 0.1)
             let cgFloatTotal = calculatePercentValue(withBudgetItemSpentTotal: total, totalSpent:totals , maxY: lineGraphView.bounds.maxY)
             if total == 0.0 {
-                createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y: 15)
+                let dot = createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y: 15)
+                dots.append(dot)
             } else {
-                createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y:cgFloatTotal )
+                let dot = createDot(inView: lineGraphView, withCoordinatesX: segmentCount * xDistance, y:cgFloatTotal )
+                dots.append(dot)
             }
             segmentCount += 1
         }
