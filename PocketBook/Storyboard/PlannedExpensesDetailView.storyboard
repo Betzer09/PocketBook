@@ -94,7 +94,7 @@
                                                 <rect key="frame" x="0.0" y="28.5" width="375" height="25"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="WuS-7R-mpl" id="MCh-am-BdK"/>
                                                 </connections>
@@ -109,7 +109,7 @@
                                                 <rect key="frame" x="0.0" y="85" width="375" height="25.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="WuS-7R-mpl" id="GkC-vZ-Mcb"/>
                                                 </connections>
@@ -202,7 +202,7 @@
                                 <rect key="frame" x="0.0" y="151.5" width="375" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="WuS-7R-mpl" id="vTG-Rg-ZpA"/>
                                 </connections>

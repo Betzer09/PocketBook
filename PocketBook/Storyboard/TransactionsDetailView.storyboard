@@ -217,6 +217,7 @@
                         <outlet property="accountPicker" destination="f9t-g2-xY3" id="Esg-MQ-0Xq"/>
                         <outlet property="amountTextField" destination="CCK-h1-dG4" id="M25-wi-sSi"/>
                         <outlet property="categoryButton" destination="2jq-yK-etH" id="ZHC-hh-V84"/>
+                        <outlet property="categoryLabel" destination="0yz-zw-gqO" id="bgV-FS-N5B"/>
                         <outlet property="categoryPicker" destination="Auh-26-16F" id="auY-Tu-MHv"/>
                         <outlet property="dateButton" destination="AHb-Ea-B4w" id="GBW-gQ-gHn"/>
                         <outlet property="datePicker" destination="wX0-oH-aaV" id="hkM-lE-gm3"/>

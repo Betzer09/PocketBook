@@ -10,7 +10,7 @@ import UIKit
 
 /*TO DO:
  
-txtAccountPicker.text - func doneAccountPicker
+txtAccountPicker.text - func
 Complete button -> Transaction
 
  * bonus: Ideal Monthly Contribution calculations
@@ -108,14 +108,14 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             // Update
             guard let plannedExpense = plannedExpense,
                 let name = nameTextField.text,
-                let StringInitialAmount = initialAmountTextField.text,
-                let StringGoalamount = goalAmountTextField.text else {return}
+                let stringInitialAmount = initialAmountTextField.text?.dropFirst(),
+                let stringGoalamount = goalAmountTextField.text?.dropFirst() else {return}
             
-            guard let initialAmount = Double(StringInitialAmount) else {
+            guard let initialAmount = Double(stringInitialAmount) else {
                 initialAmountTextField.backgroundColor = UIColor.red
                 return
             }
-            guard let goalAmount = Double(StringGoalamount) else {
+            guard let goalAmount = Double(stringGoalamount) else {
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
@@ -127,15 +127,17 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, amountDeposited: plannedExpense.amountDeposited, amountWithdrawn: plannedExpense.amountWithdrawn, totalSaved: totalSaved, dueDate: dueDate , plannedExpense: plannedExpense, completion: { (_) in})
         } else {
             // Create
-            guard let name = nameTextField.text,
-                let StringInitialAmount = initialAmountTextField.text,
-                let StringGoalamount = goalAmountTextField.text else {return}
             
-            guard let initialAmount = Double(StringInitialAmount) else {
+            guard let name = nameTextField.text,
+                let stringInitialAmount = initialAmountTextField.text?.dropFirst(),
+                let stringGoalamount = goalAmountTextField.text?.dropFirst() else {return}
+            
+            
+            guard let initialAmount = Double(stringInitialAmount) else {
                 initialAmountTextField.backgroundColor = UIColor.red
                 return
             }
-            guard let goalAmount = Double(StringGoalamount) else {
+            guard let goalAmount = Double(stringGoalamount) else {
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
@@ -287,9 +289,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @objc func doneAccountPicker() {
-//        let accountNameArray = AccountController.shared.accounts.filter ({ $0.name == name })
-//        let accountName = accountNameArray.first
-//        txtAccountPicker.text = "\(accountName)"
+        
+        let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
+        txtAccountPicker.text = account.name
         self.view.endEditing(true)
     }
     

@@ -20,6 +20,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     
     // MARK: - Properties
@@ -197,10 +198,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             stringAmount.insert("$", at: stringAmount.startIndex)
             
             amountTextField.text = stringAmount
-            payeeTextField.text = plannedExpense.account
+            payeeTextField.text = plannedExpense.name
             datePicker.date = returnFormattedDate(date: plannedExpense.dueDate)
             accountButton.setTitle(plannedExpense.account, for: .normal)
-            categoryButton.setTitle(plannedExpense.name, for: .normal)
+//            categoryButton.setTitle(plannedExpense.name, for: .normal)
+            categoryButton.isHidden = true
+            categoryLabel.isHidden = true
             
             let budgetItems = BudgetItemController.shared.budgetItems
             guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}
@@ -323,7 +326,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             
             var convertedAmount: Double?
-            guard let transaction = transaction, let budgetItem = budgetItem else {return}
+            var difference: Double?
+            guard let transaction = transaction else { return }
             
             
             if let amountString = amountTextField.text?.dropFirst() {
@@ -332,31 +336,47 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
             }
             
+            // Since the amounts are the same we want to update everything except the amount
             if transaction.amount == convertedAmount {
-                // We want to update everything except the amount
-                guard let convertedAmount = convertedAmount else {return}
-                transaction.amount = convertedAmount - transaction.amount
-                print("Difference: \(transaction.amount)")
                 
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
                 self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+                guard let budgetItem = budgetItem else {return}
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
             } else {
                 // Update everything including the amount
-                
-                guard let convertedAmount = convertedAmount else {return}
-                transaction.amount = convertedAmount - transaction.amount
-                print("Difference: \(transaction.amount)")
-                
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 let type = convertStringToTransactionType(string: typeString)
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
                 
+                // This means the transaction Type is changing and we want to keep the full total
+                if transaction.transactionType != typeString {
+                    // We don't want the transaciton amount to be changed
+                    guard let convertedAmount = convertedAmount else {return}
+                    difference = convertedAmount - transaction.amount
+                    guard let difference = difference else {return}
+                    transaction.amount += difference
+                    
+                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+                    guard let budgetItem = budgetItem else {return}
+                    BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem, difference: difference)
+
+                } else {
+                    // Update everything including the amount
+                    guard let convertedAmount = convertedAmount else {return}
+                    transaction.amount = convertedAmount - transaction.amount
+                    
+                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+                    guard let budgetItem = budgetItem else {return}
+                    difference = convertedAmount - transaction.amount
+                    guard let difference = difference else {return}
+                    print("Difference: \(difference)")
+                    BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem, difference: difference)
+
+                }
             }
             
             updateTransaction()
