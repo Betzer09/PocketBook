@@ -33,10 +33,12 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var payDayViews: [UIView]!
     @IBOutlet weak var payDayButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var accountsTotalLabel: UILabel!
     
     // MARK: - View LifeCyles
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadAndCheckDate()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
         
         setUpUI()
@@ -49,16 +51,11 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.fromPickerView.reloadAllComponents()
-            self.toPickerView.reloadAllComponents()
-            self.payDayPickerView.reloadAllComponents()
-            self.fromPickerView.reloadInputViews()
-            self.toPickerView.reloadInputViews()
-            self.payDayPickerView.reloadInputViews()
+            self.reloadTableView()
         }
         setUpTransferFundsView()
-        
+        let total = totalFundsCalc()
+        accountsTotalLabel.text = "$\(total)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,6 +75,14 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.fromPickerView.reloadAllComponents()
+            self.toPickerView.reloadAllComponents()
+            self.payDayPickerView.reloadAllComponents()
+            self.fromPickerView.reloadInputViews()
+            self.toPickerView.reloadInputViews()
+            self.payDayPickerView.reloadInputViews()
+            let total = self.totalFundsCalc()
+            self.accountsTotalLabel.text = "$\(total)"
         }
     }
     
@@ -161,34 +166,34 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             payDayAccount = account
         }
     }
-
+    
     
     // MARK: - Actions
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         cancelButton.isHidden = true
         payDayButton.isHidden = false
         transferFundsButton.isHidden = false
-        UIView.animate(withDuration: 0.3) {
-            self.transferViews.reversed().forEach { $0.isHidden = true }
-            self.payDayViews.reversed().forEach { $0.isHidden = true }
-        }
+        self.transferViews.reversed().forEach { $0.isHidden = true }
+        self.payDayViews.reversed().forEach { $0.isHidden = true }
+//        UIView.animate(withDuration: 0.3) {
+//        }
     }
     
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
         transferFundsButton.isHidden = true
         payDayButton.isHidden = true
-        UIView.animate(withDuration: 0.3) {
-            self.transferViews.forEach { $0.isHidden = false }
-        }
+        self.transferViews.forEach { $0.isHidden = false }
+//        UIView.animate(withDuration: 0.3) {
+//        }
         cancelButton.isHidden = false
     }
     
     @IBAction func payDayButtonTapped(_ sender: UIButton) {
         transferFundsButton.isHidden = true
         payDayButton.isHidden = true
-        UIView.animate(withDuration: 0.3) {
-            self.payDayViews.forEach { $0.isHidden = false }
-        }
+        self.payDayViews.forEach { $0.isHidden = false }
+//        UIView.animate(withDuration: 0.3) {
+//        }
         cancelButton.isHidden = false
     }
     
@@ -203,15 +208,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         transferAmountTextField.text = ""
         tableView.reloadData()
         AccountController.shared.updateAccountWith(name: toAccount.name, type: toAccount.accountType, total: toAccount.total, account: toAccount, completion:  { (_) in
-        // TODO: DELETE THIS CLOSURE
+            // TODO: DELETE THIS CLOSURE
         })
         AccountController.shared.updateAccountWith(name: fromAccount.name, type: fromAccount.accountType, total: fromAccount.total, account: fromAccount, completion: { (_) in
-        // TODO: DELETE THIS CLOSURE
+            // TODO: DELETE THIS CLOSURE
         })
-            
-        UIView.animate(withDuration: 0.3) {
-            self.transferViews.reversed().forEach { $0.isHidden = true }
-        }
+        
+//        UIView.animate(withDuration: 0.3) {
+//        }
+        self.transferViews.reversed().forEach { $0.isHidden = true }
         cancelButton.isHidden = true
         transferFundsButton.isHidden = false
         payDayButton.isHidden = false
@@ -230,9 +235,9 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             // Nothing to do.
         }
         
-        UIView.animate(withDuration: 0.3) {
-            self.payDayViews.reversed().forEach { $0.isHidden = true }
-        }
+//        UIView.animate(withDuration: 0.3) {
+//        }
+        self.payDayViews.reversed().forEach { $0.isHidden = true }
         cancelButton.isHidden = true
         transferFundsButton.isHidden = false
         payDayButton.isHidden = false
@@ -258,5 +263,95 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             
             destinationVC.account = AccountController.shared.accounts[indexPath.row]
         }
+    }
+    
+    // MARK: - Calculations
+    func totalFundsCalc() -> Double {
+        let accounts = AccountController.shared.accounts
+        var total: Double = 0.0
+        for account in accounts {
+            if account.accountType == AccountType.CreditCard.rawValue {
+                total -= account.total
+            } else {
+            total += account.total
+            }
+        }
+        return total
+    }
+    
+    // MARK: - Alert Methods
+    func presentResetMonthlyBudgetAlert() {
+        let alertController = UIAlertController(title: "Reset Budget Categories", message: "It is a new Month! Would you like to reset each of your budget categories to show no money spent?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (_) in
+            BudgetItemController.shared.resetSpentTotal()
+        }
+        let noAction = UIAlertAction(title: "No", style: .default) { (_) in
+            var monthString = ""
+            var yearString = ""
+            let dayString = "01"
+            let currentYear = dateComponentYear(date: Date())
+            let currentMonth = dateComponentMonth(date: Date())
+            if currentMonth == 1 {
+                monthString = "12"
+                yearString = "\(currentYear - 1)"
+            } else {
+                let lastMonth = currentMonth - 1
+                if lastMonth <= 9 {
+                    monthString = "0\(lastMonth)"
+                } else {
+                    monthString = "\(lastMonth)"
+                }
+                yearString = "\(currentYear)"
+                let date = Date(dateString: yearString+"-"+monthString+"-"+dayString)
+                //"yyyy-MM-dd"
+                print(date)
+                
+                self.saveDate(date: date)
+            }
+        }
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - USER DEFAULT
+    func loadAndCheckDate() {
+        let userDefaults = UserDefaults.standard
+        guard let dateDictionary = userDefaults.object(forKey: Keys.dateDictionaryKey) as? [String: Date],
+            let date = dateDictionary[Keys.dateDictionaryKey] else {
+                let lastTimeAppWasOpened = Date()
+                saveDate(date: lastTimeAppWasOpened)
+                return}
+        let currentDate = Date()
+        let currentMonth = dateComponentMonth(date: currentDate)
+        let currentYear = dateComponentYear(date: currentDate)
+        let dateMonth = dateComponentMonth(date: date)
+        let dateYear = dateComponentYear(date: date)
+//        let dateMonth = 10
+//        let dateYear = 2017
+        
+        if dateYear < currentYear {
+            let lastTimeAppWasOpened = Date()
+            saveDate(date: lastTimeAppWasOpened)
+            presentResetMonthlyBudgetAlert()
+        }
+        if dateMonth < currentMonth {
+            presentResetMonthlyBudgetAlert()
+            let lastTimeAppWasOpened = Date()
+            saveDate(date: lastTimeAppWasOpened)
+        } else {
+            let lastTimeAppWasOpened = Date()
+            saveDate(date: lastTimeAppWasOpened)
+        }
+    }
+    
+    func saveDate(date: Date) {
+        let userDefaults = UserDefaults.standard
+        let dateDictionary: [String: Date] = [Keys.dateDictionaryKey: date]
+        userDefaults.set(dateDictionary, forKey: Keys.dateDictionaryKey)
     }
 }

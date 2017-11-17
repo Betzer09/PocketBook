@@ -28,10 +28,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VW-0y-fKM" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="167" height="167"/>
+                                                <rect key="frame" x="10" y="10" width="147" height="147"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Kh-9q-mw5" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
-                                                        <rect key="frame" x="55.5" y="55" width="56" height="56"/>
+                                                        <rect key="frame" x="49" y="48.5" width="49" height="49"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
@@ -52,11 +52,11 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="lUB-63-ntz" secondAttribute="trailing" id="ALg-QI-WgK"/>
-                                            <constraint firstItem="9VW-0y-fKM" firstAttribute="top" secondItem="2st-oS-GKC" secondAttribute="top" id="ENi-qk-jnv"/>
+                                            <constraint firstItem="9VW-0y-fKM" firstAttribute="top" secondItem="2st-oS-GKC" secondAttribute="top" constant="10" id="ENi-qk-jnv"/>
                                             <constraint firstItem="lUB-63-ntz" firstAttribute="top" secondItem="2st-oS-GKC" secondAttribute="top" id="FFO-uy-WBL"/>
-                                            <constraint firstItem="9VW-0y-fKM" firstAttribute="leading" secondItem="2st-oS-GKC" secondAttribute="leading" id="HkL-NR-ggO"/>
-                                            <constraint firstItem="lUB-63-ntz" firstAttribute="leading" secondItem="9VW-0y-fKM" secondAttribute="trailing" id="VZZ-MN-lz0"/>
-                                            <constraint firstAttribute="bottom" secondItem="9VW-0y-fKM" secondAttribute="bottom" id="hr5-vT-vrf"/>
+                                            <constraint firstItem="9VW-0y-fKM" firstAttribute="leading" secondItem="2st-oS-GKC" secondAttribute="leading" constant="10" id="HkL-NR-ggO"/>
+                                            <constraint firstItem="lUB-63-ntz" firstAttribute="leading" secondItem="9VW-0y-fKM" secondAttribute="trailing" constant="10" id="VZZ-MN-lz0"/>
+                                            <constraint firstAttribute="bottom" secondItem="9VW-0y-fKM" secondAttribute="bottom" constant="10" id="hr5-vT-vrf"/>
                                             <constraint firstAttribute="bottom" secondItem="lUB-63-ntz" secondAttribute="bottom" id="zl3-Y6-ClP"/>
                                         </constraints>
                                     </view>

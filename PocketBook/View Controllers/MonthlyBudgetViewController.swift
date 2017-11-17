@@ -42,6 +42,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         reloadCategoryTableView()
     }
     
+    // MARK: - Notification Methods
     @objc func reloadCategoryTableView() {
         DispatchQueue.main.async {
             self.updateUI()

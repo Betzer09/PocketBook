@@ -36,6 +36,12 @@ func dateComponentYear(date: Date) -> Int {
     return year
 }
 
+func dateComponentDay(date: Date) -> Int {
+    let dateComponents = calendar.dateComponents([.day], from: date)
+    guard let day = dateComponents.day else {return 0}
+    return day
+}
+
 //DATE FORMATTING - Get rid of only if able to change date formatting?
 func returnFormattedDate(date: Date) -> Date {
     let dateFormatter = DateFormatter()

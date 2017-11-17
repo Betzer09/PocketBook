@@ -36,7 +36,7 @@ class AccountController {
         
         // Create an account
         let account = Account(name: name, total: total, accountType: type)
-    
+        
         accounts.append(account)
         
         cloudKitManager.saveRecord(account.cloudKitRecord) { (_, error) in
@@ -113,31 +113,7 @@ class AccountController {
     }
     
     // MARK: - Methods
-    func modifyAccountTotalFor(account: Account, transaction: Transaction, transactionType: TransactionType) {
-        
-        print("Account is currently at \(account.total)")
-        
-        if transactionType == .expense {
-            account.total = account.total - transaction.amount
-            print("$\(transaction.amount) has been subtracted from \(account.name) leaving you with: $\(account.total)")
 
-        } else if transactionType == .income {
-            account.total = account.total + transaction.amount
-            print("$\(transaction.amount) has been added to \(account.name) leaving you with: $\(account.total)")
-
-        } else if transactionType == .removeExpense {
-            // Don't do anyting
-            
-        } else if transactionType == .removeIncome {
-            
-        } else {
-            // This is to account for the 'all' in the transactiontype which shouldn't ever really run
-            
-        }
-        
-        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
-        }
-    }
 }
 
 
