@@ -148,7 +148,7 @@ class BudgetItemController {
         
         if transactionType == .income {
             
-            // This means the transaction type in switiching from an Epense to an Income
+            // This means the transaction type in switiching from an Expense to an Income
             if transaction.transactionType != transactionType.rawValue {
                 // Subtracts the budgetItem spent total
                 budgetItem.spentTotal -= transaction.amount - difference

@@ -360,14 +360,15 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                     // Update everything including the amount
                     guard let convertedAmount = convertedAmount else {return}
                     transaction.amount = convertedAmount - transaction.amount
-                    print("Difference: \(transaction.amount)")
                     
                     self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                    guard let budgetItem = budgetItem, let difference = difference else {return}
+                    guard let budgetItem = budgetItem else {return}
+                    difference = convertedAmount - transaction.amount
+                    guard let difference = difference else {return}
+                    print("Difference: \(difference)")
                     BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem, difference: difference)
 
                 }
-
             }
             
             updateTransaction()
