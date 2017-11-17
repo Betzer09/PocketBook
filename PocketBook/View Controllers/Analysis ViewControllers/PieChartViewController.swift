@@ -15,7 +15,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         didSet {
             let transactions: [Transaction] = TransactionController.shared.transactions
             guard let timeFrame = timeFrame else {return}
-            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.income.rawValue, forThisArray: transactions)
+            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
             let filteredByTime = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredDictionary = filterByCategoryIntoDictionary(forThisArray: filteredByTime)
             PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
@@ -65,7 +65,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     // MARK: - Setup ViewPicker
-    
     func setUpPickerViews() {
         timeFramePickerView.dataSource = self
         timeFramePickerView.delegate = self
@@ -93,7 +92,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     // MARK: - Setup Vars and Reload Functions
-    
     func setUpTimeFrameVar() {
         timeFrameButton.setTitle(timeFrames[0], for: .normal)
         timeFrame = timeFrameButton.titleLabel?.text

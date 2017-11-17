@@ -10,9 +10,9 @@ import UIKit
 
 /*TO DO:
  
-txtAccountPicker.text - func
-Complete button -> Transaction
-
+ txtAccountPicker.text - func doneAccountPicker
+ Complete button -> Transaction
+ 
  * bonus: Ideal Monthly Contribution calculations
  
  */
@@ -39,11 +39,6 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let plannedExpense = plannedExpense {
-            self.navigationItem.title = plannedExpense.name
-        } else {
-            self.navigationItem.title = "Create New Planned Expense"
-        }
         setPickerDelegates()
         showDatePicker()
         showAccountPicker()
@@ -154,7 +149,6 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             
         } else {
             // Create
-            
             guard let name = nameTextField.text,
                 let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
                 let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
@@ -316,9 +310,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @objc func doneAccountPicker() {
-        
-        let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
-        txtAccountPicker.text = account.name
+        //        let accountNameArray = AccountController.shared.accounts.filter ({ $0.name == name })
+        //        let accountName = accountNameArray.first
+        //        txtAccountPicker.text = "\(accountName)"
         self.view.endEditing(true)
     }
     
@@ -330,9 +324,6 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     /*NOTE - if we want to make the PICKER to be month & year only, it has to be a custom picker, not a date picker*/
     
     func showDatePicker(){
-        if plannedExpense == nil {
-            dueDateDatePicker.date = Date()
-        }
         dueDateDatePicker.datePickerMode = .date
         
         // ToolBar

@@ -20,6 +20,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     
     // MARK: - Properties
@@ -32,6 +33,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let transaction = transaction {
+            self.navigationItem.title = "Transaction Details"
+        } else {
+            self.navigationItem.title = "Create New Transaction"
+        }
         setPickerDelegates()
     }
     
@@ -192,10 +198,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             stringAmount.insert("$", at: stringAmount.startIndex)
             
             amountTextField.text = stringAmount
-            payeeTextField.text = plannedExpense.account
+            payeeTextField.text = plannedExpense.name
             datePicker.date = returnFormattedDate(date: plannedExpense.dueDate)
             accountButton.setTitle(plannedExpense.account, for: .normal)
-            categoryButton.setTitle(plannedExpense.name, for: .normal)
+//            categoryButton.setTitle(plannedExpense.name, for: .normal)
+            categoryButton.isHidden = true
+            categoryLabel.isHidden = true
             
             let budgetItems = BudgetItemController.shared.budgetItems
             guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}

@@ -41,6 +41,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         loadAndCheckDate()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
         
+        
+        
         setUpUI()
         
         let cloudKitManager = CloudKitManager()

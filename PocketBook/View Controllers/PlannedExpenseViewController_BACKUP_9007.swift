@@ -10,9 +10,15 @@ import UIKit
 
 /*TO DO:
  
+<<<<<<< HEAD
+ txtAccountPicker.text - func doneAccountPicker
+ Complete button -> Transaction
+ 
+=======
 txtAccountPicker.text - func
 Complete button -> Transaction
 
+>>>>>>> 61eeefd631262236a88c53c88e3b5d1fece2e23c
  * bonus: Ideal Monthly Contribution calculations
  
  */
@@ -134,6 +140,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             // Update
             guard let plannedExpense = plannedExpense,
                 let name = nameTextField.text,
+<<<<<<< HEAD
                 let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
                 let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
             
@@ -142,6 +149,16 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
                 return
             }
             guard let goalAmount = Double(goalString) else {
+=======
+                let stringInitialAmount = initialAmountTextField.text?.dropFirst(),
+                let stringGoalamount = goalAmountTextField.text?.dropFirst() else {return}
+            
+            guard let initialAmount = Double(stringInitialAmount) else {
+                initialAmountTextField.backgroundColor = UIColor.red
+                return
+            }
+            guard let goalAmount = Double(stringGoalamount) else {
+>>>>>>> 61eeefd631262236a88c53c88e3b5d1fece2e23c
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
@@ -156,6 +173,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             // Create
             
             guard let name = nameTextField.text,
+<<<<<<< HEAD
                 let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
                 let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
             
@@ -164,6 +182,17 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
                 return
             }
             guard let goalAmount = Double(goalString) else {
+=======
+                let stringInitialAmount = initialAmountTextField.text?.dropFirst(),
+                let stringGoalamount = goalAmountTextField.text?.dropFirst() else {return}
+            
+            
+            guard let initialAmount = Double(stringInitialAmount) else {
+                initialAmountTextField.backgroundColor = UIColor.red
+                return
+            }
+            guard let goalAmount = Double(stringGoalamount) else {
+>>>>>>> 61eeefd631262236a88c53c88e3b5d1fece2e23c
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
@@ -316,9 +345,15 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @objc func doneAccountPicker() {
+<<<<<<< HEAD
+        //        let accountNameArray = AccountController.shared.accounts.filter ({ $0.name == name })
+        //        let accountName = accountNameArray.first
+        //        txtAccountPicker.text = "\(accountName)"
+=======
         
         let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
         txtAccountPicker.text = account.name
+>>>>>>> 61eeefd631262236a88c53c88e3b5d1fece2e23c
         self.view.endEditing(true)
     }
     
