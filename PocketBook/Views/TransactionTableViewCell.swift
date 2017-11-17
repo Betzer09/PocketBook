@@ -15,22 +15,13 @@ class TransactionTableViewCell: UITableViewCell {
     }
     
     // This function formats the way that the date appears in the tableView
-    func returnFormattedDateString() -> String {
-        
-        guard let date = transactions?.date else { return "" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let transactionDate = dateFormatter.string(from: date)
-        return transactionDate
-        
-    }
     
     private func updateViews() {
         
         guard let transactions = transactions else { return }
         self.payeeLabel.text = transactions.payee
-        self.dateLabel.text = "\(returnFormattedDateString())"
-        self.amountLabel.text = "\(String(format: "$%.02f", transactions.amount))"
+        self.dateLabel.text = returnFormattedDate(fromdate: transactions.date)
+        self.amountLabel.text = "\(formatNumberToString(fromDouble: transactions.amount))"
         
     }
     

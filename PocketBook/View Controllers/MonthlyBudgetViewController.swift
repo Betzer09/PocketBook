@@ -231,10 +231,12 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         // TODO: FIX ME - Possibly have label above these three labels that returns the current month
 
         // Update all three labels in the view below the budget items
-        plannedExpenseLabel.text = "Total planned expenses for this month: $\(PlannedExpenseController.shared.calculateTotalMonthlyContribution())"
+        plannedExpenseLabel.text = "Total planned expenses for this month: \(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         updateMonthlyBudgetLabel()
-        totalSpentLabel.text = "Total Spent of monthly budget: $\(addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution())"
+        totalSpentLabel.text = "Total Spent of monthly budget: \(formatNumberToString(fromDouble: addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
+    
+    //
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -281,6 +283,7 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
             }
             // Store the number in the projectedIncome Variable
             projectedIncome = income
+            UsersController.shared.createUser(projectedIncome: income, completion: nil)
             updateMonthlyBudgetLabel()
         }
         textField.resignFirstResponder()

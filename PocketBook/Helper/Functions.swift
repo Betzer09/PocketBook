@@ -158,7 +158,7 @@ func filterByCategoryIntoArray(forCategory name: String, forThisArray transactio
     }
     
     for transaction in transactions {
-        if transaction.category == name {
+        if transaction.account == name {
             internalFilteredTransactions.append(transaction)
         }
     }
@@ -255,3 +255,41 @@ func calculateDistanceOfEachXCatagory(inView xView: UIView, withDivisor divisor:
     let segment = (xView.bounds.maxX / segmentDivision)
     return segment
 }
+
+func formatNumberToString(fromDouble double: Double) -> String {
+    
+    var formattedNumber: String = ""
+    let nsNumber = NSNumber(value: double)
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    formatter.maximumFractionDigits = 2;
+    if let number = formatter.string(from: nsNumber) {
+        formattedNumber = number
+    }
+    return formattedNumber
+}
+
+func updateAccount(withname name: String, basedOnArray array: Array<Account>) -> String {
+    
+    var accountName: String = ""
+    let numberOfAccounts = array.count
+    if numberOfAccounts == 1 {
+        accountName = name
+    } else {
+        var account = String(name)
+        account.insert("s", at: account.endIndex)
+        accountName = account
+    }
+    return accountName
+}
+
+func returnFormattedDate(fromdate date: Date) -> String {
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .medium
+    dateFormatter.timeStyle = .none
+    dateFormatter.locale = Locale(identifier: "en_US")
+    let date = dateFormatter.string(from: date)
+    return date
+}
+

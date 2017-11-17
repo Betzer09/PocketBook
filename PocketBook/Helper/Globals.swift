@@ -50,7 +50,7 @@ enum SegmentedControlType: String {
     case withdraw = "Withdraw"
     case complete = "Complete"
     case checking = "Checking"
-    case saving = "Saving"
+    case saving = "Savings"
     case credit = "Credit"
 }
 

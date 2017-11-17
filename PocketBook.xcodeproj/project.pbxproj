@@ -53,7 +53,9 @@
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
-		F519EDE41FBF56ED0013C8B8 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */; };
+		F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */; };
+		F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UsersController.swift */; };
+		F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* Users.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,7 +108,9 @@
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewCell.swift; path = "../View Controllers/CategoryTableViewCell.swift"; sourceTree = "<group>"; };
+		F5FF295C1FBE75880012AA24 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
+		F5FF295E1FBE75DB0012AA24 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,7 @@
 				23DD431E1FB212DB008DCE5B /* Account.swift */,
 				23DD43281FB22805008DCE5B /* BudgetItem.swift */,
 				23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */,
+				F5FF295E1FBE75DB0012AA24 /* Users.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
 				23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */,
 				23DD43451FB26E39008DCE5B /* BudgetItemController.swift */,
+				F5FF295C1FBE75880012AA24 /* UsersController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -266,7 +272,7 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */,
+				F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */,
 				23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */,
 				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
 			);
@@ -386,6 +392,9 @@
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+				F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */,
+				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
+				F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */,
 				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,

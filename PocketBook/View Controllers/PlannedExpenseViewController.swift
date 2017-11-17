@@ -88,8 +88,8 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             
             txtAccountPicker.text = plannedExpense.account
             nameTextField.text = plannedExpense.name
-            goalAmountTextField.text = String(format: "$%.2f", plannedExpense.goalAmount)
-            initialAmountTextField.text = String(format: "$%.2f", plannedExpense.initialAmount)
+            goalAmountTextField.text = formatNumberToString(fromDouble: plannedExpense.goalAmount)
+            initialAmountTextField.text = formatNumberToString(fromDouble: plannedExpense.initialAmount)
             txtDatePicker.text = returnFormattedDateString(date: plannedExpense.dueDate)
             
             guard let totalSaved = plannedExpense.totalSaved else { return }
@@ -99,7 +99,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             
             let monthlyContribution = (amountDifference / Double(calculatedMonthsToDueDate))
             if monthlyContribution > 0 {
-                calculatedContributionlabel.text = "\(String(format: "$%.2f", monthlyContribution))"
+                calculatedContributionlabel.text = "\(formatNumberToString(fromDouble: monthlyContribution))"
             } else {
                 calculatedContributionlabel.text = "Congratulations! You have reached your goal!"
             }

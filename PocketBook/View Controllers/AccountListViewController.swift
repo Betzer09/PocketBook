@@ -44,7 +44,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         setUpUI()
-        
         let cloudKitManager = CloudKitManager()
         if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
@@ -53,11 +52,12 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
+            self.updateArrays()
             self.reloadTableView()
         }
         setUpTransferFundsView()
         let total = totalFundsCalc()
-        accountsTotalLabel.text = "$\(total)"
+        accountsTotalLabel.text = "\(formatNumberToString(fromDouble: total))"
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,6 +76,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func reloadTableView() {
         DispatchQueue.main.async {
+            self.updateArrays()
             self.tableView.reloadData()
             self.fromPickerView.reloadAllComponents()
             self.toPickerView.reloadAllComponents()
@@ -84,23 +85,120 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             self.toPickerView.reloadInputViews()
             self.payDayPickerView.reloadInputViews()
             let total = self.totalFundsCalc()
-            self.accountsTotalLabel.text = "$\(total)"
+            self.accountsTotalLabel.text = "\(formatNumberToString(fromDouble: total))"
         }
     }
     
-    // MARK: - Setup TableView
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AccountController.shared.accounts.count
+    // MARK: Account Arrays
+    
+    func returnAccountArray(withType type: String) -> [Account] {
+        var accountArray: [Account] = []
+        for account in AccountController.shared.accounts {
+            if account.accountType == type {
+                accountArray.append(account)
+            }
+        }
+        return accountArray
     }
     
+    // Make arrays for all accounts
+    var checkingArray: [Account]?
+    var savingsArray: [Account]?
+    var creditArray: [Account]?
+    
+    func updateArrays() {
+        
+        // FIXME: Implement Enums and remove raw values below
+        self.checkingArray = returnAccountArray(withType: SegmentedControlType.checking.rawValue)
+        self.savingsArray = returnAccountArray(withType: SegmentedControlType.saving.rawValue)
+        self.creditArray = returnAccountArray(withType: SegmentedControlType.credit.rawValue)
+    }
+    
+    // This function checks to see if there is anything in the array for each type of account. It then returns an array of arrays with the accounts grouped in their respective arrays.
+    func returnAllAccounts() -> [[Account]] {
+        
+        var allAccounts: [[Account]] = []
+        
+        guard let checkingArray = self.checkingArray,
+            let savingsArray = self.savingsArray,
+            let creditArray = self.creditArray else { return [] }
+        
+        if checkingArray.count > 0 {
+            allAccounts.append(checkingArray)
+        }
+        if savingsArray.count > 0 {
+            allAccounts.append(savingsArray)
+        }
+        if creditArray.count > 0 {
+            allAccounts.append(creditArray)
+        }
+       
+        return allAccounts.flatMap({ $0 })
+    }
+    
+    /// This function checks to see if there is anything in the array for each type of account. It then returns an array with section names. This function is needed so that the tableview can count the number of sections.
+    func returnAllSections() -> [String] {
+        
+        var allSections: [String] = []
+        
+        guard let checkingArray = self.checkingArray,
+            let savingsArray = self.savingsArray,
+            let creditArray = self.creditArray else { return [] }
+        
+        
+        if checkingArray.count > 0 {
+            allSections.append(AccountType.Checking.rawValue)
+        }
+        if savingsArray.count > 0 {
+            allSections.append(AccountType.Saving.rawValue)
+        }
+        if creditArray.count > 0 {
+            allSections.append(AccountType.CreditCard.rawValue)
+        }
+        
+        return allSections
+    }
+    
+    // MARK: - Setup TableView
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        guard let checkingArray = self.checkingArray,
+            let savingsArray = self.savingsArray,
+            let creditArray = self.creditArray else { return nil }
+        
+        switch section {
+        case 0:
+            if checkingArray.isEmpty == false {
+                return updateAccount(withname: "Checking Account", basedOnArray: checkingArray)
+            } else { fallthrough }
+        case 1:
+            if savingsArray.isEmpty == false {
+                return updateAccount(withname: "Savings Account", basedOnArray: savingsArray)
+            } else { fallthrough }
+        default:
+            if creditArray.isEmpty == false {
+                return updateAccount(withname: "Credit Account", basedOnArray: creditArray)
+            }
+        }
+        return nil
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.returnAllSections().count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.returnAllAccounts()[section].count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         
-        let account = AccountController.shared.accounts[indexPath.row]
+        let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
         cell.textLabel?.text = account.name
         
-        let stringAmount = String(format: "$%.2f", account.total)
+        let stringAmount = formatNumberToString(fromDouble: account.total)
         cell.detailTextLabel?.text = stringAmount
         
         return cell
@@ -110,10 +208,19 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         if editingStyle == .delete {
             // Delete the row from the data source
             
-            let account = AccountController.shared.accounts[indexPath.row]
-            AccountController.shared.accounts.remove(at: indexPath.row)
+            
+            let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
+            let accounts = AccountController.shared.accounts
+            let accountIndex = accounts.index{$0 === account}
+            guard let index = accountIndex else { return }
+            let indexString = String(index)
+            let indexInt = Int(indexString)
+            guard let intIndex = indexInt else { return }
             AccountController.shared.delete(account: account)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            // tableView.deleteRows(at: [indexPath], with: .fade)
+            AccountController.shared.accounts.remove(at: intIndex)
+            updateArrays()
+            self.tableView.reloadData()
             
             // When an account is deleted, delete all corresponding transactions
             for transaction in TransactionController.shared.transactions {
@@ -255,6 +362,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         payDayPickerView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        updateArrays()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -357,3 +465,4 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         userDefaults.set(dateDictionary, forKey: Keys.dateDictionaryKey)
     }
 }
+

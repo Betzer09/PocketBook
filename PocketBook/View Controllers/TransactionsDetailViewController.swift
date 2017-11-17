@@ -168,8 +168,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             guard let transaction = transaction else { return }
             
-            var stringAmount = String(format: "%.2f", transaction.amount)
-            stringAmount.insert("$", at: stringAmount.startIndex)
+            let stringAmount = formatNumberToString(fromDouble: transaction.amount)
             
             amountTextField.text = stringAmount
             payeeTextField.text = transaction.payee
@@ -192,10 +191,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             transactionType.isHidden = true
             
-            guard let plannedExpense = plannedExpenseTransaction else { return }
+            guard let plannedExpense = plannedExpenseTransaction,
+                    let plannedExpenseDouble = plannedExpense.totalSaved else { return }
             
-            var stringAmount = String(format: "%.2f", plannedExpense.totalSaved!)
-            stringAmount.insert("$", at: stringAmount.startIndex)
+            let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
             
             amountTextField.text = stringAmount
             payeeTextField.text = plannedExpense.name

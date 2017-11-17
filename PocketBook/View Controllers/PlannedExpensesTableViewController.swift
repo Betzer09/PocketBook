@@ -28,13 +28,13 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-        amountLabel.text = "\(String(format: "$%.2f", PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
         updateViews()
-        amountLabel.text = "\(String(format: "$%.2f", PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
     //MARK: - Functions

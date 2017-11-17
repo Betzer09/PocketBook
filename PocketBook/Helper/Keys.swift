@@ -51,6 +51,10 @@ struct Keys {
     /**/    static let amountWithdrawnKey = "amountWithdrawn"
     static let totalSavedKey = "totalSaved"
     
+    // MARK: - Users Model Keys
+    static let projectedIncomeKey = "projectedIncome"
+    static let recordUsersType = "Users"
+    
     // MARK: - User Defaults Keys
     static let dateDictionaryKey = "date"
 }

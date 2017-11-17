@@ -67,7 +67,7 @@ class AccountDetailsViewController: UIViewController {
         
         // If there is an account update the views
         nameTextField.text = account.name
-        var totalString = String(format: "%.2f", account.total)
+        var totalString = formatNumberToString(fromDouble: account.total)
         totalString.insert("$", at: totalString.startIndex)
         totalTextField.text = totalString
         accountTypeSegmentedControl.selectedSegmentIndex = updateAccountTypeSegment()
@@ -131,7 +131,7 @@ class AccountDetailsViewController: UIViewController {
                 // Check to see if the user is duplicating budget item name
                 for account in AccountController.shared.accounts {
                     if account.name.lowercased() == nameTextField.text?.lowercased() {
-                        presentSimpleAlert(controllerToPresentAlert: self, title: "Duplicate Budget Category", message: "That budget category already exists. Please enter another category.")
+                        presentSimpleAlert(controllerToPresentAlert: self, title: "Duplicate Account", message: "That account already exists. Please enter another account with a different name.")
                         return
                     }
                 }
@@ -177,7 +177,7 @@ class AccountDetailsViewController: UIViewController {
             let action = UIAlertAction(title: account.name, style: .default, handler: { (_) in
                 guard let amountString = (amountTextField.text), amountString != "",
                     let amount = Double(amountString) else {return}
-                accountVC.total -= amount
+                accountVC.total = amount
                 AccountController.shared.updateAccountWith(name: name, type: accountVC.accountType, total: accountVC.total, account: accountVC, completion: { (account) in
                     //NOTHING
                 })
