@@ -33,7 +33,7 @@ class plannedExpenseTableViewCell: UITableViewCell {
         plannedExpenseNameLabel.text = plannedExpense.name
         byDueDateLabel.text = returnFormattedDateString(date: plannedExpense.dueDate)
         configureProgressBar(withPlannedExpense: plannedExpense)
-        progressBarLabel.text = "$\(plannedExpense.totalSaved) / $\(plannedExpense.goalAmount)"
+        progressBarLabel.text = "$\(totalSaved) / $\(plannedExpense.goalAmount)"
     }
     
     func configureProgressBar(withPlannedExpense plannedExpense: PlannedExpense) {
