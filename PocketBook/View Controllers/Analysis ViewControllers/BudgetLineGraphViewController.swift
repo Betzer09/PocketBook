@@ -11,28 +11,28 @@ import UIKit
 class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - Properties
-    var timeFrame: String? {
+    var timeFrame: String = "Past Year" {
         didSet {
-            guard let timeFrame = timeFrame,
-                let category = category else {return}
+            guard let category = category else {return}
             let transactions: [Transaction] = TransactionController.shared.transactions
             let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
             let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
-            LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
+            let totals = LineGraphView.shared.calculateTotalsArray(fromTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category)
+            LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTotals: totals, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
             view.setNeedsDisplay()
         }
     }
     
     var category: String? {
         didSet {
-            guard let timeFrame = timeFrame,
-                let category = category else {return}
+            guard let category = category else {return}
             let transactions: [Transaction] = TransactionController.shared.transactions
             let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
             let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
-            LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
+            let totals = LineGraphView.shared.calculateTotalsArray(fromTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category)
+            LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTotals: totals, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
             view.setNeedsDisplay()
         }
     }
@@ -79,8 +79,8 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPickerViews()
-        setUpTimeFrameVar()
         setUpCategoryVar()
+        setUpTimeFrameVar()
         // Do any additional setup after loading the view.
     }
     
@@ -153,12 +153,12 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     
     // MARK: - Setup Line Graph Views
     func setUpTimeFrameVar() {
-        timeFrameButton.setTitle(timeFrames[0], for: .normal)
-        timeFrame = timeFrameButton.titleLabel?.text
+        timeFrameButton.setTitle("Past Year", for: .normal)
     }
     
     func setUpCategoryVar() {
-        categoryButton.setTitle(categories[0], for: .normal)
-        category = categoryButton.titleLabel?.text
+        let categoryString = categories[0]
+        categoryButton.setTitle(categoryString, for: .normal)
+        category = categoryString
     }
 }

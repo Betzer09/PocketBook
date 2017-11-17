@@ -327,18 +327,29 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         let currentYear = dateComponentYear(date: currentDate)
         let dateMonth = dateComponentMonth(date: date)
         let dateYear = dateComponentYear(date: date)
-//        let dateMonth = 10
-//        let dateYear = 2017
         
         if dateYear < currentYear {
             let lastTimeAppWasOpened = Date()
             saveDate(date: lastTimeAppWasOpened)
             presentResetMonthlyBudgetAlert()
+            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+            for plannedExpense in plannedExpenses {
+                plannedExpense.monthlyTotals.append(plannedExpense.totalSaved ?? 0)
+            }
         }
         if dateMonth < currentMonth {
             presentResetMonthlyBudgetAlert()
             let lastTimeAppWasOpened = Date()
             saveDate(date: lastTimeAppWasOpened)
+            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+            for plannedExpense in plannedExpenses {
+                if plannedExpense.monthlyTotals.count == 12 {
+                    plannedExpense.monthlyTotals.remove(at: 11)
+                    plannedExpense.monthlyTotals.append(plannedExpense.totalSaved ?? 0)
+                } else {
+                    plannedExpense.monthlyTotals.append(plannedExpense.totalSaved ?? 0)
+                }
+            }
         } else {
             let lastTimeAppWasOpened = Date()
             saveDate(date: lastTimeAppWasOpened)

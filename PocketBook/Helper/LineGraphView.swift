@@ -26,7 +26,7 @@ class LineGraphView: UIView {
     }
     
     func createChartLine() {
-        let color = UIColor.green
+        let color = UIColor.blue7
         let line = UIBezierPath()
         line.lineWidth = 3
         var count = 0
@@ -78,8 +78,7 @@ class LineGraphView: UIView {
     
     
     // MARK: - Configure Line Graph
-    
-    func configureLineGraph(lineGraphView: LineGraphView, xView: UIView, yView: UIView, forTransactions transactions: [Transaction], withTimeFrame timeFrame: String, andCategory category: String, viewControllerToPresentAlert viewController: UIViewController) {
+    func configureLineGraph(lineGraphView: LineGraphView, xView: UIView, yView: UIView, forTotals totals: [Double], withTimeFrame timeFrame: String, andCategory category: String, viewControllerToPresentAlert viewController: UIViewController) {
         
         dots = []
         xView.subviews.forEach { $0.removeFromSuperview() }
@@ -89,10 +88,9 @@ class LineGraphView: UIView {
         var distanceOfEachXCatagory: CGFloat = 0
         var time: Int = 0
         var array: [String] = []
-        var totals: [Double] = []
         
         let currentMonth = dateComponentMonth(date: Date())
-
+        
         switch timeFrame {
         case TimeFrame.pastYear.rawValue:
             time = 12
@@ -100,6 +98,44 @@ class LineGraphView: UIView {
             while count >= 0 {
                 let monthString = monthsOfTheYear[count]
                 array.append(monthString)
+                count -= 1
+            }
+            count = 11
+            while count + 1  > currentMonth {
+                let monthString = monthsOfTheYear[count]
+                array.append(monthString)
+                count -= 1
+            }
+        case TimeFrame.yearToDate.rawValue:
+            time = currentMonth
+            for month in 1...time {
+                let monthString = monthsOfTheYear[month - 1]
+                array.append(monthString)
+            }
+        case TimeFrame.lastMonth.rawValue:
+            time = 4
+            array = weeksOfTheMonth
+        case TimeFrame.thisMonth.rawValue:
+            time = 4
+            array = weeksOfTheMonth
+        default: fatalError()
+        }
+        distanceOfEachXCatagory = calculateDistanceOfEachXCatagory(inView: xView, withDivisor: time)
+        createXView(fromView: xView, time: time, array: array)
+        createYView(totals: totals, inView: yView, withViewControllerToPresentAlert: viewController)
+        createScatterPlot(inView: lineGraphView, xDistance: distanceOfEachXCatagory, totals: totals)
+    }
+    
+    func calculateTotalsArray(fromTransactions transactions: [Transaction], withTimeFrame timeFrame: String, andCategory category: String) -> [Double] {
+        
+        var totals: [Double] = []
+        
+        let currentMonth = dateComponentMonth(date: Date())
+        
+        switch timeFrame {
+        case TimeFrame.pastYear.rawValue:
+            var count = currentMonth - 1
+            while count >= 0 {
                 var total: Double = 0.0
                 for transaction in transactions {
                     let month = count + 1
@@ -113,8 +149,6 @@ class LineGraphView: UIView {
             }
             count = 11
             while count + 1  > currentMonth {
-                let monthString = monthsOfTheYear[count]
-                array.append(monthString)
                 var total: Double = 0.0
                 for transaction in transactions {
                     let month = count + 1
@@ -127,10 +161,7 @@ class LineGraphView: UIView {
                 count -= 1
             }
         case TimeFrame.yearToDate.rawValue:
-            time = currentMonth
-            for month in 1...time {
-                let monthString = monthsOfTheYear[month - 1]
-                array.append(monthString)
+            for month in 1...currentMonth {
                 var total: Double = 0.0
                 for transaction in transactions {
                     let transactionMonth = dateComponentMonth(date: transaction.date)
@@ -141,20 +172,13 @@ class LineGraphView: UIView {
                 totals.append(total)
             }
         case TimeFrame.lastMonth.rawValue:
-            time = 4
-            array = weeksOfTheMonth
             let lastMonth = currentMonth - 1
             totals = calculateMonthTotals(transactions: transactions, month: lastMonth)
         case TimeFrame.thisMonth.rawValue:
-            time = 4
-            array = weeksOfTheMonth
             totals = calculateMonthTotals(transactions: transactions, month: currentMonth)
         default: fatalError()
         }
-        distanceOfEachXCatagory = calculateDistanceOfEachXCatagory(inView: xView, withDivisor: time)
-        createXView(fromView: xView, time: time, array: array)
-        createYView(totals: totals, inView: yView, withViewControllerToPresentAlert: viewController)
-        createScatterPlot(inView: lineGraphView, xDistance: distanceOfEachXCatagory, totals: totals)
+        return totals
     }
     
     // MARK: - LineGraphView Setup
@@ -162,7 +186,7 @@ class LineGraphView: UIView {
         let dot = UIView()
         let originY = (lineGraphView.bounds.maxY - y)
         dot.frame = CGRect(x: x, y: originY, width: 7, height: 7)
-        dot.backgroundColor = .green
+        dot.backgroundColor = .blue13
         lineGraphView.addSubview(dot)
         return dot
     }
@@ -215,9 +239,11 @@ class LineGraphView: UIView {
     
     // MARK: - YView Setup
     func createYView(totals: [Double], inView yView: UIView, withViewControllerToPresentAlert viewController: UIViewController) {
-        guard let greatestValue = totals.max(), greatestValue != 0 else {
-            presentSimpleAlert(controllerToPresentAlert: viewController, title: "No Data Available", message: "")
-            return}
+        guard let greatestValue = totals.max() else {
+            if viewController.view.window != nil {
+                presentSimpleAlert(controllerToPresentAlert: viewController, title: "No Data Available", message: "")
+                return
+            } else {return}}
         let maxY = yView.bounds.maxY
         let maxYValue = greatestValue + (greatestValue * 0.1)
         let halfGreatestValue = greatestValue/2
@@ -243,5 +269,4 @@ class LineGraphView: UIView {
         label.clipsToBounds = true
         view.addSubview(label)
     }
-    
 }
