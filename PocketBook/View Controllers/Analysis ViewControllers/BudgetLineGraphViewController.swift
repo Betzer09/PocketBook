@@ -16,10 +16,9 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
             guard let timeFrame = timeFrame,
                 let category = category else {return}
             let transactions: [Transaction] = TransactionController.shared.transactions
-            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.income.rawValue, forThisArray: transactions)
+            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
             let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
-            
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
             view.setNeedsDisplay()
         }
@@ -30,7 +29,7 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
             guard let timeFrame = timeFrame,
                 let category = category else {return}
             let transactions: [Transaction] = TransactionController.shared.transactions
-            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.income.rawValue, forThisArray: transactions)
+            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
             let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
@@ -55,28 +54,6 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
         }
         return names
     }
-    
-    // MARK: - TESTING
-    //    let categories: [String] = [
-    //        "Food",
-    //        "Gas",
-    //        "Clothes",
-    //        "Household",
-    //        "CarPayment",
-    //        "CellPhone",
-    //        "TV/Internet",
-    //        "Emergency",
-    //        "Hospital Bills"
-    //    ]
-    //
-    //    let transactions = [
-    //        Transaction(date: Date(), category: "Food", payee: "Wal-Mart", transactionType: "expense", amount: 50.00, account: "Savings"),
-    //        Transaction(date: Date(dateString: "2017-10-20"), category: "Gas", payee: "Chevron", transactionType: "expense", amount: 19.58, account: "Checking"),
-    //        Transaction(date: Date(dateString: "2016-12-20"), category: "Clothes", payee: "Target", transactionType: "expense", amount: 400.30, account: "Credit Card"),
-    //        Transaction(date: Date(dateString: "2017-01-01"), category: "CellPhone", payee: "Sprint", transactionType: "expense", amount: 99.00, account: "Checking"),
-    //        Transaction(date: Date(dateString: "2017-10-15"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 47.39, account: "Checking"),
-    //        Transaction(date: Date(dateString: "2017-11-02"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 28.34, account: "Checking")
-    //    ]
     
     // MARK: - Outlets
     @IBOutlet weak var timeFrameButton: UIButton!
@@ -113,7 +90,6 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     // MARK: - Setup PickerViews
-    
     func setUpPickerViews() {
         categoryPickerView.dataSource = self
         categoryPickerView.delegate = self
@@ -176,7 +152,6 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     // MARK: - Setup Line Graph Views
-    
     func setUpTimeFrameVar() {
         timeFrameButton.setTitle(timeFrames[0], for: .normal)
         timeFrame = timeFrameButton.titleLabel?.text

@@ -13,11 +13,10 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     // MARK: - Properties
     var timeFrame: String? {
         didSet {
-            guard let timeFrame = timeFrame else {return}
+            guard let timeFrame = timeFrame,
+                let category = category else {return}
             let transactions = TransactionController.shared.transactions
             let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: transactions)
-            filteredTransactionsByTimeFrame = filteredByTimeFrame
-            guard let category = category else {return}
             let filteredByCategory = filterByCategoryIntoArray(forCategory: category, forThisArray: filteredByTimeFrame)
             LineGraphView.shared.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTransactions: filteredByCategory, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
             view.setNeedsDisplay()
@@ -48,29 +47,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     var categories: [String] {
         return getAllBudgetItemNames()
     }
-    
-    // MARK: - TESTING
-    //    let categories: [String] = [
-    //        "Food",
-    //        "Gas",
-    //        "Clothes",
-    //        "Household",
-    //        "CarPayment",
-    //        "CellPhone",
-    //        "TV/Internet",
-    //        "Emergency",
-    //        "Hospital Bills"
-    //    ]
-    //
-    //    let transactions = [
-    //        Transaction(date: Date(), category: "Food", payee: "Wal-Mart", transactionType: "expense", amount: 50.00, account: "Savings"),
-    //        Transaction(date: Date(dateString: "2017-10-20"), category: "Gas", payee: "Chevron", transactionType: "expense", amount: 19.58, account: "Checking"),
-    //        Transaction(date: Date(dateString: "2016-12-20"), category: "Clothes", payee: "Target", transactionType: "expense", amount: 400.30, account: "Credit Card"),
-    //        Transaction(date: Date(dateString: "2017-01-01"), category: "CellPhone", payee: "Sprint", transactionType: "expense", amount: 99.00, account: "Checking"),
-    //        Transaction(date: Date(dateString: "2017-10-15"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 47.39, account: "Checking"),
-    //        Transaction(date: Date(dateString: "2017-11-02"), category: "Food", payee: "Smiths", transactionType: "expense", amount: 28.34, account: "Checking")
-    //    ]
-    
+
     // MARK: - Outlets
     @IBOutlet weak var timeFrameButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
@@ -106,7 +83,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     }
     
     // MARK: - Setup PickerViews
-    
     func setUpPickerViews() {
         categoryPickerView.dataSource = self
         categoryPickerView.delegate = self
@@ -169,7 +145,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     }
     
     // MARK: - Setup Line Graph Views
-    
     func setUpTimeFrameVar() {
         timeFrameButton.setTitle(timeFrames[0], for: .normal)
         timeFrame = timeFrameButton.titleLabel?.text
@@ -179,7 +154,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         categoryButton.setTitle(categories[0], for: .normal)
         category = categoryButton.titleLabel?.text
     }
-    
     
 }
 

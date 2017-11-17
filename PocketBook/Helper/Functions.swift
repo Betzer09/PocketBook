@@ -190,7 +190,7 @@ func checkWhichControlIsPressed(segmentedControl: UISegmentedControl, type1: Seg
     }
     if let type3 = type3 {
         if title == type3.rawValue {
-            currentSegmentedControlSelection = "Expense"
+            currentSegmentedControlSelection = type3.rawValue
         }
     }
     else {
@@ -206,6 +206,11 @@ func getAllBudgetItemNames() -> [String] {
     return namesArray
 }
 
+func getAllPlannedExpenseNames() -> [String] {
+    let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+    let namesArray = plannedExpenses.map({ $0.name })
+    return namesArray
+}
 
 // MARK: - Calculate Functions
 func calculateMonthTotals(transactions: [Transaction], month: Int) -> [Double] {
