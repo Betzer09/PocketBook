@@ -196,16 +196,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Methods
     
-    /// This function adds up the allotted amounts for all planned expenses in the Planned Expense Model Controller
-    func addUpPlannedExpenses() -> Double {
-        
-        var totalPlannedExpenses: Double = 500
-        for plannedExpense in PlannedExpenseController.shared.plannedExpenses {
-            totalPlannedExpenses += plannedExpense.goalAmount
-        }
-        return totalPlannedExpenses
-    }
-    
     /// This function adds up the total of all current monthly budget items
     func addUpTotalSpendOfBudget() -> Double {
         
@@ -238,13 +228,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         categoryTableView.rowHeight = UITableViewAutomaticDimension
         
         // TODO: FIX ME - Possibly have label above these three labels that returns the current month
-        // FIXME: Make sure that the function addUpPlannedExpenses works once we can add planned expenses
-        // the amount should come from the plannedExpenseModelController
-        plannedExpenseLabel.text = "Total planned expenses for this month: $\(addUpPlannedExpenses())"
-        //Projected income - plannedExpense
-       updateMonthlyBudgetLabel()
-        // TODO: - FIX ME
-        totalSpentLabel.text = "Total Spent of monthly budget: $\(addUpTotalSpendOfBudget() + addUpPlannedExpenses())"
+
+        // Update all three labels in the view below the budget items
+        plannedExpenseLabel.text = "Total planned expenses for this month: $\(PlannedExpenseController.shared.calculateTotalMonthlyContribution())"
+        updateMonthlyBudgetLabel()
+        totalSpentLabel.text = "Total Spent of monthly budget: $\(addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution())"
     }
     
     @objc func dismissKeyboard() {

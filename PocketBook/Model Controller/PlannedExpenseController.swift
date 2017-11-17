@@ -24,6 +24,42 @@ class PlannedExpenseController {
         self.cloudKitManager = CloudKitManager()
     }
     
+    // MARK: Ideal Monthly Contribution
+    
+    /// This function calculates the total monthly contribtion needed for all planned expenses
+    func calculateTotalMonthlyContribution() -> Double {
+        
+        var totalIdealContribution: Double = 0.0
+        for plannedExpense in plannedExpenses {
+            guard let totalSaved = plannedExpense.totalSaved else { return 0.0 }
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalSaved),
+                let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return 0.0 }
+            let monthlyContribution = (amountDifference / Double(calculatedMonthsToDueDate))
+            totalIdealContribution += monthlyContribution
+        }
+        return totalIdealContribution
+    }
+    
+    /// This function calculates the remaining amount needed to reach goal
+    func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
+        let difference = goalAmount - initialAmount
+        return difference
+    }
+    
+    /// This function calculates the number of months between two dates
+    func calculatedMonthsToDueDate(dueDate: Date, currentDate: Date) -> Int? {
+        let dueDateComponents = calendar.dateComponents([.year, .month], from: dueDate)
+        let currentDateComponents = calendar.dateComponents([.year, .month], from: currentDate)
+        guard let dueDateYear = dueDateComponents.year,
+            let dueDateMonth = dueDateComponents.month,
+            let currentMonth = currentDateComponents.month,
+            let currentYear = currentDateComponents.year else { return nil }
+        let yearRemainder = dueDateYear - currentYear
+        let monthRemainder = (dueDateMonth - currentMonth)
+        let total = ((yearRemainder * 12) + monthRemainder) + 1
+        return total
+    }
+
     // MARK: - Create / Save
     func createPlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, dueDate: Date, completion: ((PlannedExpense)-> Void)? ) {
         let plannedExpense = PlannedExpense(name: name, account: account, dueDate: dueDate, initialAmount: initialAmount, goalAmount: goalAmount)

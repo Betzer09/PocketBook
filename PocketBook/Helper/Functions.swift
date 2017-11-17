@@ -244,4 +244,3 @@ func calculateDistanceOfEachXCatagory(inView xView: UIView, withDivisor divisor:
     let segment = (xView.bounds.maxX / segmentDivision)
     return segment
 }
-

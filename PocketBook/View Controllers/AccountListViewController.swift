@@ -117,8 +117,14 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
             
-            // FIXME: Use similiar logic as above to delete all planned expenses when an account is deleted
-            
+            // When an account is deleted, delete all corresponding budget items
+            for plannedExpense in PlannedExpenseController.shared.plannedExpenses {
+                if plannedExpense.account == account.name {
+                    let updatedTransactions = PlannedExpenseController.shared.plannedExpenses.filter { $0.account != account.name }
+                   PlannedExpenseController.shared.plannedExpenses = updatedTransactions
+                 PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
+                }
+            }
             // FIXME: Present alert for the user to make sure that they want to delete an account
         }
     }

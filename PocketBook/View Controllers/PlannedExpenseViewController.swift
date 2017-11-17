@@ -10,9 +10,9 @@ import UIKit
 
 /*TO DO:
  
-txtAccountPicker.text - func doneAccountPicker
-Complete button -> Transaction
-
+ txtAccountPicker.text - func doneAccountPicker
+ Complete button -> Transaction
+ 
  * bonus: Ideal Monthly Contribution calculations
  
  */
@@ -24,13 +24,17 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var withdrawButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var txtAccountPicker: UITextField!
-    let accountPickerView = UIPickerView()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var initialAmountTextField: UITextField!
     @IBOutlet weak var goalAmountTextField: UITextField!
     @IBOutlet weak var txtDatePicker: UITextField!
-    let dueDateDatePicker = UIDatePicker()
     @IBOutlet weak var idealMonthlyContributionAmountLabel: UILabel!
+    @IBOutlet weak var calculatedContributionlabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    
+    // MARK: Properties
+    let dueDateDatePicker = UIDatePicker()
+    let accountPickerView = UIPickerView()
     
     //MARK: - View Lifecycles
     override func viewDidLoad() {
@@ -39,12 +43,12 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         showDatePicker()
         showAccountPicker()
         hideKeyboard()
-        configureUIWhenPlannedExpenseCellIsPressed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        configureUIWhenPlannedExpenseCellIsPressed()
     }
     
     //MARK: - Properties
@@ -58,8 +62,19 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
+    /// Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
+    func dropFirstCharacterFrom(textField: UITextField) -> String? {
+        
+        var outputString: String = ""
+        guard let string = textField.text else { return nil }
+        if string.contains("$") {
+            outputString = String(string.dropFirst())
+        } else {
+            outputString = String(string)
+        }
+        return outputString
+    }
     
-    //MARK: - Functions
     /// Populates the view if a Planned Expense cell has been pressed
     private func configureUIWhenPlannedExpenseCellIsPressed() {
         
@@ -71,30 +86,41 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             goalAmountTextField.text = String(format: "$%.2f", plannedExpense.goalAmount)
             initialAmountTextField.text = String(format: "$%.2f", plannedExpense.initialAmount)
             txtDatePicker.text = returnFormattedDateString(date: plannedExpense.dueDate)
+            
+            guard let totalSaved = plannedExpense.totalSaved else { return }
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalSaved),
+                let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return }
+            
+            
+            let monthlyContribution = (amountDifference / Double(calculatedMonthsToDueDate))
+            if monthlyContribution > 0 {
+                calculatedContributionlabel.text = "\(String(format: "$%.2f", monthlyContribution))"
+            } else {
+                calculatedContributionlabel.text = "Congratulations! You have reached your goal!"
+            }
         }
-        
-    }
+    }    
     
-    //Ideal Monthly Contribution Calculations
-    func amountDifference(goalAmount: Int, initialAmount: Int) -> Int? {
+    // MARK: - Methods
+    /// This function calculates the remaining amount needed to reach goal
+    func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
         let difference = goalAmount - initialAmount
         return difference
     }
     
+    /// This function calculates the number of months between two dates
     func calculatedMonthsToDueDate(dueDate: Date, currentDate: Date) -> Int? {
         let dueDateComponents = calendar.dateComponents([.year, .month], from: dueDate)
         let currentDateComponents = calendar.dateComponents([.year, .month], from: currentDate)
         guard let dueDateYear = dueDateComponents.year,
             let dueDateMonth = dueDateComponents.month,
             let currentMonth = currentDateComponents.month,
-            let currentYear = currentDateComponents.year else {return nil}
+            let currentYear = currentDateComponents.year else { return nil }
         let yearRemainder = dueDateYear - currentYear
-        let monthRemainder = (12 - currentMonth) + dueDateMonth
-        let total = (yearRemainder * 12) + monthRemainder
+        let monthRemainder = (dueDateMonth - currentMonth)
+        let total = ((yearRemainder * 12) + monthRemainder) + 1
         return total
     }
-    //    let idealMonthlyContributionAmount = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: plannedExpense.initialAmount) / calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: DateHelper.currentDate)
-    
     
     //MARK: - Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -103,40 +129,42 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             // Update
             guard let plannedExpense = plannedExpense,
                 let name = nameTextField.text,
-                let StringInitialAmount = initialAmountTextField.text,
-                let StringGoalamount = goalAmountTextField.text else {return}
+                let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
+                let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
             
-            guard let initialAmount = Double(StringInitialAmount) else {
+            guard let initialAmount = Double(initialString) else {
                 initialAmountTextField.backgroundColor = UIColor.red
                 return
             }
-            guard let goalAmount = Double(StringGoalamount) else {
+            guard let goalAmount = Double(goalString) else {
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
-
+            
             let dueDate = returnFormattedDate(date: dueDateDatePicker.date)
             let account = AccountController.shared.accounts[ accountPickerView.selectedRow(inComponent: 0)].name
             guard let totalSaved = plannedExpense.totalSaved else {return}
             
             PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, amountDeposited: plannedExpense.amountDeposited, amountWithdrawn: plannedExpense.amountWithdrawn, totalSaved: totalSaved, dueDate: dueDate , plannedExpense: plannedExpense, completion: { (_) in})
+            
         } else {
             // Create
             guard let name = nameTextField.text,
-                let StringInitialAmount = initialAmountTextField.text,
-                let StringGoalamount = goalAmountTextField.text else {return}
+                let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
+                let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
             
-            guard let initialAmount = Double(StringInitialAmount) else {
+            guard let initialAmount = Double(initialString) else {
                 initialAmountTextField.backgroundColor = UIColor.red
                 return
             }
-            guard let goalAmount = Double(StringGoalamount) else {
+            guard let goalAmount = Double(goalString) else {
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
             
             let account = AccountController.shared.accounts[ accountPickerView.selectedRow(inComponent: 0)].name
             PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: returnFormattedDate(date: dueDateDatePicker.date), completion: nil)
+            
         }
         
         navigationController?.popViewController(animated: true)
@@ -171,7 +199,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         let addAction = UIAlertAction(title: "Deposit", style: .default) { (_) in
-
+            
             guard let StringAmount = depositAmount.text?.dropFirst() else {
                 return
             }
@@ -190,7 +218,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         depositAlertController.addAction(addAction)
-
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
             self.view.endEditing(true)
         }
@@ -258,7 +286,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        var stringArray = AccountController.shared.accounts.map { $0.name }
+        //        var stringArray = AccountController.shared.accounts.map { $0.name }
     }
     
     func setPickerDelegates() {
@@ -282,9 +310,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @objc func doneAccountPicker() {
-//        let accountNameArray = AccountController.shared.accounts.filter ({ $0.name == name })
-//        let accountName = accountNameArray.first
-//        txtAccountPicker.text = "\(accountName)"
+        //        let accountNameArray = AccountController.shared.accounts.filter ({ $0.name == name })
+        //        let accountName = accountNameArray.first
+        //        txtAccountPicker.text = "\(accountName)"
         self.view.endEditing(true)
     }
     
@@ -341,7 +369,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         } else if textField == depositAmountTextField {
             depositAmountTextField?.text = "+ "
         } else if textField == withdrawalAmountTextField {
-        withdrawalAmountTextField?.text = "- "
+            withdrawalAmountTextField?.text = "- "
         } else {
             print("Error \(#file)")
         }
@@ -363,13 +391,13 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Keyboard Constraints
     func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
-
+        
         let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
         let textFieldBottomY = textFieldOrigin + textField.frame.size.height
-
+        
         // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
         let maximumY = self.view.frame.height - keyboardHeight
-
+        
         if textFieldBottomY > maximumY {
             // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
             return textFieldBottomY - maximumY + 60
@@ -378,18 +406,18 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             return 0
         }
     }
-
+    
     @objc func keyboardDismissed() {
         view.endEditing(true)
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
-
+        
         if self.view.frame.origin.y != 0 {
-
+            
             self.view.frame.origin.y += currentYShiftForKeyboard
         }
-
+        
         stopEditingTextField()
     }
     
@@ -413,7 +441,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             }
         }
     }
-
+    
     func stopEditingTextField() {
         view.endEditing(true)
     }
