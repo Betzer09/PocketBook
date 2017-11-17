@@ -10,6 +10,8 @@ import UIKit
 
 class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
+    static let shared = AnaylsisPageViewController()
+    
     let pageControl = UIPageControl()
     
     lazy var orderedViewControllers: [UIViewController] = {

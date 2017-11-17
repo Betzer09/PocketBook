@@ -256,16 +256,6 @@ func calculateDistanceOfEachXCatagory(inView xView: UIView, withDivisor divisor:
     return segment
 }
 
-func calculateTotalsArrays(fromPlannedExpenses plannedExpenses: [PlannedExpense], matchingCategory category: String) -> [Double] {
-    var totals: [Double] = []
-    for plannedExpense in plannedExpenses {
-        if plannedExpense.name == category {
-            totals = plannedExpense.monthlyTotals
-        }
-    }
-    return totals
-}
-
 func formatNumberToString(fromDouble double: Double) -> String {
     
     var formattedNumber: String = ""

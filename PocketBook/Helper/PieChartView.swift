@@ -34,6 +34,9 @@ class PieChartView: UIView {
         
         // get current context
         let ctx = UIGraphicsGetCurrentContext()
+        let border = UIBezierPath()
+        border.lineWidth = 2
+        let color = UIColor.white
         
         // radius is the half the frame's width or height (whichever is smallest)
         let radius = min(frame.size.width, frame.size.height) * 0.5
@@ -63,6 +66,12 @@ class PieChartView: UIView {
             
             // fill segment
             ctx?.fillPath()
+            
+            // Adding Border
+            border.move(to: viewCenter)
+            border.addArc(withCenter: viewCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            color.setStroke()
+            border.stroke()
             
             // update starting angle of the next segment to the ending angle of this segment
             startAngle = endAngle

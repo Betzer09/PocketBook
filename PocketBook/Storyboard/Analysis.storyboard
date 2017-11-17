@@ -164,14 +164,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tu3-vc-k2K">
-                                        <rect key="frame" x="80" y="443" width="295" height="80"/>
+                                        <rect key="frame" x="80" y="443" width="285" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="lFS-2D-lA8"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFQ-0i-CjG" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="80" y="80" width="295" height="363"/>
+                                        <rect key="frame" x="80" y="80" width="285" height="363"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwJ-T5-4Ur">
@@ -205,8 +205,7 @@
                                     <constraint firstItem="tu3-vc-k2K" firstAttribute="leading" secondItem="0sk-3t-5tM" secondAttribute="leading" constant="80" id="Gj9-jC-Fhn"/>
                                     <constraint firstItem="SPa-am-bjo" firstAttribute="leading" secondItem="0sk-3t-5tM" secondAttribute="leading" id="H8h-dB-LZN"/>
                                     <constraint firstAttribute="trailing" secondItem="mwJ-T5-4Ur" secondAttribute="trailing" id="L1z-M8-Mjs"/>
-                                    <constraint firstAttribute="trailing" secondItem="tu3-vc-k2K" secondAttribute="trailing" id="LGT-na-DDb"/>
-                                    <constraint firstAttribute="trailing" secondItem="cFQ-0i-CjG" secondAttribute="trailing" id="R62-D1-ids"/>
+                                    <constraint firstAttribute="trailing" secondItem="tu3-vc-k2K" secondAttribute="trailing" constant="10" id="PtF-IZ-DgV"/>
                                     <constraint firstAttribute="bottom" secondItem="tu3-vc-k2K" secondAttribute="bottom" id="Vne-FH-hK5"/>
                                     <constraint firstItem="SPa-am-bjo" firstAttribute="top" secondItem="mwJ-T5-4Ur" secondAttribute="bottom" id="Y6l-wE-sTe"/>
                                     <constraint firstItem="cFQ-0i-CjG" firstAttribute="leading" secondItem="tu3-vc-k2K" secondAttribute="leading" id="YjL-Zs-Wau"/>
@@ -372,21 +371,21 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beG-LO-yNM">
-                                        <rect key="frame" x="80" y="443" width="295" height="80"/>
+                                        <rect key="frame" x="80" y="443" width="285" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="R1h-bQ-CIZ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tuM-hg-QOf" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="80" y="80" width="295" height="363"/>
+                                        <rect key="frame" x="80" y="80" width="285" height="363"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYt-Ah-on5">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYt-Ah-on5">
+                                        <rect key="frame" x="-295" y="443" width="375" height="80"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcG-Iq-QEM">
-                                                <rect key="frame" x="47" y="25" width="281" height="30"/>
+                                                <rect key="frame" x="47.5" y="25" width="281" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="g6V-Dd-3za"/>
                                                 </constraints>
@@ -408,15 +407,14 @@
                                 <constraints>
                                     <constraint firstItem="tuM-hg-QOf" firstAttribute="top" secondItem="OhS-eH-gIV" secondAttribute="top" id="DI1-5I-KQU"/>
                                     <constraint firstItem="SYt-Ah-on5" firstAttribute="leading" secondItem="XXo-gP-0nC" secondAttribute="leading" id="Kda-aA-au2"/>
+                                    <constraint firstItem="tuM-hg-QOf" firstAttribute="trailing" secondItem="beG-LO-yNM" secondAttribute="trailing" id="Q4p-VZ-3RQ"/>
                                     <constraint firstItem="OhS-eH-gIV" firstAttribute="top" secondItem="XXo-gP-0nC" secondAttribute="top" constant="80" id="S9F-rP-rVw"/>
-                                    <constraint firstItem="tuM-hg-QOf" firstAttribute="trailing" secondItem="beG-LO-yNM" secondAttribute="trailing" id="TfG-yV-N0p"/>
                                     <constraint firstAttribute="bottom" secondItem="OhS-eH-gIV" secondAttribute="bottom" constant="80" id="Xjk-BN-Dvf"/>
-                                    <constraint firstAttribute="trailing" secondItem="tuM-hg-QOf" secondAttribute="trailing" id="cTL-UO-UwM"/>
                                     <constraint firstItem="beG-LO-yNM" firstAttribute="leading" secondItem="XXo-gP-0nC" secondAttribute="leading" constant="80" id="dxB-6g-Ltx"/>
                                     <constraint firstItem="beG-LO-yNM" firstAttribute="top" secondItem="tuM-hg-QOf" secondAttribute="bottom" id="gr6-K8-xNZ"/>
                                     <constraint firstItem="SYt-Ah-on5" firstAttribute="top" secondItem="XXo-gP-0nC" secondAttribute="top" id="hOH-27-UQe"/>
-                                    <constraint firstAttribute="trailing" secondItem="beG-LO-yNM" secondAttribute="trailing" id="hPV-Yq-2SY"/>
                                     <constraint firstAttribute="trailing" secondItem="SYt-Ah-on5" secondAttribute="trailing" id="hoI-uZ-Hpb"/>
+                                    <constraint firstAttribute="trailing" secondItem="beG-LO-yNM" secondAttribute="trailing" constant="10" id="l1r-B1-FyT"/>
                                     <constraint firstItem="tuM-hg-QOf" firstAttribute="leading" secondItem="OhS-eH-gIV" secondAttribute="trailing" id="mNf-Zx-gmW"/>
                                     <constraint firstAttribute="bottom" secondItem="beG-LO-yNM" secondAttribute="bottom" id="nLD-7r-KIM"/>
                                     <constraint firstItem="OhS-eH-gIV" firstAttribute="leading" secondItem="XXo-gP-0nC" secondAttribute="leading" id="nrd-5U-cNk"/>
@@ -425,7 +423,7 @@
                                 </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obG-3Y-gaa" userLabel="Category Picker View">
-                                <rect key="frame" x="47" y="199" width="281" height="111"/>
+                                <rect key="frame" x="47.5" y="199" width="281" height="111"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="111" id="0rV-ki-049"/>
                                 </constraints>
