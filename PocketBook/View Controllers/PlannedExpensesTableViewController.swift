@@ -15,6 +15,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     
     //MARK: - Outlets
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
     
     //MARK: - Properties
 //    var plannedExpense: PlannedExpense? {
@@ -27,11 +28,13 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        amountLabel.text = "\(String(format: "$%.2f", PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
         updateViews()
+        amountLabel.text = "\(String(format: "$%.2f", PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
     //MARK: - Functions
@@ -61,7 +64,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         
         return cell
     }
-    
+
     // >>Ability to Delete Cells
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

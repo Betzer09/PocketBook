@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7vX-lX-jh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7vX-lX-jh0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -101,7 +101,7 @@
                                 <rect key="frame" x="0.0" y="272.5" width="375" height="283.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categroyCell" id="9EV-N8-YZg" customClass="CategroyTableViewCell" customModule="PocketBook" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="9EV-N8-YZg" customClass="CategroyTableViewCell" customModule="PocketBook" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9EV-N8-YZg" id="j2y-8Z-NuH">
@@ -109,16 +109,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Rnl-i1-Q5P">
-                                                    <rect key="frame" x="8" y="11" width="156.5" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="155.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zin-aL-SOf">
-                                                    <rect key="frame" x="172.5" y="21" width="187.5" height="2"/>
+                                                    <rect key="frame" x="171.5" y="21" width="187.5" height="2"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="x7i-Ed-0c1">
-                                                    <rect key="frame" x="285" y="28.5" width="75" height="11"/>
+                                                    <rect key="frame" x="284" y="28.5" width="75" height="11"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="11" id="57e-Ft-h86"/>
                                                         <constraint firstAttribute="width" constant="75" id="UFF-no-ZhS"/>
@@ -216,14 +216,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="amountLeftLabel" destination="CL1-Ca-eOO" id="ba8-pN-qTz"/>
+                        <outlet property="amountLeftLabel" destination="VQL-rP-GjH" id="EbA-Hd-4I3"/>
                         <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
                         <outlet property="categoryTableView" destination="YtF-jv-d0C" id="pof-1s-DNV"/>
                         <outlet property="legendView" destination="lUB-63-ntz" id="cJG-gG-BE1"/>
                         <outlet property="pieChartView" destination="9VW-0y-fKM" id="bue-Rl-yli"/>
-                        <outlet property="plannedExpenseLabel" destination="iwb-h0-5rZ" id="i2g-AN-BQN"/>
+                        <outlet property="plannedExpenseLabel" destination="iwb-h0-5rZ" id="e1r-dR-v0L"/>
                         <outlet property="superView" destination="2st-oS-GKC" id="xEe-6p-SdO"/>
-                        <outlet property="totalSpentLabel" destination="CL1-Ca-eOO" id="zod-a7-Y0P"/>
+                        <outlet property="totalSpentLabel" destination="CL1-Ca-eOO" id="kgV-CZ-GO7"/>
                         <outlet property="whiteCircle" destination="6Kh-9q-mw5" id="hys-Yn-vsq"/>
                     </connections>
                 </viewController>
