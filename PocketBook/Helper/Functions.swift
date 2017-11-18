@@ -303,6 +303,7 @@ func returnFormattedDate(fromdate date: Date) -> String {
     return date
 }
 
+/// This function filters out "$" and "," from textfields
 func removeCharactersFromTextField(_ textField: UITextField?) -> String {
     
     var finalString: String = ""

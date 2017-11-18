@@ -163,6 +163,15 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         
         cell.transactions = filteredTransactions[indexPath.row]
         
+        // Change colors of cell labels
+        guard let transactionType = cell.transactions?.transactionType else { return cell }
+            switch transactionType {
+            case TransactionType.expense.rawValue:
+                cell.amountLabel.textColor = .red
+            default:
+                cell.amountLabel.textColor = .green
+            }
+        
         return cell
     }
     
