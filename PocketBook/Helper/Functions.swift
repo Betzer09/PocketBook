@@ -81,6 +81,31 @@ func convertStringToTransactionType (string: String) -> TransactionType {
     return transactionType
 }
 
+/// This function filters out "$" and "," from textfields
+func removeCharactersFromTextField(_ textField: UITextField?) -> String {
+    
+    var finalString: String = ""
+    guard let string = textField?.text else { return "" }
+    let stringOne = string.replacingOccurrences(of: ",", with: "")
+    let stringTwo = stringOne.replacingOccurrences(of: "$", with: "")
+    finalString = stringTwo
+    return finalString
+}
+
+/// Formats string to a double 
+func formatNumberToString(fromDouble double: Double) -> String {
+    
+    var formattedNumber: String = ""
+    let nsNumber = NSNumber(value: double)
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    formatter.maximumFractionDigits = 2;
+    if let number = formatter.string(from: nsNumber) {
+        formattedNumber = number
+    }
+    return formattedNumber
+}
+
 
 // MARK: - Filter Functions
 func filterByTimeFrame(withTimeVariable timeFrame: String, forThisArray transactions: [Transaction]) -> [Transaction] {
@@ -266,18 +291,7 @@ func calculateTotalsArrays(fromPlannedExpenses plannedExpenses: [PlannedExpense]
     return totals
 }
 
-func formatNumberToString(fromDouble double: Double) -> String {
-    
-    var formattedNumber: String = ""
-    let nsNumber = NSNumber(value: double)
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .currency
-    formatter.maximumFractionDigits = 2;
-    if let number = formatter.string(from: nsNumber) {
-        formattedNumber = number
-    }
-    return formattedNumber
-}
+
 
 func updateAccount(withname name: String, basedOnArray array: Array<Account>) -> String {
     
@@ -303,15 +317,6 @@ func returnFormattedDate(fromdate date: Date) -> String {
     return date
 }
 
-/// This function filters out "$" and "," from textfields
-func removeCharactersFromTextField(_ textField: UITextField?) -> String {
-    
-    var finalString: String = ""
-    guard let string = textField?.text else { return "" }
-    let stringOne = string.replacingOccurrences(of: ",", with: "")
-    let stringTwo = stringOne.replacingOccurrences(of: "$", with: "")
-    finalString = stringTwo
-    return finalString
-}
+
 
 
