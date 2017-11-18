@@ -404,7 +404,6 @@
 				D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */,
 				9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */,
 				9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */,
-				F519EDE41FBF56ED0013C8B8 /* CategoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
