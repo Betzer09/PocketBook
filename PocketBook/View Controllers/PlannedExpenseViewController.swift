@@ -133,15 +133,13 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         if plannedExpense != nil {
             // Update
             guard let plannedExpense = plannedExpense,
-                let name = nameTextField.text,
-                let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
-                let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
+                let name = nameTextField.text else {return}
             
-            guard let initialAmount = Double(initialString) else {
+            guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
                 initialAmountTextField.backgroundColor = UIColor.red
                 return
             }
-            guard let goalAmount = Double(goalString) else {
+            guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }
@@ -155,15 +153,13 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         } else {
             // Create
             
-            guard let name = nameTextField.text,
-                let initialString = dropFirstCharacterFrom(textField: initialAmountTextField),
-                let goalString = dropFirstCharacterFrom(textField: goalAmountTextField) else {return}
+            guard let name = nameTextField.text else {return}
             
-            guard let initialAmount = Double(initialString) else {
+            guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
                 initialAmountTextField.backgroundColor = UIColor.red
                 return
             }
-            guard let goalAmount = Double(goalString) else {
+            guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
                 goalAmountTextField.backgroundColor = UIColor.red
                 return
             }

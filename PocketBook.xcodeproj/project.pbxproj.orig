@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		232CD3EC1FB4ED5200AAFE8C /* CategroyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232CD3EB1FB4ED5200AAFE8C /* CategroyTableViewCell.swift */; };
+		23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */; };
 		23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43061FB210FA008DCE5B /* AppDelegate.swift */; };
 		23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430D1FB210FA008DCE5B /* Assets.xcassets */; };
 		23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */; };
@@ -21,13 +21,15 @@
 		23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */; };
 		23DD43441FB263D4008DCE5B /* PlannedExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */; };
 		23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43451FB26E39008DCE5B /* BudgetItemController.swift */; };
-		23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */; };
 		23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */; };
 		23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */; };
-		92993C4C1FB3938F00D22373 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4B1FB3938F00D22373 /* Enums.swift */; };
+		923471C11FBDF1CC00B97A7B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923471C01FBDF1CC00B97A7B /* CoreDataStack.swift */; };
+		9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255C39F1FBA8024002EBE5D /* Theme.swift */; };
+		9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255C3A31FBB5DFB002EBE5D /* Globals.swift */; };
+		928722131FBD00D200DD0555 /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928722121FBD00D200DD0555 /* AccountListViewController.swift */; };
+		9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F09B1FBA1AD700114CD1 /* Functions.swift */; };
 		92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4D1FB3AF0000D22373 /* LineGraphView.swift */; };
 		92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C4F1FB3AF2300D22373 /* PieChartView.swift */; };
-		92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C511FB3AFFB00D22373 /* Arrays.swift */; };
 		92993C811FB4C43100D22373 /* AnaylsisPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C801FB4C43100D22373 /* AnaylsisPageViewController.swift */; };
 		92993C831FB4C44200D22373 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C821FB4C44200D22373 /* PieChartViewController.swift */; };
 		92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C841FB4C45600D22373 /* BudgetLineGraphViewController.swift */; };
@@ -51,10 +53,17 @@
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
+<<<<<<< Updated upstream
+		F519EDE41FBF56ED0013C8B8 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */; };
+=======
+		F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */; };
+		F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UsersController.swift */; };
+		F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* Users.swift */; };
+>>>>>>> Stashed changes
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		232CD3EB1FB4ED5200AAFE8C /* CategroyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategroyTableViewCell.swift; sourceTree = "<group>"; };
+		23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardFunctions.swift; sourceTree = "<group>"; };
 		23DD43031FB210FA008DCE5B /* PocketBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD43061FB210FA008DCE5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23DD430D1FB210FA008DCE5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,13 +80,15 @@
 		23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpenseController.swift; sourceTree = "<group>"; };
 		23DD43451FB26E39008DCE5B /* BudgetItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItemController.swift; sourceTree = "<group>"; };
-		23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewController.swift; sourceTree = "<group>"; };
 		23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
-		92993C4B1FB3938F00D22373 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		923471C01FBDF1CC00B97A7B /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		9255C39F1FBA8024002EBE5D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9255C3A31FBB5DFB002EBE5D /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		928722121FBD00D200DD0555 /* AccountListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
+		9291F09B1FBA1AD700114CD1 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		92993C4D1FB3AF0000D22373 /* LineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphView.swift; sourceTree = "<group>"; };
 		92993C4F1FB3AF2300D22373 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
-		92993C511FB3AFFB00D22373 /* Arrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrays.swift; sourceTree = "<group>"; };
 		92993C801FB4C43100D22373 /* AnaylsisPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaylsisPageViewController.swift; sourceTree = "<group>"; };
 		92993C821FB4C44200D22373 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		92993C841FB4C45600D22373 /* BudgetLineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetLineGraphViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +112,13 @@
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+<<<<<<< Updated upstream
+		F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+=======
+		F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewCell.swift; path = "../View Controllers/CategoryTableViewCell.swift"; sourceTree = "<group>"; };
+		F5FF295C1FBE75880012AA24 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
+		F5FF295E1FBE75DB0012AA24 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +200,7 @@
 				23DD431E1FB212DB008DCE5B /* Account.swift */,
 				23DD43281FB22805008DCE5B /* BudgetItem.swift */,
 				23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */,
+				F5FF295E1FBE75DB0012AA24 /* Users.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,6 +220,7 @@
 				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
 				23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */,
 				23DD43451FB26E39008DCE5B /* BudgetItemController.swift */,
+				F5FF295C1FBE75880012AA24 /* UsersController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -216,13 +236,16 @@
 		92993C4A1FB3936C00D22373 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				92993C4B1FB3938F00D22373 /* Enums.swift */,
 				92993C4D1FB3AF0000D22373 /* LineGraphView.swift */,
 				92993C4F1FB3AF2300D22373 /* PieChartView.swift */,
-				92993C511FB3AFFB00D22373 /* Arrays.swift */,
 				92993C881FB4C58300D22373 /* Keys.swift */,
 				92993C8A1FB4E1FA00D22373 /* Notifications.swift */,
 				92E6603E1FB5531500D871BE /* Test.swift */,
+				9291F09B1FBA1AD700114CD1 /* Functions.swift */,
+				9255C39F1FBA8024002EBE5D /* Theme.swift */,
+				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
+				23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */,
+				923471C01FBDF1CC00B97A7B /* CoreDataStack.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -242,9 +265,8 @@
 			isa = PBXGroup;
 			children = (
 				92993C7F1FB4C3EE00D22373 /* Analysis ViewControllers */,
-				23DD43491FB27B00008DCE5B /* AccountTableViewController.swift */,
+				928722121FBD00D200DD0555 /* AccountListViewController.swift */,
 				D38EF9721FB230950035B5E3 /* AccountDetailsViewController.swift */,
-				D38EF9771FB230950035B5E3 /* MonthlyBudgetDetailViewController.swift */,
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
@@ -258,8 +280,13 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F56663A51FB3C01800DD205A /* TransactionTableViewCell.swift */,
-				232CD3EB1FB4ED5200AAFE8C /* CategroyTableViewCell.swift */,
+<<<<<<< Updated upstream
+				F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */,
+=======
+				F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */,
+>>>>>>> Stashed changes
+				23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */,
+				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -352,9 +379,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */,
 				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
 				23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */,
-				92993C521FB3AFFB00D22373 /* Arrays.swift in Sources */,
+				923471C11FBDF1CC00B97A7B /* CoreDataStack.swift in Sources */,
+				928722131FBD00D200DD0555 /* AccountListViewController.swift in Sources */,
 				92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */,
 				92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
@@ -362,10 +391,8 @@
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
 				92993C811FB4C43100D22373 /* AnaylsisPageViewController.swift in Sources */,
 				92993C501FB3AF2300D22373 /* PieChartView.swift in Sources */,
-				92993C4C1FB3938F00D22373 /* Enums.swift in Sources */,
 				23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */,
 				23DD43821FB39C1F008DCE5B /* TransactionTableViewController.swift in Sources */,
-				23DD434A1FB27B00008DCE5B /* AccountTableViewController.swift in Sources */,
 				23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */,
 				D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */,
 				23DD431F1FB212DB008DCE5B /* Account.swift in Sources */,
@@ -375,13 +402,21 @@
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
-				232CD3EC1FB4ED5200AAFE8C /* CategroyTableViewCell.swift in Sources */,
+				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
+				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+				F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */,
+				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
+				F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */,
+				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
 				92993C831FB4C44200D22373 /* PieChartViewController.swift in Sources */,
 				92993C891FB4C58300D22373 /* Keys.swift in Sources */,
 				D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */,
+				9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */,
+				9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */,
+				F519EDE41FBF56ED0013C8B8 /* CategoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +546,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
@@ -518,6 +554,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -528,6 +566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
@@ -535,6 +574,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

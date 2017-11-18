@@ -303,3 +303,14 @@ func returnFormattedDate(fromdate date: Date) -> String {
     return date
 }
 
+func removeCharactersFromTextField(_ textField: UITextField?) -> String {
+    
+    var finalString: String = ""
+    guard let string = textField?.text else { return "" }
+    let stringOne = string.replacingOccurrences(of: ",", with: "")
+    let stringTwo = stringOne.replacingOccurrences(of: "$", with: "")
+    finalString = stringTwo
+    return finalString
+}
+
+
