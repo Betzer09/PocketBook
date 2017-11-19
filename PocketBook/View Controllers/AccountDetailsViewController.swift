@@ -68,7 +68,6 @@ class AccountDetailsViewController: UIViewController {
         // If there is an account update the views
         nameTextField.text = account.name
         var totalString = formatNumberToString(fromDouble: account.total)
-        totalString.insert("$", at: totalString.startIndex)
         totalTextField.text = totalString
         accountTypeSegmentedControl.selectedSegmentIndex = updateAccountTypeSegment()
     }
@@ -93,16 +92,7 @@ class AccountDetailsViewController: UIViewController {
                 return
             }
             
-            // Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
-            var total: String = ""
-            guard let totalString = totalTextField.text else { return }
-            
-            if totalString.contains("$") {
-                total = String(totalString.dropFirst())
-            } else {
-                total = String(totalString)
-            }
-            
+            let total: String = removeCharactersFromTextField(totalTextField)
             guard let returnTotal = Double(total) else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
                 return
@@ -117,7 +107,7 @@ class AccountDetailsViewController: UIViewController {
             guard let name = nameTextField.text, !name.isEmpty else {
                 
                 // Alert the user that they must put something in the fields
-                presentSimpleAlert(controllerToPresentAlert: self, title: "Make sure to fill all fields!", message: "")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Make sure to fill all fields!")
                 return
                 
             }

@@ -292,18 +292,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     
-    // MARK: - Methods
-    
-    private func presentSimpleAlert(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        
-        alert.addAction(dismissAction)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
     
     ///Checks to see which segment should be highlighted
     private func updateTransactionType() -> Int {
@@ -392,12 +380,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             let categoryButton = categoryButton.currentTitle,
             let accountButton = accountButton.currentTitle,
             let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
-                presentSimpleAlert(title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
                 return
         }
         
         guard let amountToSave = Double(amount.dropFirst()) else {
-            presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Amount textfield isn't a Double")
             return
         }
         
@@ -424,7 +412,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             let amount = amountTextField.text else {return}
         
         guard let amountToSave = Double(amount.dropFirst()) else {
-            presentSimpleAlert(title: "Error", message: "Amount textfield isn't a Double")
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Amount textfield isn't a Double")
             return
         }
         let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
