@@ -279,7 +279,7 @@ func formatNumberToString(fromDouble double: Double) -> String {
     return formattedNumber
 }
 
-func updateAccount(withname name: String, basedOnArray array: Array<Account>) -> String {
+func updateAccountHeader(withname name: String, basedOnArray array: Array<Account>) -> String {
     
     var accountName: String = ""
     let numberOfAccounts = array.count

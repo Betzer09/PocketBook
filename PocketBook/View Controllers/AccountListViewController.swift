@@ -117,6 +117,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // This function checks to see if there is anything in the array for each type of account. It then returns an array of arrays with the accounts grouped in their respective arrays.
     func returnAllAccounts() -> [[Account]] {
         
+        self.updateArrays()
         var allAccounts: [[Account]] = []
         
         guard let checkingArray = self.checkingArray,
@@ -132,13 +133,14 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         if creditArray.count > 0 {
             allAccounts.append(creditArray)
         }
-       
+        
         return allAccounts.flatMap({ $0 })
     }
     
     /// This function checks to see if there is anything in the array for each type of account. It then returns an array with section names. This function is needed so that the tableview can count the number of sections.
     func returnAllSections() -> [String] {
         
+        self.updateArrays()
         var allSections: [String] = []
         
         guard let checkingArray = self.checkingArray,
@@ -167,24 +169,29 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let savingsArray = self.savingsArray,
             let creditArray = self.creditArray else { return nil }
         
+        let checkingTotal = AccountController.shared.addUpAccountAmounts(fromAccountArray: checkingArray)
+        let savingsTotal = AccountController.shared.addUpAccountAmounts(fromAccountArray: savingsArray)
+        let creditTotal = AccountController.shared.addUpAccountAmounts(fromAccountArray: creditArray)
+        
         switch section {
         case 0:
             if checkingArray.isEmpty == false {
-                return updateAccount(withname: "Checking Account", basedOnArray: checkingArray)
+                return updateAccountHeader(withname: "Checking Account", basedOnArray: checkingArray) + " - \(formatNumberToString(fromDouble: checkingTotal))"
             } else { fallthrough }
         case 1:
             if savingsArray.isEmpty == false {
-                return updateAccount(withname: "Savings Account", basedOnArray: savingsArray)
+                return updateAccountHeader(withname: "Savings Account", basedOnArray: savingsArray) + " - \(formatNumberToString(fromDouble: savingsTotal))"
             } else { fallthrough }
         default:
             if creditArray.isEmpty == false {
-                return updateAccount(withname: "Credit Account", basedOnArray: creditArray)
+                return updateAccountHeader(withname: "Credit Account", basedOnArray: creditArray) + " - \(formatNumberToString(fromDouble: creditTotal))"
             }
         }
         return nil
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return self.returnAllSections().count
     }
     
@@ -206,40 +213,48 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
             
+            let alertController = UIAlertController(title: "Delete Account", message: "Please confirm that you want to delete this account. Deleting this account will delete all corresponding transactions and planned expenses. If you want to preserve all current and historical data associated with this account, tap on the account and mark the account as closed. Deleting this account cannot be udone.", preferredStyle: .alert)
             
-            let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
-            let accounts = AccountController.shared.accounts
-            let accountIndex = accounts.index{$0 === account}
-            guard let index = accountIndex else { return }
-            let indexString = String(index)
-            let indexInt = Int(indexString)
-            guard let intIndex = indexInt else { return }
-            AccountController.shared.delete(account: account)
-            // tableView.deleteRows(at: [indexPath], with: .fade)
-            AccountController.shared.accounts.remove(at: intIndex)
-            updateArrays()
-            self.tableView.reloadData()
-            
-            // When an account is deleted, delete all corresponding transactions
-            for transaction in TransactionController.shared.transactions {
-                if transaction.account == account.name {
-                    let updatedTransactions = TransactionController.shared.transactions.filter { $0.account != account.name }
-                    TransactionController.shared.transactions = updatedTransactions
-                    TransactionController.shared.delete(transaction: transaction)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+                
+                // Delete Account from cloudKit and from accounts array
+                let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
+                let intIndex = AccountController.shared.getIntIndex(forAccount: account)
+                AccountController.shared.delete(account: account)
+                AccountController.shared.accounts.remove(at: intIndex)
+                
+                // Delete selected row
+                if indexPath.row == 0 {
+                    tableView.deleteSections([indexPath.section], with: .fade)
+                } else {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+                
+                // When an account is deleted, delete all corresponding transactions
+                for transaction in TransactionController.shared.transactions {
+                    if transaction.account == account.name {
+                        let updatedTransactions = TransactionController.shared.transactions.filter { $0.account != account.name }
+                        TransactionController.shared.transactions = updatedTransactions
+                        TransactionController.shared.delete(transaction: transaction)
+                    }
+                }
+                
+                // When an account is deleted, delete all corresponding budget items
+                for plannedExpense in PlannedExpenseController.shared.plannedExpenses {
+                    if plannedExpense.account == account.name {
+                        let updatedTransactions = PlannedExpenseController.shared.plannedExpenses.filter { $0.account != account.name }
+                        PlannedExpenseController.shared.plannedExpenses = updatedTransactions
+                        PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
+                    }
                 }
             }
             
-            // When an account is deleted, delete all corresponding budget items
-            for plannedExpense in PlannedExpenseController.shared.plannedExpenses {
-                if plannedExpense.account == account.name {
-                    let updatedTransactions = PlannedExpenseController.shared.plannedExpenses.filter { $0.account != account.name }
-                   PlannedExpenseController.shared.plannedExpenses = updatedTransactions
-                 PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
-                }
-            }
-            // FIXME: Present alert for the user to make sure that they want to delete an account
+            // Alert
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -284,16 +299,16 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         transferFundsButton.isHidden = false
         self.transferViews.reversed().forEach { $0.isHidden = true }
         self.payDayViews.reversed().forEach { $0.isHidden = true }
-//        UIView.animate(withDuration: 0.3) {
-//        }
+        //        UIView.animate(withDuration: 0.3) {
+        //        }
     }
     
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
         transferFundsButton.isHidden = true
         payDayButton.isHidden = true
         self.transferViews.forEach { $0.isHidden = false }
-//        UIView.animate(withDuration: 0.3) {
-//        }
+        //        UIView.animate(withDuration: 0.3) {
+        //        }
         cancelButton.isHidden = false
     }
     
@@ -301,8 +316,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         transferFundsButton.isHidden = true
         payDayButton.isHidden = true
         self.payDayViews.forEach { $0.isHidden = false }
-//        UIView.animate(withDuration: 0.3) {
-//        }
+        //        UIView.animate(withDuration: 0.3) {
+        //        }
         cancelButton.isHidden = false
     }
     
@@ -323,8 +338,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             // TODO: DELETE THIS CLOSURE
         })
         
-//        UIView.animate(withDuration: 0.3) {
-//        }
+        //        UIView.animate(withDuration: 0.3) {
+        //        }
         self.transferViews.reversed().forEach { $0.isHidden = true }
         cancelButton.isHidden = true
         transferFundsButton.isHidden = false
@@ -344,8 +359,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             // Nothing to do.
         }
         
-//        UIView.animate(withDuration: 0.3) {
-//        }
+        //        UIView.animate(withDuration: 0.3) {
+        //        }
         self.payDayViews.reversed().forEach { $0.isHidden = true }
         cancelButton.isHidden = true
         transferFundsButton.isHidden = false
@@ -383,7 +398,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             if account.accountType == AccountType.CreditCard.rawValue {
                 total -= account.total
             } else {
-            total += account.total
+                total += account.total
             }
         }
         return total
@@ -423,7 +438,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
-        
         present(alertController, animated: true, completion: nil)
     }
     

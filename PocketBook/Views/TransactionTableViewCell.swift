@@ -22,7 +22,6 @@ class TransactionTableViewCell: UITableViewCell {
         self.payeeLabel.text = transactions.payee
         self.dateLabel.text = returnFormattedDate(fromdate: transactions.date)
         self.amountLabel.text = "\(formatNumberToString(fromDouble: transactions.amount))"
-        changeTransactionsLabelColors()
     }
     
     var transactions: Transaction? {
@@ -30,8 +29,6 @@ class TransactionTableViewCell: UITableViewCell {
             self.updateViews()
         }
     }
-    
-    
     
     // MARK: - Properties
     

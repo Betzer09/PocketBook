@@ -204,17 +204,18 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         for budgetItem in BudgetItemController.shared.budgetItems {
             totalSpendOfBudget += budgetItem.spentTotal
         }
-        return totalSpendOfBudget
+        return totalSpendOfBudget + PlannedExpenseController.shared.calculateTotalMonthlyContribution()
     }
     
     /// This function updates the monthly budget label
     func updateMonthlyBudgetLabel() {
+        
         //Projected income - plannedExpense
         guard let projectedIncome = projectedIncome else {
             amountLeftLabel.text = "Please enter a projected income amount"
             return
         }
-        amountLeftLabel.text = "Amount left to budget this month: $\(projectedIncome - addUpTotalSpendOfBudget())"
+        amountLeftLabel.text = "Amount left to budget this month: \(formatNumberToString(fromDouble: projectedIncome - addUpTotalSpendOfBudget()))"
     }
     
     // MARK: - UI
@@ -234,6 +235,8 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         plannedExpenseLabel.text = "Total planned expenses for this month: \(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         updateMonthlyBudgetLabel()
         totalSpentLabel.text = "Total Spent of monthly budget: \(formatNumberToString(fromDouble: addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        
+        // FIXME: Set up amountTextfield to display user information
     }
     
     //
@@ -273,7 +276,8 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        guard let string = textField.text else {return false}
+        print("USERS: \(UsersController.shared.users)")
+        guard let string = textField.text else { return false }
         let stringToChange = string.dropFirst()
         
         if textField.text != "$" {
@@ -281,9 +285,10 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You entered an invalid amount!")
                 return false
             }
+            
             // Store the number in the projectedIncome Variable
             projectedIncome = income
-            UsersController.shared.createUser(projectedIncome: income, completion: nil)
+            UsersController.shared.createUser(withProjectedIncome: income, completion: nil)
             updateMonthlyBudgetLabel()
         }
         textField.resignFirstResponder()

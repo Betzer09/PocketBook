@@ -27,25 +27,26 @@ class UsersController {
     
     init() {
         self.cloudKitManager = CloudKitManager()
-        fetchAccountsFromCloudKit()
+        fetchUsersFromCloudKit()
     }
     
     // MARK: - Save Data
     
-    func createUser(projectedIncome: Double, completion: ((Users) -> Void)? ) {
+    func createUser(withProjectedIncome income: Double, completion: ((Users) -> Void)? ) {
         
         // Create a user
-        let user = Users(projectedIncome: projectedIncome)
+        let user = Users(projectedIncome: income)
         
         users.append(user)
         
         cloudKitManager.saveRecord(user.cloudKitRecord) { (_, error) in
             
             if let error = error {
-                print("Error saving account to cloudKit: \(error.localizedDescription) in file: \(#file)")
+                print("Error saving user to cloudKit: \(error.localizedDescription) in file: \(#file)")
                 return
             }
             completion?(user)
+            print("User Successfully Created")
             return
         }
     }
@@ -64,7 +65,7 @@ class UsersController {
                 return
             }
             
-            // Update the first Account that comes back
+            // Update the first User that comes back
             guard let record = records?.first else {return}
             let updatedUser = Users(cloudKitRecord: record)
             completion(updatedUser)
@@ -76,37 +77,37 @@ class UsersController {
         
         cloudKitManager.deleteRecordWithID(user.recordID) { (recordID, error) in
             if let error = error {
-                print("Error deleting Account: \(error.localizedDescription) in file: \(#file)")
+                print("Error deleting User: \(error.localizedDescription) in file: \(#file)")
                 return
             } else {
-                print("Successfully deleted Account")
+                print("Successfully deleted User")
             }
         }
     }
     
     // MARK: - Fetch the data from cloudKit
-    func fetchAccountsFromCloudKit() {
+    func fetchUsersFromCloudKit() {
         
-        // Get all of the accounts
+        // Get all of the users
         let predicate = NSPredicate(value: true)
         
         // Create a query
         let query = CKQuery(recordType: Keys.recordUsersType, predicate: predicate)
         
         // Fetch the data form cloudkit
-        privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
+        privateDatabase.perform(query, inZoneWith: nil) { (users, error) in
             
             // Check for an errror
             if let error = error {
-                print("Error fetching the Accounts Data: \(error.localizedDescription) in file: \(#file)")
+                print("Error fetching the Users Data: \(error.localizedDescription) in file: \(#file)")
             }
             
-            guard let records = records else {return}
+            guard let users = users else {return}
             
-            // Send the accounts through the cloudKit Initilizer
-            let users = records.flatMap( {Users(cloudKitRecord: $0)})
+            // Send the users through the cloudKit Initilizer
+            let usersArray = users.flatMap( {Users(cloudKitRecord: $0)})
             
-            self.users = users
+            self.users = usersArray
         }
     }
 }

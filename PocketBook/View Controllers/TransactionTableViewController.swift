@@ -10,15 +10,12 @@ import UIKit
 
 class TransactionTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    
     // MARK: - Outlets
-    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: View Lifecycle
-    
     override func viewDidAppear(_ animated: Bool) {
         setUpTableView()
     }
@@ -40,7 +37,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     // MARK: Properties
-    
     var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - filtered transactions
     
     // UIPicker Properties: All properties that are used by the UIPickers
@@ -92,7 +88,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         } else {
             return setUpPicker().1.count
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -142,9 +137,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             label.sizeToFit()
             label.text = setUpPicker().1[row]
         }
-        
         return label
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -160,7 +153,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath) as? TransactionTableViewCell ?? TransactionTableViewCell()
-        
         cell.transactions = filteredTransactions[indexPath.row]
         
         // Change colors of cell labels
@@ -171,7 +163,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             default:
                 cell.amountLabel.textColor = .green
             }
-        
         return cell
     }
     
@@ -193,7 +184,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toTransactionDVC" {
-            
             guard let destinationVC = segue.destination as? TransactionsDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow else { return }
                 let transaction = filteredTransactions[indexPath.row]

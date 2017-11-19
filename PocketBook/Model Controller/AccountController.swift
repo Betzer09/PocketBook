@@ -30,6 +30,32 @@ class AccountController {
         fetchAccountsFromCloudKit()
     }
     
+    // MARK: - Methods
+    
+    /// This function takes an account and returns the index value of that account out of the AccountController.shared.accounts array
+    func getIntIndex(forAccount account: Account) -> Int {
+        
+        var indexInteger: Int = 0
+        let accounts = AccountController.shared.accounts
+        let accountIndex = accounts.index{$0 === account}
+        guard let index = accountIndex else { return 0 }
+        let indexString = String(index)
+        let indexInt = Int(indexString)
+        guard let intIndex = indexInt else { return 0 }
+        indexInteger = intIndex
+        return indexInteger
+    }
+    
+    /// This function takes an array of accounts and adds up the total balance for all accounts and returns that value as a double.
+    func addUpAccountAmounts(fromAccountArray array: [Account]) -> Double {
+        
+        var totalAmount: Double = 0.0
+        for account in array {
+            totalAmount += account.total
+        }
+        return totalAmount
+    }
+    
     // MARK: - Save Data
     
     func createAccount(name: String, type: String, total: Double, completion: ((Account) -> Void)? ) {
@@ -111,9 +137,6 @@ class AccountController {
             self.accounts = accounts
         }
     }
-    
-    // MARK: - Methods
-
 }
 
 

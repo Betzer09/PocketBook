@@ -23,7 +23,7 @@ class Users {
     // MARK: - cloudKitRecord PUT
     var cloudKitRecord: CKRecord {
         
-        let record = CKRecord(recordType: Keys.recordAccountType, recordID: recordID)
+        let record = CKRecord(recordType: Keys.recordUsersType, recordID: recordID)
         record.setValue(projectedIncome, forKey: Keys.projectedIncomeKey)
         return record
     }
