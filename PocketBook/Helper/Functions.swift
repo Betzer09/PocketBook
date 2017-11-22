@@ -317,6 +317,26 @@ func returnFormattedDate(fromdate date: Date) -> String {
     return date
 }
 
+func returnString(fromDate date: Date) -> String {
+    var dateString: String = ""
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "LLLL yyyy"
+    let string = dateFormatter.string(from: date)
+    dateString = string
+    return dateString
+}
 
+func removeDuplicates(fromArray array: [String]) -> [String] {
+    var encountered = Set<String>()
+    var result: [String] = []
+    for string in array {
+        if encountered.contains(string) {
+        } else {
+            encountered.insert(string)
+            result.append(string)
+        }
+    }
+    return result
+}
 
 

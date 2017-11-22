@@ -67,7 +67,7 @@ class AccountDetailsViewController: UIViewController {
         
         // If there is an account update the views
         nameTextField.text = account.name
-        var totalString = formatNumberToString(fromDouble: account.total)
+        let totalString = formatNumberToString(fromDouble: account.total)
         totalTextField.text = totalString
         accountTypeSegmentedControl.selectedSegmentIndex = updateAccountTypeSegment()
     }

@@ -26,6 +26,7 @@ struct Keys {
     static let transactionTypeKey = "transaction"
     static let amountKey = "amount"
     static let accountTransactionKey = "account"
+    static let monthYearDateKey = "monthYearDate"
     
     // MARK: - Account Model Keys
     static let recordAccountType = "Account"

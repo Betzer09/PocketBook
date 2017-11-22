@@ -394,7 +394,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
         budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
         
-        TransactionController.shared.createTransactionWith(date: returnFormattedDate(date: datePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
+        TransactionController.shared.createTransactionWith(date: datePicker.date, monthYearDate: returnFormattedDate(date: datePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
             
             // FIXME: If it looks like something is weird try commenting me out and trying agian
             guard let budgetItem = self.budgetItem else {return}
@@ -417,7 +417,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
         let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
         
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: returnFormattedDate(date: datePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: datePicker.date, monthYearDate: returnFormattedDate(date: datePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
         })
     }
 }

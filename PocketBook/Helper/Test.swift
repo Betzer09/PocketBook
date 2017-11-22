@@ -23,7 +23,8 @@ let categories: [String] = [
 
 func createTransaction() {
     let types = ["Expense", "Income"]
-    guard let date = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(365)))) else {return}
+    guard let date = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(365)))),
+    let monthYearDate = generateRandomDate(daysBack: Int(arc4random_uniform(UInt32(365)))) else {return}
     let categories = getAllBudgetItemNames()
     let category = categories[Int(arc4random_uniform(UInt32(categories.count)))]
     let payee = "Walmart"
@@ -33,7 +34,7 @@ func createTransaction() {
     let account = accounts[Int(arc4random_uniform(UInt32(accounts.count)))]
     let name = account.name
     
-    TransactionController.shared.createTransactionWith(date: date, category: category, payee: payee, transactionType: transActionType, amount: amount, account: name) { (_) in
+    TransactionController.shared.createTransactionWith(date: date, monthYearDate: monthYearDate, category: category, payee: payee, transactionType: transActionType, amount: amount, account: name) { (_) in
         // TODO: TELL AUSTIN TO FIX THIS
     }
 }
@@ -70,7 +71,7 @@ func changeAllYearByOne(transactions: [Transaction]) {
         let dateString = "\(lastYear)-\(month)-\(day)"
         let newDate = Date(dateString: dateString)
         transaction.date = newDate
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: transaction.date, category: transaction.category, payee: transaction.payee, transactionType: transaction.transactionType, amount: transaction.amount, account: transaction.account, completion: { (_) in
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: transaction.transactionType, amount: transaction.amount, account: transaction.account, completion: { (_) in
             //TODO: TELL AUSTION TO FIX THIS
         })
     }

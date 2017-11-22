@@ -29,9 +29,9 @@ class TransactionController {
     }
     
     // MARK: - Save Data
-    func createTransactionWith(date: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
+    func createTransactionWith(date: Date, monthYearDate: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
         
-        let transaction = Transaction(date: date, category: category, payee: payee, transactionType: transactionType, amount: amount, account: account)
+        let transaction = Transaction(date: date, monthYearDate: monthYearDate, category: category, payee: payee, transactionType: transactionType, amount: amount, account: account)
         transactions.append(transaction)
         
         cloudKitManager.saveRecord(transaction.cloudKitRecord) { (record, error) in
@@ -48,8 +48,9 @@ class TransactionController {
     
     // MARK: - Update Data
     
-    func updateTransactionWith(transaction: Transaction, date: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
+    func updateTransactionWith(transaction: Transaction, date: Date, monthYearDate: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
         
+        transaction.monthYearDate = monthYearDate
         transaction.date = date
         transaction.category = category
         transaction.payee = payee
@@ -133,5 +134,50 @@ class TransactionController {
             
             self.transactions = transaction
         }
+    }
+    
+    // MARK: - Methods
+    
+    /// This function takes a transaction and returns the index value of that transaction out of the TransactionController.shared.transactions array
+    func getIntIndex(fortransaction transaction: Transaction) -> Int {
+        
+        var indexInteger: Int = 0
+        let accounts = TransactionController.shared.transactions
+        let accountIndex = accounts.index{$0 === transaction}
+        guard let index = accountIndex else { return 0 }
+        let indexString = String(index)
+        let indexInt = Int(indexString)
+        guard let intIndex = indexInt else { return 0 }
+        indexInteger = intIndex
+        return indexInteger
+    }
+    
+    /// This function takes in an array of transactions and returns a single array of Strings contraining "Month Year" for the transactions
+    func returnDatesArray(fromArray array: [Transaction]) -> [String] {
+        
+        var datesArray: [String] = []
+        for transaction in array {
+            let transactionDate = returnString(fromDate: transaction.date)
+            datesArray.append(transactionDate)
+        }
+        let array = removeDuplicates(fromArray: datesArray)
+        return array.sorted(by: { $0 < $1 })
+    }
+    
+    /// This function takes an input of array of Transactions and returns a ordered dictionary of transactions key value pairs of the date/month of the transaction as the key and an array of transactions as the value
+    func returnDictionary(fromArray array: [Transaction]) -> [(key: Date, value: [Transaction])] {
+        
+        var dictionary: [(key: Date, value: [Transaction])]?
+        let dictionaryOfArray = Dictionary(grouping:array){ $0.monthYearDate}
+        let sortedArray = dictionaryOfArray.sorted(by: { $0.0 > $1.0 })
+        dictionary = sortedArray
+        guard let finalDictionary = dictionary else { return [] }
+        return finalDictionary
+    }
+        
+    func monthYearTuple(fromDate date: Date) -> (Int, Int) {
+        let month = Calendar.current.component(.month, from: Date())
+        let year = Calendar.current.component(.year, from: Date())
+        return (month, year)
     }
 }

@@ -9,7 +9,9 @@
 import UIKit
 
 class TransactionTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
+    
+    
     // MARK: - Outlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
@@ -37,7 +39,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     // MARK: Properties
-    var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - filtered transactions
+    var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - Array contains all transactions
     
     // UIPicker Properties: All properties that are used by the UIPickers
     var categorySelection: String? // Value selected by UIPicker. This updates each time a value from the picker is selected
@@ -145,37 +147,54 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     // MARK: - Tableview
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let date = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[section].0
+        return returnString(fromDate: date)
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return TransactionController.shared.returnDictionary(fromArray: filteredTransactions).count
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return filteredTransactions.count
+        return TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[section].1.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath) as? TransactionTableViewCell ?? TransactionTableViewCell()
-        cell.transactions = filteredTransactions[indexPath.row]
+        let transaction = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[indexPath.section].1[indexPath.row]
+        cell.transactions = transaction
         
         // Change colors of cell labels
         guard let transactionType = cell.transactions?.transactionType else { return cell }
-            switch transactionType {
-            case TransactionType.expense.rawValue:
-                cell.amountLabel.textColor = .red
-            default:
-                cell.amountLabel.textColor = .green
-            }
+        switch transactionType {
+        case TransactionType.expense.rawValue:
+            cell.amountLabel.textColor = .red
+        default:
+            cell.amountLabel.textColor = .green
+        }
         return cell
     }
-    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let transaction = filteredTransactions[indexPath.row]
-            TransactionController.shared.transactions.remove(at: indexPath.row)
+            let transaction = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[indexPath.section].1[indexPath.row]
+            let intIndex = TransactionController.shared.getIntIndex(fortransaction: transaction)
+            TransactionController.shared.transactions.remove(at: intIndex)
             TransactionController.shared.delete(transaction: transaction)
             filteredTransactions = TransactionController.shared.transactions
-            reloadTableView()
+            
+            // Delete selected row
+            if indexPath.row == 0 {
+                tableView.deleteSections([indexPath.section], with: .automatic)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
     }
     
@@ -186,9 +205,16 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         if segue.identifier == "toTransactionDVC" {
             guard let destinationVC = segue.destination as? TransactionsDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow else { return }
-                let transaction = filteredTransactions[indexPath.row]
+            let transaction = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[indexPath.section].1[indexPath.row]
             destinationVC.transaction = transaction
         }
     }
 }
+
+
+
+
+
+
+
 

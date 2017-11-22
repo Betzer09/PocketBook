@@ -176,15 +176,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         switch section {
         case 0:
             if checkingArray.isEmpty == false {
-                return updateAccountHeader(withname: "Checking Account", basedOnArray: checkingArray) + " - \(formatNumberToString(fromDouble: checkingTotal))"
+                return updateAccountHeader(withname: "Checking Account", basedOnArray: checkingArray) + ": \(formatNumberToString(fromDouble: checkingTotal))"
             } else { fallthrough }
         case 1:
             if savingsArray.isEmpty == false {
-                return updateAccountHeader(withname: "Savings Account", basedOnArray: savingsArray) + " - \(formatNumberToString(fromDouble: savingsTotal))"
+                return updateAccountHeader(withname: "Savings Account", basedOnArray: savingsArray) + ": \(formatNumberToString(fromDouble: savingsTotal))"
             } else { fallthrough }
         default:
             if creditArray.isEmpty == false {
-                return updateAccountHeader(withname: "Credit Account", basedOnArray: creditArray) + " - \(formatNumberToString(fromDouble: creditTotal))"
+                return updateAccountHeader(withname: "Credit Account", basedOnArray: creditArray) + ": \(formatNumberToString(fromDouble: creditTotal))"
             }
         }
         return nil
@@ -201,7 +201,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
-        
+
         let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
         cell.textLabel?.text = account.name
         

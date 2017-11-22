@@ -14,6 +14,7 @@ class Transaction: Hashable, Equatable { //
     
     // MARK: - Properties
     var date: Date
+    var monthYearDate: Date
     var category: String
     var payee: String // Where the money is going
     var transactionType: String
@@ -25,8 +26,9 @@ class Transaction: Hashable, Equatable { //
         }
     }
     
-    init(date: Date, category: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
+    init(date: Date, monthYearDate: Date, category: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
         self.date = date
+        self.monthYearDate = monthYearDate
         self.category = category
         self.payee = payee
         self.transactionType = transactionType
@@ -39,6 +41,7 @@ class Transaction: Hashable, Equatable { //
     var cloudKitRecord: CKRecord {
         let record = CKRecord(recordType: Keys.recordTransactionType, recordID: recordID)
         
+        record.setValue(monthYearDate, forKey: Keys.monthYearDateKey)
         record.setValue(date, forKey: Keys.dateKey)
         record.setValue(category, forKey: Keys.catagoryKey)
         record.setValue(payee, forKey: Keys.payeeKey)
@@ -52,6 +55,7 @@ class Transaction: Hashable, Equatable { //
     // MARK: - Failiable Initalizer for cloudKit
     init?(cloudKitRecord: CKRecord) {
         guard let date = cloudKitRecord[Keys.dateKey] as? Date,
+            let monthYearDate = cloudKitRecord[Keys.monthYearDateKey] as? Date,
             let budget = cloudKitRecord[Keys.catagoryKey] as? String,
             let payee = cloudKitRecord[Keys.payeeKey] as? String,
             let transactionType = cloudKitRecord[Keys.transactionTypeKey] as? String,
@@ -59,6 +63,7 @@ class Transaction: Hashable, Equatable { //
             let account = cloudKitRecord[Keys.accountTransactionKey] as? String else {return nil}
         
         self.date = date
+        self.monthYearDate = monthYearDate
         self.category = budget
         self.payee = payee
         self.transactionType = transactionType
