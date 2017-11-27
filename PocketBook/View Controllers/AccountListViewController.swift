@@ -201,7 +201,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
-
+    
         let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
         cell.textLabel?.text = account.name
         
@@ -387,7 +387,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             
             guard let destinationVC = segue.destination as? AccountDetailsViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
             
-            destinationVC.account = AccountController.shared.accounts[indexPath.row]
+            destinationVC.account = self.returnAllAccounts()[indexPath.section][indexPath.row]
         }
     }
     
