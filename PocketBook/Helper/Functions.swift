@@ -11,6 +11,8 @@ import UIKit
 
 let view = UIView()
 
+
+
 // MARK: - Alert function
 func presentSimpleAlert(controllerToPresentAlert vc: UIViewController, title: String, message: String) {
     
