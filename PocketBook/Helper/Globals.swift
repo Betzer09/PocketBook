@@ -39,7 +39,7 @@ enum DateHelper {
 enum AccountType: String {
     case Checking = "Checking"
     case Saving = "Saving"
-    case CreditCard = "CreditCard"
+    case Credit = "Credit"
 }
 
 enum SegmentedControlType: String {
