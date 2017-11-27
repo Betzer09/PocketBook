@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // MARK: - Properties
     let arrayString: [String] = [
@@ -17,23 +17,35 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         "Credit Card"
     ]
     
+    var currentYShiftForKeyboard: CGFloat = 0
     var toAccount: Account?
     var fromAccount: Account?
     var payDayAccount: Account?
+    var textFieldBeingEdited: UITextField?
     
     // MARK: - Outlets
+    @IBOutlet weak var incomeDetailView: UIView!
+    @IBOutlet weak var transferMoneyView: UIView!
+    
     @IBOutlet weak var toPickerView: UIPickerView!
     @IBOutlet weak var fromPickerView: UIPickerView!
     @IBOutlet weak var payDayPickerView: UIPickerView!
+    
     @IBOutlet weak var transferFundsButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var transferViewCancelButton: UIButton!
+    @IBOutlet weak var incomeDetailCancelButton: UIButton!
+    @IBOutlet weak var payDayButton: UIButton!
+    @IBOutlet weak var depositButton: UIButton!
+    @IBOutlet weak var transferButton: UIButton!
+    
     @IBOutlet weak var transferAmountTextField: UITextField!
     @IBOutlet weak var payDayAmountTextField: UITextField!
-    @IBOutlet var transferViews: [UIView]!
-    @IBOutlet var payDayViews: [UIView]!
-    @IBOutlet weak var payDayButton: UIButton!
+    
     @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var accountsTotalLabel: UILabel!
+    @IBOutlet weak var incomeDetailsLabel: UILabel!
+    @IBOutlet weak var transferMoneyLabel: UILabel!
     
     // MARK: - View LifeCyles
     override func viewDidLoad() {
@@ -55,6 +67,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             self.updateArrays()
             self.reloadTableView()
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         setUpTransferFundsView()
         let total = totalFundsCalc()
         accountsTotalLabel.text = formatNumberToString(fromDouble: total)
@@ -67,11 +81,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Setup View
     func setUpTransferFundsView( ) {
-        transferFundsButton.isHidden = false
-        payDayButton.isHidden = false
-        cancelButton.isHidden = true
-        transferViews.forEach { $0.isHidden = true }
-        payDayViews.forEach({ $0.isHidden = true })
+        incomeDetailView.isHidden = true
+        transferMoneyView.isHidden = true
     }
     
     @objc func reloadTableView() {
@@ -275,62 +286,144 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == payDayPickerView {
+            let index = pickerView.selectedRow(inComponent: component)
+            let account =  AccountController.shared.accounts[index]
+            payDayAccount = account
+        }
         if pickerView == toPickerView {
-            let index = pickerView.selectedRow(inComponent: 0)
+            let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
             toAccount = account
         }
         if pickerView == fromPickerView {
-            let index = pickerView.selectedRow(inComponent: 0)
+            let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
             fromAccount = account
         }
-        if pickerView == payDayPickerView {
-            let index = pickerView.selectedRow(inComponent: 0)
-            let account =  AccountController.shared.accounts[index]
-            payDayAccount = account
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let accounts = AccountController.shared.accounts
+        let account = accounts[row]
+        pickerLabel.text = account.name
+        pickerLabel.font = UIFont(name: "Arial", size: 15)
+        pickerLabel.textAlignment = .center
+        return pickerLabel
+    }
+    
+    // MARK: - TextFields
+    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
+        
+        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
+        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
+        
+        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
+        let maximumY = self.view.frame.height - keyboardHeight
+        
+        if textFieldBottomY > maximumY {
+            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
+            return textFieldBottomY - maximumY + 60
+        } else {
+            // It would go off the screen if moved, and it won't be obscured by the keyboard.
+            return 0
         }
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        var keyboardSize: CGRect = .zero
+        
+        if let keyboardRect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
+            keyboardRect.height != 0 {
+            keyboardSize = keyboardRect
+        } else if let keyboardRect = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect {
+            keyboardSize = keyboardRect
+        }
+        
+        if let textField = textFieldBeingEdited {
+            if self.view.frame.origin.y == 0 {
+                
+                let yShift = yShiftWhenKeyboardAppearsFor(textField: textField, keyboardHeight: keyboardSize.height, nextY: keyboardSize.height)
+                self.currentYShiftForKeyboard = yShift
+                self.view.frame.origin.y -= yShift
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        if self.view.frame.origin.y != 0 {
+            
+            self.view.frame.origin.y += currentYShiftForKeyboard
+        }
+        stopEditingTextField()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    func stopEditingTextField() {
+        view.endEditing(true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textFieldBeingEdited = textField
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     
     // MARK: - Actions
-    @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        cancelButton.isHidden = true
-        payDayButton.isHidden = false
-        transferFundsButton.isHidden = false
-        self.transferViews.reversed().forEach { $0.isHidden = true }
-        self.payDayViews.reversed().forEach { $0.isHidden = true }
-        //        UIView.animate(withDuration: 0.3) {
-        //        }
-    }
     
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
-        transferFundsButton.isHidden = true
-        payDayButton.isHidden = true
-        self.transferViews.forEach { $0.isHidden = false }
-        //        UIView.animate(withDuration: 0.3) {
-        //        }
-        cancelButton.isHidden = false
+        transferMoneyView.isHidden = false
+        incomeDetailView.isHidden = true
     }
     
     @IBAction func payDayButtonTapped(_ sender: UIButton) {
-        transferFundsButton.isHidden = true
-        payDayButton.isHidden = true
-        self.payDayViews.forEach { $0.isHidden = false }
-        //        UIView.animate(withDuration: 0.3) {
-        //        }
-        cancelButton.isHidden = false
+        incomeDetailView.isHidden = false
+        transferMoneyView.isHidden = true
+    }
+    
+    @IBAction func incomeDetailsCancelButtonTapped(_ sender: UIButton) {
+        resetIncomeDetailView()
+    }
+    
+    @IBAction func transferMoneyCancelButtonTapped(_ sender: UIButton) {
+        resetTransferMoneyView()
+    }
+    
+    @IBAction func depostiButtonTapped(_ sender: UIButton) {
+        // TODO: ADDED SIMPLE ARE YOU SURE ALERT
+        guard let amountString = payDayAmountTextField.text, amountString != "",
+            let amount = Double(amountString),
+            let account = payDayAccount else {return}
+        
+        account.total += amount
+        tableView.reloadData()
+        AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
+            // Nothing to do.
+        }
+        resetIncomeDetailView()
     }
     
     @IBAction func transferButtonTapped(_ sender: UIButton) {
+        // TODO: ADDED SIMPLE ARE YOU SURE ALERT
         guard let amountString = transferAmountTextField.text, amountString != "",
             let amount = Double(amountString),
             let toAccount = toAccount,
-            let fromAccount = fromAccount else {return}
+            let fromAccount = fromAccount else {
+                return
+        }
         
         fromAccount.total -= amount
         toAccount.total += amount
-        transferAmountTextField.text = ""
         tableView.reloadData()
         AccountController.shared.updateAccountWith(name: toAccount.name, type: toAccount.accountType, total: toAccount.total, account: toAccount, completion:  { (_) in
             // TODO: DELETE THIS CLOSURE
@@ -338,34 +431,21 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         AccountController.shared.updateAccountWith(name: fromAccount.name, type: fromAccount.accountType, total: fromAccount.total, account: fromAccount, completion: { (_) in
             // TODO: DELETE THIS CLOSURE
         })
-        
-        //        UIView.animate(withDuration: 0.3) {
-        //        }
-        self.transferViews.reversed().forEach { $0.isHidden = true }
-        cancelButton.isHidden = true
-        transferFundsButton.isHidden = false
-        payDayButton.isHidden = false
-        // Add Simple Alert
+        resetTransferMoneyView()
     }
     
-    @IBAction func payMeButtonTapped(_ sender: UIButton) {
-        guard let amountString = payDayAmountTextField.text, amountString != "",
-            let amount = Double(amountString),
-            let account = payDayAccount else {return}
-        
-        account.total += amount
+    // MARK: Button Functions
+    func resetIncomeDetailView() {
+        incomeDetailView.isHidden = true
         payDayAmountTextField.text = ""
-        tableView.reloadData()
-        AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
-            // Nothing to do.
-        }
-        
-        //        UIView.animate(withDuration: 0.3) {
-        //        }
-        self.payDayViews.reversed().forEach { $0.isHidden = true }
-        cancelButton.isHidden = true
-        transferFundsButton.isHidden = false
-        payDayButton.isHidden = false
+        payDayPickerView.reloadAllComponents()
+    }
+    
+    func resetTransferMoneyView() {
+        transferMoneyView.isHidden = true
+        transferAmountTextField.text = ""
+        toPickerView.reloadAllComponents()
+        fromPickerView.reloadAllComponents()
     }
     
     // MARK: - Methods
@@ -378,7 +458,12 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         payDayPickerView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        transferAmountTextField.delegate = self
+        payDayAmountTextField.delegate = self
         updateArrays()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
