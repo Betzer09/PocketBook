@@ -126,141 +126,6 @@
             </objects>
             <point key="canvasLocation" x="1512.8" y="-1050.224887556222"/>
         </scene>
-        <!--Budget-->
-        <scene sceneID="NyY-cS-RVx">
-            <objects>
-                <viewController storyboardIdentifier="budgetLineGraph" id="HXq-2N-gbe" customClass="BudgetLineGraphViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8cg-oR-zEq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H7y-AV-BfE">
-                                <rect key="frame" x="0.0" y="64" width="375" height="80"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oa7-t1-PBX">
-                                        <rect key="frame" x="47" y="25" width="281" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="ijv-YE-yqF"/>
-                                        </constraints>
-                                        <state key="normal" title="TimeFrameButton"/>
-                                        <connections>
-                                            <action selector="timeFrameButtonTapped:" destination="HXq-2N-gbe" eventType="touchUpInside" id="An8-G1-EcV"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Oa7-t1-PBX" firstAttribute="width" secondItem="H7y-AV-BfE" secondAttribute="width" multiplier="3/4" id="Fcd-be-SPm"/>
-                                    <constraint firstAttribute="height" constant="80" id="GIC-6P-NJe"/>
-                                    <constraint firstItem="Oa7-t1-PBX" firstAttribute="centerX" secondItem="H7y-AV-BfE" secondAttribute="centerX" id="KYB-qx-lPa"/>
-                                    <constraint firstItem="Oa7-t1-PBX" firstAttribute="centerY" secondItem="H7y-AV-BfE" secondAttribute="centerY" id="YWK-UX-eyG"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sk-3t-5tM">
-                                <rect key="frame" x="0.0" y="144" width="375" height="523"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPa-am-bjo">
-                                        <rect key="frame" x="0.0" y="80" width="80" height="363"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tu3-vc-k2K">
-                                        <rect key="frame" x="80" y="443" width="285" height="80"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="lFS-2D-lA8"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFQ-0i-CjG" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="80" y="80" width="285" height="363"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwJ-T5-4Ur">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rwd-Ce-2Tz">
-                                                <rect key="frame" x="47" y="25" width="281" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="lRT-AR-44x"/>
-                                                </constraints>
-                                                <state key="normal" title="CategoryButton"/>
-                                                <connections>
-                                                    <action selector="categoryButtonTapped:" destination="HXq-2N-gbe" eventType="touchUpInside" id="BIa-Bh-w3F"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="Rwd-Ce-2Tz" firstAttribute="width" secondItem="mwJ-T5-4Ur" secondAttribute="width" multiplier="3/4" id="RrP-CJ-wG5"/>
-                                            <constraint firstItem="Rwd-Ce-2Tz" firstAttribute="centerY" secondItem="mwJ-T5-4Ur" secondAttribute="centerY" id="bYP-FU-vOz"/>
-                                            <constraint firstItem="Rwd-Ce-2Tz" firstAttribute="centerX" secondItem="mwJ-T5-4Ur" secondAttribute="centerX" id="dtd-6d-pp9"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="cFQ-0i-CjG" firstAttribute="trailing" secondItem="tu3-vc-k2K" secondAttribute="trailing" id="3C7-xk-AoY"/>
-                                    <constraint firstItem="cFQ-0i-CjG" firstAttribute="leading" secondItem="SPa-am-bjo" secondAttribute="trailing" id="8lO-Q7-cMw"/>
-                                    <constraint firstItem="mwJ-T5-4Ur" firstAttribute="top" secondItem="0sk-3t-5tM" secondAttribute="top" id="99n-7M-dgQ"/>
-                                    <constraint firstItem="SPa-am-bjo" firstAttribute="top" secondItem="0sk-3t-5tM" secondAttribute="top" constant="80" id="Evz-05-ahf"/>
-                                    <constraint firstItem="tu3-vc-k2K" firstAttribute="leading" secondItem="0sk-3t-5tM" secondAttribute="leading" constant="80" id="Gj9-jC-Fhn"/>
-                                    <constraint firstItem="SPa-am-bjo" firstAttribute="leading" secondItem="0sk-3t-5tM" secondAttribute="leading" id="H8h-dB-LZN"/>
-                                    <constraint firstAttribute="trailing" secondItem="mwJ-T5-4Ur" secondAttribute="trailing" id="L1z-M8-Mjs"/>
-                                    <constraint firstAttribute="trailing" secondItem="tu3-vc-k2K" secondAttribute="trailing" constant="10" id="PtF-IZ-DgV"/>
-                                    <constraint firstAttribute="bottom" secondItem="tu3-vc-k2K" secondAttribute="bottom" id="Vne-FH-hK5"/>
-                                    <constraint firstItem="SPa-am-bjo" firstAttribute="top" secondItem="mwJ-T5-4Ur" secondAttribute="bottom" id="Y6l-wE-sTe"/>
-                                    <constraint firstItem="cFQ-0i-CjG" firstAttribute="leading" secondItem="tu3-vc-k2K" secondAttribute="leading" id="YjL-Zs-Wau"/>
-                                    <constraint firstItem="mwJ-T5-4Ur" firstAttribute="leading" secondItem="0sk-3t-5tM" secondAttribute="leading" id="r1c-yz-70X"/>
-                                    <constraint firstItem="cFQ-0i-CjG" firstAttribute="top" secondItem="SPa-am-bjo" secondAttribute="top" id="rje-jj-bkY"/>
-                                    <constraint firstItem="tu3-vc-k2K" firstAttribute="top" secondItem="cFQ-0i-CjG" secondAttribute="bottom" id="v4A-2a-4E9"/>
-                                    <constraint firstAttribute="bottom" secondItem="SPa-am-bjo" secondAttribute="bottom" constant="80" id="xSS-od-zqU"/>
-                                </constraints>
-                            </view>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ef1-I0-FnH" userLabel="Category Picker View">
-                                <rect key="frame" x="47" y="199" width="281" height="111"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="111" id="eWy-T5-pyY"/>
-                                </constraints>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Wt-SI-jvB" userLabel="Time Frame Picker View">
-                                <rect key="frame" x="47" y="119" width="281" height="111"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="111" id="Ozn-bs-0ff"/>
-                                </constraints>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="J1j-0d-GXI" firstAttribute="bottom" secondItem="0sk-3t-5tM" secondAttribute="bottom" id="3h6-dD-vty"/>
-                            <constraint firstItem="1Wt-SI-jvB" firstAttribute="trailing" secondItem="Oa7-t1-PBX" secondAttribute="trailing" id="3qg-6U-Quw"/>
-                            <constraint firstItem="H7y-AV-BfE" firstAttribute="trailing" secondItem="J1j-0d-GXI" secondAttribute="trailing" id="A7o-p4-hfP"/>
-                            <constraint firstItem="1Wt-SI-jvB" firstAttribute="leading" secondItem="Oa7-t1-PBX" secondAttribute="leading" id="Dch-rp-NlU"/>
-                            <constraint firstItem="0sk-3t-5tM" firstAttribute="top" secondItem="H7y-AV-BfE" secondAttribute="bottom" id="E52-hm-Lyn"/>
-                            <constraint firstItem="1Wt-SI-jvB" firstAttribute="top" secondItem="Oa7-t1-PBX" secondAttribute="bottom" id="IpU-oy-mcF"/>
-                            <constraint firstItem="0sk-3t-5tM" firstAttribute="leading" secondItem="J1j-0d-GXI" secondAttribute="leading" id="QWq-7A-lOs"/>
-                            <constraint firstItem="H7y-AV-BfE" firstAttribute="leading" secondItem="J1j-0d-GXI" secondAttribute="leading" id="WBH-r5-LGP"/>
-                            <constraint firstItem="Ef1-I0-FnH" firstAttribute="leading" secondItem="Rwd-Ce-2Tz" secondAttribute="leading" id="aKn-AZ-qxC"/>
-                            <constraint firstItem="Ef1-I0-FnH" firstAttribute="trailing" secondItem="Rwd-Ce-2Tz" secondAttribute="trailing" id="ogz-rs-eLP"/>
-                            <constraint firstItem="Ef1-I0-FnH" firstAttribute="top" secondItem="Rwd-Ce-2Tz" secondAttribute="bottom" id="pfa-dV-kzd"/>
-                            <constraint firstItem="H7y-AV-BfE" firstAttribute="top" secondItem="J1j-0d-GXI" secondAttribute="top" id="urZ-AM-b44"/>
-                            <constraint firstItem="0sk-3t-5tM" firstAttribute="trailing" secondItem="J1j-0d-GXI" secondAttribute="trailing" id="wjm-lR-PKu"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="J1j-0d-GXI"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Budget" id="34v-EN-Nh5"/>
-                    <connections>
-                        <outlet property="categoryButton" destination="Rwd-Ce-2Tz" id="3Us-7f-kKf"/>
-                        <outlet property="categoryPickerView" destination="Ef1-I0-FnH" id="mbd-9G-bdT"/>
-                        <outlet property="lineGraphView" destination="cFQ-0i-CjG" id="piU-VE-hsC"/>
-                        <outlet property="timeFrameButton" destination="Oa7-t1-PBX" id="X9r-hD-muw"/>
-                        <outlet property="timeFramePickerView" destination="1Wt-SI-jvB" id="A6D-Dt-ChI"/>
-                        <outlet property="xView" destination="tu3-vc-k2K" id="guV-Hi-RMY"/>
-                        <outlet property="yView" destination="SPa-am-bjo" id="J1C-i5-eRi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yfi-i3-Qma" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1513" y="-333"/>
-        </scene>
         <!--Budget Analysis-->
         <scene sceneID="axo-FK-Jmr">
             <objects>
@@ -308,7 +173,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="HXq-2N-gbe" kind="relationship" relationship="rootViewController" id="fnh-wL-LqZ"/>
+                        <segue destination="sgG-ib-D5P" kind="relationship" relationship="rootViewController" id="N1Y-lT-DbI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kf-T3-Sgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -381,13 +246,13 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QY-AB-PD6">
                                         <rect key="frame" x="0.0" y="21" width="375" height="99"/>
                                     </pickerView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pQ-dL-ADd">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Period" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pQ-dL-ADd">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocj-pi-Xk1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planned Expense" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocj-pi-Xk1">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -435,6 +300,109 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lhj-Yt-OKK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1512.8" y="338.68065967016497"/>
+        </scene>
+        <!--Budgeting Categories-->
+        <scene sceneID="LnB-J2-9BA">
+            <objects>
+                <viewController storyboardIdentifier="budgetLineGraph" id="sgG-ib-D5P" customClass="BudgetLineGraphViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6vt-s7-wy1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AGQ-ZN-Sl9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="483"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2y-gL-vpS">
+                                        <rect key="frame" x="80" y="403" width="275" height="80"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="YWX-jY-ae1"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glA-my-f43">
+                                        <rect key="frame" x="0.0" y="20" width="80" height="383"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5U-cI-lux" customClass="LineGraphView" customModule="PocketBook" customModuleProvider="target">
+                                        <rect key="frame" x="80" y="20" width="275" height="383"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="I5U-cI-lux" firstAttribute="trailing" secondItem="I2y-gL-vpS" secondAttribute="trailing" id="5Cp-kB-iEg"/>
+                                    <constraint firstItem="I2y-gL-vpS" firstAttribute="top" secondItem="I5U-cI-lux" secondAttribute="bottom" id="CQS-H6-ZiR"/>
+                                    <constraint firstItem="I5U-cI-lux" firstAttribute="leading" secondItem="I2y-gL-vpS" secondAttribute="leading" id="HyG-0m-1vr"/>
+                                    <constraint firstItem="glA-my-f43" firstAttribute="top" secondItem="AGQ-ZN-Sl9" secondAttribute="top" constant="20" id="LMb-L7-LZF"/>
+                                    <constraint firstItem="glA-my-f43" firstAttribute="leading" secondItem="AGQ-ZN-Sl9" secondAttribute="leading" id="QnM-JW-CNm"/>
+                                    <constraint firstItem="I2y-gL-vpS" firstAttribute="leading" secondItem="AGQ-ZN-Sl9" secondAttribute="leading" constant="80" id="W9F-kA-CiU"/>
+                                    <constraint firstAttribute="bottom" secondItem="glA-my-f43" secondAttribute="bottom" constant="80" id="XR3-Dr-jTT"/>
+                                    <constraint firstAttribute="bottom" secondItem="I2y-gL-vpS" secondAttribute="bottom" id="gGn-ww-KR2"/>
+                                    <constraint firstAttribute="trailing" secondItem="I2y-gL-vpS" secondAttribute="trailing" constant="20" id="h5a-gf-lfs"/>
+                                    <constraint firstItem="I2y-gL-vpS" firstAttribute="leading" secondItem="glA-my-f43" secondAttribute="trailing" id="k7G-RZ-VBo"/>
+                                    <constraint firstItem="I5U-cI-lux" firstAttribute="top" secondItem="AGQ-ZN-Sl9" secondAttribute="top" constant="20" id="ykf-oS-g4i"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chd-ev-QwF" userLabel="View Picker">
+                                <rect key="frame" x="0.0" y="547" width="375" height="120"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8S-ng-7HG">
+                                        <rect key="frame" x="0.0" y="21" width="375" height="99"/>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Period" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-yt-cLe">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gE-CS-UcN">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="o8S-ng-7HG" firstAttribute="top" secondItem="6gE-CS-UcN" secondAttribute="bottom" id="8dR-zp-c9a"/>
+                                    <constraint firstAttribute="trailing" secondItem="6gE-CS-UcN" secondAttribute="trailing" id="8iy-0M-1MG"/>
+                                    <constraint firstItem="o8S-ng-7HG" firstAttribute="centerX" secondItem="chd-ev-QwF" secondAttribute="centerX" id="9nn-4V-FWL"/>
+                                    <constraint firstAttribute="trailing" secondItem="o8S-ng-7HG" secondAttribute="trailing" id="GzR-LP-HhV"/>
+                                    <constraint firstItem="6gE-CS-UcN" firstAttribute="leading" secondItem="KJH-yt-cLe" secondAttribute="trailing" id="QBM-Rt-W5m"/>
+                                    <constraint firstItem="6gE-CS-UcN" firstAttribute="width" secondItem="chd-ev-QwF" secondAttribute="width" multiplier="1/2" id="Xqu-wF-eVz"/>
+                                    <constraint firstAttribute="bottom" secondItem="o8S-ng-7HG" secondAttribute="bottom" id="cfu-tA-YeJ"/>
+                                    <constraint firstAttribute="height" constant="120" id="f4V-Xb-boV"/>
+                                    <constraint firstItem="KJH-yt-cLe" firstAttribute="top" secondItem="chd-ev-QwF" secondAttribute="top" id="gLF-jN-z06"/>
+                                    <constraint firstItem="KJH-yt-cLe" firstAttribute="leading" secondItem="chd-ev-QwF" secondAttribute="leading" id="oqP-3R-IJc"/>
+                                    <constraint firstItem="o8S-ng-7HG" firstAttribute="top" secondItem="KJH-yt-cLe" secondAttribute="bottom" id="oxr-ca-GW5"/>
+                                    <constraint firstItem="6gE-CS-UcN" firstAttribute="top" secondItem="chd-ev-QwF" secondAttribute="top" id="tib-4l-Qku"/>
+                                    <constraint firstItem="o8S-ng-7HG" firstAttribute="leading" secondItem="chd-ev-QwF" secondAttribute="leading" id="zO6-Ho-NkH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AGQ-ZN-Sl9" firstAttribute="trailing" secondItem="220-Xa-jPU" secondAttribute="trailing" id="4V8-cw-L0p"/>
+                            <constraint firstItem="AGQ-ZN-Sl9" firstAttribute="leading" secondItem="220-Xa-jPU" secondAttribute="leading" id="NoJ-KW-1CK"/>
+                            <constraint firstItem="220-Xa-jPU" firstAttribute="bottom" secondItem="chd-ev-QwF" secondAttribute="bottom" id="OFX-fm-4aN"/>
+                            <constraint firstItem="chd-ev-QwF" firstAttribute="leading" secondItem="220-Xa-jPU" secondAttribute="leading" id="cRL-dn-gzt"/>
+                            <constraint firstItem="chd-ev-QwF" firstAttribute="top" secondItem="AGQ-ZN-Sl9" secondAttribute="bottom" id="pis-yO-blY"/>
+                            <constraint firstItem="AGQ-ZN-Sl9" firstAttribute="top" secondItem="220-Xa-jPU" secondAttribute="top" id="uIa-Jc-S7J"/>
+                            <constraint firstItem="chd-ev-QwF" firstAttribute="trailing" secondItem="220-Xa-jPU" secondAttribute="trailing" id="ydP-eK-s7K"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="220-Xa-jPU"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Budgeting Categories" id="oAW-f9-uvl"/>
+                    <connections>
+                        <outlet property="lineGraphView" destination="I5U-cI-lux" id="Liq-0I-d9l"/>
+                        <outlet property="pickerView" destination="o8S-ng-7HG" id="e6D-el-NwJ"/>
+                        <outlet property="xView" destination="I2y-gL-vpS" id="hmy-jG-CvL"/>
+                        <outlet property="yView" destination="glA-my-f43" id="kC7-9n-MPW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oth-Ci-oQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1513" y="-333"/>
         </scene>
     </scenes>
 </document>

@@ -11,16 +11,13 @@ import UIKit
 class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
  
     // MARK: - Outlets
-    @IBOutlet weak var accountPicker: UIPickerView!
-    @IBOutlet weak var categoryPicker: UIPickerView!
+
     @IBOutlet weak var transactionType: UISegmentedControl!
-    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var payeeTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var accountButton: UIButton!
-    @IBOutlet weak var categoryButton: UIButton!
-    @IBOutlet weak var dateButton: UIButton!
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var accountTextField: UITextField!
+    @IBOutlet weak var categoryTextField: UITextField!
     
     
     // MARK: - Properties
@@ -29,6 +26,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     var plannedExpenseTransaction: PlannedExpense?
     var currentYShiftForKeyboard: CGFloat = 0
     var textFieldBeingEdited: UITextField?
+    
+    let dueDatePicker = UIDatePicker()
+    let accountPicker = UIPickerView()
+    let categoryPicker = UIPickerView()
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
@@ -54,40 +55,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
         saveTransaction()
-    }
-    
-    // MARK: - Picker Button Actions
-    @IBAction func dateButtonWasPressed(_ sender: Any) {
-        accountPicker.isHidden = true
-        datePicker.isHidden = false
-        categoryPicker.isHidden = true
-    }
-    
-    @IBAction func accountButtonWasPressed(_ sender: Any) {
-        accountPicker.isHidden = false
-        categoryPicker.isHidden = true
-        accountButton.isHidden = true
-    }
-    
-    @IBAction func categoryButtonWasPressed(_ sender: Any) {
-        accountPicker.isHidden = true
-        categoryPicker.isHidden = false
-        categoryButton.isHidden = true
-    }
-    
-    @IBAction func dateButtonPressed(_ sender: UIButton) {
-        datePicker.isHidden = false
-        dateButton.isHidden = true
-        categoryPicker.isHidden = true
-        accountPicker.isHidden = true
-    }
-    
-    
-    // Date Picker Action
-    @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        self.dateButton.setTitle(returnFormattedDateString(date: datePicker.date), for: .normal)
-        datePicker.isHidden = true
-        dateButton.isHidden = false
     }
     
     // MARK: - Account Picker Delegates
@@ -128,25 +95,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        switch pickerView {
-        case accountPicker:
-            var stringArray = AccountController.shared.accounts.map { $0.name }
-            accountButton.setTitle(stringArray[row], for: .normal)
-            accountPicker.isHidden = true
-            accountButton.isHidden = false
-        case categoryPicker:
-            let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
-            categoryButton.setTitle(category[row], for: .normal)
-            categoryPicker.isHidden = true
-            categoryButton.isHidden = false
-        default:
-            print("Error seting up picker in function: \(#function)")
-        }
-    }
-    
-    
     // MARK: - UI View Preperation
     func configureUIWhenTheViewLoads() {
         
@@ -156,15 +104,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         payeeTextField.delegate = self
         amountTextField.delegate = self
         
-        accountPicker.isHidden = true
-        categoryPicker.isHidden = true
-        dateButton.isHidden = true
+        showCategoryPicker()
+        showDatePicker()
+        showAccountPicker()
         
-        accountButton.setTitle("Choose Account", for: .normal)
-        categoryButton.setTitle("Choose Category", for: .normal)
-        
-        // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction data
-        
+        // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction date
         if transaction != nil {
             guard let transaction = transaction else { return }
             
@@ -172,9 +116,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             amountTextField.text = stringAmount
             payeeTextField.text = transaction.payee
-            datePicker.date = transaction.date
-            accountButton.setTitle(transaction.account, for: .normal)
-            categoryButton.setTitle(transaction.category, for: .normal)
+            dateTextField.text =  returnString(fromDate: transaction.date)
+            accountTextField.text = transaction.account
+            categoryTextField.text = transaction.category
             transactionType.selectedSegmentIndex = updateTransactionType()
             
             let budgetItems = BudgetItemController.shared.budgetItems
@@ -198,11 +142,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             amountTextField.text = stringAmount
             payeeTextField.text = plannedExpense.name
-            datePicker.date = returnFormattedDate(date: plannedExpense.dueDate)
-            accountButton.setTitle(plannedExpense.account, for: .normal)
-//            categoryButton.setTitle(plannedExpense.name, for: .normal)
-            categoryButton.isHidden = true
-            categoryLabel.isHidden = true
+            dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
             
             let budgetItems = BudgetItemController.shared.budgetItems
             guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}
@@ -238,6 +178,26 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
         textFieldBeingEdited = textField
     }
+    
+    
+    // MARK: - Keyboard Functions
+    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
+        
+        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
+        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
+        
+        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
+        let maximumY = self.view.frame.height - keyboardHeight
+        
+        if textFieldBottomY > maximumY {
+            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
+            return textFieldBottomY - maximumY + 60
+        } else {
+            // It would go off the screen if moved, and it won't be obscured by the keyboard.
+            return 0
+        }
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         
         var keyboardSize: CGRect = .zero
@@ -259,29 +219,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
     }
     
-    // MARK: - Keyboard Functions
-    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
-        
-        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
-        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
-        
-        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
-        let maximumY = self.view.frame.height - keyboardHeight
-        
-        if textFieldBottomY > maximumY {
-            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
-            return textFieldBottomY - maximumY + 60
-        } else {
-            // It would go off the screen if moved, and it won't be obscured by the keyboard.
-            return 0
-        }
-    }
-    
-   @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-   @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         
         if self.view.frame.origin.y != 0 {
             
@@ -291,8 +229,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         stopEditingTextField()
     }
     
+   @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     
+    // MARK: - Methods
     ///Checks to see which segment should be highlighted
     private func updateTransactionType() -> Int {
         
@@ -308,7 +250,81 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         view.endEditing(true)
     }
     
-    // MARK: - Save Button Pressed
+    
+    // MARK: - ToolBar Picker Views
+    
+    func showCategoryPicker() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneCategoryPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissKeyboard))
+     
+        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
+        categoryTextField.inputAccessoryView = toolbar
+        categoryTextField.inputView = categoryPicker
+        
+
+    }
+    
+    @objc func doneCategoryPicker() {
+        let category = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+        categoryTextField.text = category.name
+        self.view.endEditing(true)
+    }
+    
+    func showDatePicker() {
+        if transaction == nil {
+            dueDatePicker.date = Date()
+        }
+        
+        // ToolBar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // Done and Cancel Button
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDatePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissKeyboard))
+        
+        dueDatePicker.datePickerMode = .date
+        
+        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
+        dateTextField.inputAccessoryView = toolbar
+        dateTextField.inputView = dueDatePicker
+    }
+    
+    func showAccountPicker(){
+        // ToolBar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        
+        // done button & cancel button
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAccountPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(dismissKeyboard))
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        accountTextField.inputAccessoryView = toolbar
+        accountTextField.inputView = accountPicker
+    }
+    
+    @objc func doneAccountPicker() {
+        
+        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+        accountTextField.text = account.name
+        self.view.endEditing(true)
+    }
+    
+    
+    @objc func doneDatePicker() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        dateTextField.text = formatter.string(from: dueDatePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    // MARK: - Save Button Pressede
     private func saveTransaction() {
         if transaction != nil {
             
@@ -377,8 +393,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     private func createTransaction() {
         // We want to create
         guard let payee = payeeTextField.text,
-            let categoryButton = categoryButton.currentTitle,
-            let accountButton = accountButton.currentTitle,
+            let categoryButton = categoryTextField.text,
+            let accountButton = accountTextField.text,
             let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
                 return
@@ -406,7 +422,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
         budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
         
-        TransactionController.shared.createTransactionWith(date: datePicker.date, monthYearDate: returnFormattedDate(date: datePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
+        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
             
             // FIXME: If it looks like something is weird try commenting me out and trying agian
             guard let budgetItem = self.budgetItem else {return}
@@ -419,8 +435,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         // We want to update
         guard let transaction = transaction,
             let payee = payeeTextField.text,
-            let categoryButton = categoryButton.currentTitle,
-            let accountButton = accountButton.currentTitle,
+            let categoryButton = categoryTextField.text,
+            let accountButton = accountTextField.text,
             let amount = amountTextField.text else {return}
         
         guard let amountToSave = Double(amount.dropFirst()) else {
@@ -429,7 +445,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
         let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
         
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: datePicker.date, monthYearDate: returnFormattedDate(date: datePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
         })
     }
 }

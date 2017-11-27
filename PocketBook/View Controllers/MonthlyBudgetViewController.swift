@@ -13,13 +13,18 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Outlets
     @IBOutlet weak var categoryTableView: UITableView!
     @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var plannedExpenseLabel: UILabel!
-    @IBOutlet weak var amountLeftLabel: UILabel!
-    @IBOutlet weak var totalSpentLabel: UILabel!
+    @IBOutlet weak var plannedExpenseTotalLabel: UILabel!
+    @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
+    @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var whiteCircle: PieChartView!
     @IBOutlet weak var legendView: UIView!
+    @IBOutlet weak var plannedExpensesView: UIView!
+    @IBOutlet weak var projectedIncomeView: UIView!
+    @IBOutlet weak var totalBudgetedIncomeView: UIView!
+    @IBOutlet weak var incomeNotCurrentlyBudgetedView: UIView!
+    
     
     // MARK: - Properties
     var projectedIncome: Double?
@@ -94,7 +99,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: - Alerts
-    private func createBudgetItemAlert() {
+    @objc private func createBudgetItemAlert() {
         let budgetItems: [BudgetItem] = BudgetItemController.shared.budgetItems
         // Limit user to 16 monthly budget items
         let numberOfBudgetItems = BudgetItemController.shared.budgetItems.count
@@ -212,10 +217,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         //Projected income - plannedExpense
         guard let projectedIncome = projectedIncome else {
-            amountLeftLabel.text = "Please enter a projected income amount"
+            totalBudgetedIncomLabel.text = "$0.00"
             return
         }
-        amountLeftLabel.text = "Amount left to budget this month: \(formatNumberToString(fromDouble: projectedIncome - addUpTotalSpendOfBudget()))"
+        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: projectedIncome - addUpTotalSpendOfBudget()))"
     }
     
     // MARK: - UI
@@ -224,25 +229,51 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
+        createPlusButton()
+        configureViewsToLookLikeCells()
         
         amountTextField.delegate = self
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
-        
-        // TODO: FIX ME - Possibly have label above these three labels that returns the current month
-
+    
         // Update all three labels in the view below the budget items
-        plannedExpenseLabel.text = "Total planned expenses for this month: \(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         updateMonthlyBudgetLabel()
-        totalSpentLabel.text = "Total Spent of monthly budget: \(formatNumberToString(fromDouble: addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget()))"
         
         // FIXME: Set up amountTextfield to display user information. Pull that information from cloudKit.
     }
-    
-    //
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    // This is to make the views look like cells
+    func configureViewsToLookLikeCells() {
+        self.plannedExpensesView.layer.borderWidth = 1
+        self.plannedExpensesView.layer.borderColor = UIColor.gray.cgColor
+
+        
+        self.totalBudgetedIncomeView.layer.borderWidth = 1
+        self.totalBudgetedIncomeView.layer.borderColor = UIColor.gray.cgColor
+
+        
+        self.incomeNotCurrentlyBudgetedView.layer.borderWidth = 1
+        self.incomeNotCurrentlyBudgetedView.layer.borderColor = UIColor.gray.cgColor
+        
+        self.projectedIncomeView.layer.borderWidth = 1
+        self.projectedIncomeView.layer.borderColor = UIColor.gray.cgColor
+
+    }
+    
+    func createPlusButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(createBudgetItemAlert), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
     }
     
     // MARK: - Setup PieChart

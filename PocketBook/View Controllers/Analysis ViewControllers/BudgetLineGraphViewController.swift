@@ -47,98 +47,84 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     var categories: [String] {
-        let budgetItems = BudgetItemController.shared.budgetItems
-        var names: [String] = []
-        for budgetItem in budgetItems {
-            names.append(budgetItem.name)
-        }
-        return names
+        return getAllBudgetItemNames()
     }
     
     // MARK: - Outlets
-    @IBOutlet weak var timeFrameButton: UIButton!
-    @IBOutlet weak var categoryButton: UIButton!
-    @IBOutlet weak var timeFramePickerView: UIPickerView!
-    @IBOutlet weak var categoryPickerView: UIPickerView!
     @IBOutlet weak var yView: UIView!
     @IBOutlet weak var xView: UIView!
     @IBOutlet weak var lineGraphView: LineGraphView!
-    
-    // MARK: - Actions
-    @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
-        timeFramePickerView.isHidden = false
-        categoryButton.isHidden = true
-    }
-    
-    @IBAction func categoryButtonTapped(_ sender: UIButton) {
-        categoryPickerView.isHidden = false
-        timeFrameButton.isHidden = true
-    }
+    @IBOutlet weak var pickerView: UIPickerView!
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpPickerViews()
         setUpCategoryVar()
-        setUpTimeFrameVar()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setUpPickerViews()
         super.viewWillAppear(animated)
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
     }
     
     // MARK: - Setup PickerViews
     func setUpPickerViews() {
-        categoryPickerView.dataSource = self
-        categoryPickerView.delegate = self
-        categoryPickerView.isHidden = true
-        
-        timeFramePickerView.dataSource = self
-        timeFramePickerView.delegate = self
-        timeFramePickerView.isHidden = true
+        pickerView.dataSource = self
+        pickerView.delegate = self
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == categoryPickerView {
-            return categories.count
-        }
-        if pickerView == timeFramePickerView {
+        if component == 0 {
             return timeFrames.count
         }
-        return 0
+        if component == 1 {
+            return categories.count
+        }
+        else {
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == categoryPickerView {
-            return categories[row]
-        }
-        if pickerView == timeFramePickerView {
+        if component == 0 {
             return timeFrames[row]
         }
-        return ""
+        if component == 1 {
+            return categories[row]
+        }
+        else {
+            return "?"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == categoryPickerView {
-            let name = categories[row]
-            categoryButton.setTitle(name, for: .normal)
-            category = name
-            timeFrameButton.isHidden = false
-            pickerView.isHidden = true
-        }
-        if pickerView == timeFramePickerView {
+        if component == 0 {
             let name = timeFrames[row]
-            timeFrameButton.setTitle(name, for: .normal)
             timeFrame = name
-            categoryButton.isHidden = false
-            pickerView.isHidden = true
         }
+        if component == 1 {
+            let name = categories[row]
+            category = name
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        if component == 0 {
+            pickerLabel.text = timeFrames[row]
+        }
+        if component == 1 {
+            pickerLabel.text = categories[row]
+        }
+        pickerLabel.font = UIFont(name: "Arial", size: 15)
+        pickerLabel.textAlignment = .center
+        return pickerLabel
     }
     
     // MARK: - Notification Functions
@@ -152,9 +138,6 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     // MARK: - Setup Line Graph Views
-    func setUpTimeFrameVar() {
-        timeFrameButton.setTitle("Past Year", for: .normal)
-    }
     
     func setUpCategoryVar() {
         if categories.isEmpty == true {

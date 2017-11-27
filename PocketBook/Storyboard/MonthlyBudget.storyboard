@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7vX-lX-jh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7vX-lX-jh0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -72,33 +72,29 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xL-vg-YrL">
                                 <rect key="frame" x="0.0" y="230.5" width="375" height="41.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Mvs-0B-d28">
-                                        <rect key="frame" x="19" y="6" width="337.5" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Projected Income:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MpU-Ug-qZw">
-                                                <rect key="frame" x="0.0" y="0.0" width="166.5" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Income:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WSz-Hc-83i">
-                                                <rect key="frame" x="171.5" y="0.0" width="166" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Income:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WSz-Hc-83i">
+                                        <rect key="frame" x="265" y="6" width="102" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Projected Income:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MpU-Ug-qZw">
+                                        <rect key="frame" x="8" y="11" width="139" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Mvs-0B-d28" firstAttribute="centerX" secondItem="3xL-vg-YrL" secondAttribute="centerX" id="03S-8D-P7c"/>
-                                    <constraint firstItem="Mvs-0B-d28" firstAttribute="centerY" secondItem="3xL-vg-YrL" secondAttribute="centerY" id="Veq-sX-vbU"/>
-                                    <constraint firstItem="Mvs-0B-d28" firstAttribute="width" secondItem="3xL-vg-YrL" secondAttribute="width" multiplier="9/10" id="eMq-fH-fDU"/>
+                                    <constraint firstItem="WSz-Hc-83i" firstAttribute="centerY" secondItem="3xL-vg-YrL" secondAttribute="centerY" id="3Up-Eq-me9"/>
+                                    <constraint firstItem="MpU-Ug-qZw" firstAttribute="leading" secondItem="3xL-vg-YrL" secondAttribute="leading" constant="8" id="5n1-zI-EhZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="WSz-Hc-83i" secondAttribute="trailing" constant="8" id="ILL-AZ-WZg"/>
+                                    <constraint firstItem="MpU-Ug-qZw" firstAttribute="centerY" secondItem="3xL-vg-YrL" secondAttribute="centerY" id="p3X-FW-ag3"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YtF-jv-d0C">
-                                <rect key="frame" x="0.0" y="272.5" width="375" height="283.5"/>
+                                <rect key="frame" x="0.0" y="272.5" width="375" height="263"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="9EV-N8-YZg" customClass="CategroyTableViewCell" customModule="PocketBook" customModuleProvider="target">
@@ -109,16 +105,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Rnl-i1-Q5P">
-                                                    <rect key="frame" x="8" y="11" width="155.5" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="156.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zin-aL-SOf">
-                                                    <rect key="frame" x="171.5" y="21" width="187.5" height="2"/>
+                                                    <rect key="frame" x="172.5" y="21" width="187.5" height="2"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="x7i-Ed-0c1">
-                                                    <rect key="frame" x="284" y="28.5" width="75" height="11"/>
+                                                    <rect key="frame" x="285" y="28.5" width="75" height="11"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="11" id="57e-Ft-h86"/>
                                                         <constraint firstAttribute="width" constant="75" id="UFF-no-ZhS"/>
@@ -151,55 +147,95 @@
                                     <outlet property="delegate" destination="TwU-2Z-FC8" id="ZKg-AT-sU7"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzx-Ad-lVf">
-                                <rect key="frame" x="0.0" y="556" width="375" height="111"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="v7n-2p-S01">
+                                <rect key="frame" x="0.0" y="535.5" width="375" height="131.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FdS-VX-bXS">
-                                        <rect key="frame" x="0.0" y="21.5" width="375" height="69"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55k-NO-Kkx">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planned Expenses For The Month: 1500.32" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="iwb-h0-5rZ">
-                                                <rect key="frame" x="41" y="0.0" width="293.5" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$532 Left to Budget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="VQL-rP-GjH">
-                                                <rect key="frame" x="110" y="23" width="155" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Oh-zf-c1r">
+                                                <rect key="frame" x="325" y="11.5" width="42" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Spent Of Budget: $300" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="CL1-Ca-eOO">
-                                                <rect key="frame" x="77.5" y="48.5" width="220" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planned Expenses Monthly Allotment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auD-fc-bOJ">
+                                                <rect key="frame" x="8" y="14.5" width="210" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="9Oh-zf-c1r" firstAttribute="centerY" secondItem="55k-NO-Kkx" secondAttribute="centerY" id="7Cf-gn-hVB"/>
+                                            <constraint firstItem="auD-fc-bOJ" firstAttribute="centerY" secondItem="55k-NO-Kkx" secondAttribute="centerY" id="Plp-IY-5Zh"/>
+                                            <constraint firstAttribute="trailing" secondItem="9Oh-zf-c1r" secondAttribute="trailing" constant="8" id="Z85-Sa-Kr4"/>
+                                            <constraint firstItem="auD-fc-bOJ" firstAttribute="leading" secondItem="55k-NO-Kkx" secondAttribute="leading" constant="8" id="bSf-km-l1V"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCJ-fK-kg2">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="43.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9f-jT-Nyt">
+                                                <rect key="frame" x="325" y="11.5" width="42" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Budgeted Income" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OV5-se-aQA">
+                                                <rect key="frame" x="8" y="15" width="131" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                    </stackView>
+                                        <constraints>
+                                            <constraint firstItem="z9f-jT-Nyt" firstAttribute="centerY" secondItem="QCJ-fK-kg2" secondAttribute="centerY" id="0Pl-DK-3cL"/>
+                                            <constraint firstItem="OV5-se-aQA" firstAttribute="centerY" secondItem="QCJ-fK-kg2" secondAttribute="centerY" id="UbC-cJ-5zM"/>
+                                            <constraint firstAttribute="trailing" secondItem="z9f-jT-Nyt" secondAttribute="trailing" constant="8" id="fyG-gO-r6k"/>
+                                            <constraint firstItem="OV5-se-aQA" firstAttribute="leading" secondItem="QCJ-fK-kg2" secondAttribute="leading" constant="8" id="pSV-RH-FgD"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ks-IO-gxk">
+                                        <rect key="frame" x="0.0" y="87.5" width="375" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AaX-dQ-li4">
+                                                <rect key="frame" x="327.5" y="12.5" width="39.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income Not Currently Budgeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-hE-gYg">
+                                                <rect key="frame" x="8" y="15.5" width="179.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="AaX-dQ-li4" firstAttribute="centerY" secondItem="4Ks-IO-gxk" secondAttribute="centerY" id="0dH-x8-uDO"/>
+                                            <constraint firstItem="bhw-hE-gYg" firstAttribute="leading" secondItem="4Ks-IO-gxk" secondAttribute="leading" constant="8" id="1te-JA-x0f"/>
+                                            <constraint firstAttribute="trailing" secondItem="AaX-dQ-li4" secondAttribute="trailing" constant="8" id="BEM-pB-PxW"/>
+                                            <constraint firstItem="bhw-hE-gYg" firstAttribute="centerY" secondItem="4Ks-IO-gxk" secondAttribute="centerY" id="pXs-XI-bKs"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="FdS-VX-bXS" firstAttribute="width" secondItem="hzx-Ad-lVf" secondAttribute="width" id="NxL-Dp-hCl"/>
-                                    <constraint firstItem="FdS-VX-bXS" firstAttribute="centerY" secondItem="hzx-Ad-lVf" secondAttribute="centerY" id="fuX-1c-8OM"/>
-                                    <constraint firstItem="FdS-VX-bXS" firstAttribute="centerX" secondItem="hzx-Ad-lVf" secondAttribute="centerX" id="i3e-Wj-D3D"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hzx-Ad-lVf" firstAttribute="height" secondItem="qbM-lM-3HB" secondAttribute="height" multiplier="1/6" id="4nd-OL-4OU"/>
+                            <constraint firstItem="v7n-2p-S01" firstAttribute="centerX" secondItem="qbM-lM-3HB" secondAttribute="centerX" id="2bR-du-pbL"/>
                             <constraint firstItem="YtF-jv-d0C" firstAttribute="centerX" secondItem="qbM-lM-3HB" secondAttribute="centerX" id="5kU-uO-Otn"/>
                             <constraint firstItem="Nhh-Rl-UE2" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" id="7rI-Ar-fl6"/>
-                            <constraint firstItem="hzx-Ad-lVf" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" id="9mX-h1-zIy"/>
-                            <constraint firstItem="nhe-IF-PVu" firstAttribute="bottom" secondItem="hzx-Ad-lVf" secondAttribute="bottom" id="KLb-o1-AmS"/>
+                            <constraint firstItem="v7n-2p-S01" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" id="BcW-PS-UJG"/>
+                            <constraint firstItem="nhe-IF-PVu" firstAttribute="bottom" secondItem="v7n-2p-S01" secondAttribute="bottom" id="C1g-eI-Mkr"/>
+                            <constraint firstItem="YtF-jv-d0C" firstAttribute="top" secondItem="3xL-vg-YrL" secondAttribute="bottom" id="HSU-jH-ZnM"/>
+                            <constraint firstItem="v7n-2p-S01" firstAttribute="height" secondItem="YtF-jv-d0C" secondAttribute="height" multiplier="1/2" id="IcY-yS-xMh"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" id="SRO-dO-y9K"/>
                             <constraint firstItem="Nhh-Rl-UE2" firstAttribute="top" secondItem="nhe-IF-PVu" secondAttribute="top" id="UbW-il-cRG"/>
                             <constraint firstItem="Nhh-Rl-UE2" firstAttribute="height" secondItem="qbM-lM-3HB" secondAttribute="height" multiplier="1/4" id="Uxp-GQ-AN3"/>
-                            <constraint firstItem="YtF-jv-d0C" firstAttribute="top" secondItem="3xL-vg-YrL" secondAttribute="bottom" id="XcM-Fr-te3"/>
-                            <constraint firstItem="hzx-Ad-lVf" firstAttribute="top" secondItem="YtF-jv-d0C" secondAttribute="bottom" id="bhE-pn-3xT"/>
+                            <constraint firstItem="v7n-2p-S01" firstAttribute="top" secondItem="YtF-jv-d0C" secondAttribute="bottom" id="bWs-7R-QB0"/>
                             <constraint firstItem="YtF-jv-d0C" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" id="dXh-mc-iHH"/>
-                            <constraint firstItem="hzx-Ad-lVf" firstAttribute="centerX" secondItem="qbM-lM-3HB" secondAttribute="centerX" id="fsU-fF-bXD"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="centerX" secondItem="qbM-lM-3HB" secondAttribute="centerX" id="j8z-dG-ybB"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="top" secondItem="Nhh-Rl-UE2" secondAttribute="bottom" constant="-0.5" id="jHJ-RB-WC7"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="height" secondItem="Nhh-Rl-UE2" secondAttribute="height" multiplier="1/4" id="ki8-U3-0JJ"/>
@@ -208,22 +244,20 @@
                         <viewLayoutGuide key="safeArea" id="nhe-IF-PVu"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="hLa-MI-VYn"/>
-                    <navigationItem key="navigationItem" title="Monthly Budget" id="jbG-cf-NOp">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lN0-6m-hT2">
-                            <connections>
-                                <action selector="createBugetItemAlertButtonPressed:" destination="TwU-2Z-FC8" id="mrH-WU-vvy"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Monthly Budget" id="jbG-cf-NOp"/>
                     <connections>
-                        <outlet property="amountLeftLabel" destination="VQL-rP-GjH" id="EbA-Hd-4I3"/>
                         <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
                         <outlet property="categoryTableView" destination="YtF-jv-d0C" id="pof-1s-DNV"/>
+                        <outlet property="incomeNotCurrentlyBudgetLabel" destination="AaX-dQ-li4" id="YbT-gv-PDL"/>
+                        <outlet property="incomeNotCurrentlyBudgetedView" destination="4Ks-IO-gxk" id="UqD-To-LsE"/>
                         <outlet property="legendView" destination="lUB-63-ntz" id="cJG-gG-BE1"/>
                         <outlet property="pieChartView" destination="9VW-0y-fKM" id="bue-Rl-yli"/>
-                        <outlet property="plannedExpenseLabel" destination="iwb-h0-5rZ" id="e1r-dR-v0L"/>
+                        <outlet property="plannedExpenseTotalLabel" destination="9Oh-zf-c1r" id="uCm-NQ-NUf"/>
+                        <outlet property="plannedExpensesView" destination="55k-NO-Kkx" id="0NN-QM-97L"/>
+                        <outlet property="projectedIncomeView" destination="3xL-vg-YrL" id="hEy-aO-x4m"/>
                         <outlet property="superView" destination="2st-oS-GKC" id="xEe-6p-SdO"/>
-                        <outlet property="totalSpentLabel" destination="CL1-Ca-eOO" id="kgV-CZ-GO7"/>
+                        <outlet property="totalBudgetedIncomLabel" destination="z9f-jT-Nyt" id="4jS-uv-KbZ"/>
+                        <outlet property="totalBudgetedIncomeView" destination="QCJ-fK-kg2" id="kum-UD-NXg"/>
                         <outlet property="whiteCircle" destination="6Kh-9q-mw5" id="hys-Yn-vsq"/>
                     </connections>
                 </viewController>
@@ -239,6 +273,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h0I-C1-ihB">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.015686274509803921" green="0.20392156862745098" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

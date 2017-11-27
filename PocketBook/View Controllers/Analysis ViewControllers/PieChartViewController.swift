@@ -12,6 +12,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     // MARK: - Properties
     var timeFrame: String? {
+        
         didSet {
             let transactions: [Transaction] = TransactionController.shared.transactions
             guard let timeFrame = timeFrame else {return}

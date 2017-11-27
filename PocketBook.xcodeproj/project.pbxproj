@@ -261,9 +261,9 @@
 				D38EF9721FB230950035B5E3 /* AccountDetailsViewController.swift */,
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
+				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
-				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
 				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 			);
 			path = "View Controllers";
