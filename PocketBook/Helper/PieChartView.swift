@@ -180,7 +180,6 @@ class PieChartView: UIView {
         nameStackView.addArrangedSubview(nameLabel)
         nameLabel.text = catagory
         nameLabel.textAlignment = .right
-        //        NSLayoutConstraint(item: nameLabel, attribute: .width, relatedBy: .equal, toItem: nameStackView, attribute: .width, multiplier: 1, constant: 0).isActive = true
         
         let colorLabel = UILabel(frame: frame)
         colorStackView.addArrangedSubview(colorLabel)
