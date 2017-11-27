@@ -15,9 +15,15 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
+    // MARK: - Customize Segmented Control
+    func customizeSegmentedControl() {
+        segmentedControl.customizeSegmentedControl()
+    }
+    
     // MARK: View Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         setUpTableView()
+        self.customizeSegmentedControl()
     }
     
     override func viewDidLoad() {
@@ -28,6 +34,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         self.categorySelection = "All"
         self.timeframeSelection = "All"
         self.setUpTableView()
+        self.customizeSegmentedControl()
     }
     
     @objc func reloadTableView() {
@@ -208,7 +215,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         }
     }
 }
-
 
 
 

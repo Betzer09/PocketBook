@@ -19,6 +19,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
     
+    // MARK: - Customize Segmented Control
+    func customizeSegmentedControl() {
+        transactionType.customizeSegmentedControl()
+    }
     
     // MARK: - Properties
     var transaction: Transaction?
@@ -40,12 +44,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             self.navigationItem.title = "Create New Transaction"
         }
         setPickerDelegates()
+        customizeSegmentedControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUIWhenTheViewLoads()
-        
+        customizeSegmentedControl()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         

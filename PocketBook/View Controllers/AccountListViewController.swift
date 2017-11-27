@@ -52,9 +52,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         loadAndCheckDate()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
-        
-        
-        
         setUpUI()
         let cloudKitManager = CloudKitManager()
         if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
@@ -118,8 +115,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     var creditArray: [Account]?
     
     func updateArrays() {
-        
-        // FIXME: Implement Enums and remove raw values below
+
         self.checkingArray = returnAccountArray(withType: SegmentedControlType.checking.rawValue)
         self.savingsArray = returnAccountArray(withType: SegmentedControlType.saving.rawValue)
         self.creditArray = returnAccountArray(withType: SegmentedControlType.credit.rawValue)
