@@ -10,8 +10,6 @@ import UIKit
 
 class TransactionTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
-    
     // MARK: - Outlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
@@ -158,7 +156,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[section].1.count
     }
     
@@ -183,15 +180,16 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
+            let numberOfRowsInSection = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[indexPath.section].1.count
             let transaction = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[indexPath.section].1[indexPath.row]
             let intIndex = TransactionController.shared.getIntIndex(fortransaction: transaction)
             TransactionController.shared.transactions.remove(at: intIndex)
             TransactionController.shared.delete(transaction: transaction)
             filteredTransactions = TransactionController.shared.transactions
             
-            // Delete selected row
-            if indexPath.row == 0 {
-                tableView.deleteSections([indexPath.section], with: .automatic)
+            // Delete selected row/section
+            if numberOfRowsInSection == 1 {
+                tableView.deleteSections([indexPath.section ], with: .automatic)
             } else {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }

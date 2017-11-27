@@ -219,13 +219,14 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
                 
                 // Delete Account from cloudKit and from accounts array
+                let numberOfRowsInSection = self.returnAllAccounts()[indexPath.section].count
                 let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
                 let intIndex = AccountController.shared.getIntIndex(forAccount: account)
                 AccountController.shared.delete(account: account)
                 AccountController.shared.accounts.remove(at: intIndex)
                 
                 // Delete selected row
-                if indexPath.row == 0 {
+                if numberOfRowsInSection == 1 {
                     tableView.deleteSections([indexPath.section], with: .fade)
                 } else {
                     tableView.deleteRows(at: [indexPath], with: .fade)
