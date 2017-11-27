@@ -239,7 +239,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         // Update all three labels in the view below the budget items
         plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         updateMonthlyBudgetLabel()
-        incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget()))"
         
         // FIXME: Set up amountTextfield to display user information
     }
