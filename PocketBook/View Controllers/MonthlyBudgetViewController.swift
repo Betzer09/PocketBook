@@ -236,7 +236,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateMonthlyBudgetLabel()
         totalSpentLabel.text = "Total Spent of monthly budget: \(formatNumberToString(fromDouble: addUpTotalSpendOfBudget() + PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         
-        // FIXME: Set up amountTextfield to display user information
+        // FIXME: Set up amountTextfield to display user information. Pull that information from cloudKit.
     }
     
     //
