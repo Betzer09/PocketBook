@@ -157,8 +157,11 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func setUpCategoryVar() {
+        if categories.isEmpty == true {
+            return
+        } else {
         let categoryString = categories[0]
-        categoryButton.setTitle(categoryString, for: .normal)
         category = categoryString
+        }
     }
 }

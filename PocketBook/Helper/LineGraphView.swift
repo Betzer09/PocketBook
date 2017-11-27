@@ -239,7 +239,7 @@ class LineGraphView: UIView {
     
     // MARK: - YView Setup
     func createYView(totals: [Double], inView yView: UIView, withViewControllerToPresentAlert viewController: UIViewController) {
-        guard let greatestValue = totals.max() else {
+        guard let greatestValue = totals.max(), greatestValue != 0 else {
             if viewController.view.window != nil {
                 presentSimpleAlert(controllerToPresentAlert: viewController, title: "No Data Available", message: "")
                 return
