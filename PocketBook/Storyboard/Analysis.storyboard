@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="14" y="-333"/>
         </scene>
-        <!--Pie Chart-->
+        <!--Percentage of Total Spent-->
         <scene sceneID="GU0-bi-tff">
             <objects>
                 <viewController storyboardIdentifier="pieChart" id="8Er-sV-PWb" customClass="PieChartViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,30 +30,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xid-Ia-6ly">
-                                <rect key="frame" x="0.0" y="64" width="375" height="80"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vB-nF-C9F">
-                                        <rect key="frame" x="47" y="25" width="281" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="rkv-cr-HqV"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="timeFrameButtonTapped:" destination="8Er-sV-PWb" eventType="touchUpInside" id="e9B-Ep-Jd9"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="9vB-nF-C9F" firstAttribute="width" secondItem="Xid-Ia-6ly" secondAttribute="width" multiplier="3/4" id="A8X-vY-nco"/>
-                                    <constraint firstItem="9vB-nF-C9F" firstAttribute="centerX" secondItem="Xid-Ia-6ly" secondAttribute="centerX" id="ENH-Te-8fK"/>
-                                    <constraint firstAttribute="height" constant="80" id="NbS-kJ-nnL"/>
-                                    <constraint firstItem="9vB-nF-C9F" firstAttribute="centerY" secondItem="Xid-Ia-6ly" secondAttribute="centerY" id="bAT-qU-DXp"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTt-wf-RtT">
-                                <rect key="frame" x="0.0" y="144" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="375"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-tN-kgc" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
                                         <rect key="frame" x="30" y="30" width="315" height="315"/>
@@ -82,43 +60,48 @@
                                     <constraint firstItem="wl3-tN-kgc" firstAttribute="centerX" secondItem="xTt-wf-RtT" secondAttribute="centerX" id="ieJ-RX-Fjh"/>
                                 </constraints>
                             </view>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-fU-QG8">
-                                <rect key="frame" x="47" y="119" width="281" height="111"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="111" id="K8c-Y8-sEx"/>
-                                </constraints>
-                            </pickerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZY-P5-7gU">
-                                <rect key="frame" x="10" y="529" width="355" height="128"/>
+                                <rect key="frame" x="10" y="449" width="355" height="113"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-kY-hMg">
+                                <rect key="frame" x="0.0" y="572" width="375" height="95"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Asl-Sr-yEh">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Asl-Sr-yEh" firstAttribute="leading" secondItem="gfD-kY-hMg" secondAttribute="leading" id="aOl-o7-ctS"/>
+                                    <constraint firstItem="Asl-Sr-yEh" firstAttribute="top" secondItem="gfD-kY-hMg" secondAttribute="top" id="cyn-If-2HO"/>
+                                    <constraint firstAttribute="bottom" secondItem="Asl-Sr-yEh" secondAttribute="bottom" id="vH2-Mq-Ck5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Asl-Sr-yEh" secondAttribute="trailing" id="vrU-yl-nfK"/>
+                                    <constraint firstAttribute="height" constant="95" id="wzQ-PR-yXc"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Xid-Ia-6ly" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="0oS-zm-jMT"/>
-                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="bottom" secondItem="0Wz-q2-BYV" secondAttribute="bottom" constant="-10" id="2wE-eW-EFR"/>
-                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="top" id="5rO-eO-Njk"/>
-                            <constraint firstItem="xTt-wf-RtT" firstAttribute="top" secondItem="Xid-Ia-6ly" secondAttribute="bottom" id="JJN-tI-ieb"/>
-                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="xTt-wf-RtT" secondAttribute="bottom" constant="10" id="LWQ-jG-roG"/>
                             <constraint firstItem="xTt-wf-RtT" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="NDG-nC-Uie"/>
-                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" constant="10" id="Oze-vy-rS2"/>
-                            <constraint firstItem="Xid-Ia-6ly" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="RC6-Ln-vuz"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="top" secondItem="9vB-nF-C9F" secondAttribute="bottom" id="UfK-PN-KUg"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="trailing" secondItem="9vB-nF-C9F" secondAttribute="trailing" id="Ywk-B7-PFr"/>
-                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" constant="-10" id="fLl-A9-7Ba"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" constant="10" id="NEn-pm-tZV"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="xTt-wf-RtT" secondAttribute="bottom" constant="10" id="QP1-vc-G1F"/>
+                            <constraint firstItem="xTt-wf-RtT" firstAttribute="top" secondItem="0Wz-q2-BYV" secondAttribute="top" id="Y1g-1j-ntQ"/>
+                            <constraint firstItem="gfD-kY-hMg" firstAttribute="bottom" secondItem="0Wz-q2-BYV" secondAttribute="bottom" id="dlP-TJ-NHH"/>
+                            <constraint firstItem="gfD-kY-hMg" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="i4Q-NE-f1E"/>
+                            <constraint firstItem="gfD-kY-hMg" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="jsk-dK-Ih0"/>
                             <constraint firstItem="xTt-wf-RtT" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="lhN-GH-wAa"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="centerX" secondItem="y8R-1h-6yU" secondAttribute="centerX" id="sWq-Bu-BLJ"/>
-                            <constraint firstItem="XNB-fU-QG8" firstAttribute="leading" secondItem="9vB-nF-C9F" secondAttribute="leading" id="va5-A1-Oj2"/>
+                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="trailing" secondItem="9ZY-P5-7gU" secondAttribute="trailing" constant="10" id="uBr-GQ-LNE"/>
+                            <constraint firstItem="gfD-kY-hMg" firstAttribute="top" secondItem="9ZY-P5-7gU" secondAttribute="bottom" constant="10" id="utL-ZL-pvu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0Wz-q2-BYV"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pie Chart" id="eLn-4p-8Gq"/>
+                    <navigationItem key="navigationItem" title="Percentage of Total Spent" id="eLn-4p-8Gq"/>
                     <connections>
                         <outlet property="legendView" destination="9ZY-P5-7gU" id="eow-Mx-LZV"/>
                         <outlet property="pieChartView" destination="wl3-tN-kgc" id="Bbc-kI-Gai"/>
                         <outlet property="superView" destination="xTt-wf-RtT" id="xIc-mf-UL8"/>
-                        <outlet property="timeFrameButton" destination="9vB-nF-C9F" id="Q9S-RX-s9y"/>
-                        <outlet property="timeFramePickerView" destination="XNB-fU-QG8" id="Pt0-Lc-ayi"/>
+                        <outlet property="timeFramePickerView" destination="Asl-Sr-yEh" id="Af7-Ch-87X"/>
                         <outlet property="whiteCircle" destination="mVx-xU-z72" id="I6h-7Y-5bK"/>
                     </connections>
                 </viewController>
@@ -134,6 +117,12 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U9A-eP-ZFm">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.13976663349999999" green="0.37442553039999998" blue="0.54571741819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.13976663349999999" green="0.37442553039999998" blue="0.54571741819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.13976663349999999" green="0.37442553039999998" blue="0.54571741819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -154,6 +143,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="b5H-JL-MNA">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="8Er-sV-PWb" kind="relationship" relationship="rootViewController" id="VFX-GY-ARA"/>
                     </connections>
@@ -198,7 +190,7 @@
             </objects>
             <point key="canvasLocation" x="804" y="339"/>
         </scene>
-        <!--Planned Expenses-->
+        <!--Planned Expense Tracking-->
         <scene sceneID="9aO-Pg-4XY">
             <objects>
                 <viewController storyboardIdentifier="plannedExpensesLineGraph" id="R9Z-oI-hqq" customClass="PlannedExpensesLineGraphViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -289,7 +281,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1hH-pq-R3d"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Planned Expenses" id="vdI-22-FSz"/>
+                    <navigationItem key="navigationItem" title="Planned Expense Tracking" id="vdI-22-FSz"/>
                     <connections>
                         <outlet property="lineGraphView" destination="tuM-hg-QOf" id="hhc-qJ-MgB"/>
                         <outlet property="pickerView" destination="7QY-AB-PD6" id="yUz-Ly-6R6"/>
@@ -301,7 +293,7 @@
             </objects>
             <point key="canvasLocation" x="1512.8" y="338.68065967016497"/>
         </scene>
-        <!--Budgeting Categories-->
+        <!--Spending By Budget Category-->
         <scene sceneID="LnB-J2-9BA">
             <objects>
                 <viewController storyboardIdentifier="budgetLineGraph" id="sgG-ib-D5P" customClass="BudgetLineGraphViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -392,7 +384,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="220-Xa-jPU"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Budgeting Categories" id="oAW-f9-uvl"/>
+                    <navigationItem key="navigationItem" title="Spending By Budget Category" largeTitleDisplayMode="always" id="oAW-f9-uvl"/>
                     <connections>
                         <outlet property="lineGraphView" destination="I5U-cI-lux" id="Liq-0I-d9l"/>
                         <outlet property="pickerView" destination="o8S-ng-7HG" id="e6D-el-NwJ"/>
