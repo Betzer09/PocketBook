@@ -103,15 +103,8 @@
                             <outlet property="delegate" destination="a2R-a5-qV7" id="xlt-Cd-XHY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Transactions" id="mGg-sd-CfO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="nXh-zN-VwF">
-                            <connections>
-                                <segue destination="T53-2d-1NU" kind="show" id="lxS-nz-eaL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Transactions" id="mGg-sd-CfO"/>
                     <connections>
-                        <outlet property="addButton" destination="nXh-zN-VwF" id="6ad-OE-56m"/>
                         <outlet property="picker" destination="yb3-92-19L" id="eW9-l5-PK8"/>
                         <outlet property="segmentedControl" destination="FkZ-U8-GW8" id="eWT-V8-6sx"/>
                     </connections>
@@ -171,7 +164,4 @@
             <point key="canvasLocation" x="-2095.1999999999998" y="-303.59820089955025"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="9s7-gr-lgm"/>
-    </inferredMetricsTieBreakers>
 </document>
