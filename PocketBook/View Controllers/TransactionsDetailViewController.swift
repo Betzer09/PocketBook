@@ -398,8 +398,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     private func createTransaction() {
         // We want to create
         guard let payee = payeeTextField.text,
-            let categoryButton = categoryTextField.text,
-            let accountButton = accountTextField.text,
+            let categoryName = categoryTextField.text,
+            let accountName = accountTextField.text,
             let amount = amountTextField.text, !payee.isEmpty, !amount.isEmpty else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
                 return
@@ -427,7 +427,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
         budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
         
-        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (transaction) in
+        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryName, payee: payee, transactionType: typeString, amount: amountToSave, account: accountName, completion: { (transaction) in
             
             // FIXME: If it looks like something is weird try commenting me out and trying agian
             guard let budgetItem = self.budgetItem else {return}

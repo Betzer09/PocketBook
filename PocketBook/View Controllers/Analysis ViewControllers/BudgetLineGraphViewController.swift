@@ -64,6 +64,7 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.parent?.navigationItem.title = "Spending By Budget Category"
         setUpPickerViews()
         super.viewWillAppear(animated)
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)

@@ -36,8 +36,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
-        categoryTableView.delegate = self
-        categoryTableView.dataSource = self
+
         
     }
     
@@ -226,9 +225,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - UI
     private func updateUI() {
         
+        categoryTableView.delegate = self
+        categoryTableView.dataSource = self
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
+        
         createPlusButton()
         configureViewsToLookLikeCells()
         

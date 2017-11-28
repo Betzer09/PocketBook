@@ -11,17 +11,17 @@ import UIKit
 class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // MARK: - Properties
-    let arrayString: [String] = [
-        "Checking",
-        "Savings",
-        "Credit Card"
-    ]
     
     var currentYShiftForKeyboard: CGFloat = 0
     var toAccount: Account?
     var fromAccount: Account?
     var payDayAccount: Account?
     var textFieldBeingEdited: UITextField?
+    let arrayString: [String] = [
+        "Checking",
+        "Savings",
+        "Credit Card"
+    ]
     
     // MARK: - Outlets
     @IBOutlet weak var incomeDetailView: UIView!
@@ -50,13 +50,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - View LifeCyles
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfUserIsSignedIntoCloudKit()
         loadAndCheckDate()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
         setUpUI()
-        let cloudKitManager = CloudKitManager()
-        if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
-        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,16 +61,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             self.updateArrays()
             self.reloadTableView()
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
         setUpTransferFundsView()
-        let total = totalFundsCalc()
-        accountsTotalLabel.text = formatNumberToString(fromDouble: total)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Setup View
@@ -162,7 +151,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             allSections.append(AccountType.Saving.rawValue)
         }
         if creditArray.count > 0 {
-            allSections.append(AccountType.CreditCard.rawValue)
+            allSections.append(AccountType.Credit.rawValue)
         }
         
         return allSections
@@ -446,6 +435,29 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Methods
     func setUpUI() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
+        
+        setUpDelegates()
+        updateArrays()
+        addTapGesture()
+        updateTotalLabel()
+
+    }
+    
+    func updateTotalLabel() {
+        let total = totalFundsCalc()
+        accountsTotalLabel.text = formatNumberToString(fromDouble: total)
+    }
+    
+    func addTapGesture() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
+    }
+    
+    func setUpDelegates() {
         toPickerView.delegate = self
         toPickerView.dataSource = self
         fromPickerView.dataSource = self
@@ -456,29 +468,21 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.delegate = self
         transferAmountTextField.delegate = self
         payDayAmountTextField.delegate = self
-        updateArrays()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        tap.cancelsTouchesInView = false
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "toAccountDetail" {
-            
-            guard let destinationVC = segue.destination as? AccountDetailsViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
-            
-            destinationVC.account = self.returnAllAccounts()[indexPath.section][indexPath.row]
+    func checkIfUserIsSignedIntoCloudKit() {
+        let cloudKitManager = CloudKitManager()
+        if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
         }
     }
     
     // MARK: - Calculations
     func totalFundsCalc() -> Double {
-        let accounts = AccountController.shared.accounts
         var total: Double = 0.0
-        for account in accounts {
-            if account.accountType == AccountType.CreditCard.rawValue {
-                total -= account.total
+        for account in AccountController.shared.accounts {
+            if account.accountType == AccountType.Credit.rawValue {
+                total = total - account.total
             } else {
                 total += account.total
             }
@@ -570,6 +574,17 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         let userDefaults = UserDefaults.standard
         let dateDictionary: [String: Date] = [Keys.dateDictionaryKey: date]
         userDefaults.set(dateDictionary, forKey: Keys.dateDictionaryKey)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toAccountDetail" {
+            
+            guard let destinationVC = segue.destination as? AccountDetailsViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
+            
+            destinationVC.account = self.returnAllAccounts()[indexPath.section][indexPath.row]
+        }
     }
 }
 

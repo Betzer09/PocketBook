@@ -13,7 +13,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     // MARK: - Outlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
-    @IBOutlet weak var addButton: UIBarButtonItem!
     
     // MARK: - Customize Segmented Control
     func customizeSegmentedControl() {
@@ -28,11 +27,8 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.picker.dataSource = self
-        self.picker.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
-        self.categorySelection = "All"
-        self.timeframeSelection = "All"
+        configureUI()
         self.setUpTableView()
         self.customizeSegmentedControl()
     }
@@ -202,6 +198,33 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
             }
         }
     }
+    
+    // MARK: - Methods
+    
+    func configureUI() {
+        self.picker.dataSource = self
+        self.picker.delegate = self
+        self.categorySelection = "All"
+        self.timeframeSelection = "All"
+        
+        createPlusButton()
+    }
+    
+    func createPlusButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc func segueToDetailVC() {
+        self.performSegue(withIdentifier: "toTransactionDVC", sender: self)
+    }
+    
+
     
     // MARK: - Navigation
     
