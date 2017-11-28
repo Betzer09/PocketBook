@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--PLANNED EXPENSES-->
+        <!--Savings Goals-->
         <scene sceneID="onz-Cm-KTS">
             <objects>
                 <tableViewController id="XPD-kt-MPp" customClass="PlannedExpensesTableViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -115,7 +115,7 @@
                             <outlet property="delegate" destination="XPD-kt-MPp" id="3pO-my-MuH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="PLANNED EXPENSES" id="Iad-FC-BqR"/>
+                    <navigationItem key="navigationItem" title="Savings Goals" id="Iad-FC-BqR"/>
                     <connections>
                         <outlet property="amountLabel" destination="Byk-zx-5eK" id="apg-cx-Npo"/>
                     </connections>
@@ -132,10 +132,10 @@
             </objects>
             <point key="canvasLocation" x="-927" y="-305"/>
         </scene>
-        <!--Planned Expenses-->
+        <!--Savings Goals-->
         <scene sceneID="YzW-ya-4a4">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UVW-Pd-TuV" sceneMemberID="viewController">
+                <navigationController title="Savings Goals" automaticallyAdjustsScrollViewInsets="NO" id="UVW-Pd-TuV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Planned Expenses" id="Q8o-Tu-tNS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mYG-g9-vdF">

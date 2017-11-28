@@ -51,7 +51,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         if let plannedExpense = plannedExpense {
             self.navigationItem.title = plannedExpense.name
         } else {
-            self.navigationItem.title = "Create New Planned Expense"
+            self.navigationItem.title = "Create New Savings Goal"
         }
        setUpUI()
     }
