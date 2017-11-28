@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,14 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="5eb-Ks-VTX">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pocketbook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxA-GY-pzl">
-                                <rect key="frame" x="123" y="138" width="128" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="mxA-GY-pzl" secondAttribute="height" multiplier="64:15" id="lfi-Se-Hc4"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pocketbook Budgeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxA-GY-pzl">
+                                <rect key="frame" x="65" y="318" width="244.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -34,12 +27,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5eb-Ks-VTX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3CG-mD-2e8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5eb-Ks-VTX" secondAttribute="bottom" id="EKW-5E-Pq5"/>
-                            <constraint firstItem="5eb-Ks-VTX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="aIm-QU-YXv"/>
-                            <constraint firstItem="mxA-GY-pzl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="118" id="kzl-cM-hlF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5eb-Ks-VTX" secondAttribute="trailing" id="lxI-xP-oz0"/>
-                            <constraint firstItem="mxA-GY-pzl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="w4u-Xg-rM8"/>
+                            <constraint firstItem="mxA-GY-pzl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="v5S-Wt-z7O"/>
+                            <constraint firstItem="mxA-GY-pzl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zQL-Oa-1oE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -49,7 +38,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="launchScreenPhoto" width="5472" height="3648"/>
-    </resources>
 </document>
