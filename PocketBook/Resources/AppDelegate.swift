@@ -21,6 +21,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
         UserController.shared.fetchUserFromCloudKit()
         
+        UserDefaults.standard.register(defaults: ["onboarding" : false])
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let onboardingStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        let mainStoryboard = UIStoryboard(name: "OverviewTabBar", bundle: nil)
+        var viewController: UIViewController
+
+        if (UserDefaults.standard.bool(forKey: "onboarding")) == false {
+            // Show onboarding screen and update UserDefaults
+            UserDefaults.standard.set(true, forKey: "onboarding")
+            UserDefaults.standard.synchronize()
+            viewController = onboardingStoryboard.instantiateViewController(withIdentifier: "Onboarding")
+        } else {
+            // Show main screen
+            viewController = mainStoryboard.instantiateInitialViewController()!
+        }
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+
         return true
     }
 

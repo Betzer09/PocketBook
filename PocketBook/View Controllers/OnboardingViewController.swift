@@ -1,5 +1,5 @@
 //
-//  OnboadingController.swift
+//  OnboadingViewController.swift
 //  Onboarding Application
 //
 //  Created by Brian Weissberg on 11/27/17.
@@ -8,18 +8,20 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class OnboardingViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     // MARK: Properties
     
     var pageControl = UIPageControl()
-    
+ 
     // MARK: DataSource
     
     lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newVc(viewController: "pageOne"),
-                self.newVc(viewController: "pageTwo"),
-                self.newVc(viewController: "pageThree")]
+        return [self.newVc(viewController: "accounts"),
+                self.newVc(viewController: "analysis"),
+                self.newVc(viewController: "transactions"),
+                self.newVc(viewController: "plannedExpenses"),
+                self.newVc(viewController: "budgetItems")]
     }()
     
     override func viewDidLoad() {
@@ -39,18 +41,18 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     
     func configurePageControl() {
         
-        // The total number of pages that are available is based on number of available colors
+        // The total number of pages that are available is based on number view controllers
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 50,width: UIScreen.main.bounds.width,height: 50))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.gray
-        self.pageControl.pageIndicatorTintColor = UIColor.blue
-        self.pageControl.currentPageIndicatorTintColor = UIColor.green
+        self.pageControl.tintColor = UIColor.darkGray
+        self.pageControl.pageIndicatorTintColor = UIColor.darkGray
+        self.pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
     }
     
     func newVc(viewController: String) -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController)
+        return UIStoryboard(name: "Onboarding", bundle: nil).instantiateViewController(withIdentifier: viewController)
     }
     
     
