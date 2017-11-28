@@ -410,13 +410,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return
         }
         
-        if categoryButton == "Choose Category" && accountButton == "Choose Account" {
+        if categoryTextField.text == "Choose Category" && accountTextField.text == "Choose Account" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions")
                 return
-        } else if categoryButton == "Choose Category" {
+        } else if categoryTextField.text == "Choose Category" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category. If you haven't created categories yet, please create at least one category before creating a transaction")
                 return
-        } else if accountButton == "Choose Account" {
+        } else if accountTextField.text == "Choose Account" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select an account. If you haven't created an account yet, you must create at least one account before you can create transactions")
                 return
         }

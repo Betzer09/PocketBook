@@ -34,6 +34,9 @@
                                 </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
                                     <rect key="frame" x="23" y="37" width="328" height="29"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="ItI-ly-FBA"/>
+                                    </constraints>
                                     <segments>
                                         <segment title="All"/>
                                         <segment title="Income"/>
