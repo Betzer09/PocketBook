@@ -14,9 +14,15 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
     
+    // MARK: - Customize Segmented Control
+    func customizeSegmentedControl() {
+        segmentedControl.customizeSegmentedControl()
+    }
+    
     // MARK: View Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         setUpTableView()
+        self.customizeSegmentedControl()
     }
     
     override func viewDidLoad() {
@@ -24,6 +30,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
         configureUI()
         self.setUpTableView()
+        self.customizeSegmentedControl()
     }
     
     @objc func reloadTableView() {
@@ -231,7 +238,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         }
     }
 }
-
 
 
 

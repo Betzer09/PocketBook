@@ -21,10 +21,14 @@
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-dq-dXZ">
                                 <rect key="frame" x="47" y="72" width="281" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="fvz-wc-8xZ"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Expense"/>
                                     <segment title="Income"/>
                                 </segments>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="UdT-V3-1bS">
                                 <rect key="frame" x="19.5" y="247" width="337.5" height="174"/>

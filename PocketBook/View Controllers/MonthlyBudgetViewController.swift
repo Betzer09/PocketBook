@@ -244,7 +244,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateMonthlyBudgetLabel()
         incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget()))"
         
-        // FIXME: Set up amountTextfield to display user information
+        // FIXME: Set up amountTextfield to display user information. Pull that information from cloudKit.
     }
 
     @objc func dismissKeyboard() {

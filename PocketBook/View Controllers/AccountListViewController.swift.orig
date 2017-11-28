@@ -52,6 +52,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         checkIfUserIsSignedIntoCloudKit()
         loadAndCheckDate()
+<<<<<<< HEAD
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
+=======
+>>>>>>> develop
         setUpUI()
 
     }

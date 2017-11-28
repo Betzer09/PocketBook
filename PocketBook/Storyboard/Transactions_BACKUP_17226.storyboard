@@ -33,7 +33,14 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
+<<<<<<< HEAD
+                                    <rect key="frame" x="23.5" y="8" width="328" height="29"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="L2c-DD-CmR"/>
+                                    </constraints>
+=======
                                     <rect key="frame" x="23" y="37" width="328" height="29"/>
+>>>>>>> develop
                                     <segments>
                                         <segment title="All"/>
                                         <segment title="Income"/>
