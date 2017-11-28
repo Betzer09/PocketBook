@@ -100,7 +100,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bZY-8O-oaH">
-                                <rect key="frame" x="0.0" y="160" width="414" height="241"/>
+                                <rect key="frame" x="0.0" y="160" width="414" height="231"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="accountCell" textLabel="30S-KD-sDY" detailTextLabel="3Dn-7b-x4q" style="IBUITableViewCellStyleValue1" id="ZPd-Wt-hJ9">
@@ -133,7 +133,7 @@
                                 </prototypes>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="15v-U6-hPc">
-                                <rect key="frame" x="0.0" y="401" width="414" height="335"/>
+                                <rect key="frame" x="0.0" y="391" width="414" height="335"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pCf-qz-5tX" userLabel="incomeDetailView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="155"/>
@@ -365,7 +365,7 @@
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="trailing" secondItem="eAT-kI-dVx" secondAttribute="trailing" id="Lui-h4-nIm"/>
                             <constraint firstItem="F9T-JD-7ar" firstAttribute="width" secondItem="qZi-cL-IOG" secondAttribute="width" multiplier="0.8" id="Na9-EW-ce7"/>
                             <constraint firstItem="F9T-JD-7ar" firstAttribute="centerX" secondItem="eAT-kI-dVx" secondAttribute="centerX" id="SSX-is-E8x"/>
-                            <constraint firstItem="eAT-kI-dVx" firstAttribute="bottom" secondItem="15v-U6-hPc" secondAttribute="bottom" id="Vcx-bp-3zv"/>
+                            <constraint firstItem="eAT-kI-dVx" firstAttribute="bottom" secondItem="15v-U6-hPc" secondAttribute="bottom" constant="10" id="Vcx-bp-3zv"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="top" secondItem="fnQ-QE-6Te" secondAttribute="bottom" id="a22-Od-fSg"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="leading" secondItem="eAT-kI-dVx" secondAttribute="leading" id="c2E-hg-zoK"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="trailing" secondItem="15v-U6-hPc" secondAttribute="trailing" id="dUZ-aC-u55"/>
@@ -376,13 +376,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eAT-kI-dVx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XWc-HR-ceM">
-                            <connections>
-                                <segue destination="hrq-QD-CqU" kind="show" id="qN5-Gt-BoP"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM"/>
                     <connections>
                         <outlet property="accountsTotalLabel" destination="hao-hK-UhP" id="Gdr-wZ-ItP"/>
                         <outlet property="depositButton" destination="LUY-6m-pQe" id="WmJ-pX-WzP"/>
@@ -434,7 +428,4 @@
     <resources>
         <image name="arrow" width="75" height="75"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="cho-lL-FXj"/>
-    </inferredMetricsTieBreakers>
 </document>

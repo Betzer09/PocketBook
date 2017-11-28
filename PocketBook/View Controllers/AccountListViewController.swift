@@ -444,6 +444,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         updateArrays()
         addTapGesture()
         updateTotalLabel()
+        createPlusButton()
 
     }
     
@@ -476,6 +477,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
         }
+    }
+    
+    func createPlusButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc func segueToDetailVC() {
+        self.performSegue(withIdentifier: "toAccountDetail", sender: self)
     }
     
     // MARK: - Calculations

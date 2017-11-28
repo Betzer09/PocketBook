@@ -62,9 +62,12 @@ class AccountDetailsViewController: UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
         view.addGestureRecognizer(tap)
         
+        if account == nil {
+            transferFundsButton.isHidden = true
+        }
         // Check to see if there is an account
         guard let account = account else {return}
-        
+        transferFundsButton.layer.cornerRadius = transferFundsButton.frame.width/30
         // If there is an account update the views
         nameTextField.text = account.name
         let totalString = formatNumberToString(fromDouble: account.total)
