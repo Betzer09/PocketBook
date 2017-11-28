@@ -57,8 +57,8 @@
 		F551BE8B1FCCDEA80000CFC5 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */; };
 		F551BE8D1FCCDF0C0000CFC5 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BE8C1FCCDF0C0000CFC5 /* PageViewController.swift */; };
 		F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */; };
-		F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UsersController.swift */; };
-		F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* Users.swift */; };
+		F5FF295D1FBE75880012AA24 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UserController.swift */; };
+		F5FF295F1FBE75DB0012AA24 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,8 +115,8 @@
 		F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		F551BE8C1FCCDF0C0000CFC5 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewCell.swift; path = "../View Controllers/CategoryTableViewCell.swift"; sourceTree = "<group>"; };
-		F5FF295C1FBE75880012AA24 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
-		F5FF295E1FBE75DB0012AA24 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		F5FF295C1FBE75880012AA24 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		F5FF295E1FBE75DB0012AA24 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +199,7 @@
 				23DD431E1FB212DB008DCE5B /* Account.swift */,
 				23DD43281FB22805008DCE5B /* BudgetItem.swift */,
 				23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */,
-				F5FF295E1FBE75DB0012AA24 /* Users.swift */,
+				F5FF295E1FBE75DB0012AA24 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
 				23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */,
 				23DD43451FB26E39008DCE5B /* BudgetItemController.swift */,
-				F5FF295C1FBE75880012AA24 /* UsersController.swift */,
+				F5FF295C1FBE75880012AA24 /* UserController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -403,9 +403,9 @@
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
-				F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */,
+				F5FF295F1FBE75DB0012AA24 /* User.swift in Sources */,
 				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
-				F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */,
+				F5FF295D1FBE75880012AA24 /* UserController.swift in Sources */,
 				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,

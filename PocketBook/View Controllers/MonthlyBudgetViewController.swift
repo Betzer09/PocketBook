@@ -28,10 +28,19 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Properties
     var projectedIncome: Double?
-    
+    let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
+
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        This clears on the things saved to user defaults Wait a while to delete me
+        
+//        let domain = Bundle.main.bundleIdentifier!
+//        UserDefaults.standard.removePersistentDomain(forName: domain)
+//        UserDefaults.standard.synchronize()
+//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         updatePieChartAndLegendView()
@@ -44,16 +53,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         super.viewWillAppear(animated)
         
         reloadCategoryTableView()
-    }
-    
-    // MARK: - Notification Methods
-    @objc func reloadCategoryTableView() {
-        DispatchQueue.main.async {
-            self.updateUI()
-            self.updatePieChartAndLegendView()
-            self.view.setNeedsDisplay()
-            self.categoryTableView.reloadData()
-        }
     }
     
     // MARK: - Actions
@@ -222,33 +221,47 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: projectedIncome - addUpTotalSpendOfBudget()))"
     }
     
+    @objc func reloadCategoryTableView() {
+        DispatchQueue.main.async {
+            self.updateUI()
+            self.updatePieChartAndLegendView()
+            self.view.setNeedsDisplay()
+            self.categoryTableView.reloadData()
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     // MARK: - UI
     private func updateUI() {
-        
-        categoryTableView.delegate = self
-        categoryTableView.dataSource = self
-        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
         
+        setUpDelegatesAndDataSources()
         createPlusButton()
         configureViewsToLookLikeCells()
         
-        amountTextField.delegate = self
-        categoryTableView.estimatedRowHeight = 50
-        categoryTableView.rowHeight = UITableViewAutomaticDimension
-    
         // Update all three labels in the view below the budget items
         plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         updateMonthlyBudgetLabel()
         incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget()))"
         
-        // FIXME: Set up amountTextfield to display user information. Pull that information from cloudKit.
+        // If there is a projected income assign the value
+        projectedIncome = UserController.shared.user?.projectedIncome
+        guard let projectedIncome = projectedIncome else {NSLog("There is no projected Income"); return}
+        amountTextField.text = formatNumberToString(fromDouble: projectedIncome)
     }
+    
+    func setUpDelegatesAndDataSources() {
+        categoryTableView.delegate = self
+        categoryTableView.dataSource = self
+        categoryTableView.estimatedRowHeight = 50
+        categoryTableView.rowHeight = UITableViewAutomaticDimension
+        amountTextField.delegate = self
 
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     // This is to make the views look like cells
@@ -292,6 +305,20 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
         PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
     }
+    
+    func createAndUpdateProjected(income: Double) {
+        let defaults = UserDefaults.standard
+        let hasLaunched = defaults.bool(forKey: hasLaunchedKey)
+
+        if !hasLaunched {
+            defaults.set(true, forKey: hasLaunchedKey)
+            UserController.shared.createUser(withProjectedIncome: income, completion: nil)
+        } else {
+            guard let user = UserController.shared.user else {NSLog("There is no User"); return}
+            UserController.shared.updateUserWith(projectedIncome: income, user: user, completion: { (_) in })
+        }
+
+    }
 }
 
 // MARK: - Textfield Delegate Functions
@@ -310,7 +337,6 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        print("USERS: \(UsersController.shared.users)")
         guard let string = textField.text else { return false }
         let stringToChange = string.dropFirst()
         
@@ -320,14 +346,30 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
                 return false
             }
             
-            // Store the number in the projectedIncome Variable
-            projectedIncome = income
-            UsersController.shared.createUser(withProjectedIncome: income, completion: nil)
+            createAndUpdateProjected(income: income)
             updateMonthlyBudgetLabel()
         }
         textField.resignFirstResponder()
         return false
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

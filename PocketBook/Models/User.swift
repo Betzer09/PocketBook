@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-class Users {
+class User {
     
     // MARK: - Properties
     var projectedIncome: Double
@@ -23,7 +23,7 @@ class Users {
     // MARK: - cloudKitRecord PUT
     var cloudKitRecord: CKRecord {
         
-        let record = CKRecord(recordType: Keys.recordUsersType, recordID: recordID)
+        let record = CKRecord(recordType: Keys.recordUserType, recordID: recordID)
         record.setValue(projectedIncome, forKey: Keys.projectedIncomeKey)
         return record
     }
