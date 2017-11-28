@@ -53,13 +53,12 @@
 		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
-<<<<<<< Updated upstream
-		F519EDE41FBF56ED0013C8B8 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */; };
-=======
+		F551BE891FCCD2690000CFC5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BE881FCCD2690000CFC5 /* Extensions.swift */; };
+		F551BE8B1FCCDEA80000CFC5 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */; };
+		F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */; };
 		F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */; };
-		F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UsersController.swift */; };
-		F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* Users.swift */; };
->>>>>>> Stashed changes
+		F5FF295D1FBE75880012AA24 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UserController.swift */; };
+		F5FF295F1FBE75DB0012AA24 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,13 +111,12 @@
 		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-<<<<<<< Updated upstream
-		F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
-=======
+		F551BE881FCCD2690000CFC5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewCell.swift; path = "../View Controllers/CategoryTableViewCell.swift"; sourceTree = "<group>"; };
-		F5FF295C1FBE75880012AA24 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
-		F5FF295E1FBE75DB0012AA24 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
->>>>>>> Stashed changes
+		F5FF295C1FBE75880012AA24 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		F5FF295E1FBE75DB0012AA24 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +187,7 @@
 				D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */,
 				23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */,
 				D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */,
+				F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -200,7 +199,7 @@
 				23DD431E1FB212DB008DCE5B /* Account.swift */,
 				23DD43281FB22805008DCE5B /* BudgetItem.swift */,
 				23DD432A1FB22AD7008DCE5B /* PlannedExpense.swift */,
-				F5FF295E1FBE75DB0012AA24 /* Users.swift */,
+				F5FF295E1FBE75DB0012AA24 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,7 +219,7 @@
 				23DD433B1FB259DA008DCE5B /* TransactionContoller.swift */,
 				23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */,
 				23DD43451FB26E39008DCE5B /* BudgetItemController.swift */,
-				F5FF295C1FBE75880012AA24 /* UsersController.swift */,
+				F5FF295C1FBE75880012AA24 /* UserController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -246,6 +245,7 @@
 				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
 				23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */,
 				923471C01FBDF1CC00B97A7B /* CoreDataStack.swift */,
+				F551BE881FCCD2690000CFC5 /* Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -269,10 +269,11 @@
 				D38EF9721FB230950035B5E3 /* AccountDetailsViewController.swift */,
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
+				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
-				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
 				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
+				F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -280,11 +281,7 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
-				F519EDE31FBF56EC0013C8B8 /* CategoryTableViewCell.swift */,
-=======
 				F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */,
->>>>>>> Stashed changes
 				23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */,
 				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
 			);
@@ -361,6 +358,7 @@
 				23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */,
 				D38EF96B1FB218620035B5E3 /* PlannedExpenses.storyboard in Resources */,
 				D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */,
+				F551BE8B1FCCDEA80000CFC5 /* Onboarding.storyboard in Resources */,
 				23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */,
 				D314F1301FB379A70051C5BE /* OverviewTabBar.storyboard in Resources */,
 				D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */,
@@ -386,6 +384,7 @@
 				928722131FBD00D200DD0555 /* AccountListViewController.swift in Sources */,
 				92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */,
 				92993C4E1FB3AF0000D22373 /* LineGraphView.swift in Sources */,
+				F551BE891FCCD2690000CFC5 /* Extensions.swift in Sources */,
 				23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */,
 				92993C871FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift in Sources */,
 				23DD43291FB22805008DCE5B /* BudgetItem.swift in Sources */,
@@ -404,9 +403,14 @@
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+<<<<<<< HEAD
+				F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */,
 				F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */,
+=======
+				F5FF295F1FBE75DB0012AA24 /* User.swift in Sources */,
+>>>>>>> develop
 				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
-				F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */,
+				F5FF295D1FBE75880012AA24 /* UserController.swift in Sources */,
 				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
@@ -416,7 +420,6 @@
 				D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */,
 				9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */,
 				9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */,
-				F519EDE41FBF56ED0013C8B8 /* CategoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

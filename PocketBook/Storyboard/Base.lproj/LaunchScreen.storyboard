@@ -18,17 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pocketbook Budgeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxA-GY-pzl">
-                                <rect key="frame" x="65" y="318" width="244.5" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pocketbookIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Nvr-ex-xbq">
+                                <rect key="frame" x="112" y="277" width="150" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="6ih-O8-IyQ"/>
+                                    <constraint firstAttribute="height" constant="112" id="hA8-i0-wRl"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.50196078431372548" green="0.7803921568627451" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="mxA-GY-pzl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="v5S-Wt-z7O"/>
-                            <constraint firstItem="mxA-GY-pzl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zQL-Oa-1oE"/>
+                            <constraint firstItem="Nvr-ex-xbq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bta-B6-cF2"/>
+                            <constraint firstItem="Nvr-ex-xbq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="heH-ey-jw4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,4 +39,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pocketbookIcon" width="664" height="495"/>
+    </resources>
 </document>

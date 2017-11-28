@@ -29,7 +29,7 @@
             <objects>
                 <viewController id="vla-F5-8dR" customClass="AccountListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qZi-cL-IOG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Zk-6j-btM" userLabel="totalFundsView">
@@ -100,7 +100,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bZY-8O-oaH">
-                                <rect key="frame" x="0.0" y="168" width="414" height="223"/>
+                                <rect key="frame" x="0.0" y="168" width="414" height="174"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="accountCell" textLabel="30S-KD-sDY" detailTextLabel="3Dn-7b-x4q" style="IBUITableViewCellStyleValue1" id="ZPd-Wt-hJ9">
@@ -133,7 +133,7 @@
                                 </prototypes>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="15v-U6-hPc">
-                                <rect key="frame" x="5" y="391" width="404" height="335"/>
+                                <rect key="frame" x="5" y="342" width="404" height="335"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pCf-qz-5tX" userLabel="incomeDetailView">
                                         <rect key="frame" x="0.0" y="0.0" width="404" height="155"/>
@@ -405,7 +405,9 @@
         <scene sceneID="amp-Ko-BKB">
             <objects>
                 <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="accountsIcon" id="npd-6P-2gB"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fbJ-Ff-oOb">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -416,6 +418,9 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g0d-Ud-Lto">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="vla-F5-8dR" kind="relationship" relationship="rootViewController" id="hmN-Av-QBG"/>
                     </connections>
@@ -426,6 +431,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="accountsIcon" width="20" height="20"/>
         <image name="arrow" width="75" height="75"/>
     </resources>
 </document>

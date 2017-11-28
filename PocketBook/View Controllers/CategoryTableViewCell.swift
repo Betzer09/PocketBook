@@ -24,9 +24,9 @@ class CategroyTableViewCell: UITableViewCell {
     
     func configureProgressBar(withBudgetItem budgetItem: BudgetItem ) {
         self.progressBar.progress = 0
-        self.progressBar.progressTintColor = UIColor(red: 167 / 255.0, green: 233 / 255.0, blue: 253 / 255.0, alpha: 1)
+        self.progressBar.progressTintColor = .blue7
         progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
         self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
     }
-    
+        
 }

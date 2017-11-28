@@ -113,7 +113,9 @@
         <scene sceneID="axo-FK-Jmr">
             <objects>
                 <navigationController title="Budget Analysis" automaticallyAdjustsScrollViewInsets="NO" id="u7a-va-sVJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="analysisIcon" id="H0L-Qf-WZg"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U9A-eP-ZFm">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -397,4 +399,7 @@
             <point key="canvasLocation" x="1513" y="-333"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="analysisIcon" width="21" height="16"/>
+    </resources>
 </document>
