@@ -88,6 +88,8 @@ class PieChartView: UIView {
         legendView.addSubview(allStackViews)
         let stackView1 = UIStackView(frame: frame)
         let stackView2 = UIStackView(frame: frame)
+        stackView1.alignment = .center
+        stackView2.alignment = .center
         allStackViews.addArrangedSubview(stackView1)
         allStackViews.addArrangedSubview(stackView2)
         
@@ -114,6 +116,7 @@ class PieChartView: UIView {
     func createNameAndColorStacks(inSuperView stackView: UIStackView, withFrame frame: CGRect) {
         let nameStackView = UIStackView(frame: frame)
         nameStackView.translatesAutoresizingMaskIntoConstraints = false
+
         stackView.addArrangedSubview(nameStackView)
         nameStackView.axis = .vertical
         nameStackView.spacing = 8.0
@@ -125,7 +128,7 @@ class PieChartView: UIView {
         colorStackView.axis = .vertical
         colorStackView.spacing = 8.0
         colorStackView.distribution = .fillEqually
-        NSLayoutConstraint(item: colorStackView, attribute: .width, relatedBy: .equal, toItem: stackView, attribute: .width, multiplier: 1/4, constant: 0).isActive = true
+        NSLayoutConstraint(item: colorStackView, attribute: .width, relatedBy: .equal, toItem: stackView, attribute: .width, multiplier: 1/5, constant: 0).isActive = true
     }
     
     // MARK: - Setup PieChart
@@ -174,12 +177,12 @@ class PieChartView: UIView {
     
     
     func addNameAndColorLabel(nameStackView: UIStackView, colorStackView: UIStackView, catagory: String, color: UIColor) {
-        let frame = CGRect(x: 0, y: 0, width: 50, height: 25)
+        let frame = CGRect(x: 0, y: 0, width: 70, height: 30)
         
         let nameLabel = UILabel(frame: frame)
         nameStackView.addArrangedSubview(nameLabel)
         nameLabel.text = catagory
-        nameLabel.textAlignment = .right
+        nameLabel.textAlignment = .center
         
         let colorLabel = UILabel(frame: frame)
         colorStackView.addArrangedSubview(colorLabel)
