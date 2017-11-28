@@ -111,7 +111,8 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             if monthlyContribution > 0 {
                 calculatedContributionlabel.text = "\(formatNumberToString(fromDouble: monthlyContribution))"
             } else {
-                calculatedContributionlabel.text = "Congratulations! You have reached your goal!"
+                idealMonthlyContributionAmountLabel.text = "Congratulations! You have reached your goal!"
+                calculatedContributionlabel.isHidden = true
             }
         }
     }    
