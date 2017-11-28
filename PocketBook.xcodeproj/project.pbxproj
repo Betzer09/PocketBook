@@ -55,7 +55,7 @@
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
 		F551BE891FCCD2690000CFC5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BE881FCCD2690000CFC5 /* Extensions.swift */; };
 		F551BE8B1FCCDEA80000CFC5 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */; };
-		F551BE8D1FCCDF0C0000CFC5 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BE8C1FCCDF0C0000CFC5 /* PageViewController.swift */; };
+		F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */; };
 		F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */; };
 		F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UsersController.swift */; };
 		F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295E1FBE75DB0012AA24 /* Users.swift */; };
@@ -113,7 +113,7 @@
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		F551BE881FCCD2690000CFC5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
-		F551BE8C1FCCDF0C0000CFC5 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewCell.swift; path = "../View Controllers/CategoryTableViewCell.swift"; sourceTree = "<group>"; };
 		F5FF295C1FBE75880012AA24 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
 		F5FF295E1FBE75DB0012AA24 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
@@ -273,7 +273,7 @@
 				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
-				F551BE8C1FCCDF0C0000CFC5 /* PageViewController.swift */,
+				F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -403,6 +403,7 @@
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+				F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */,
 				F5FF295F1FBE75DB0012AA24 /* Users.swift in Sources */,
 				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
 				F5FF295D1FBE75880012AA24 /* UsersController.swift in Sources */,
@@ -413,7 +414,6 @@
 				92993C831FB4C44200D22373 /* PieChartViewController.swift in Sources */,
 				92993C891FB4C58300D22373 /* Keys.swift in Sources */,
 				D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */,
-				F551BE8D1FCCDF0C0000CFC5 /* PageViewController.swift in Sources */,
 				9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */,
 				9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */,
 			);
