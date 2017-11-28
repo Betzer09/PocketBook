@@ -185,7 +185,7 @@ func filterByCategoryIntoArray(forCategory name: String, forThisArray transactio
     }
     
     for transaction in transactions {
-        if transaction.account == name {
+        if transaction.category == name {
             internalFilteredTransactions.append(transaction)
         }
     }

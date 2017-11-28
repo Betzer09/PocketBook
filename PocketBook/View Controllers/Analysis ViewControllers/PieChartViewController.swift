@@ -37,20 +37,18 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     // MARK: - Outlets
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var legendView: UIView!
-    @IBOutlet weak var timeFrameButton: UIButton!
     @IBOutlet weak var timeFramePickerView: UIPickerView!
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var whiteCircle: PieChartView!
     
     
     // MARK: - Actions
-    @IBAction func timeFrameButtonTapped(_ sender: UIButton) {
-        timeFramePickerView.isHidden = false
-    }
+
     
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         PieChartView.shared.createLegendView(fromView: legendView)
         setUpPickerViews()
         setUpTimeFrameVar()
@@ -59,6 +57,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.parent?.navigationItem.title = "Total Spent by Budgeting Categories"
     }
     
     override func viewDidLayoutSubviews() {
@@ -69,7 +68,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     func setUpPickerViews() {
         timeFramePickerView.dataSource = self
         timeFramePickerView.delegate = self
-        timeFramePickerView.isHidden = true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -87,15 +85,12 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let name = timeFrames[row]
-        timeFrameButton.setTitle(name, for: .normal)
         timeFrame = name
-        pickerView.isHidden = true
     }
     
     // MARK: - Setup Vars and Reload Functions
     func setUpTimeFrameVar() {
-        timeFrameButton.setTitle(timeFrames[0], for: .normal)
-        timeFrame = timeFrameButton.titleLabel?.text
+        timeFrame = timeFrames[0]
     }
 
 }
