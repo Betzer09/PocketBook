@@ -431,7 +431,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accountsIcon" width="15" height="15"/>
+        <image name="accountsIcon" width="20" height="20"/>
         <image name="arrow" width="75" height="75"/>
     </resources>
 </document>
