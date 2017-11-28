@@ -17,33 +17,23 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
-    //MARK: - Properties
-//    var plannedExpense: PlannedExpense? {
-//        didSet {
-//            if isViewLoaded { updateViews() }
-//        }
-//    }
+
     
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViews()
         amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         createPlusButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
-        updateViews()
         amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+
     }
     
     //MARK: - Functions
-    private func updateViews() {
-//        guard let plannedExpense = plannedExpense else { return }
-//         totalIdealMonthlyContributionLabel.text = plannedExpense
-        
-    }
+
     
     func createPlusButton() {
         let button = UIButton()
@@ -86,7 +76,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
             
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
-            
+            PlannedExpenseController.shared.plannedExpenses.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

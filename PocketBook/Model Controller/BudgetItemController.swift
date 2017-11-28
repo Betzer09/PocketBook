@@ -120,7 +120,15 @@ class BudgetItemController {
     // MARK: - Methods
     
     /// Configures the monthly budget for the budgetItem
-    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem, difference: Double = 0 ) {
+    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem?, difference: Double = 0 ) {
+        
+        if transactionType == .plannedExpense {
+            account.total -= transaction.amount
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            return
+        }
+        
+        guard let budgetItem = budgetItem else {return}
         
         if transactionType == .expense {
             
