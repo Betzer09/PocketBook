@@ -28,21 +28,18 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         createPlusButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
-        updateViews()
-        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
     }
     
     //MARK: - Functions
-    private func updateViews() {
-//        guard let plannedExpense = plannedExpense else { return }
-//         totalIdealMonthlyContributionLabel.text = plannedExpense
-        
+    @objc func updateViews() {
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
     func createPlusButton() {
@@ -86,7 +83,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
             
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
-            
+            PlannedExpenseController.shared.plannedExpenses.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

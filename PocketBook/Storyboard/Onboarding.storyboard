@@ -167,7 +167,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your income and expenses here. These transactions will be reflected thoughout the application. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amx-Ch-zkq" userLabel="Description Text">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your income and expenses. These transactions will be reflected thoughout the application. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amx-Ch-zkq" userLabel="Description Text">
                                 <rect key="frame" x="27.5" y="424" width="321" height="70"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -349,6 +349,6 @@
         <image name="transactions" width="1001" height="876"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IVI-UX-jqS"/>
+        <segue reference="yyw-oD-x13"/>
     </inferredMetricsTieBreakers>
 </document>
