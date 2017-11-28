@@ -149,12 +149,13 @@
             </objects>
             <point key="canvasLocation" x="-681" y="-304"/>
         </scene>
-        <!--Transactions-->
+        <!--Navigation Controller-->
         <scene sceneID="0XX-JJ-LDf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jgq-5c-Zwu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Transactions" id="Usm-NH-NbU"/>
+                    <tabBarItem key="tabBarItem" title="" image="transactionsIcon" id="Usm-NH-NbU"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fek-wm-j8z">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -173,4 +174,7 @@
             <point key="canvasLocation" x="-2095.1999999999998" y="-303.59820089955025"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="transactionsIcon" width="17" height="15"/>
+    </resources>
 </document>
