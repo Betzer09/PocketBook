@@ -74,11 +74,15 @@
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PN8-1D-Bnn">
                                 <rect key="frame" x="47" y="28" width="281" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="AnI-Z3-955"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Checking"/>
                                     <segment title="Savings"/>
                                     <segment title="Credit"/>
                                 </segments>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8Q-mc-Dv0">
                                 <rect key="frame" x="46.5" y="529" width="281" height="30"/>

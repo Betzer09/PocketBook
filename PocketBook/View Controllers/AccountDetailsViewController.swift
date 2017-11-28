@@ -26,6 +26,11 @@ class AccountDetailsViewController: UIViewController {
     @IBOutlet weak var accountTypeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var transferFundsButton: UIButton!
     
+    // MARK: - Customize Segmented Control
+    func customizeSegmentedControl() {
+        accountTypeSegmentedControl.customizeSegmentedControl()
+    }
+    
     // MARK: - Properites
     
     var account: Account? {
@@ -36,6 +41,7 @@ class AccountDetailsViewController: UIViewController {
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
+        customizeSegmentedControl()
         super.viewDidLoad()
         if let account = account {
             self.navigationItem.title = account.name

@@ -34,11 +34,15 @@
                                 </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
                                     <rect key="frame" x="23" y="37" width="328" height="29"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="ItI-ly-FBA"/>
+                                    </constraints>
                                     <segments>
                                         <segment title="All"/>
                                         <segment title="Income"/>
                                         <segment title="Expense"/>
                                     </segments>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <action selector="SegmentedControlButtonPressed:" destination="a2R-a5-qV7" eventType="valueChanged" id="Z8H-6Z-lsG"/>
                                     </connections>

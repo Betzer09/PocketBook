@@ -39,7 +39,6 @@
                                         <segment title="Income"/>
                                         <segment title="Expense"/>
                                     </segments>
-                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <action selector="SegmentedControlButtonPressed:" destination="a2R-a5-qV7" eventType="valueChanged" id="Z8H-6Z-lsG"/>
                                     </connections>
