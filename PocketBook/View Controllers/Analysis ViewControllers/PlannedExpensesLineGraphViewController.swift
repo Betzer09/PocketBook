@@ -39,7 +39,12 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     }
     
     var categories: [String] {
-        return getAllPlannedExpenseNames()
+        let categories = getAllPlannedExpenseNames()
+        if categories.count == 0 {
+            return [""]
+        } else {
+            return categories
+        }
     }
 
     // MARK: - Outlets
