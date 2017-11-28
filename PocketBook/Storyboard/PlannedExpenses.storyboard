@@ -116,6 +116,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Savings Goals" id="Iad-FC-BqR"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="amountLabel" destination="Byk-zx-5eK" id="apg-cx-Npo"/>
                     </connections>
@@ -136,8 +137,9 @@
         <scene sceneID="YzW-ya-4a4">
             <objects>
                 <navigationController title="Savings Goals" automaticallyAdjustsScrollViewInsets="NO" id="UVW-Pd-TuV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Planned Expenses" id="Q8o-Tu-tNS"/>
+                    <tabBarItem key="tabBarItem" title="" image="plannedExpensesIcon" id="Q8o-Tu-tNS"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mYG-g9-vdF">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -156,4 +158,7 @@
             <point key="canvasLocation" x="-2376.8000000000002" y="-304.4977511244378"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="plannedExpensesIcon" width="17" height="15"/>
+    </resources>
 </document>
