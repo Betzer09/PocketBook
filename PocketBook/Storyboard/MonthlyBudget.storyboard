@@ -45,13 +45,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUB-63-ntz">
-                                                <rect key="frame" x="167" y="0.0" width="208" height="167"/>
+                                                <rect key="frame" x="167" y="0.0" width="198" height="167"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="lUB-63-ntz" secondAttribute="trailing" id="ALg-QI-WgK"/>
+                                            <constraint firstAttribute="trailing" secondItem="lUB-63-ntz" secondAttribute="trailing" constant="10" id="ALg-QI-WgK"/>
                                             <constraint firstItem="9VW-0y-fKM" firstAttribute="top" secondItem="2st-oS-GKC" secondAttribute="top" constant="10" id="ENi-qk-jnv"/>
                                             <constraint firstItem="lUB-63-ntz" firstAttribute="top" secondItem="2st-oS-GKC" secondAttribute="top" id="FFO-uy-WBL"/>
                                             <constraint firstItem="9VW-0y-fKM" firstAttribute="leading" secondItem="2st-oS-GKC" secondAttribute="leading" constant="10" id="HkL-NR-ggO"/>

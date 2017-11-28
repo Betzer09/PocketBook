@@ -66,6 +66,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: - Setup View
+    
+    func setUpUI() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
+        
+        setUpDelegates()
+        updateArrays()
+        addTapGesture()
+        updateTotalLabel()
+        createPlusButton()
+        roundButtons()
+    }
+    
     func setUpTransferFundsView( ) {
         incomeDetailView.isHidden = true
         transferMoneyView.isHidden = true
@@ -434,18 +448,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: - Methods
-    func setUpUI() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
-        
-        setUpDelegates()
-        updateArrays()
-        addTapGesture()
-        updateTotalLabel()
-        createPlusButton()
-
-    }
     
     func updateTotalLabel() {
         let total = totalFundsCalc()
@@ -476,6 +478,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
         }
+    }
+    
+    func roundButtons() {
+        transferFundsButton.layer.cornerRadius = transferFundsButton.frame.height/4
+        payDayButton.layer.cornerRadius = payDayButton.frame.height/4
+        incomeDetailCancelButton.layer.cornerRadius = incomeDetailCancelButton.frame.height/4
+        depositButton.layer.cornerRadius = depositButton.frame.height/4
+        transferButton.layer.cornerRadius = transferButton.frame.height/4
+        transferViewCancelButton.layer.cornerRadius = transferViewCancelButton.frame.height/4
     }
     
     func createPlusButton() {

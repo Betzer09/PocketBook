@@ -35,6 +35,15 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     // MARK: Properties
     let dueDateDatePicker = UIDatePicker()
     let accountPickerView = UIPickerView()
+    let calendar = Calendar.autoupdatingCurrent
+    var currentYShiftForKeyboard: CGFloat = 0
+    var textFieldBeingEdited: UITextField?
+    
+    var plannedExpense: PlannedExpense? {
+        didSet {
+            if isViewLoaded { configureUIWhenPlannedExpenseCellIsPressed() }
+        }
+    }
     
     //MARK: - View Lifecycles
     override func viewDidLoad() {
@@ -44,10 +53,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         } else {
             self.navigationItem.title = "Create New Planned Expense"
         }
-        setPickerDelegates()
-        showDatePicker()
-        showAccountPicker()
-        hideKeyboard()
+       setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,15 +62,19 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         configureUIWhenPlannedExpenseCellIsPressed()
     }
     
-    //MARK: - Properties
-    let calendar = Calendar.autoupdatingCurrent
-    var currentYShiftForKeyboard: CGFloat = 0
-    var textFieldBeingEdited: UITextField?
+    // MARK: - Setup UI
+    func setUpUI() {
+        setPickerDelegates()
+        showDatePicker()
+        showAccountPicker()
+        hideKeyboard()
+        roundButtons()
+    }
     
-    var plannedExpense: PlannedExpense? {
-        didSet {
-            if isViewLoaded { configureUIWhenPlannedExpenseCellIsPressed() }
-        }
+    func roundButtons() {
+        withdrawButton.layer.cornerRadius = withdrawButton.frame.height/4
+        depositButton.layer.cornerRadius = depositButton.frame.height/4
+        completeButton.layer.cornerRadius = completeButton.frame.height/4
     }
     
     /// Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
