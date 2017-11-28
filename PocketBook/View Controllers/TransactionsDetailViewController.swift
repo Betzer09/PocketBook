@@ -38,7 +38,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let transaction = transaction {
+        if transaction != nil {
             self.navigationItem.title = "Transaction Details"
         } else {
             self.navigationItem.title = "Create New Transaction"

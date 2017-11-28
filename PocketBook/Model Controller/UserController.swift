@@ -9,35 +9,32 @@
 import Foundation
 import CloudKit
 
-class UsersController {
+class UserController {
     
-    static let shared = UsersController()
+    static let shared = UserController()
     
     // MARK: - Properties
     let cloudKitManager: CloudKitManager
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
-    // Source of truth
-    var users: [Users] = [] {
-        
+    var user: User? {
         didSet {
             NotificationCenter.default.post(name: Notifications.userWasUpdatedNotification, object: nil)
         }
+
     }
     
     init() {
         self.cloudKitManager = CloudKitManager()
-        fetchUsersFromCloudKit()
+        fetchUserFromCloudKit()
     }
     
     // MARK: - Save Data
     
-    func createUser(withProjectedIncome income: Double, completion: ((Users) -> Void)? ) {
+    func createUser(withProjectedIncome income: Double, completion: ((User?) -> Void)? ) {
         
         // Create a user
-        let user = Users(projectedIncome: income)
-        
-        users.append(user)
+        let user = User(projectedIncome: income)
         
         cloudKitManager.saveRecord(user.cloudKitRecord) { (_, error) in
             
@@ -45,14 +42,15 @@ class UsersController {
                 print("Error saving user to cloudKit: \(error.localizedDescription) in file: \(#file)")
                 return
             }
+            
+            NSLog("User Successfully Created")
+            self.user = user
             completion?(user)
-            print("User Successfully Created")
-            return
         }
     }
     
     // MARK: - Update
-    func updateUserWith(projectedIncome: Double, user: Users, completion: @escaping (Users?) -> Void) {
+    func updateUserWith(projectedIncome: Double, user: User, completion: @escaping (User?) -> Void) {
         
         user.projectedIncome = projectedIncome
         
@@ -67,13 +65,13 @@ class UsersController {
             
             // Update the first User that comes back
             guard let record = records?.first else {return}
-            let updatedUser = Users(cloudKitRecord: record)
+            let updatedUser = User(cloudKitRecord: record)
             completion(updatedUser)
         })
     }
     
     // MARK: - Delete
-    func delete(user: Users) {
+    func delete(user: User) {
         
         cloudKitManager.deleteRecordWithID(user.recordID) { (recordID, error) in
             if let error = error {
@@ -86,28 +84,30 @@ class UsersController {
     }
     
     // MARK: - Fetch the data from cloudKit
-    func fetchUsersFromCloudKit() {
+    func fetchUserFromCloudKit() {
         
         // Get all of the users
         let predicate = NSPredicate(value: true)
         
         // Create a query
-        let query = CKQuery(recordType: Keys.recordUsersType, predicate: predicate)
+        let query = CKQuery(recordType: Keys.recordUserType, predicate: predicate)
         
         // Fetch the data form cloudkit
-        privateDatabase.perform(query, inZoneWith: nil) { (users, error) in
+        privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
             
-            // Check for an errror
+            // Check for an error
             if let error = error {
                 print("Error fetching the Users Data: \(error.localizedDescription) in file: \(#file)")
             }
             
-            guard let users = users else {return}
+            guard let records = records else {NSLog("There were no User Records found \(#file)");  return}
             
-            // Send the users through the cloudKit Initilizer
-            let usersArray = users.flatMap( {Users(cloudKitRecord: $0)})
+            // There should only ever be one user
+            let user = records.flatMap({User(cloudKitRecord: $0)})
             
-            self.users = usersArray
+            // Assign the value with the user that comes back
+            self.user = user.first
+            
         }
     }
 }

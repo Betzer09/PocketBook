@@ -28,10 +28,19 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Properties
     var projectedIncome: Double?
-    
+    let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
+
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        This clears on the things saved to user defaults Wait a while to delete me
+        
+//        let domain = Bundle.main.bundleIdentifier!
+//        UserDefaults.standard.removePersistentDomain(forName: domain)
+//        UserDefaults.standard.synchronize()
+//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
         updateUI()
         updatePieChartAndLegendView()
@@ -44,16 +53,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         super.viewWillAppear(animated)
         
         reloadCategoryTableView()
-    }
-    
-    // MARK: - Notification Methods
-    @objc func reloadCategoryTableView() {
-        DispatchQueue.main.async {
-            self.updateUI()
-            self.updatePieChartAndLegendView()
-            self.view.setNeedsDisplay()
-            self.categoryTableView.reloadData()
-        }
     }
     
     // MARK: - Actions
@@ -172,14 +171,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             allotedAmountTextField = textField
         }
         
-        // FIXME:
-        //        guard let allottedAmount = Double(StringAllotedAmount) else {
-        //            presentSimpleAlert(controllerToPresentAlert: self, title: "Error Updating Budget Item", message: "You have entered an invalid amount")
-        //            self.present(alertController, animate: true, completion: nil)
-        //            return
-        //
-        //        }
-        
         let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
             
             guard let name = nameTextField.text,
@@ -202,53 +193,86 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Methods
     
     /// This function adds up the total of all current monthly budget items
-    func addUpTotalSpendOfBudget() -> Double {
-        
-        var totalSpendOfBudget: Double = 0.0
+    func addUpTotalSpentOfBudget() -> Double {
+        let plannedExpenseMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        var totalSpentOfBudget: Double = 0.0
         for budgetItem in BudgetItemController.shared.budgetItems {
-            totalSpendOfBudget += budgetItem.spentTotal
+            totalSpentOfBudget += budgetItem.spentTotal
         }
-        return totalSpendOfBudget + PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        return totalSpentOfBudget + plannedExpenseMonthlyContribution
+    }
+    
+    func calculatedNotCurrentlyBudgetedTotal() -> Double {
+        guard let user = UserController.shared.user else {return 0.0}
+        let totalBudget = user.projectedIncome
+        let plannedExpenseMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        var total = 0.0
+        let budgetItems = BudgetItemController.shared.budgetItems
+        for budgetItem in budgetItems {
+            if let totalAllotted = budgetItem.totalAllotted {
+                total += totalAllotted
+            } else {
+                total += budgetItem.allottedAmount
+            }
+        }
+        total += plannedExpenseMonthlyContribution
+        return totalBudget - total
     }
     
     /// This function updates the monthly budget label
     func updateMonthlyBudgetLabel() {
-        
-        //Projected income - plannedExpense
-        guard let projectedIncome = projectedIncome else {
-            totalBudgetedIncomLabel.text = "$0.00"
-            return
+        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpentOfBudget()))"
+    }
+    
+    func updatePlannedExpenseLabel() {
+        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+    }
+    
+    func updateNotCurrentlyBudgetedLabel() {
+       incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: calculatedNotCurrentlyBudgetedTotal()))"
+    }
+    
+    @objc func reloadCategoryTableView() {
+        DispatchQueue.main.async {
+            self.updateUI()
+            self.updatePieChartAndLegendView()
+            self.view.setNeedsDisplay()
+            self.categoryTableView.reloadData()
         }
-        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: projectedIncome - addUpTotalSpendOfBudget()))"
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     // MARK: - UI
     private func updateUI() {
-        
-        categoryTableView.delegate = self
-        categoryTableView.dataSource = self
-        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
         
+        setUpDelegatesAndDataSources()
         createPlusButton()
         configureViewsToLookLikeCells()
         
-        amountTextField.delegate = self
+        // Update all three labels in the view below the budget items
+        updatePlannedExpenseLabel()
+        updateMonthlyBudgetLabel()
+        updateNotCurrentlyBudgetedLabel()
+        
+        // If there is a projected income assign the value
+        projectedIncome = UserController.shared.user?.projectedIncome
+        guard let projectedIncome = projectedIncome else {NSLog("There is no projected Income"); return}
+        amountTextField.text = formatNumberToString(fromDouble: projectedIncome)
+    }
+    
+    func setUpDelegatesAndDataSources() {
+        categoryTableView.delegate = self
+        categoryTableView.dataSource = self
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
-    
-        // Update all three labels in the view below the budget items
-        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
-        updateMonthlyBudgetLabel()
-        incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget()))"
-        
-        // FIXME: Set up amountTextfield to display user information. Pull that information from cloudKit.
-    }
+        amountTextField.delegate = self
 
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     // This is to make the views look like cells
@@ -292,6 +316,20 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
         PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
     }
+    
+    func createAndUpdateProjected(income: Double) {
+        let defaults = UserDefaults.standard
+        let hasLaunched = defaults.bool(forKey: hasLaunchedKey)
+
+        if !hasLaunched {
+            defaults.set(true, forKey: hasLaunchedKey)
+            UserController.shared.createUser(withProjectedIncome: income, completion: nil)
+        } else {
+            guard let user = UserController.shared.user else {NSLog("There is no User"); return}
+            UserController.shared.updateUserWith(projectedIncome: income, user: user, completion: { (_) in })
+        }
+
+    }
 }
 
 // MARK: - Textfield Delegate Functions
@@ -310,7 +348,6 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        print("USERS: \(UsersController.shared.users)")
         guard let string = textField.text else { return false }
         let stringToChange = string.dropFirst()
         
@@ -320,14 +357,30 @@ extension MonthlyBudgetViewController: UITextFieldDelegate {
                 return false
             }
             
-            // Store the number in the projectedIncome Variable
-            projectedIncome = income
-            UsersController.shared.createUser(withProjectedIncome: income, completion: nil)
+            createAndUpdateProjected(income: income)
             updateMonthlyBudgetLabel()
         }
         textField.resignFirstResponder()
         return false
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

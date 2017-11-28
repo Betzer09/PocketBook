@@ -97,13 +97,15 @@ class LineGraphView: UIView {
             var count = currentMonth - 1
             while count >= 0 {
                 let monthString = monthsOfTheYear[count]
-                array.append(monthString)
+                array.insert(monthString, at: 0)
+//                array.append(monthString)
                 count -= 1
             }
             count = 11
             while count + 1  > currentMonth {
                 let monthString = monthsOfTheYear[count]
-                array.append(monthString)
+                array.insert(monthString, at: 0)
+//                array.append(monthString)
                 count -= 1
             }
         case TimeFrame.yearToDate.rawValue:
@@ -144,7 +146,8 @@ class LineGraphView: UIView {
                         total += transaction.amount
                     }
                 }
-                totals.append(total)
+                totals.insert(total, at: 0)
+//                totals.append(total)
                 count -= 1
             }
             count = 11
@@ -157,7 +160,8 @@ class LineGraphView: UIView {
                         total += transaction.amount
                     }
                 }
-                totals.append(total)
+                totals.insert(total, at: 0)
+//                totals.append(total)
                 count -= 1
             }
         case TimeFrame.yearToDate.rawValue:

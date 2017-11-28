@@ -54,7 +54,7 @@ struct Keys {
     
     // MARK: - Users Model Keys
     static let projectedIncomeKey = "projectedIncome"
-    static let recordUsersType = "Users"
+    static let recordUserType = "User"
     
     // MARK: - User Defaults Keys
     static let dateDictionaryKey = "date"

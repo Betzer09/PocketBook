@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     
@@ -66,6 +66,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: - Setup View
+    
+    func setUpUI() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
+        
+        setUpDelegates()
+        updateArrays()
+        addTapGesture()
+        updateTotalLabel()
+        createPlusButton()
+        roundButtons()
+    }
+    
     func setUpTransferFundsView( ) {
         incomeDetailView.isHidden = true
         transferMoneyView.isHidden = true
@@ -346,7 +360,23 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         stopEditingTextField()
     }
     
-    @objc func dismissKeyboard() {
+    @objc func dismissKeyboard(recognizer: UITapGestureRecognizer) {
+        if depositButton.point(inside: recognizer.location(in: depositButton), with: nil) {
+            depositButton.sendActions(for: .touchUpInside)
+        }
+        
+        if transferButton.point(inside: recognizer.location(in: transferButton), with: nil) {
+            transferButton.sendActions(for: .touchUpInside)
+        }
+
+        if incomeDetailCancelButton.point(inside: recognizer.location(in: incomeDetailCancelButton), with: nil) {
+            incomeDetailCancelButton.sendActions(for: .touchUpInside)
+        }
+
+        if transferViewCancelButton.point(inside: recognizer.location(in: transferViewCancelButton), with: nil) {
+            transferViewCancelButton.sendActions(for: .touchUpInside)
+        }
+        
         view.endEditing(true)
     }
 
@@ -360,7 +390,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
-        return false
+        return true
     }
     
     
@@ -369,11 +399,23 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
         transferMoneyView.isHidden = false
         incomeDetailView.isHidden = true
+        let indexTo = toPickerView.selectedRow(inComponent: 0)
+        let accountTo =  AccountController.shared.accounts[indexTo]
+        toPickerView.setNeedsDisplay()
+        toAccount = accountTo
+        let indexFrom = fromPickerView.selectedRow(inComponent: 0)
+        let accountFrom =  AccountController.shared.accounts[indexFrom]
+        fromPickerView.setNeedsDisplay()
+        fromAccount = accountFrom
     }
     
     @IBAction func payDayButtonTapped(_ sender: UIButton) {
         incomeDetailView.isHidden = false
         transferMoneyView.isHidden = true
+        let index = payDayPickerView.selectedRow(inComponent: 0)
+        let account =  AccountController.shared.accounts[index]
+        payDayPickerView.setNeedsDisplay()
+        payDayAccount = account
     }
     
     @IBAction func incomeDetailsCancelButtonTapped(_ sender: UIButton) {
@@ -434,17 +476,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: - Methods
-    func setUpUI() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
-        
-        setUpDelegates()
-        updateArrays()
-        addTapGesture()
-        updateTotalLabel()
-
-    }
     
     func updateTotalLabel() {
         let total = totalFundsCalc()
@@ -452,9 +483,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func addTapGesture() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(recognizer:)))
         tap.cancelsTouchesInView = false
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
     }
     
     func setUpDelegates() {
@@ -475,6 +507,29 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
         }
+    }
+    
+    func roundButtons() {
+        transferFundsButton.layer.cornerRadius = transferFundsButton.frame.height/4
+        payDayButton.layer.cornerRadius = payDayButton.frame.height/4
+        incomeDetailCancelButton.layer.cornerRadius = incomeDetailCancelButton.frame.height/4
+        depositButton.layer.cornerRadius = depositButton.frame.height/4
+        transferButton.layer.cornerRadius = transferButton.frame.height/4
+        transferViewCancelButton.layer.cornerRadius = transferViewCancelButton.frame.height/4
+    }
+    
+    func createPlusButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc func segueToDetailVC() {
+        self.performSegue(withIdentifier: "toAccountDetail", sender: self)
     }
     
     // MARK: - Calculations
@@ -574,6 +629,11 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         let userDefaults = UserDefaults.standard
         let dateDictionary: [String: Date] = [Keys.dateDictionaryKey: date]
         userDefaults.set(dateDictionary, forKey: Keys.dateDictionaryKey)
+    }
+    
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     // MARK: - Navigation

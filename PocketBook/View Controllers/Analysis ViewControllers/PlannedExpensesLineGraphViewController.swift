@@ -62,7 +62,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.parent?.navigationItem.title = "Planned Expense Tracking"
+        self.parent?.navigationItem.title = "Savings Goal Tracking"
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
     }
     
