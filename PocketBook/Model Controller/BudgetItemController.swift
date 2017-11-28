@@ -123,7 +123,7 @@ class BudgetItemController {
     public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem?, difference: Double = 0 ) {
         
         if transactionType == .plannedExpense {
-            account.total -= transaction.amount
+            account.total -= difference
             AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
             return
         }

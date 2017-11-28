@@ -115,8 +115,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         showAccountPicker()
         
         // Checks to see if the transaction is a Planned Expense
-//        guard let transactionTypeToCheck = transaction?.transactionType else {return}
-        if plannedExpenseTransaction != nil || transaction!.transactionType == TransactionType.plannedExpense.rawValue{
+        guard let transactionTypeToCheck = transaction?.transactionType else {return}
+        if plannedExpenseTransaction != nil || transactionTypeToCheck == TransactionType.plannedExpense.rawValue{
             
             transactionType.isHidden = true
             categoryTextField.isHidden = true
@@ -359,33 +359,49 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Save Button Pressede
     private func saveTransaction() {
+        
         if transaction != nil {
             
             var convertedAmount: Double?
             var difference: Double?
             guard let transaction = transaction else { return }
             
-            
-            if let amountString = amountTextField.text?.dropFirst() {
-                guard let amount = Double(amountString) else {return}
-                convertedAmount = amount
-                
+            let amountString = removeCharactersFromTextField(amountTextField)
+            guard let amount = Double(amountString) else {
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "\(#function)")
+                return
             }
+            convertedAmount = amount
             
             // Since the amounts are the same we want to update everything except the amount
             if transaction.amount == convertedAmount {
+                var type: TransactionType
                 
+                if plannedExpenseTransaction != nil {
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-                let type = convertStringToTransactionType(string: typeString)
+                type = convertStringToTransactionType(string: typeString)
+                } else {
+                    type = .plannedExpense
+                }
+                
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                guard let budgetItem = budgetItem else {return}
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem)
+                
+                if plannedExpenseTransaction != nil {
+                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
+                }
+
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem)
                 
             } else {
                 // Update everything including the amount
+                var type: TransactionType
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-                let type = convertStringToTransactionType(string: typeString)
+                
+                if plannedExpenseTransaction != nil {
+                    type = convertStringToTransactionType(string: typeString)
+                } else {
+                    type = .plannedExpense
+                }
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
                 
                 // This means the transaction Type is changing and we want to keep the full total
@@ -496,26 +512,35 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 TransactionController.shared.updateTransactionWith(transaction: transaction, date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: transaction.transactionType, amount: transaction.amount, account: transaction.account, completion: { (_) in })
             }
             
-            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem)
+            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
         })
         
     }
     
     private func updateTransaction() {
+        
+        var typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
+        
+        
         // We want to update
         guard let transaction = transaction,
             let payee = payeeTextField.text,
-            let categoryButton = categoryTextField.text,
-            let accountButton = accountTextField.text,
-            let amount = amountTextField.text else {return}
+            var categoryButton = categoryTextField.text,
+            let accountButton = accountTextField.text else {return}
         
-        guard let amountToSave = Double(amount.dropFirst()) else {
+        let amountToSave = removeCharactersFromTextField(amountTextField)
+        guard let amount = Double(amountToSave) else {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Amount textfield isn't a Double")
             return
+            
         }
-        let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
         
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amountToSave, account: accountButton, completion: { (_) in
+        if transaction.transactionType == TransactionType.plannedExpense.rawValue {
+            categoryButton = TransactionType.plannedExpense.rawValue
+            typeString = TransactionType.plannedExpense.rawValue
+        }
+        
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amount, account: accountButton, completion: { (_) in
         })
     }
 }
