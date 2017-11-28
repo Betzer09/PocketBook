@@ -171,14 +171,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             allotedAmountTextField = textField
         }
         
-        // FIXME:
-        //        guard let allottedAmount = Double(StringAllotedAmount) else {
-        //            presentSimpleAlert(controllerToPresentAlert: self, title: "Error Updating Budget Item", message: "You have entered an invalid amount")
-        //            self.present(alertController, animate: true, completion: nil)
-        //            return
-        //
-        //        }
-        
         let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
             
             guard let name = nameTextField.text,
@@ -201,24 +193,43 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Methods
     
     /// This function adds up the total of all current monthly budget items
-    func addUpTotalSpendOfBudget() -> Double {
-        
-        var totalSpendOfBudget: Double = 0.0
+    func addUpTotalSpentOfBudget() -> Double {
+        let plannedExpenseMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        var totalSpentOfBudget: Double = 0.0
         for budgetItem in BudgetItemController.shared.budgetItems {
-            totalSpendOfBudget += budgetItem.spentTotal
+            totalSpentOfBudget += budgetItem.spentTotal
         }
-        return totalSpendOfBudget + PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        return totalSpentOfBudget + plannedExpenseMonthlyContribution
+    }
+    
+    func calculatedNotCurrentlyBudgetedTotal() -> Double {
+        guard let user = UserController.shared.user else {return 0.0}
+        let totalBudget = user.projectedIncome
+        let plannedExpenseMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        var total = 0.0
+        let budgetItems = BudgetItemController.shared.budgetItems
+        for budgetItem in budgetItems {
+            if let totalAllotted = budgetItem.totalAllotted {
+                total += totalAllotted
+            } else {
+                total += budgetItem.allottedAmount
+            }
+        }
+        total += plannedExpenseMonthlyContribution
+        return totalBudget - total
     }
     
     /// This function updates the monthly budget label
     func updateMonthlyBudgetLabel() {
-        
-        //Projected income - plannedExpense
-        guard let projectedIncome = projectedIncome else {
-            totalBudgetedIncomLabel.text = "$0.00"
-            return
-        }
-        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: projectedIncome - addUpTotalSpendOfBudget()))"
+        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpentOfBudget()))"
+    }
+    
+    func updatePlannedExpenseLabel() {
+        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+    }
+    
+    func updateNotCurrentlyBudgetedLabel() {
+       incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: calculatedNotCurrentlyBudgetedTotal()))"
     }
     
     @objc func reloadCategoryTableView() {
@@ -245,9 +256,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         configureViewsToLookLikeCells()
         
         // Update all three labels in the view below the budget items
-        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        updatePlannedExpenseLabel()
         updateMonthlyBudgetLabel()
-        incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpendOfBudget()))"
+        updateNotCurrentlyBudgetedLabel()
         
         // If there is a projected income assign the value
         projectedIncome = UserController.shared.user?.projectedIncome
