@@ -95,7 +95,7 @@
                                 <rect key="frame" x="23" y="242" width="328.5" height="182"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9J8-nP-pC1">
-                                        <rect key="frame" x="0.0" y="0.0" width="328.5" height="230"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="328.5" height="280"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EsT-9K-hZc" userLabel="AccountStack">
                                                 <rect key="frame" x="0.0" y="0.0" width="328.5" height="30"/>
@@ -197,6 +197,23 @@
                                                     </textField>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IiS-6N-BwY" userLabel="MonthlyContributionStack">
+                                                <rect key="frame" x="0.0" y="250" width="328.5" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ideal Monthly Contribution" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-eA-Pjk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="310.5" height="30"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPM-D3-EmP">
+                                                        <rect key="frame" x="318.5" y="0.0" width="10" height="30"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -218,42 +235,21 @@
                                     <constraint firstItem="5wI-Jf-Umh" firstAttribute="width" secondItem="JQs-J3-bi0" secondAttribute="width" id="vdt-Vg-RD7"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IiS-6N-BwY" userLabel="MonthlyContributionStack">
-                                <rect key="frame" x="23" y="196.5" width="328" height="23.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ideal Monthly Contribution" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-eA-Pjk">
-                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPM-D3-EmP">
-                                        <rect key="frame" x="120.5" y="0.0" width="207.5" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7FZ-wU-uGr" firstAttribute="width" secondItem="J62-AG-vIK" secondAttribute="width" multiplier="3/10" id="3xy-hg-Bco"/>
                             <constraint firstItem="J62-AG-vIK" firstAttribute="leading" secondItem="3L3-zX-mrw" secondAttribute="leading" id="4gJ-hO-mfe"/>
-                            <constraint firstItem="GLD-eA-Pjk" firstAttribute="width" secondItem="J62-AG-vIK" secondAttribute="width" multiplier="0.3" id="7ys-J2-NNs"/>
                             <constraint firstItem="l49-GH-zrO" firstAttribute="width" secondItem="J62-AG-vIK" secondAttribute="width" multiplier="3/10" id="GHY-mT-id4"/>
-                            <constraint firstItem="IiS-6N-BwY" firstAttribute="centerX" secondItem="3L3-zX-mrw" secondAttribute="centerX" id="NUB-0D-zHv"/>
                             <constraint firstItem="JQs-J3-bi0" firstAttribute="centerX" secondItem="t36-Yy-1VF" secondAttribute="centerX" id="Rb2-r1-7U2"/>
                             <constraint firstItem="JQs-J3-bi0" firstAttribute="width" secondItem="3L3-zX-mrw" secondAttribute="width" multiplier="7/8" id="WuD-Kb-z7M"/>
                             <constraint firstItem="xyj-fy-mjX" firstAttribute="width" secondItem="J62-AG-vIK" secondAttribute="width" multiplier="3/10" id="YJC-Ci-sj8"/>
                             <constraint firstItem="XOl-GT-3wB" firstAttribute="width" secondItem="t36-Yy-1VF" secondAttribute="width" multiplier="3/10" id="aKm-TQ-JsB"/>
                             <constraint firstItem="JQs-J3-bi0" firstAttribute="centerY" secondItem="t36-Yy-1VF" secondAttribute="centerY" id="bM4-Cf-Yt5"/>
                             <constraint firstItem="7vN-l2-1kp" firstAttribute="width" secondItem="J62-AG-vIK" secondAttribute="width" multiplier="3/10" id="csF-jt-wIA"/>
-                            <constraint firstItem="IiS-6N-BwY" firstAttribute="top" secondItem="JQs-J3-bi0" secondAttribute="bottom" constant="50" id="eBm-D0-IAk"/>
                             <constraint firstItem="J62-AG-vIK" firstAttribute="top" secondItem="3L3-zX-mrw" secondAttribute="top" id="gIq-vn-TIO"/>
                             <constraint firstItem="J62-AG-vIK" firstAttribute="trailing" secondItem="3L3-zX-mrw" secondAttribute="trailing" id="gq0-f3-s6n"/>
                             <constraint firstItem="J62-AG-vIK" firstAttribute="height" secondItem="3L3-zX-mrw" secondAttribute="height" multiplier="1/6" id="lV6-jt-Lea"/>
-                            <constraint firstItem="IiS-6N-BwY" firstAttribute="width" secondItem="3L3-zX-mrw" secondAttribute="width" multiplier="7/8" id="qjT-g0-11Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3L3-zX-mrw"/>
                     </view>

@@ -385,7 +385,6 @@
                         <viewLayoutGuide key="safeArea" id="eAT-kI-dVx"/>
                     </view>
                     <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="CtS-Rs-sT9"/>
                         <barButtonItem key="leftBarButtonItem" title="Item" image="questionMark" id="75E-Xf-M1O">
                             <connections>
                                 <segue destination="U1D-AB-uT6" kind="show" id="gzo-zo-n3i"/>

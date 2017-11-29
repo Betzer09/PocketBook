@@ -32,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="343" y="-209"/>
         </scene>
-        <!--Accounts-->
+        <!--Account-->
         <scene sceneID="DW4-Bc-dD5">
             <objects>
                 <viewController id="vla-F5-8dR" customClass="AccountListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -384,8 +384,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eAT-kI-dVx"/>
                     </view>
+<<<<<<< HEAD
                     <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
                         <barButtonItem key="backBarButtonItem" title="Back" id="CtS-Rs-sT9"/>
+=======
+                    <navigationItem key="navigationItem" title="Account" id="eLI-yv-osM">
+>>>>>>> develop
                         <barButtonItem key="leftBarButtonItem" title="Item" image="questionMark" id="75E-Xf-M1O">
                             <connections>
                                 <segue destination="U1D-AB-uT6" kind="show" id="gzo-zo-n3i"/>
@@ -417,10 +421,10 @@
             </objects>
             <point key="canvasLocation" x="-459.4202898550725" y="-189.13043478260872"/>
         </scene>
-        <!--Accounts-->
+        <!--Navigation Controller-->
         <scene sceneID="amp-Ko-BKB">
             <objects>
-                <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="accountsIcon" id="npd-6P-2gB"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -430,7 +434,7 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.015686274510000001" green="0.20392156859999999" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
