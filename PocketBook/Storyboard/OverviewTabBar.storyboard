@@ -71,10 +71,10 @@
                     <connections>
                         <outlet property="myTabBar" destination="y2M-tl-EUS" id="a3G-Sc-EdG"/>
                         <segue destination="C6k-6R-08i" kind="relationship" relationship="viewControllers" id="7eW-LC-08m"/>
-                        <segue destination="MhG-fj-BhS" kind="relationship" relationship="viewControllers" id="T7T-jQ-m3e"/>
+                        <segue destination="ZAJ-gs-omh" kind="relationship" relationship="viewControllers" id="zeg-A7-c3F"/>
                         <segue destination="puA-1V-lyv" kind="relationship" relationship="viewControllers" id="6fl-dJ-B74"/>
                         <segue destination="BSJ-U4-f7m" kind="relationship" relationship="viewControllers" id="37d-Sp-ZTm"/>
-                        <segue destination="ZAJ-gs-omh" kind="relationship" relationship="viewControllers" id="zeg-A7-c3F"/>
+                        <segue destination="MhG-fj-BhS" kind="relationship" relationship="viewControllers" id="T7T-jQ-m3e"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boB-vo-1e8" userLabel="First Responder" sceneMemberID="firstResponder"/>
