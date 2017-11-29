@@ -32,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="343" y="-209"/>
         </scene>
-        <!--Accounts-->
+        <!--Account-->
         <scene sceneID="DW4-Bc-dD5">
             <objects>
                 <viewController id="vla-F5-8dR" customClass="AccountListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -384,7 +384,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eAT-kI-dVx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
+                    <navigationItem key="navigationItem" title="Account" id="eLI-yv-osM">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="questionMark" id="75E-Xf-M1O">
                             <connections>
                                 <segue destination="U1D-AB-uT6" kind="show" id="gzo-zo-n3i"/>
@@ -416,10 +416,10 @@
             </objects>
             <point key="canvasLocation" x="-459.4202898550725" y="-189.13043478260872"/>
         </scene>
-        <!--Accounts-->
+        <!--Navigation Controller-->
         <scene sceneID="amp-Ko-BKB">
             <objects>
-                <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="accountsIcon" id="npd-6P-2gB"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
