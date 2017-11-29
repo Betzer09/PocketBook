@@ -15,7 +15,7 @@ class Transaction: Hashable, Equatable { //
     // MARK: - Properties
     var date: Date
     var monthYearDate: Date
-    var category: String
+    var category: String?
     var payee: String // Where the money is going
     var transactionType: String
     var amount: Double

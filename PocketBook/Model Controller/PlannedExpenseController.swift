@@ -18,7 +18,13 @@ class PlannedExpenseController {
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
     // Souces of truth
-    var plannedExpenses: [PlannedExpense] = []
+    var plannedExpenses: [PlannedExpense] = [] {
+        
+        didSet {
+            NotificationCenter.default.post(name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+        }
+    }
+
     
     init() {
         self.cloudKitManager = CloudKitManager()
@@ -32,7 +38,7 @@ class PlannedExpenseController {
         var totalIdealContribution: Double = 0.0
         for plannedExpense in plannedExpenses {
             guard let totalSaved = plannedExpense.totalSaved else { return 0.0 }
-            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalSaved),
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, currentAmount: totalSaved),
                 let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return 0.0 }
             let monthlyContribution = (amountDifference / Double(calculatedMonthsToDueDate))
             totalIdealContribution += monthlyContribution
@@ -41,8 +47,8 @@ class PlannedExpenseController {
     }
     
     /// This function calculates the remaining amount needed to reach goal
-    func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
-        let difference = goalAmount - initialAmount
+    func amountDifference(goalAmount: Double, currentAmount: Double) -> Double? {
+        let difference = goalAmount - currentAmount
         return difference
     }
     

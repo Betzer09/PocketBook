@@ -112,6 +112,7 @@
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zin-aL-SOf">
                                                     <rect key="frame" x="172.5" y="21" width="187.5" height="2"/>
+                                                    <color key="trackTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="x7i-Ed-0c1">
                                                     <rect key="frame" x="285" y="28.5" width="75" height="11"/>
@@ -290,6 +291,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="monthlyBudgetIcon" width="14" height="15"/>
+        <image name="monthlyBudgetIcon" width="29" height="30"/>
     </resources>
 </document>

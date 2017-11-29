@@ -8,36 +8,47 @@
 
 import UIKit
 
+
+//>> Needs a cell delegate?? Or no? <<
+
 class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseTableViewCellDelegate {
     
     //MARK: - Outlets
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
+
+    
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+=======
         updateViews()
+>>>>>>> develop
         createPlusButton()
-        changeCalculatedContributionlabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
+<<<<<<< HEAD
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+
+    }
+    
+    //MARK: - Functions
+
+=======
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
     }
     
     //MARK: - Functions
     @objc func updateViews() {
-        let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
-        if totalMonthlyContribution <= 0.0 {
-            amountLabel.text = "\("$0.00")"
-        } else {
-            amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
-        }
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
+>>>>>>> develop
     
     func createPlusButton() {
         let button = UIButton()
@@ -67,13 +78,13 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plannedExpenseCell", for: indexPath) as? plannedExpenseTableViewCell else { return UITableViewCell() }
         
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
-        
+
         cell.plannedExpense = plannedExpense
         cell.delegate = self
         
         return cell
     }
-    
+
     // >>Ability to Delete Cells
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -85,22 +96,6 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         }
     }
     
-    // MARK: - Methods
-    
-    /// This function changes the calculatedContributionLabel text if there aren't any savings goals
-    @objc func changeCalculatedContributionlabel() {
-        if PlannedExpenseController.shared.plannedExpenses.count == 0 {
-            totalIdealMonthlyContributionLabel.text = "Let's create some savings goals!"
-            totalIdealMonthlyContributionLabel.textColor = .gray
-            totalIdealMonthlyContributionLabel.textAlignment = .center
-            amountLabel.isHidden = true
-        } else {
-            amountLabel.isHidden = false
-            totalIdealMonthlyContributionLabel.text = "Total Ideal Monthly Contribution:"
-            totalIdealMonthlyContributionLabel.textColor = .black
-            totalIdealMonthlyContributionLabel.textAlignment = .left
-        }
-    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

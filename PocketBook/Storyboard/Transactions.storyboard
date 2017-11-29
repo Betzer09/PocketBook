@@ -24,16 +24,10 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
-                                    <rect key="frame" x="8" y="82" width="359" height="90"/>
+                                    <rect key="frame" x="8" y="59" width="359" height="113"/>
                                 </pickerView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter Your Transactions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dh5-9j-H22">
-                                    <rect key="frame" x="97.5" y="8" width="180" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
-                                    <rect key="frame" x="23" y="37" width="328" height="29"/>
+                                    <rect key="frame" x="23" y="23" width="328" height="29"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="28" id="ItI-ly-FBA"/>
                                     </constraints>
@@ -51,15 +45,13 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="yb3-92-19L" firstAttribute="leading" secondItem="PlH-nB-SeR" secondAttribute="leading" constant="8" id="1dd-zU-hXl"/>
-                                <constraint firstItem="Dh5-9j-H22" firstAttribute="top" secondItem="PlH-nB-SeR" secondAttribute="top" constant="8" id="4J2-uq-SNZ"/>
                                 <constraint firstItem="yb3-92-19L" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="FQd-UH-lOX"/>
+                                <constraint firstItem="yb3-92-19L" firstAttribute="top" secondItem="FkZ-U8-GW8" secondAttribute="bottom" constant="8" id="Fao-NW-Ybn"/>
                                 <constraint firstItem="FkZ-U8-GW8" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="IwB-cX-7zF"/>
+                                <constraint firstItem="FkZ-U8-GW8" firstAttribute="top" secondItem="PlH-nB-SeR" secondAttribute="top" constant="23" id="Kq6-3u-2Ft"/>
                                 <constraint firstItem="FkZ-U8-GW8" firstAttribute="width" secondItem="PlH-nB-SeR" secondAttribute="width" multiplier="7/8" id="U8A-av-WLq"/>
                                 <constraint firstAttribute="trailing" secondItem="yb3-92-19L" secondAttribute="trailing" constant="8" id="XEV-k4-lST"/>
-                                <constraint firstItem="yb3-92-19L" firstAttribute="height" secondItem="PlH-nB-SeR" secondAttribute="height" multiplier="1/2" id="d91-bv-ePn"/>
                                 <constraint firstAttribute="bottom" secondItem="yb3-92-19L" secondAttribute="bottom" constant="8" id="e01-3z-qfY"/>
-                                <constraint firstItem="Dh5-9j-H22" firstAttribute="centerX" secondItem="PlH-nB-SeR" secondAttribute="centerX" id="v91-RE-PLh"/>
-                                <constraint firstItem="FkZ-U8-GW8" firstAttribute="top" secondItem="Dh5-9j-H22" secondAttribute="bottom" constant="8" id="xwo-lD-LJH"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -175,6 +167,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="transactionsIcon" width="17" height="15"/>
+        <image name="transactionsIcon" width="32" height="28"/>
     </resources>
 </document>

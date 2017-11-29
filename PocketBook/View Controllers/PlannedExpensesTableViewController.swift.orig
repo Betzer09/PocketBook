@@ -14,6 +14,11 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> develop
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
