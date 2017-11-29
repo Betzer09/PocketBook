@@ -172,11 +172,11 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         guard let transactionType = cell.transactions?.transactionType else { return cell }
         switch transactionType {
         case TransactionType.expense.rawValue:
-            cell.amountLabel.textColor = .red
+            cell.amountLabel.textColor = .darkRed
         case TransactionType.plannedExpense.rawValue:
-            cell.amountLabel.textColor = .red
+            cell.amountLabel.textColor = .darkRed
         default:
-            cell.amountLabel.textColor = .green
+            cell.amountLabel.textColor = .darkGreen
         }
         return cell
     }
