@@ -114,9 +114,23 @@ class PlannedExpenseController {
                 print("Error deleting Planned Expense \(error.localizedDescription) in file: \(#file)")
                 return
             } else {
-                print("Succesfully deleted Planned Expense")
+                // FIXME: Modify the account
+                guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == plannedExpense.account }) else {return}
+                let account = AccountController.shared.accounts[indexForAccount]
+                
+                self.removePlannedExpenseWith(plannedExpense: plannedExpense, account: account)
             }
         }
+    }
+    
+    func removePlannedExpenseWith(plannedExpense: PlannedExpense, account: Account) {
+        
+        guard let totalSaved = plannedExpense.totalSaved else {return}
+        account.total += totalSaved
+        AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in}
+        
+        
+        
     }
     
     // MARK: - Fetch from cloudKit

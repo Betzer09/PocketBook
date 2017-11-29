@@ -115,13 +115,50 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         showAccountPicker()
         
         // Checks to see if the transaction is a Planned Expense
-        guard let transactionTypeToCheck = transaction?.transactionType else {return}
-        if plannedExpenseTransaction != nil || transactionTypeToCheck == TransactionType.plannedExpense.rawValue{
+        guard let transactionTypeToCheck = transaction?.transactionType else {
             
+            if plannedExpenseTransaction != nil {
+                
+                transactionType.isHidden = true
+                categoryTextField.isHidden = true
+                categoryLabel.isHidden = true
+                
+                if transaction != nil {
+                    guard let transaction = transaction else {return}
+                    amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
+                    payeeTextField.text = transaction.payee
+                    dateTextField.text = returnString(fromDate: transaction.date)
+                    accountTextField.text = transaction.account
+                }
+                
+                guard let plannedExpense = plannedExpenseTransaction,
+                    let plannedExpenseDouble = plannedExpense.totalSaved else { return }
+                
+                let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
+                
+                
+                amountTextField.text = stringAmount
+                payeeTextField.text = plannedExpense.name
+                dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
+                accountTextField.text = plannedExpense.account
+                
+                let budgetItems = BudgetItemController.shared.budgetItems
+                guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}
+                categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
+                
+                let accounts = AccountController.shared.accounts
+                guard let selectedAccount = accounts.index(where: { $0.name == plannedExpense.name }) else {return}
+                accountPicker.selectRow(selectedAccount, inComponent: 0, animated: true)
+                
+            }
+            return
+        }
+        
+        if transactionTypeToCheck == TransactionType.plannedExpense.rawValue {
             transactionType.isHidden = true
             categoryTextField.isHidden = true
             categoryLabel.isHidden = true
-           
+            
             if transaction != nil {
                 guard let transaction = transaction else {return}
                 amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
@@ -134,21 +171,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 let plannedExpenseDouble = plannedExpense.totalSaved else { return }
             
             let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
-           
+            
             
             amountTextField.text = stringAmount
             payeeTextField.text = plannedExpense.name
             dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
             accountTextField.text = plannedExpense.account
-            
-            let budgetItems = BudgetItemController.shared.budgetItems
-            guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}
-            categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
-            
-            let accounts = AccountController.shared.accounts
-            guard let selectedAccount = accounts.index(where: { $0.name == plannedExpense.name }) else {return}
-            accountPicker.selectRow(selectedAccount, inComponent: 0, animated: true)
-            
+
         }
         
         // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction date
@@ -376,36 +405,33 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             // Since the amounts are the same we want to update everything except the amount
             if transaction.amount == convertedAmount {
                 var type: TransactionType
-                
-                if plannedExpenseTransaction != nil {
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-                type = convertStringToTransactionType(string: typeString)
-                } else {
+                
+                if plannedExpenseTransaction != nil || transaction.transactionType == TransactionType.plannedExpense.rawValue {
                     type = .plannedExpense
+                } else {
+                    type = convertStringToTransactionType(string: typeString)
+                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
                 }
                 
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                
-                if plannedExpenseTransaction != nil {
-                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                }
 
                 BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem)
                 
             } else {
-                // Update everything including the amount
+                // Update everything including the amount  
                 var type: TransactionType
                 let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
                 
-                if plannedExpenseTransaction != nil {
-                    type = convertStringToTransactionType(string: typeString)
-                } else {
+                if plannedExpenseTransaction != nil || transaction.transactionType == TransactionType.plannedExpense.rawValue {
                     type = .plannedExpense
+                } else {
+                    type = convertStringToTransactionType(string: typeString)
                 }
                 let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
                 
                 // This means the transaction Type is changing and we want to keep the full total
-                if transaction.transactionType != typeString {
+                if transaction.transactionType != type.rawValue {
                     // We don't want the transaciton amount to be changed
                     guard let convertedAmount = convertedAmount else {return}
                     difference = convertedAmount - transaction.amount
@@ -425,7 +451,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                     self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
                     }
                     guard let budgetItem = budgetItem else {return}
-                    difference = convertedAmount - transaction.amount
+//                    difference = convertedAmount - transaction.amount
+                    difference = transaction.amount
                     guard let difference = difference else {return}
                     print("Difference: \(difference)")
                     BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem, difference: difference)

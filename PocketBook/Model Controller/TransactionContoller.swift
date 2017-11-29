@@ -82,29 +82,35 @@ class TransactionController {
             if let error = error {
                 print("Error deleting Transaction: \(error.localizedDescription) in file: \(#file)")
                 return
-            } else {
-                // FIXME: Modify the account
-                guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == transaction.account }) else {return}
-                let account = AccountController.shared.accounts[indexForAccount]
-                
+            }
+            
+            guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == transaction.account }) else {return}
+            let account = AccountController.shared.accounts[indexForAccount]
+            
+            var budgetItem: BudgetItem?
+            
+            if transaction.transactionType != TransactionType.plannedExpense.rawValue {
                 guard let indexForBudgetItem = BudgetItemController.shared.budgetItems.index(where: { $0.name == transaction.category }) else {
                     print("Error!")
                     return
                 }
-                let budgetItem = BudgetItemController.shared.budgetItems[indexForBudgetItem]
-                
-                var type: TransactionType?
-                
-                if transaction.transactionType == TransactionType.income.rawValue {
-                    type = TransactionType.removeIncome
-                } else {
-                    type = TransactionType.removeExpense
-                }
-                
-                guard let returnType = type else {return}
-                
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: returnType, account: account, budgetItem: budgetItem)
+                budgetItem = BudgetItemController.shared.budgetItems[indexForBudgetItem]
             }
+            
+            var type: TransactionType?
+            
+            if transaction.transactionType == TransactionType.income.rawValue {
+                type = TransactionType.removeIncome
+            } else if transaction.transactionType == TransactionType.expense.rawValue {
+                type = TransactionType.removeExpense
+            } else {
+                type = TransactionType.removePlannedExpense
+            }
+            
+            guard let returnType = type else {return}
+            
+            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: returnType, account: account, budgetItem: budgetItem)
+            
         }
         
     }
