@@ -603,7 +603,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             presentResetMonthlyBudgetAlert()
             let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
             for plannedExpense in plannedExpenses {
-                plannedExpense.monthlyTotals.append(plannedExpense.totalSaved ?? 0)
+                plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited + plannedExpense.initialAmount)
             }
         }
         if dateMonth < currentMonth {
@@ -614,9 +614,9 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             for plannedExpense in plannedExpenses {
                 if plannedExpense.monthlyTotals.count == 12 {
                     plannedExpense.monthlyTotals.remove(at: 11)
-                    plannedExpense.monthlyTotals.append(plannedExpense.totalSaved ?? 0)
+                    plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited + plannedExpense.initialAmount)
                 } else {
-                    plannedExpense.monthlyTotals.append(plannedExpense.totalSaved ?? 0)
+                    plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited + plannedExpense.initialAmount)
                 }
             }
         } else {

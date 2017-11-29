@@ -128,6 +128,13 @@ class BudgetItemController {
             return
         }
         
+        if transactionType == .removePlannedExpense {
+            account.total += transaction.amount
+            
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            return
+        }
+        
         guard let budgetItem = budgetItem else {return}
         
         if transactionType == .expense {

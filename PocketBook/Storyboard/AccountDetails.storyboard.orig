@@ -226,9 +226,13 @@
                             <constraint firstItem="WC9-C9-0Jz" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="J9f-gg-SBg"/>
                             <constraint firstItem="h8Q-mc-Dv0" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="LYn-0c-jGl"/>
                             <constraint firstItem="gz3-T0-Tw3" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="MIq-Ak-PON"/>
+<<<<<<< HEAD
+                            <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="20" id="XOl-Qf-uzX"/>
+=======
                             <constraint firstItem="WC9-C9-0Jz" firstAttribute="centerY" secondItem="KOe-hC-lOV" secondAttribute="centerY" multiplier="2/3" id="MUm-IR-KlW"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="8" id="XOl-Qf-uzX"/>
                             <constraint firstItem="h8Q-mc-Dv0" firstAttribute="top" secondItem="iqJ-75-klp" secondAttribute="bottom" constant="72" id="arn-0v-HRZ"/>
+>>>>>>> develop
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="ey5-1e-zUx"/>
                             <constraint firstItem="MGX-pC-33a" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="sVn-MB-1G6"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="3/4" id="wC2-ge-ddd"/>
