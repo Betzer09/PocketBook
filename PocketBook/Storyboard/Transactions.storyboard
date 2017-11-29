@@ -14,7 +14,7 @@
         <!--Transactions-->
         <scene sceneID="Q8k-Nj-Osh">
             <objects>
-                <tableViewController id="a2R-a5-qV7" customClass="TransactionTableViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="transactionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a2R-a5-qV7" customClass="TransactionTableViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hvf-Rc-75B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -139,7 +139,7 @@
                 <viewControllerPlaceholder storyboardName="TransactionsDetailView" id="T53-2d-1NU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yOE-Jl-CCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-681" y="-304"/>
+            <point key="canvasLocation" x="-454" y="-305"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0XX-JJ-LDf">

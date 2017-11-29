@@ -25,6 +25,7 @@ enum TransactionType: String {
     case removeIncome = "removeIncome"
     case removeExpense = "removeExpense"
     case plannedExpense = "plannedExpense"
+    case removePlannedExpense = "removePlannedExpense"
     case all = "All"
 }
 
