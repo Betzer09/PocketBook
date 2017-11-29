@@ -10,6 +10,13 @@ import UIKit
 
 class TransactionTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    // MARK: Properties
+    var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - Array contains all transactions
+    
+    // UIPicker Properties: All properties that are used by the UIPickers
+    var categorySelection: String? // Value selected by UIPicker. This updates each time a value from the picker is selected
+    var timeframeSelection: String?  // Value selected by UIPicker. This updates each time a value from the picker is selected
+    
     // MARK: - Outlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
@@ -39,13 +46,6 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         }
     }
     
-    // MARK: Properties
-    var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - Array contains all transactions
-    
-    // UIPicker Properties: All properties that are used by the UIPickers
-    var categorySelection: String? // Value selected by UIPicker. This updates each time a value from the picker is selected
-    var timeframeSelection: String?  // Value selected by UIPicker. This updates each time a value from the picker is selected
-    
     // MARK: - Actions
     
     /// This function is run when the view first loads and the user hasn't made any selections
@@ -56,8 +56,8 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
         let transactionType = checkWhichControlIsPressed(segmentedControl: segmentedControl, type1: .all, type2: .income, type3: .expense)
         let filteredByTransactionType = filterByTransactionType(byThisType: transactionType, forThisArray: transactions)
         let filteredByTimeFrame = filterByTimeFrame(withTimeVariable: timeframeSelection, forThisArray: filteredByTransactionType)
-        let filteredByCategory = filterByCategoryIntoArray(forCategory: categorySelection, forThisArray: filteredByTimeFrame)
-        let filteredByDate = filteredByCategory.sorted(by: { $0.date > $1.date })
+        let filteredByAccount = filterByAccountIntoArray(forCategory: categorySelection, forThisArray: filteredByTimeFrame)
+        let filteredByDate = filteredByAccount.sorted(by: { $0.date > $1.date })
         self.filteredTransactions = filteredByDate
         self.tableView.reloadData()
     }

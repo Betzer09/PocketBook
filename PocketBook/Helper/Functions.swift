@@ -177,6 +177,21 @@ func filterByCategoryIntoDictionary(forThisArray transactions:[Transaction]) -> 
     
 }
 
+func filterByAccountIntoArray(forCategory name: String, forThisArray transactions: [Transaction]) -> [Transaction] {
+    var internalFilteredTransactions: [Transaction] = []
+    guard name != "All" else {
+        internalFilteredTransactions = transactions
+        return internalFilteredTransactions
+    }
+    
+    for transaction in transactions {
+        if transaction.account == name {
+            internalFilteredTransactions.append(transaction)
+        }
+    }
+    return internalFilteredTransactions
+}
+
 func filterByCategoryIntoArray(forCategory name: String, forThisArray transactions: [Transaction]) -> [Transaction] {
     var internalFilteredTransactions: [Transaction] = []
     guard name != "All" else {
