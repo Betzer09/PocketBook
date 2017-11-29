@@ -41,7 +41,7 @@ func createTransaction() {
 
 func loop(number: Int, transform: () -> ()) {
     for _ in 1...number{
-        transform()
+        transform()    
     }
 }
 
@@ -71,6 +71,7 @@ func changeAllYearByOne(transactions: [Transaction]) {
         let dateString = "\(lastYear)-\(month)-\(day)"
         let newDate = Date(dateString: dateString)
         transaction.date = newDate
+        
         TransactionController.shared.updateTransactionWith(transaction: transaction, date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: transaction.transactionType, amount: transaction.amount, account: transaction.account, completion: { (_) in
             //TODO: TELL AUSTION TO FIX THIS
         })

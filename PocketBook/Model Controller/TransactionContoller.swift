@@ -48,7 +48,7 @@ class TransactionController {
     
     // MARK: - Update Data
     
-    func updateTransactionWith(transaction: Transaction, date: Date, monthYearDate: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
+    func updateTransactionWith(transaction: Transaction, date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: String, amount: Double, account: String, completion: @escaping (Transaction?) -> Void) {
         
         transaction.monthYearDate = monthYearDate
         transaction.date = date

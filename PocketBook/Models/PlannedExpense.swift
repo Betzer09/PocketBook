@@ -24,6 +24,9 @@ class PlannedExpense {
     var totalSaved: Double?
     var monthlyTotals: [Double] = []
     
+    // this is a special kind of transaction
+    let transactionType: TransactionType = .plannedExpense
+    
     // MARK: - Init
     init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double, amountDeposited: Double = 0, amountWithdrawn: Double = 0) {
         

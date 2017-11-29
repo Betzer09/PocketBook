@@ -466,11 +466,10 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
 
             guard let destinationDVC = segue.destination as? TransactionsDetailViewController else {return}
             guard let plannedExpense = plannedExpense else {
-                // FIXME: Delete Me if you want
-                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have not made any Planned Expenses")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "You have to create a Savings Goal before you can complete it.")
                 return
             }
-
+            
             destinationDVC.plannedExpenseTransaction = plannedExpense
         }
     }
