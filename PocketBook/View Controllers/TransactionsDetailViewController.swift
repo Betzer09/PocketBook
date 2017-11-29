@@ -61,6 +61,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
         saveTransaction()
+        guard let navController = parent as? UINavigationController,
+            let tabBarController = navController.parent as? UITabBarController else { return }
+        
+        tabBarController.selectedIndex = 2
+
     }
     
     // MARK: - Account Picker Delegates
@@ -132,7 +137,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 }
                 
                 guard let plannedExpense = plannedExpenseTransaction else { return }
-                    let plannedExpenseDouble = plannedExpense.totalDeposited
+                    let plannedExpenseDouble = plannedExpense.totalDeposited + plannedExpense.initialAmount
                 
                 let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
                 
@@ -451,7 +456,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                     self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
                     }
                     guard let budgetItem = budgetItem else {return}
-//                    difference = convertedAmount - transaction.amount
                     difference = transaction.amount
                     guard let difference = difference else {return}
                     print("Difference: \(difference)")
@@ -459,7 +463,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
 
                 }
             }
-            
             updateTransaction()
             
         } else {

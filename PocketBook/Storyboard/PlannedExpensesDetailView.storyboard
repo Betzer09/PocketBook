@@ -258,7 +258,7 @@
                         <viewLayoutGuide key="safeArea" id="3L3-zX-mrw"/>
                     </view>
                     <navigationItem key="navigationItem" title="PLANNED EXPENSE" id="sHa-7w-HJJ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cqC-PE-J2Q">
+                        <barButtonItem key="rightBarButtonItem" title="Update" id="cqC-PE-J2Q">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="saveButtonTapped:" destination="WuS-7R-mpl" id="3lF-Rv-O8S"/>
