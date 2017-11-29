@@ -64,7 +64,7 @@
                                 </subviews>
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PN8-1D-Bnn">
-                                <rect key="frame" x="47" y="28" width="281" height="29"/>
+                                <rect key="frame" x="47" y="40" width="281" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="AnI-Z3-955"/>
                                 </constraints>
@@ -226,7 +226,7 @@
                             <constraint firstItem="Uk8-tI-VPd" firstAttribute="bottom" secondItem="h8Q-mc-Dv0" secondAttribute="bottom" constant="150" id="Gcl-Gj-cjy"/>
                             <constraint firstItem="WC9-C9-0Jz" firstAttribute="centerY" secondItem="Uk8-tI-VPd" secondAttribute="centerY" id="GmB-3T-zef"/>
                             <constraint firstItem="gz3-T0-Tw3" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="MIq-Ak-PON"/>
-                            <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="8" id="XOl-Qf-uzX"/>
+                            <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="20" id="XOl-Qf-uzX"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="ey5-1e-zUx"/>
                             <constraint firstItem="MGX-pC-33a" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="sVn-MB-1G6"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="3/4" id="wC2-ge-ddd"/>
