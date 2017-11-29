@@ -46,6 +46,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var accountsTotalLabel: UILabel!
     @IBOutlet weak var incomeDetailsLabel: UILabel!
     @IBOutlet weak var transferMoneyLabel: UILabel!
+    @IBOutlet weak var availableBalanceLabel: UILabel!
     
     // MARK: - View LifeCyles
     override func viewDidLoad() {
@@ -96,7 +97,37 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             self.toPickerView.reloadInputViews()
             self.payDayPickerView.reloadInputViews()
             let total = self.totalFundsCalc()
+            self.updateAccountsTotalLabel(fromTotal: total)
+        }
+    }
+    
+    /// This function takes a double and updates the accountsTotal label
+    func updateAccountsTotalLabel(fromTotal total: Double) {
+        
+        if total == 0.00 {
+            self.accountsTotalLabel.text = "Let's start by adding your accounts!"
+            self.accountsTotalLabel.textColor = .gray
+            self.accountsTotalLabel.textAlignment = .center
+            self.accountsTotalLabel.font = self.accountsTotalLabel.font.withSize(18)
+            self.availableBalanceLabel.isHidden = true
+            self.transferFundsButton.isHidden = true
+            self.payDayButton.isHidden = true
+        } else if total > 0.00 {
             self.accountsTotalLabel.text = "\(formatNumberToString(fromDouble: total))"
+            self.accountsTotalLabel.textColor = .darkGreen
+            self.accountsTotalLabel.textAlignment = .center
+            self.accountsTotalLabel.font = self.accountsTotalLabel.font.withSize(25)
+            self.availableBalanceLabel.isHidden = false
+            self.transferFundsButton.isHidden = false
+            self.payDayButton.isHidden = false
+        } else if total < 0.00 {
+            self.accountsTotalLabel.text = "\(formatNumberToString(fromDouble: total))"
+            self.accountsTotalLabel.textColor = .darkRed
+            self.accountsTotalLabel.textAlignment = .center
+            self.accountsTotalLabel.font = self.accountsTotalLabel.font.withSize(25)
+            self.availableBalanceLabel.isHidden = false
+            self.transferFundsButton.isHidden = false
+            self.payDayButton.isHidden = false
         }
     }
     

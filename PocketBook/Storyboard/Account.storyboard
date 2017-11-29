@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="343" y="-168"/>
         </scene>
-        <!--PlannedExpenses-->
+        <!--Instructions-->
         <scene sceneID="5L7-ol-bod">
             <objects>
-                <viewControllerPlaceholder storyboardName="PlannedExpenses" id="U1D-AB-uT6" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Instructions" id="U1D-AB-uT6" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S0P-Sh-t5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="343" y="-209"/>
@@ -393,6 +393,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="accountsTotalLabel" destination="hao-hK-UhP" id="Gdr-wZ-ItP"/>
+                        <outlet property="availableBalanceLabel" destination="uVl-Cn-abG" id="WTV-4B-Sf3"/>
                         <outlet property="depositButton" destination="LUY-6m-pQe" id="WmJ-pX-WzP"/>
                         <outlet property="fromPickerView" destination="WAM-S3-KhD" id="uu6-wN-oph"/>
                         <outlet property="incomeDetailCancelButton" destination="BUi-J7-PuA" id="ZPI-ld-0Ag"/>

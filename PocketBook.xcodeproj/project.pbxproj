@@ -56,6 +56,8 @@
 		F551BE8B1FCCDEA80000CFC5 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */; };
 		F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */; };
 		F56631381FCDFA8A0082FF70 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56631371FCDFA8A0082FF70 /* User.swift */; };
+		F566313A1FCF11730082FF70 /* Instructions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56631391FCF11720082FF70 /* Instructions.storyboard */; };
+		F566313C1FCF11F90082FF70 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F566313B1FCF11F90082FF70 /* InstructionsViewController.swift */; };
 		F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */; };
 		F5FF295D1FBE75880012AA24 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FF295C1FBE75880012AA24 /* UserController.swift */; };
 /* End PBXBuildFile section */
@@ -113,6 +115,8 @@
 		F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F56631371FCDFA8A0082FF70 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F56631391FCF11720082FF70 /* Instructions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Instructions.storyboard; sourceTree = "<group>"; };
+		F566313B1FCF11F90082FF70 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewCell.swift; path = "../View Controllers/CategoryTableViewCell.swift"; sourceTree = "<group>"; };
 		F5FF295C1FBE75880012AA24 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +190,7 @@
 				23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */,
 				D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */,
 				F551BE8A1FCCDEA80000CFC5 /* Onboarding.storyboard */,
+				F56631391FCF11720082FF70 /* Instructions.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 				F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */,
+				F566313B1FCF11F90082FF70 /* InstructionsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -361,6 +367,7 @@
 				D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */,
 				D38EF96A1FB218620035B5E3 /* MonthlyBudget.storyboard in Resources */,
 				D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */,
+				F566313A1FCF11730082FF70 /* Instructions.storyboard in Resources */,
 				D38EF96C1FB218620035B5E3 /* AccountDetails.storyboard in Resources */,
 				D38EF9691FB218620035B5E3 /* Analysis.storyboard in Resources */,
 				D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */,
@@ -398,6 +405,7 @@
 				D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */,
 				D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */,
 				23DD43271FB227ED008DCE5B /* Transaction.swift in Sources */,
+				F566313C1FCF11F90082FF70 /* InstructionsViewController.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
 				F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */,
