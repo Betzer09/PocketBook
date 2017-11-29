@@ -104,7 +104,9 @@
                             <outlet property="delegate" destination="a2R-a5-qV7" id="xlt-Cd-XHY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Transactions" id="mGg-sd-CfO"/>
+                    <navigationItem key="navigationItem" title="Transactions" id="mGg-sd-CfO">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="WIB-wt-5aD"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="picker" destination="yb3-92-19L" id="eW9-l5-PK8"/>
                         <outlet property="segmentedControl" destination="FkZ-U8-GW8" id="eWT-V8-6sx"/>

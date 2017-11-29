@@ -118,7 +118,9 @@
                             <outlet property="delegate" destination="XPD-kt-MPp" id="3pO-my-MuH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Savings Goals" id="Iad-FC-BqR"/>
+                    <navigationItem key="navigationItem" title="Savings Goals" id="Iad-FC-BqR">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="gVm-VR-3N4"/>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="amountLabel" destination="Byk-zx-5eK" id="apg-cx-Npo"/>
