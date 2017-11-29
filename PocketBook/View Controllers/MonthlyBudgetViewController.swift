@@ -110,13 +110,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         let alertController = UIAlertController(title: "Create A Budget Category", message: "Where is your money going? You may input a maximum of 16 categories. You have \(16 - numberOfBudgetItems) budget catories remaining.", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
-            textField.placeholder = "Name"
+            textField.placeholder = "ex: Gas, Rent, Food"
             textField.autocapitalizationType = .words
             nameTextField = textField
         }
         
         alertController.addTextField { (textField) in
-            textField.placeholder = "Amount"
+            textField.placeholder = "ex: 200"
             textField.keyboardType = .decimalPad
             amountTextField = textField
         }

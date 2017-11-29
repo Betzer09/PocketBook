@@ -384,8 +384,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eAT-kI-dVx"/>
                     </view>
+<<<<<<< HEAD
                     <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
                         <barButtonItem key="backBarButtonItem" title="Back" id="CtS-Rs-sT9"/>
+=======
+                    <navigationItem key="navigationItem" title="Account" id="eLI-yv-osM">
+>>>>>>> develop
                         <barButtonItem key="leftBarButtonItem" title="Item" image="questionMark" id="75E-Xf-M1O">
                             <connections>
                                 <segue destination="U1D-AB-uT6" kind="show" id="gzo-zo-n3i"/>
@@ -420,7 +424,7 @@
         <!--Navigation Controller-->
         <scene sceneID="amp-Ko-BKB">
             <objects>
-                <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="accountsIcon" id="npd-6P-2gB"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>

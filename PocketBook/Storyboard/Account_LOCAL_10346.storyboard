@@ -32,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="343" y="-209"/>
         </scene>
-        <!--Account-->
+        <!--Accounts-->
         <scene sceneID="DW4-Bc-dD5">
             <objects>
                 <viewController id="vla-F5-8dR" customClass="AccountListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -417,7 +417,7 @@
             </objects>
             <point key="canvasLocation" x="-459.4202898550725" y="-189.13043478260872"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Accounts-->
         <scene sceneID="amp-Ko-BKB">
             <objects>
                 <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">

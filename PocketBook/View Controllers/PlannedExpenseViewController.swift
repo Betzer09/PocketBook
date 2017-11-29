@@ -308,7 +308,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAccountPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelAccountPicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         txtAccountPicker.inputAccessoryView = toolbar
         txtAccountPicker.inputView = accountPickerView
     }
@@ -341,7 +341,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donedatePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelDatePicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         txtDatePicker.inputAccessoryView = toolbar
         txtDatePicker.inputView = dueDateDatePicker
         
