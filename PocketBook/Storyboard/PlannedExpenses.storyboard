@@ -119,6 +119,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="amountLabel" destination="Byk-zx-5eK" id="apg-cx-Npo"/>
+                        <outlet property="totalIdealMonthlyContributionLabel" destination="VKj-gO-Mmq" id="AgZ-nJ-W4R"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEe-no-QYR" userLabel="First Responder" sceneMemberID="firstResponder"/>

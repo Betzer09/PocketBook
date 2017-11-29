@@ -47,7 +47,12 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     var categories: [String] {
-        return getAllBudgetItemNames()
+        let categories = getAllBudgetItemNames()
+        if categories.count == 0 {
+            return [""]
+        } else {
+            return categories
+        }
     }
     
     // MARK: - Outlets
