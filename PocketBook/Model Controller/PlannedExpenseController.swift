@@ -124,7 +124,7 @@ class PlannedExpenseController {
     
     func removePlannedExpenseWith(plannedExpense: PlannedExpense, account: Account) {
         
-        guard let totalSaved = plannedExpense.totalSaved else {return}
+        let totalSaved = plannedExpense.totalDeposited
         account.total += totalSaved
         AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in}
         

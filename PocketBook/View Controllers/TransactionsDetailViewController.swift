@@ -131,8 +131,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                     accountTextField.text = transaction.account
                 }
                 
-                guard let plannedExpense = plannedExpenseTransaction,
-                    let plannedExpenseDouble = plannedExpense.totalSaved else { return }
+                guard let plannedExpense = plannedExpenseTransaction else { return }
+                    let plannedExpenseDouble = plannedExpense.totalDeposited
                 
                 let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
                 
