@@ -64,6 +64,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Setup UI
     func setUpUI() {
+        self.navigationController?.navigationBar.tintColor = .white
         setPickerDelegates()
         showDatePicker()
         showAccountPicker()
