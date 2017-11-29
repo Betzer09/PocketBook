@@ -65,14 +65,25 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCategoryVar()
+        configureNavigationBar()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.parent?.navigationItem.title = "Spending By Budget Category"
+        self.parent?.navigationItem.title = "Spending By Budget Category".uppercased()
         setUpPickerViews()
         super.viewWillAppear(animated)
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    // MARK: - Setup UI
+    func configureNavigationBar() {
+        guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
+        let attributes = [ NSAttributedStringKey.font: font,
+                           NSAttributedStringKey.foregroundColor : UIColor.white,
+                           ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = self.navigationItem.title?.uppercased()
     }
     
     // MARK: - Setup PickerViews

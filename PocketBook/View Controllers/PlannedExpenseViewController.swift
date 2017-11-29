@@ -49,9 +49,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     override func viewDidLoad() {
         super.viewDidLoad()
         if let plannedExpense = plannedExpense {
-            self.navigationItem.title = plannedExpense.name
+            self.navigationItem.title = plannedExpense.name.uppercased()
         } else {
-            self.navigationItem.title = "Create New Savings Goal"
+            self.navigationItem.title = "Create New Savings Goal".uppercased()
         }
        setUpUI()
     }

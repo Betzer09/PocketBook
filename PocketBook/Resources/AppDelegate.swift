@@ -38,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
+        
+        guard let font2 = UIFont(name: "Avenir Next", size: 14) else {return false}
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font2], for: .normal)
 
         return true
     }

@@ -20,6 +20,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         updateViews()
         createPlusButton()
         changeCalculatedContributionlabel()
+        configureNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +31,16 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     }
     
     //MARK: - Functions
+    
+    func configureNavigationBar() {
+        guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
+        let attributes = [ NSAttributedStringKey.font: font,
+                           NSAttributedStringKey.foregroundColor : UIColor.white,
+                           ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = self.navigationItem.title?.uppercased()
+    }
+    
     @objc func updateViews() {
         let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
         if totalMonthlyContribution <= 0.0 {
