@@ -325,7 +325,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissKeyboard))
      
-        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
+        toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         categoryTextField.inputAccessoryView = toolbar
         categoryTextField.inputView = categoryPicker
         
@@ -348,7 +348,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         dueDatePicker.datePickerMode = .date
         
-        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
+        toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         dateTextField.inputAccessoryView = toolbar
         dateTextField.inputView = dueDatePicker
     }
@@ -362,7 +362,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAccountPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(dismissKeyboard))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         accountTextField.inputAccessoryView = toolbar
         accountTextField.inputView = accountPicker
     }
