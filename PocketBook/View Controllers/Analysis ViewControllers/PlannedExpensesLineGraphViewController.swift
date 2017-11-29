@@ -62,13 +62,24 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         super.viewDidLoad()
         setUpPickerViews()
         setUpCategoryVar()
+        configureNavigationBar()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.parent?.navigationItem.title = "Savings Goal Tracking"
+        self.parent?.navigationItem.title = "Savings Goal Tracking".uppercased()
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    // MARK: - Setup UI
+    func configureNavigationBar() {
+        guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
+        let attributes = [ NSAttributedStringKey.font: font,
+                           NSAttributedStringKey.foregroundColor : UIColor.white,
+                           ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = self.navigationItem.title?.uppercased()
     }
     
     // MARK: - Setup PickerViews

@@ -39,13 +39,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        if transaction != nil {
-            self.navigationItem.title = "Transaction Details"
-        } else {
-            self.navigationItem.title = "Create New Transaction"
-        }
-        setPickerDelegates()
-        customizeSegmentedControl()
+       setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +49,22 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+    }
+    
+    // MARK: - Setup UI
+    func setUpUI() {
+        configureNavigationController()
+        setPickerDelegates()
+        customizeSegmentedControl()
+    }
+    
+    func configureNavigationController() {
+        self.navigationController?.navigationBar.tintColor = .white
+        if transaction != nil {
+            self.navigationItem.title = "Transaction Details".uppercased()
+        } else {
+            self.navigationItem.title = "Create New Transaction".uppercased()
+        }
     }
     
     // MARK: - Actions

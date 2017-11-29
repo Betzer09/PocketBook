@@ -53,15 +53,26 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         setUpPickerViews()
         setUpTimeFrameVar()
         view.setNeedsDisplay()
+        configureNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.parent?.navigationItem.title = "Total Spent by Budgeting Categories"
+        self.parent?.navigationItem.title = "Total Spent by Budgeting Categories".uppercased()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+    
+    // MARK: - Setup UI
+    func configureNavigationBar() {
+        guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
+        let attributes = [ NSAttributedStringKey.font: font,
+                           NSAttributedStringKey.foregroundColor : UIColor.white,
+                           ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = self.navigationItem.title?.uppercased()
     }
     
     // MARK: - Setup ViewPicker

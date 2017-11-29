@@ -45,8 +45,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -263,6 +261,17 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         projectedIncome = UserController.shared.user?.projectedIncome
         guard let projectedIncome = projectedIncome else {NSLog("There is no projected Income"); return}
         amountTextField.text = formatNumberToString(fromDouble: projectedIncome)
+        
+        configureNavigationBar()
+    }
+    
+    func configureNavigationBar() {
+        guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
+        let attributes = [ NSAttributedStringKey.font: font,
+                           NSAttributedStringKey.foregroundColor : UIColor.white,
+                           ]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = self.navigationItem.title?.uppercased()
     }
     
     func setUpDelegatesAndDataSources() {
