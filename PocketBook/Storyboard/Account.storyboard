@@ -22,7 +22,15 @@
                 <viewControllerPlaceholder storyboardName="AccountDetails" id="hrq-QD-CqU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMc-Qe-ejL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="403" y="-189"/>
+            <point key="canvasLocation" x="343" y="-168"/>
+        </scene>
+        <!--PlannedExpenses-->
+        <scene sceneID="5L7-ol-bod">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PlannedExpenses" id="U1D-AB-uT6" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S0P-Sh-t5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="343" y="-209"/>
         </scene>
         <!--Accounts-->
         <scene sceneID="DW4-Bc-dD5">
@@ -376,7 +384,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eAT-kI-dVx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM"/>
+                    <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="questionMark" id="75E-Xf-M1O">
+                            <connections>
+                                <segue destination="U1D-AB-uT6" kind="show" id="gzo-zo-n3i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="accountsTotalLabel" destination="hao-hK-UhP" id="Gdr-wZ-ItP"/>
                         <outlet property="depositButton" destination="LUY-6m-pQe" id="WmJ-pX-WzP"/>
@@ -431,7 +445,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accountsIcon" width="15" height="15"/>
+        <image name="accountsIcon" width="20" height="20"/>
         <image name="arrow" width="75" height="75"/>
+        <image name="questionMark" width="23" height="23"/>
     </resources>
 </document>
