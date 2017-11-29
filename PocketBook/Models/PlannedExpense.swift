@@ -21,14 +21,14 @@ class PlannedExpense {
     var amountDeposited: Double
     var amountWithdrawn: Double
     /// initial amount Plus the income for the planned expense -> income dictionary
-    var totalSaved: Double?
+    var totalDeposited: Double
     var monthlyTotals: [Double] = []
     
     // this is a special kind of transaction
     let transactionType: TransactionType = .plannedExpense
     
     // MARK: - Init
-    init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double, amountDeposited: Double = 0, amountWithdrawn: Double = 0) {
+    init(name: String, account: String, dueDate: Date, initialAmount: Double, goalAmount: Double, amountDeposited: Double = 0, amountWithdrawn: Double = 0, totalDeposited: Double = 0.0) {
         
         self.name = name
         self.account = account
@@ -37,7 +37,7 @@ class PlannedExpense {
         self.goalAmount = goalAmount
         self.amountDeposited = amountDeposited
         self.amountWithdrawn = amountWithdrawn
-        self.totalSaved = initialAmount 
+        self.totalDeposited = totalDeposited
         self.recordID = CKRecordID(recordName: UUID().uuidString)
         
     }
@@ -54,7 +54,7 @@ class PlannedExpense {
         record.setValue(goalAmount, forKey: Keys.goalAmountKey)
         record.setValue(amountDeposited, forKey: Keys.amountDepositedKey)
         record.setValue(amountWithdrawn, forKey: Keys.amountWithdrawnKey)
-        record.setValue(totalSaved, forKey: Keys.totalSavedKey)
+        record.setValue(totalDeposited, forKey: Keys.totalDepositedKey)
         
         return record
         
@@ -70,7 +70,7 @@ class PlannedExpense {
             let goalAmount = cloudKitRecord[Keys.goalAmountKey] as? Double,
             let amountDeposited = cloudKitRecord[Keys.amountDepositedKey] as? Double,
             let amountWithdrawn = cloudKitRecord[Keys.amountWithdrawnKey] as? Double,
-            let totalSaved = cloudKitRecord[Keys.totalSavedKey] as? Double else {return nil}
+            let totalDeposited = cloudKitRecord[Keys.totalDepositedKey] as? Double else {return nil}
         
         self.name = name
         self.account = account
@@ -79,7 +79,7 @@ class PlannedExpense {
         self.goalAmount = goalAmount
         self.amountDeposited = amountDeposited
         self.amountWithdrawn = amountWithdrawn
-        self.totalSaved = totalSaved
+        self.totalDeposited = totalDeposited
         self.recordID = cloudKitRecord.recordID
     }
 }

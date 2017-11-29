@@ -37,8 +37,7 @@ class PlannedExpenseController {
         
         var totalIdealContribution: Double = 0.0
         for plannedExpense in plannedExpenses {
-            guard let totalSaved = plannedExpense.totalSaved else { return 0.0 }
-            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, currentAmount: totalSaved),
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, currentAmount: (plannedExpense.initialAmount)),
                 let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return 0.0 }
             let monthlyContribution = (amountDifference / Double(calculatedMonthsToDueDate))
             totalIdealContribution += monthlyContribution
@@ -85,7 +84,7 @@ class PlannedExpenseController {
     
     
     // MARK: - Update an existing plannedExpense
-    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalSaved: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void) {
+    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void) {
         
         plannedExpense.name = name
         plannedExpense.account = account
@@ -93,7 +92,7 @@ class PlannedExpenseController {
         plannedExpense.goalAmount = goalAmount
         plannedExpense.amountDeposited = amountDeposited
         plannedExpense.amountWithdrawn = amountWithdrawn
-        plannedExpense.totalSaved = totalSaved
+        plannedExpense.totalDeposited = totalDeposited
         plannedExpense.dueDate = dueDate
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in

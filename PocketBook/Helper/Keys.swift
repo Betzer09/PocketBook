@@ -50,7 +50,7 @@ struct Keys {
     static let goalAmountKey = "goalAmount"
     /**/    static let amountDepositedKey = "amountDeposited"
     /**/    static let amountWithdrawnKey = "amountWithdrawn"
-    static let totalSavedKey = "totalSaved"
+    static let totalDepositedKey = "totalDeposited"
     
     // MARK: - Users Model Keys
     static let projectedIncomeKey = "projectedIncome"
