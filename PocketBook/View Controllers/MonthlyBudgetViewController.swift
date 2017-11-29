@@ -89,7 +89,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -253,7 +253,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         setUpDelegatesAndDataSources()
         createPlusButton()
-        configureViewsToLookLikeCells()
         
         // Update all three labels in the view below the budget items
         updatePlannedExpenseLabel()
@@ -272,24 +271,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
         amountTextField.delegate = self
-
-    }
-    
-    // This is to make the views look like cells
-    func configureViewsToLookLikeCells() {
-        self.plannedExpensesView.layer.borderWidth = 1
-        self.plannedExpensesView.layer.borderColor = UIColor.gray.cgColor
-
-        
-        self.totalBudgetedIncomeView.layer.borderWidth = 1
-        self.totalBudgetedIncomeView.layer.borderColor = UIColor.gray.cgColor
-
-        
-        self.incomeNotCurrentlyBudgetedView.layer.borderWidth = 1
-        self.incomeNotCurrentlyBudgetedView.layer.borderColor = UIColor.gray.cgColor
-        
-        self.projectedIncomeView.layer.borderWidth = 1
-        self.projectedIncomeView.layer.borderColor = UIColor.gray.cgColor
 
     }
     
