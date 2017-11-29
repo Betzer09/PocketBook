@@ -8,35 +8,41 @@
 
 import UIKit
 
+
+//>> Needs a cell delegate?? Or no? <<
+
 class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseTableViewCellDelegate {
     
     //MARK: - Outlets
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
+    //MARK: - Properties
+//    var plannedExpense: PlannedExpense? {
+//        didSet {
+//            if isViewLoaded { updateViews() }
+//        }
+//    }
+    
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
         createPlusButton()
-        changeCalculatedContributionlabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+        updateViews()
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
     //MARK: - Functions
-    @objc func updateViews() {
-        let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
-        if totalMonthlyContribution <= 0.0 {
-            amountLabel.text = "\("$0.00")"
-        } else {
-            amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
-        }
+    private func updateViews() {
+//        guard let plannedExpense = plannedExpense else { return }
+//         totalIdealMonthlyContributionLabel.text = plannedExpense
+        
     }
     
     func createPlusButton() {
@@ -67,40 +73,24 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plannedExpenseCell", for: indexPath) as? plannedExpenseTableViewCell else { return UITableViewCell() }
         
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
-        
+
         cell.plannedExpense = plannedExpense
         cell.delegate = self
         
         return cell
     }
-    
+
     // >>Ability to Delete Cells
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
-            PlannedExpenseController.shared.plannedExpenses.remove(at: indexPath.row)
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
-    // MARK: - Methods
-    
-    /// This function changes the calculatedContributionLabel text if there aren't any savings goals
-    @objc func changeCalculatedContributionlabel() {
-        if PlannedExpenseController.shared.plannedExpenses.count == 0 {
-            totalIdealMonthlyContributionLabel.text = "Let's create some savings goals!"
-            totalIdealMonthlyContributionLabel.textColor = .gray
-            totalIdealMonthlyContributionLabel.textAlignment = .center
-            amountLabel.isHidden = true
-        } else {
-            amountLabel.isHidden = false
-            totalIdealMonthlyContributionLabel.text = "Total Ideal Monthly Contribution:"
-            totalIdealMonthlyContributionLabel.textColor = .black
-            totalIdealMonthlyContributionLabel.textAlignment = .left
-        }
-    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

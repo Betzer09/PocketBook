@@ -26,17 +26,24 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         self.tableView.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+<<<<<<< HEAD
+=======
         NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+>>>>>>> develop
     }
     
     //MARK: - Functions
     @objc func updateViews() {
+<<<<<<< HEAD
+        amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+=======
         let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
         if totalMonthlyContribution <= 0.0 {
             amountLabel.text = "\("$0.00")"
         } else {
             amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
         }
+>>>>>>> develop
     }
     
     func createPlusButton() {
