@@ -17,32 +17,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Savings Goals-->
-        <scene sceneID="onz-Cm-KTS">
-            <objects>
-                <tableViewController id="XPD-kt-MPp" customClass="PlannedExpensesTableViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cSi-Bz-k7b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="XPD-kt-MPp" id="aT9-B5-7tB"/>
-                            <outlet property="delegate" destination="XPD-kt-MPp" id="3pO-my-MuH"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Savings Goals" id="Iad-FC-BqR">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="gVm-VR-3N4"/>
-                    </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="amountLabel" destination="Byk-zx-5eK" id="apg-cx-Npo"/>
-                        <outlet property="totalIdealMonthlyContributionLabel" destination="VKj-gO-Mmq" id="AgZ-nJ-W4R"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bEe-no-QYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1583" y="-974"/>
-        </scene>
         <!--PlannedExpensesDetailView-->
         <scene sceneID="285-ym-uhk">
             <objects>

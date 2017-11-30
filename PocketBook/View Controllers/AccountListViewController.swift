@@ -117,6 +117,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             self.payDayPickerView.reloadInputViews()
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
+            self.noDataImageSetup()
         }
     }
     

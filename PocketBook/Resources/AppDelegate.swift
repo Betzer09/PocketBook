@@ -39,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
         
+        UINavigationBar.appearance().barTintColor = UIColor(red: 4.0/255.0, green: 45.0/255.0, blue: 75.0/255.0, alpha: 1.0)
+        
         guard let font2 = UIFont(name: "Avenir Next", size: 14) else {return false}
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font2], for: .normal)
 
