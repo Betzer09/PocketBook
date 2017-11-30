@@ -549,11 +549,21 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryNameToReturn , payee: payeeToReturn, transactionType: typeString, amount: amountToSave, account: accountNameToReturn, completion: { (transaction) in
             
+            // This creates a planned Expense Transaction
             if self.plannedExpenseTransaction != nil {
+                // Set the type of transaction
                 transaction.transactionType = TransactionType.plannedExpense.rawValue
+                // Updates the transactions type
                 TransactionController.shared.updateTransactionWith(transaction: transaction, date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: transaction.transactionType, amount: transaction.amount, account: transaction.account, completion: { (_) in })
+                // Now we want to remove the planned Expense and keep it as a normal planned expense transaction instead of a planned expense
+                guard let plannedExpense = self.plannedExpenseTransaction else {return}
+                PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
+                
+                // Now we need to remove it from the array of planned expenses
+                guard let plannedExpenseIndex = PlannedExpenseController.shared.plannedExpenses.index(of: plannedExpense) else {NSLog("Coudn't find Planned Expense to remove") ;return}
+                PlannedExpenseController.shared.plannedExpenses.remove(at: plannedExpenseIndex)
             }
-            
+            // This will create a normal transaction
             BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
         })
         
