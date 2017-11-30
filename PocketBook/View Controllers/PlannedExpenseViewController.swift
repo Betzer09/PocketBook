@@ -149,11 +149,11 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
                 let name = nameTextField.text, !name.isEmpty else {return}
             
             guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
-                goalAmountTextField.backgroundColor = UIColor.red
+                goalAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
             guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
-                initialAmountTextField.backgroundColor = UIColor.red
+                initialAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
@@ -166,18 +166,18 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             // Create
             
             guard let name = nameTextField.text, let account = txtAccountPicker.text, !name.isEmpty, !account.isEmpty else {
-                if nameTextField.text == "" {nameTextField.backgroundColor = UIColor.red}
-                if txtAccountPicker.text == "" {txtAccountPicker.backgroundColor = UIColor.red}
+                if nameTextField.text == "" {nameTextField.backgroundColor = UIColor.lightPink}
+                if txtAccountPicker.text == "" {txtAccountPicker.backgroundColor = UIColor.lightPink}
                 return
             }
             
             guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
-                goalAmountTextField.backgroundColor = UIColor.red
+                goalAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
             guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
-                initialAmountTextField.backgroundColor = UIColor.red
+                initialAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
