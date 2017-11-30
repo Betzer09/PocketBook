@@ -11,61 +11,12 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--Transactions-->
-        <scene sceneID="Q8k-Nj-Osh">
-            <objects>
-                <tableViewController storyboardIdentifier="transactionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a2R-a5-qV7" customClass="TransactionTableViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hvf-Rc-75B">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="PlH-nB-SeR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
-                        <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="990-It-dnx">
-                            <rect key="frame" x="0.0" y="180" width="375" height="128"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </tableView>
-                        <connections>
-                            <outlet property="dataSource" destination="a2R-a5-qV7" id="ktQ-Ec-WMX"/>
-                            <outlet property="delegate" destination="a2R-a5-qV7" id="xlt-Cd-XHY"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Transactions" id="mGg-sd-CfO">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="WIB-wt-5aD"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="picker" destination="yb3-92-19L" id="eW9-l5-PK8"/>
-                        <outlet property="segmentedControl" destination="FkZ-U8-GW8" id="eWT-V8-6sx"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OcO-HC-WQ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationBar contentMode="scaleToFill" id="7Jh-Pd-x13">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <items>
-                        <navigationItem id="vo0-9H-i7s">
-                            <nil key="title"/>
-                            <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="oVc-T9-ydh">
-                                <rect key="frame" x="78.5" y="7.5" width="218" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="All"/>
-                                    <segment title="Expenses"/>
-                                    <segment title="Incomes"/>
-                                </segments>
-                            </segmentedControl>
-                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="CZf-f1-dKX"/>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
-            </objects>
-            <point key="canvasLocation" x="135" y="-280"/>
-        </scene>
         <!--TransactionsDetailView-->
         <scene sceneID="8Oo-ri-Hyh">
             <objects>
@@ -97,7 +48,6 @@
                                         </segments>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <action selector="SegmentedControlButtonPressed:" destination="a2R-a5-qV7" eventType="valueChanged" id="Z8H-6Z-lsG"/>
                                             <action selector="SegmentedControlButtonPressed:" destination="LxR-UK-5Rk" eventType="valueChanged" id="rph-VN-LVF"/>
                                         </connections>
                                     </segmentedControl>
@@ -128,20 +78,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Payee Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adh-iB-pNW" userLabel="Payee Label">
-                                                    <rect key="frame" x="14" y="5" width="87.5" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="14" y="5" width="82" height="21"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-FD-UiH" userLabel="Date Label">
-                                                    <rect key="frame" x="14" y="33.5" width="69.5" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="14" y="33.5" width="69" height="21"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcc-Ti-Gg2" userLabel="Amount Label">
-                                                    <rect key="frame" x="268" y="19.5" width="106" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="264.5" y="18.5" width="109.5" height="23.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
