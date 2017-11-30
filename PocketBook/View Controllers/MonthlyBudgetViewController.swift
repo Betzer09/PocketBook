@@ -12,19 +12,24 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Outlets
     @IBOutlet weak var categoryTableView: UITableView!
+    
     @IBOutlet weak var amountTextField: UITextField!
+    
     @IBOutlet weak var plannedExpenseTotalLabel: UILabel!
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
+    
     @IBOutlet weak var superView: UIView!
-    @IBOutlet weak var pieChartView: PieChartView!
-    @IBOutlet weak var whiteCircle: PieChartView!
     @IBOutlet weak var legendView: UIView!
     @IBOutlet weak var plannedExpensesView: UIView!
     @IBOutlet weak var projectedIncomeView: UIView!
     @IBOutlet weak var totalBudgetedIncomeView: UIView!
     @IBOutlet weak var incomeNotCurrentlyBudgetedView: UIView!
     
+    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var whiteCircle: PieChartView!
+    
+    @IBOutlet weak var noDataImage: UIImageView!
     
     // MARK: - Properties
     var projectedIncome: Double?
@@ -45,12 +50,22 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
+        noDataImageSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         reloadCategoryTableView()
+    }
+    
+    func noDataImageSetup() {
+        let budgetItems = BudgetItemController.shared.budgetItems
+        if budgetItems.count == 0 {
+            noDataImage.isHidden = false
+        } else {
+            noDataImage.isHidden = true
+        }
     }
     
     // MARK: - Actions
@@ -139,6 +154,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
                 }
             }
             BudgetItemController.shared.createBudgetItemWith(name: name, spentTotal: 0, allottedAmount: allottedAmount, completion: nil)
+            self.noDataImageSetup()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

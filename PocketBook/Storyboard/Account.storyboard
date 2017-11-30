@@ -32,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="343" y="-209"/>
         </scene>
-        <!--Account-->
+        <!--Accounts-->
         <scene sceneID="DW4-Bc-dD5">
             <objects>
                 <viewController id="vla-F5-8dR" customClass="AccountListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -361,6 +361,10 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="accounts_empty_state_screen_1024" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-bL-iJi">
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <color key="backgroundColor" red="0.6103445291519165" green="0.7420918345451355" blue="0.88695830106735229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -369,15 +373,19 @@
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="bottom" constant="-55" id="3T8-EW-qu9"/>
                             <constraint firstItem="fnQ-QE-6Te" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="bottom" constant="7" id="4XD-iP-lqr"/>
                             <constraint firstItem="1Zk-6j-btM" firstAttribute="width" secondItem="eAT-kI-dVx" secondAttribute="width" id="Cvu-dU-nvI"/>
+                            <constraint firstItem="eAT-kI-dVx" firstAttribute="bottom" secondItem="NM0-bL-iJi" secondAttribute="bottom" id="G5k-UV-SC8"/>
                             <constraint firstItem="fnQ-QE-6Te" firstAttribute="width" secondItem="eAT-kI-dVx" secondAttribute="width" id="K1r-nK-bA4"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="trailing" secondItem="eAT-kI-dVx" secondAttribute="trailing" id="Lui-h4-nIm"/>
                             <constraint firstItem="F9T-JD-7ar" firstAttribute="width" secondItem="qZi-cL-IOG" secondAttribute="width" multiplier="0.8" id="Na9-EW-ce7"/>
                             <constraint firstItem="F9T-JD-7ar" firstAttribute="centerX" secondItem="eAT-kI-dVx" secondAttribute="centerX" id="SSX-is-E8x"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="bottom" secondItem="15v-U6-hPc" secondAttribute="bottom" constant="10" id="Vcx-bp-3zv"/>
+                            <constraint firstItem="NM0-bL-iJi" firstAttribute="top" secondItem="eAT-kI-dVx" secondAttribute="top" id="YGR-ZJ-EUi"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="top" secondItem="fnQ-QE-6Te" secondAttribute="bottom" constant="8" id="a22-Od-fSg"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="leading" secondItem="eAT-kI-dVx" secondAttribute="leading" id="c2E-hg-zoK"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="trailing" secondItem="15v-U6-hPc" secondAttribute="trailing" constant="5" id="dUZ-aC-u55"/>
                             <constraint firstItem="15v-U6-hPc" firstAttribute="leading" secondItem="eAT-kI-dVx" secondAttribute="leading" constant="5" id="jhD-Vv-tQZ"/>
+                            <constraint firstItem="eAT-kI-dVx" firstAttribute="trailing" secondItem="NM0-bL-iJi" secondAttribute="trailing" id="kmz-Sx-fRQ"/>
+                            <constraint firstItem="NM0-bL-iJi" firstAttribute="leading" secondItem="eAT-kI-dVx" secondAttribute="leading" id="olt-i2-ZlO"/>
                             <constraint firstItem="1Zk-6j-btM" firstAttribute="centerX" secondItem="eAT-kI-dVx" secondAttribute="centerX" id="oy1-XL-c5C"/>
                             <constraint firstItem="fnQ-QE-6Te" firstAttribute="centerX" secondItem="eAT-kI-dVx" secondAttribute="centerX" id="rSw-cl-iFU"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="centerX" secondItem="eAT-kI-dVx" secondAttribute="centerX" id="wiy-dX-3dh"/>
@@ -400,6 +408,7 @@
                         <outlet property="incomeDetailCancelButton" destination="BUi-J7-PuA" id="ZPI-ld-0Ag"/>
                         <outlet property="incomeDetailView" destination="pCf-qz-5tX" id="WpL-0L-zEs"/>
                         <outlet property="incomeDetailsLabel" destination="FBa-6O-02y" id="yQl-ls-VQy"/>
+                        <outlet property="noDataImage" destination="NM0-bL-iJi" id="ECi-y2-I0K"/>
                         <outlet property="payDayAmountTextField" destination="hVr-hX-hqf" id="iuL-10-smO"/>
                         <outlet property="payDayButton" destination="a20-Ub-HyC" id="zBm-73-xTm"/>
                         <outlet property="payDayPickerView" destination="XJS-wn-zRY" id="6Y5-HW-xtM"/>
@@ -417,7 +426,7 @@
             </objects>
             <point key="canvasLocation" x="-459.4202898550725" y="-189.13043478260872"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Accounts-->
         <scene sceneID="amp-Ko-BKB">
             <objects>
                 <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
@@ -449,6 +458,7 @@
     </scenes>
     <resources>
         <image name="accountsIcon" width="20" height="20"/>
+        <image name="accounts_empty_state_screen_1024" width="576" height="1024"/>
         <image name="arrow" width="75" height="75"/>
         <image name="questionMark" width="23" height="23"/>
     </resources>

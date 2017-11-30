@@ -61,13 +61,14 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPickerViews()
-        setUpCategoryVar()
+        
         configureNavigationBar()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpCategoryVar()
         self.parent?.navigationItem.title = "Savings Goal Tracking".uppercased()
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
     }
