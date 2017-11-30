@@ -86,11 +86,7 @@
                                         <rect key="frame" x="255.5" y="10.5" width="92.5" height="21"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
-<<<<<<< HEAD
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="decimalPad" returnKeyType="done"/>
-=======
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
->>>>>>> develop
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Projected Income" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MpU-Ug-qZw">
                                         <rect key="frame" x="8" y="9.5" width="144" height="23.5"/>
@@ -283,6 +279,10 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="budget_items_empty_state_screen_1024" translatesAutoresizingMaskIntoConstraints="NO" id="CIy-Lg-jiW">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" red="0.30009937286376953" green="0.49462205171585083" blue="0.76382464170455933" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -293,19 +293,25 @@
                             <constraint firstItem="nhe-IF-PVu" firstAttribute="bottom" secondItem="v7n-2p-S01" secondAttribute="bottom" id="C1g-eI-Mkr"/>
                             <constraint firstItem="YtF-jv-d0C" firstAttribute="top" secondItem="3xL-vg-YrL" secondAttribute="bottom" id="HSU-jH-ZnM"/>
                             <constraint firstItem="v7n-2p-S01" firstAttribute="height" secondItem="YtF-jv-d0C" secondAttribute="height" multiplier="1/2" id="IcY-yS-xMh"/>
+                            <constraint firstItem="nhe-IF-PVu" firstAttribute="trailing" secondItem="CIy-Lg-jiW" secondAttribute="trailing" id="O2e-gN-puc"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" multiplier="0.96" id="SRO-dO-y9K"/>
                             <constraint firstItem="Nhh-Rl-UE2" firstAttribute="top" secondItem="nhe-IF-PVu" secondAttribute="top" id="UbW-il-cRG"/>
                             <constraint firstItem="Nhh-Rl-UE2" firstAttribute="height" secondItem="qbM-lM-3HB" secondAttribute="height" multiplier="0.25" id="Uxp-GQ-AN3"/>
                             <constraint firstItem="v7n-2p-S01" firstAttribute="top" secondItem="YtF-jv-d0C" secondAttribute="bottom" id="bWs-7R-QB0"/>
                             <constraint firstItem="YtF-jv-d0C" firstAttribute="width" secondItem="qbM-lM-3HB" secondAttribute="width" multiplier="0.96" id="dXh-mc-iHH"/>
+                            <constraint firstItem="nhe-IF-PVu" firstAttribute="bottom" secondItem="CIy-Lg-jiW" secondAttribute="bottom" id="g2n-1U-8zy"/>
+                            <constraint firstItem="CIy-Lg-jiW" firstAttribute="leading" secondItem="nhe-IF-PVu" secondAttribute="leading" id="hRU-Ag-DRQ"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="centerX" secondItem="qbM-lM-3HB" secondAttribute="centerX" id="j8z-dG-ybB"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="top" secondItem="Nhh-Rl-UE2" secondAttribute="bottom" constant="-0.5" id="jHJ-RB-WC7"/>
                             <constraint firstItem="3xL-vg-YrL" firstAttribute="height" secondItem="Nhh-Rl-UE2" secondAttribute="height" multiplier="1/4" id="ki8-U3-0JJ"/>
                             <constraint firstItem="Nhh-Rl-UE2" firstAttribute="centerX" secondItem="qbM-lM-3HB" secondAttribute="centerX" id="nQS-9V-8g3"/>
+                            <constraint firstItem="CIy-Lg-jiW" firstAttribute="top" secondItem="nhe-IF-PVu" secondAttribute="top" id="wbb-Ay-eOe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nhe-IF-PVu"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="monthlyBudgetIcon" id="hLa-MI-VYn"/>
+                    <tabBarItem key="tabBarItem" title="" image="monthlyBudgetIcon" id="hLa-MI-VYn">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="MONTHLY BUDGET" id="jbG-cf-NOp"/>
                     <connections>
                         <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
@@ -313,6 +319,7 @@
                         <outlet property="incomeNotCurrentlyBudgetLabel" destination="AaX-dQ-li4" id="YbT-gv-PDL"/>
                         <outlet property="incomeNotCurrentlyBudgetedView" destination="4Ks-IO-gxk" id="UqD-To-LsE"/>
                         <outlet property="legendView" destination="lUB-63-ntz" id="cJG-gG-BE1"/>
+                        <outlet property="noDataImage" destination="CIy-Lg-jiW" id="oDQ-q0-kjV"/>
                         <outlet property="pieChartView" destination="9VW-0y-fKM" id="bue-Rl-yli"/>
                         <outlet property="plannedExpenseTotalLabel" destination="9Oh-zf-c1r" id="uCm-NQ-NUf"/>
                         <outlet property="plannedExpensesView" destination="55k-NO-Kkx" id="0NN-QM-97L"/>
@@ -352,6 +359,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="budget_items_empty_state_screen_1024" width="576" height="1024"/>
+<<<<<<< HEAD
+        <image name="monthlyBudgetIcon" width="34" height="35"/>
+=======
         <image name="monthlyBudgetIcon" width="29" height="30"/>
+>>>>>>> develop
     </resources>
 </document>
