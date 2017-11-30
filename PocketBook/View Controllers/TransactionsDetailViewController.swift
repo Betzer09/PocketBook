@@ -74,7 +74,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         guard let navController = parent as? UINavigationController,
             let tabBarController = navController.parent as? UITabBarController else { return }
         
-        tabBarController.selectedIndex = 2git 
+        tabBarController.selectedIndex = 2
         saveTransaction()
 
     }
