@@ -140,7 +140,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             
             guard let name = nameTextField.text, let allottedAmount = Double(amountTextField.text!) else {
                 // In case they don't enter anything into the textfield
-                presentSimpleAlert(controllerToPresentAlert: self, title: "Oops we are missing information!", message: "Okay")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "Both fields are required!")
                 self.createBudgetItemAlert()
                 return
             }

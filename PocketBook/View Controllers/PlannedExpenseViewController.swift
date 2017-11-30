@@ -146,14 +146,14 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         if plannedExpense != nil {
             // Update
             guard let plannedExpense = plannedExpense,
-                let name = nameTextField.text else {return}
+                let name = nameTextField.text, !name.isEmpty else {return}
             
-            guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
-                initialAmountTextField.backgroundColor = UIColor.red
+            guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
+                goalAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
-            guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
-                goalAmountTextField.backgroundColor = UIColor.red
+            guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
+                initialAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
@@ -165,18 +165,23 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         } else {
             // Create
             
-            guard let name = nameTextField.text else {return}
+            guard let name = nameTextField.text, let account = txtAccountPicker.text, !name.isEmpty, !account.isEmpty else {
+                if nameTextField.text == "" {nameTextField.backgroundColor = UIColor.lightPink}
+                if txtAccountPicker.text == "" {txtAccountPicker.backgroundColor = UIColor.lightPink}
+                return
+            }
+            
+            guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
+                goalAmountTextField.backgroundColor = UIColor.lightPink
+                return
+            }
             
             guard let initialAmount = Double(removeCharactersFromTextField(initialAmountTextField)) else {
-                initialAmountTextField.backgroundColor = UIColor.red
-                return
-            }
-            guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
-                goalAmountTextField.backgroundColor = UIColor.red
+                initialAmountTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
-            let account = AccountController.shared.accounts[ accountPickerView.selectedRow(inComponent: 0)].name
+
             PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: returnFormattedDate(date: dueDateDatePicker.date), completion: nil)
         }
         
@@ -315,18 +320,24 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @objc func doneAccountPicker() {
         
+        let count = AccountController.shared.accounts.count
+        
+        if count < 1 {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "You need to add a Checking or Savings account before you can spend money")
+            return
+        }
+        
         let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
         txtAccountPicker.text = account.name
         self.view.endEditing(true)
+
     }
     
     @objc func cancelAccountPicker() {
         self.view.endEditing(true)
     }
     
-    //MARK: - DATE PICKER
-    /*NOTE - if we want to make the PICKER to be month & year only, it has to be a custom picker, not a date picker*/
-    
+    // MARK: - Date Picker
     func showDatePicker(){
         if plannedExpense == nil {
             dueDateDatePicker.date = Date()
