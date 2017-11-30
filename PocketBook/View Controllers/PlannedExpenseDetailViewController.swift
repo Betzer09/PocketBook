@@ -196,6 +196,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         }
         
         navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
     }
     
     @IBAction func depositButtonTapped(_ sender: Any) {
