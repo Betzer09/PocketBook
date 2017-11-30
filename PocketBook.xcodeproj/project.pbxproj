@@ -559,11 +559,11 @@
 				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8DW5AUV6DX;
+				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MeyersPocketBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AustinPocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_REFLECTION_METADATA_LEVEL = none;
@@ -579,11 +579,11 @@
 				CODE_SIGN_ENTITLEMENTS = PocketBook/PocketBook.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8DW5AUV6DX;
+				DEVELOPMENT_TEAM = RE524LJXV2;
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MeyersPocketBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AustinPocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_REFLECTION_METADATA_LEVEL = none;

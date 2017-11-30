@@ -98,6 +98,7 @@
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="SegmentedControlButtonPressed:" destination="a2R-a5-qV7" eventType="valueChanged" id="Z8H-6Z-lsG"/>
+                                            <action selector="SegmentedControlButtonPressed:" destination="LxR-UK-5Rk" eventType="valueChanged" id="rph-VN-LVF"/>
                                         </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
