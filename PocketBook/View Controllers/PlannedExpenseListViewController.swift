@@ -61,10 +61,13 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     @objc func updateViews() {
         let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
-        if totalMonthlyContribution <= 0.0 {
-            amountLabel.text = "\("$0.00")"
-        } else {
-            amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
+        DispatchQueue.main.async {
+            if totalMonthlyContribution <= 0.0 {
+                self.amountLabel.text = "\("$0.00")"
+                
+            } else {
+                self.amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
+            }
         }
     }
     
@@ -118,10 +121,12 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     /// This function changes the calculatedContributionLabel text if there aren't any savings goals
     @objc func changeCalculatedContributionlabel() {
-            amountLabel.isHidden = false
-            totalIdealMonthlyContributionLabel.text = "Total Ideal Monthly Contribution:"
-            totalIdealMonthlyContributionLabel.textColor = .black
-            totalIdealMonthlyContributionLabel.textAlignment = .left
+        DispatchQueue.main.async {
+            self.amountLabel.isHidden = false
+            self.totalIdealMonthlyContributionLabel.text = "Total Ideal Monthly Contribution:"
+            self.totalIdealMonthlyContributionLabel.textColor = .black
+            self.totalIdealMonthlyContributionLabel.textAlignment = .left
+        }
     }
     
     // MARK: - Navigation
