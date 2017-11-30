@@ -35,6 +35,7 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
     // MARK: - Customize Segmented Control
     func customizeSegmentedControl() {
         accountTypeSegmentedControl.customizeSegmentedControl()
+
     }
     
     // MARK: - Properites
