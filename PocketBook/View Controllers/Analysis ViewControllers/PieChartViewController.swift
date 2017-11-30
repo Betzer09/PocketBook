@@ -35,12 +35,13 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     // MARK: - Outlets
+    @IBOutlet weak var pickerView: UIView!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var legendView: UIView!
     @IBOutlet weak var timeFramePickerView: UIPickerView!
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var whiteCircle: PieChartView!
-    
+    @IBOutlet weak var noDataImageView: UIImageView!
     
     // MARK: - Actions
 
@@ -48,7 +49,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         PieChartView.shared.createLegendView(fromView: legendView)
         setUpPickerViews()
         setUpTimeFrameVar()
@@ -58,6 +58,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        noDataImageSetup()
         self.parent?.navigationItem.title = "Total Spent by Budgeting Categories".uppercased()
     }
     
@@ -73,6 +74,16 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title?.uppercased()
+    }
+    
+    func noDataImageSetup() {
+        let budgetItems = getAllBudgetItemNames()
+        let transactions = TransactionController.shared.transactions
+        if transactions.count == 0 || budgetItems.count == 0 {
+            noDataImageView.isHidden = false
+        } else {
+            noDataImageView.isHidden = true
+        }
     }
     
     // MARK: - Setup ViewPicker
@@ -101,7 +112,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     // MARK: - Setup Vars and Reload Functions
     func setUpTimeFrameVar() {
-        timeFrame = timeFrames[0]
+        timeFrame = TimeFrame.pastYear.rawValue
     }
 
 }

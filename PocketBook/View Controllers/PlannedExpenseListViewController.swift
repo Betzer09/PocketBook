@@ -1,22 +1,27 @@
 //
-//  PlannedExpensesTableViewController.swift
+//  PlannedExpenseListViewController.swift
 //  PocketBook
 //
-//  Created by Laura O'Brien on 11/6/17.
+//  Created by Michael Meyers on 11/30/17.
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
 
 import UIKit
 
-class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseTableViewCellDelegate {
+class PlannedExpenseListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PlannedExpenseTableViewCellDelegate {
+
     
     //MARK: - Outlets
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var totalIdealMonthlyContributionLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var noDataImage: UIImageView!
     
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDelegates()
         updateViews()
         createPlusButton()
         changeCalculatedContributionlabel()
@@ -24,13 +29,26 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
-        
+        tableView.reloadData()
+        noDataImageSetup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
     }
     
     //MARK: - Functions
+    func noDataImageSetup() {
+        let plannedExpense = PlannedExpenseController.shared.plannedExpenses
+        if plannedExpense.count == 0 {
+            noDataImage.isHidden = false
+        } else {
+            noDataImage.isHidden = true
+        }
+    }
+    
+    func setDelegates() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
     
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
@@ -65,16 +83,16 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return PlannedExpenseController.shared.plannedExpenses.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 100.0;
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "plannedExpenseCell", for: indexPath) as? plannedExpenseTableViewCell else { return UITableViewCell() }
         
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
@@ -86,7 +104,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     }
     
     // >>Ability to Delete Cells
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
@@ -114,5 +132,5 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
             destinationVC.plannedExpense = plannedExpense
         }
     }
-}
 
+}

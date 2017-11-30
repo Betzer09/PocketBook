@@ -35,6 +35,7 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
     // MARK: - Customize Segmented Control
     func customizeSegmentedControl() {
         accountTypeSegmentedControl.customizeSegmentedControl()
+
     }
     
     // MARK: - Properites
@@ -281,12 +282,14 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
         if account != nil {
             guard let name = nameTextField.text, let account = account, !name.isEmpty else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You need to give your account a name.")
+                nameTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
             let total: String = removeCharactersFromTextField(totalTextField)
             guard let returnTotal = Double(total) else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
+                totalTextField.backgroundColor = UIColor.lightPink
                 return
             }
             
@@ -300,6 +303,7 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
                 
                 // Alert the user that they must put something in the fields
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Make sure to fill all fields!")
+                nameTextField.backgroundColor = UIColor.lightPink
                 return
                 
             }
@@ -307,6 +311,7 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
             if let stringTotal = totalTextField.text {
                 guard let total = Double(stringTotal) else {
                     presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid total.")
+                    totalTextField.backgroundColor = UIColor.lightPink
                     return
                 }
                 
@@ -333,63 +338,4 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
             return 2
         }
     }
-    
-    // MARK: - Alert Controller
-//    func presentTransferAlert() {
-//        guard let accountVC = self.account else {return}
-//        let name = accountVC.name
-//        var amountTextField = UITextField()
-//        let alertController = UIAlertController(title: "Transfer Funds", message: "From: \(name) \nTo:", preferredStyle: .alert)
-//
-//        alertController.addTextField { (textfield) in
-//            textfield.placeholder = "Enter Amount to Transfer"
-//            // Add logic so they can only add nubmers
-//            amountTextField = textfield
-//        }
-//
-//        var accounts = AccountController.shared.accounts
-//        var count = 0
-//        for account in accounts {
-//            if account.name == name {
-//                accounts.remove(at: count)
-//            }
-//            count += 1
-//        }
-//        for account in accounts {
-//            let action = UIAlertAction(title: account.name, style: .default, handler: { (_) in
-//                guard let amountString = (amountTextField.text), amountString != "",
-//                    let amount = Double(amountString) else {return}
-//                accountVC.total = amount
-//                AccountController.shared.updateAccountWith(name: name, type: accountVC.accountType, total: accountVC.total, account: accountVC, completion: { (account) in
-//                    //NOTHING
-//                })
-//                self.setUpUI()
-//
-//                account.total += amount
-//            })
-//            alertController.addAction(action)
-//        }
-//
-//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        alertController.addAction(cancel)
-//
-//        self.present(alertController, animated: true, completion: nil)
-//
-//    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

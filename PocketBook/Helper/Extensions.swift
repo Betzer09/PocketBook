@@ -12,9 +12,29 @@ import UIKit
 // MARK: - Customize Segmented Control
 extension UISegmentedControl{
     func customizeSegmentedControl() {
-        setBackgroundImage(imageWithColor(color: .lightGray), for: .normal, barMetrics: .default)
-        setBackgroundImage(imageWithColor(color: .darkGray), for: .selected, barMetrics: .default)
+        setBackgroundImage(imageWithColor(color: .lightGray), for: .selected, barMetrics: .default)
+        setBackgroundImage(imageWithColor(color: .charcoal), for: .normal, barMetrics: .default)
         setDividerImage(imageWithColor(color: UIColor.clear), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        
+        guard let avenirFont = UIFont(name: "Avenir Next", size: 12.0) else {NSLog("Coundn't find Avenir Next font: \(#file)"); return}
+
+        let attr = NSDictionary(object: avenirFont, forKey: NSAttributedStringKey.font as NSCopying)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
+        
+        let selected: NSDictionary = [
+            NSAttributedStringKey.foregroundColor: UIColor.black,
+            NSAttributedStringKey.font: avenirFont
+        ]
+        
+        let notSelected: NSDictionary = [
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.font: avenirFont
+        ]
+
+        setTitleTextAttributes(selected as [NSObject : AnyObject], for: .selected)
+        setTitleTextAttributes(notSelected as [NSObject : AnyObject], for: .normal)
+
+        
     }
     
     // Create a 1x1 image with this color
@@ -30,4 +50,6 @@ extension UISegmentedControl{
         UIGraphicsEndImageContext()
         return image!
     }
+    
+    
 }

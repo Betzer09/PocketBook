@@ -48,6 +48,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var transferMoneyLabel: UILabel!
     @IBOutlet weak var availableBalanceLabel: UILabel!
     
+    @IBOutlet weak var noDataImage: UIImageView!
+    
     // MARK: - View LifeCyles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +62,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         DispatchQueue.main.async {
             self.updateArrays()
             self.reloadTableView()
+            self.noDataImageSetup()
         }
-
         setUpTransferFundsView()
     }
     
@@ -78,6 +80,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         createPlusButton()
         roundButtons()
         configureNavigationBar()
+    }
+    
+    func noDataImageSetup() {
+        let accounts = AccountController.shared.accounts
+        if accounts.count == 0 {
+            noDataImage.isHidden = false
+        } else {
+            noDataImage.isHidden = true
+        }
     }
     
     func configureNavigationBar() {

@@ -64,12 +64,13 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpCategoryVar()
+        
         configureNavigationBar()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setUpCategoryVar()
         self.parent?.navigationItem.title = "Spending By Budget Category".uppercased()
         setUpPickerViews()
         super.viewWillAppear(animated)

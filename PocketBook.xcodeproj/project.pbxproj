@@ -35,6 +35,8 @@
 		92993C871FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C861FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift */; };
 		92993C891FB4C58300D22373 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C881FB4C58300D22373 /* Keys.swift */; };
 		92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92993C8A1FB4E1FA00D22373 /* Notifications.swift */; };
+		92B122B21FCF8D3E003E4ECF /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B122B11FCF8D3E003E4ECF /* TransactionListViewController.swift */; };
+		92B122B41FD05620003E4ECF /* PlannedExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B122B31FD05620003E4ECF /* PlannedExpenseListViewController.swift */; };
 		92E6603F1FB5531500D871BE /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E6603E1FB5531500D871BE /* Test.swift */; };
 		D314F1301FB379A70051C5BE /* OverviewTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */; };
 		D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */; };
@@ -94,6 +96,8 @@
 		92993C861FB4C46B00D22373 /* PlannedExpensesLineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesLineGraphViewController.swift; sourceTree = "<group>"; };
 		92993C881FB4C58300D22373 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		92993C8A1FB4E1FA00D22373 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		92B122B11FCF8D3E003E4ECF /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
+		92B122B31FD05620003E4ECF /* PlannedExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpenseListViewController.swift; sourceTree = "<group>"; };
 		92E6603E1FB5531500D871BE /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OverviewTabBar.storyboard; sourceTree = "<group>"; };
 		D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 				F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */,
 				F566313B1FCF11F90082FF70 /* InstructionsViewController.swift */,
+				92B122B11FCF8D3E003E4ECF /* TransactionListViewController.swift */,
+				92B122B31FD05620003E4ECF /* PlannedExpenseListViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -409,9 +415,11 @@
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
 				F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */,
+				92B122B41FD05620003E4ECF /* PlannedExpenseListViewController.swift in Sources */,
 				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
 				F5FF295D1FBE75880012AA24 /* UserController.swift in Sources */,
 				9291F09C1FBA1AD700114CD1 /* Functions.swift in Sources */,
+				92B122B21FCF8D3E003E4ECF /* TransactionListViewController.swift in Sources */,
 				23DD433C1FB259DA008DCE5B /* TransactionContoller.swift in Sources */,
 				23DD432B1FB22AD7008DCE5B /* PlannedExpense.swift in Sources */,
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
@@ -555,12 +563,12 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AustinPocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -575,12 +583,12 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AustinPocketBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

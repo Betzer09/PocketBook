@@ -575,7 +575,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let amountToSave = removeCharactersFromTextField(amountTextField)
         guard let amount = Double(amountToSave) else {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "The amount you entered is invalid")
-            amountTextField.backgroundColor = UIColor.red
+            amountTextField.backgroundColor = UIColor.lightPink
             return
             
         }

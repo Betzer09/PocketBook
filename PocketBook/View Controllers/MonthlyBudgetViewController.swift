@@ -12,19 +12,24 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Outlets
     @IBOutlet weak var categoryTableView: UITableView!
+    
     @IBOutlet weak var amountTextField: UITextField!
+    
     @IBOutlet weak var plannedExpenseTotalLabel: UILabel!
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
+    
     @IBOutlet weak var superView: UIView!
-    @IBOutlet weak var pieChartView: PieChartView!
-    @IBOutlet weak var whiteCircle: PieChartView!
     @IBOutlet weak var legendView: UIView!
     @IBOutlet weak var plannedExpensesView: UIView!
     @IBOutlet weak var projectedIncomeView: UIView!
     @IBOutlet weak var totalBudgetedIncomeView: UIView!
     @IBOutlet weak var incomeNotCurrentlyBudgetedView: UIView!
     
+    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var whiteCircle: PieChartView!
+    
+    @IBOutlet weak var noDataImage: UIImageView!
     
     // MARK: - Properties
     var projectedIncome: Double?
@@ -49,8 +54,17 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        noDataImageSetup()
         reloadCategoryTableView()
+    }
+    
+    func noDataImageSetup() {
+        let budgetItems = BudgetItemController.shared.budgetItems
+        if budgetItems.count == 0 {
+            noDataImage.isHidden = false
+        } else {
+            noDataImage.isHidden = true
+        }
     }
     
     // MARK: - Actions
@@ -126,7 +140,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             
             guard let name = nameTextField.text, let allottedAmount = Double(amountTextField.text!) else {
                 // In case they don't enter anything into the textfield
-                presentSimpleAlert(controllerToPresentAlert: self, title: "Oops we are missing information!", message: "Okay")
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "Both fields are required!")
                 self.createBudgetItemAlert()
                 return
             }
@@ -139,6 +153,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
                 }
             }
             BudgetItemController.shared.createBudgetItemWith(name: name, spentTotal: 0, allottedAmount: allottedAmount, completion: nil)
+            self.noDataImageSetup()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -245,6 +260,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - UI
     private func updateUI() {
+        configureNavigationBar()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
@@ -262,7 +278,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         guard let projectedIncome = projectedIncome else {NSLog("There is no projected Income"); return}
         amountTextField.text = formatNumberToString(fromDouble: projectedIncome)
         
-        configureNavigationBar()
     }
     
     func configureNavigationBar() {
