@@ -186,7 +186,9 @@
         <scene sceneID="YzW-ya-4a4">
             <objects>
                 <navigationController title="Savings Goals" automaticallyAdjustsScrollViewInsets="NO" id="UVW-Pd-TuV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="plannedExpensesIcon" id="Q8o-Tu-tNS"/>
+                    <tabBarItem key="tabBarItem" title="" image="plannedExpensesIcon" id="Q8o-Tu-tNS">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mYG-g9-vdF">
@@ -208,7 +210,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plannedExpensesIcon" width="33" height="30"/>
+        <image name="plannedExpensesIcon" width="38" height="34"/>
         <image name="savings_goals_empty_state_screen_1024" width="576" height="1024"/>
     </resources>
 </document>

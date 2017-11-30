@@ -309,7 +309,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nhe-IF-PVu"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="monthlyBudgetIcon" id="hLa-MI-VYn"/>
+                    <tabBarItem key="tabBarItem" title="" image="monthlyBudgetIcon" id="hLa-MI-VYn">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="MONTHLY BUDGET" id="jbG-cf-NOp"/>
                     <connections>
                         <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
@@ -358,6 +360,6 @@
     </scenes>
     <resources>
         <image name="budget_items_empty_state_screen_1024" width="576" height="1024"/>
-        <image name="monthlyBudgetIcon" width="29" height="30"/>
+        <image name="monthlyBudgetIcon" width="34" height="35"/>
     </resources>
 </document>
