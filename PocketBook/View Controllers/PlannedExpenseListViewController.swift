@@ -35,6 +35,14 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
     }
     
+    // MARK: - Actions
+    @IBAction func unwindToPlannedExpenseViewController(unwindSegue: UIStoryboardSegue) {
+        
+        if let planedExpenseVC = unwindSegue.source as? PlannedExpenseViewController {
+            print("Coming from plannedExpnsesVC")
+        }
+    }
+    
     //MARK: - Functions
     func noDataImageSetup() {
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses
