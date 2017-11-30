@@ -74,7 +74,7 @@
             </objects>
             <point key="canvasLocation" x="-449" y="-306"/>
         </scene>
-        <!--Transaction List View Controller-->
+        <!--Transactions-->
         <scene sceneID="gdV-CK-SVI">
             <objects>
                 <viewController id="LxR-UK-5Rk" customClass="TransactionListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -187,7 +187,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lvr-fC-uUE"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rjd-KR-scg"/>
+                    <navigationItem key="navigationItem" title="Transactions" id="rjd-KR-scg"/>
                     <connections>
                         <outlet property="noDataImage" destination="BDY-IP-wsI" id="tUH-4W-7kx"/>
                         <outlet property="picker" destination="yb3-92-19L" id="dns-pE-PCm"/>

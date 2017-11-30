@@ -260,6 +260,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - UI
     private func updateUI() {
+        configureNavigationBar()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
@@ -277,7 +278,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         guard let projectedIncome = projectedIncome else {NSLog("There is no projected Income"); return}
         amountTextField.text = formatNumberToString(fromDouble: projectedIncome)
         
-        configureNavigationBar()
     }
     
     func configureNavigationBar() {

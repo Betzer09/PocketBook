@@ -51,7 +51,7 @@
             </objects>
             <point key="canvasLocation" x="-784" y="-305"/>
         </scene>
-        <!--Planned Expense List View Controller-->
+        <!--Savings Goals-->
         <scene sceneID="Taz-MP-Ypy">
             <objects>
                 <viewController id="jO2-CQ-AkR" customClass="PlannedExpenseListViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -170,7 +170,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ta7-Mt-3fk"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hOl-d7-eUA"/>
+                    <navigationItem key="navigationItem" title="Savings Goals" id="hOl-d7-eUA"/>
                     <connections>
                         <outlet property="amountLabel" destination="Byk-zx-5eK" id="w0I-Vj-jv1"/>
                         <outlet property="noDataImage" destination="SoM-zV-Bqu" id="vN7-k5-HSf"/>
