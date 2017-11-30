@@ -30,7 +30,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var txtDatePicker: UITextField!
     @IBOutlet weak var idealMonthlyContributionAmountLabel: UILabel!
     @IBOutlet weak var calculatedContributionlabel: UILabel!
-    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var initalAmountLabel: UILabel!
     
     // MARK: Properties
     let dueDateDatePicker = UIDatePicker()
@@ -100,6 +100,10 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     private func configureUIWhenPlannedExpenseCellIsPressed() {
         
         if plannedExpense != nil {
+            
+            initialAmountTextField.isHidden = true
+            initalAmountLabel.isHidden = true
+            
             guard let plannedExpense = plannedExpense else {return}
             
             txtAccountPicker.text = plannedExpense.account
@@ -191,6 +195,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
     }
     
     @IBAction func depositButtonTapped(_ sender: Any) {
