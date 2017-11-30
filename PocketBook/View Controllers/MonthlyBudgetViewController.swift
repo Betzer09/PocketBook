@@ -50,12 +50,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
-        noDataImageSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        noDataImageSetup()
         reloadCategoryTableView()
     }
     
