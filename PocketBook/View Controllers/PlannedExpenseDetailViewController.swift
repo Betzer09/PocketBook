@@ -123,6 +123,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             } else {
                 idealMonthlyContributionAmountLabel.text = "Congratulations! You have reached your goal!"
                 calculatedContributionlabel.isHidden = true
+                idealMonthlyContributionAmountLabel.isHidden = true
             }
         }
     }    

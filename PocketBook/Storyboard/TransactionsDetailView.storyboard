@@ -153,6 +153,7 @@
                         <outlet property="categoryLabel" destination="3TA-YV-TqA" id="Jgm-wO-yUj"/>
                         <outlet property="categoryTextField" destination="DAK-7R-Uav" id="0RG-FQ-5XU"/>
                         <outlet property="dateTextField" destination="5zs-k8-w3c" id="Iu3-4l-bUH"/>
+                        <outlet property="payeeLabel" destination="Ajd-dw-aPs" id="umk-mJ-BRS"/>
                         <outlet property="payeeTextField" destination="PBH-mp-5Cr" id="eHr-CP-4UP"/>
                         <outlet property="transactionType" destination="yBz-dq-dXZ" id="9Ts-Xt-fGM"/>
                         <segue destination="ykl-NM-zCD" kind="unwind" identifier="unwindToPlannedExpenseVC" unwindAction="unwindToPlannedExpenseViewControllerWithUnwindSegue:" id="Zbm-GK-00a"/>

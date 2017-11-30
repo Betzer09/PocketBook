@@ -19,6 +19,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var payeeLabel: UILabel!
     
     // MARK: - Customize Segmented Control
     func customizeSegmentedControl() {
