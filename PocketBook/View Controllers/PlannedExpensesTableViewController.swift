@@ -109,7 +109,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPersistedPlannedExpenseSegue" {
-            guard let destinationVC = segue.destination as? PlannedExpenseViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let destinationVC = segue.destination as? PlannedExpenseDetailViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             destinationVC.plannedExpense = plannedExpense
         }

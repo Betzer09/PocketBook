@@ -38,7 +38,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     // MARK: - Actions
     @IBAction func unwindToPlannedExpenseViewController(unwindSegue: UIStoryboardSegue) {
         
-        if let planedExpenseVC = unwindSegue.source as? PlannedExpenseViewController {
+        if let planedExpenseVC = unwindSegue.source as? PlannedExpenseDetailViewController {
             print("Coming from plannedExpnsesVC")
         }
     }
@@ -140,7 +140,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPersistedPlannedExpenseSegue" {
-            guard let destinationVC = segue.destination as? PlannedExpenseViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let destinationVC = segue.destination as? PlannedExpenseDetailViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             destinationVC.plannedExpense = plannedExpense
         }

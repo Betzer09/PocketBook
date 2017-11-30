@@ -17,7 +17,7 @@ Complete button -> Transaction
  
  */
 
-class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     //MARK: - Outlets
     @IBOutlet weak var depositButton: UIButton!
@@ -123,6 +123,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             } else {
                 idealMonthlyContributionAmountLabel.text = "Congratulations! You have reached your goal!"
                 calculatedContributionlabel.isHidden = true
+                idealMonthlyContributionAmountLabel.isHidden = true
             }
         }
     }    
@@ -413,7 +414,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     func hideKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
-            action: #selector(PlannedExpenseViewController.dismissKeyboard))
+            action: #selector(PlannedExpenseDetailViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     

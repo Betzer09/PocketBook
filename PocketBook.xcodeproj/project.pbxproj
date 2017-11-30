@@ -51,7 +51,7 @@
 		D38EF97D1FB230950035B5E3 /* MonthlyBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */; };
 		D38EF97E1FB230950035B5E3 /* PlannedExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */; };
 		D38EF9811FB230950035B5E3 /* TransactionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */; };
-		D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */; };
+		D38EF9831FB230950035B5E3 /* PlannedExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38EF97A1FB230950035B5E3 /* PlannedExpenseDetailViewController.swift */; };
 		D38EF9851FB238CB0035B5E3 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF9841FB238CB0035B5E3 /* Account.storyboard */; };
 		D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */; };
 		F551BE891FCCD2690000CFC5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BE881FCCD2690000CFC5 /* Extensions.swift */; };
@@ -112,7 +112,7 @@
 		D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyBudgetViewController.swift; sourceTree = "<group>"; };
 		D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpensesTableViewController.swift; sourceTree = "<group>"; };
 		D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsDetailViewController.swift; sourceTree = "<group>"; };
-		D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseViewController.swift; sourceTree = "<group>"; };
+		D38EF97A1FB230950035B5E3 /* PlannedExpenseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannedExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		D38EF9841FB238CB0035B5E3 /* Account.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = plannedExpenseTableViewCell.swift; path = PocketBook/Views/plannedExpenseTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		F551BE881FCCD2690000CFC5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
 				D38EF9751FB230950035B5E3 /* PlannedExpensesTableViewController.swift */,
 				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
-				D38EF97A1FB230950035B5E3 /* PlannedExpenseViewController.swift */,
+				D38EF97A1FB230950035B5E3 /* PlannedExpenseDetailViewController.swift */,
 				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				23DD43811FB39C1F008DCE5B /* TransactionTableViewController.swift */,
 				F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */,
@@ -388,7 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */,
-				D38EF9831FB230950035B5E3 /* PlannedExpenseViewController.swift in Sources */,
+				D38EF9831FB230950035B5E3 /* PlannedExpenseDetailViewController.swift in Sources */,
 				23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */,
 				928722131FBD00D200DD0555 /* AccountListViewController.swift in Sources */,
 				92993C8B1FB4E1FA00D22373 /* Notifications.swift in Sources */,

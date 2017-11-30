@@ -19,6 +19,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var payeeLabel: UILabel!
     
     // MARK: - Customize Segmented Control
     func customizeSegmentedControl() {
@@ -70,12 +71,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - Actions
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
-        saveTransaction()
         
         guard let navController = parent as? UINavigationController,
             let tabBarController = navController.parent as? UITabBarController else { return }
         
         tabBarController.selectedIndex = 2
+        saveTransaction()
 
     }
     
