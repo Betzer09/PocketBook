@@ -30,7 +30,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var txtDatePicker: UITextField!
     @IBOutlet weak var idealMonthlyContributionAmountLabel: UILabel!
     @IBOutlet weak var calculatedContributionlabel: UILabel!
-    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var initalAmountLabel: UILabel!
     
     // MARK: Properties
     let dueDateDatePicker = UIDatePicker()
@@ -50,8 +50,13 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         super.viewDidLoad()
         if let plannedExpense = plannedExpense {
             self.navigationItem.title = plannedExpense.name.uppercased()
+            self.navigationItem.rightBarButtonItem?.title = "Update"
         } else {
             self.navigationItem.title = "Create New Savings Goal".uppercased()
+            depositButton.isHidden = true
+            withdrawButton.isHidden = true
+            completeButton.isHidden = true
+            self.navigationItem.rightBarButtonItem?.title = "Save"
         }
        setUpUI()
     }
@@ -95,6 +100,10 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     private func configureUIWhenPlannedExpenseCellIsPressed() {
         
         if plannedExpense != nil {
+            
+            initialAmountTextField.isHidden = true
+            initalAmountLabel.isHidden = true
+            
             guard let plannedExpense = plannedExpense else {return}
             
             txtAccountPicker.text = plannedExpense.account
@@ -186,6 +195,7 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
         
         navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
     }
     
     @IBAction func depositButtonTapped(_ sender: Any) {
@@ -230,6 +240,8 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             plannedExpense.totalDeposited += amountDeposited
             
             PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, amountDeposited: amountDeposited, amountWithdrawn: 0.0, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
+            
+            self.navigationController?.popViewController(animated: true)
         }
         
         depositAlertController.addAction(addAction)
@@ -271,6 +283,8 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
             plannedExpense.totalDeposited -= amount
             
             PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, amountDeposited: 0.0, amountWithdrawn: amount, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
+            
+            self.navigationController?.popViewController(animated: true)
         }
         
         withdrawalAlertController.addAction(addAction)

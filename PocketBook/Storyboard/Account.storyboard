@@ -430,13 +430,14 @@
         <scene sceneID="amp-Ko-BKB">
             <objects>
                 <navigationController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="BSU-kb-6iI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="accountsIcon" id="npd-6P-2gB"/>
+                    <tabBarItem key="tabBarItem" title="" image="spacedAccounts" id="npd-6P-2gB">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fbJ-Ff-oOb">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.015686274510000001" green="0.20392156859999999" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
@@ -457,9 +458,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accountsIcon" width="20" height="20"/>
         <image name="accounts_empty_state_screen_1024" width="576" height="1024"/>
         <image name="arrow" width="75" height="75"/>
         <image name="questionMark" width="23" height="23"/>
+        <image name="spacedAccounts" width="23" height="24"/>
     </resources>
 </document>

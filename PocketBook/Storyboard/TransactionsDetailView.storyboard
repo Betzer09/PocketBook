@@ -143,7 +143,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="D0Y-W8-B01">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="SaveButtonPressed:" destination="g7B-q7-SZN" id="YT3-YD-7ol"/>
+                                <action selector="SaveButtonPressed:" destination="g7B-q7-SZN" id="Y9d-60-Wha"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -155,9 +155,11 @@
                         <outlet property="dateTextField" destination="5zs-k8-w3c" id="Iu3-4l-bUH"/>
                         <outlet property="payeeTextField" destination="PBH-mp-5Cr" id="eHr-CP-4UP"/>
                         <outlet property="transactionType" destination="yBz-dq-dXZ" id="9Ts-Xt-fGM"/>
+                        <segue destination="ykl-NM-zCD" kind="unwind" identifier="unwindToPlannedExpenseVC" unwindAction="unwindToPlannedExpenseViewControllerWithUnwindSegue:" id="Zbm-GK-00a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aof-li-ROY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ykl-NM-zCD" userLabel="Exit" sceneMemberID="exit"/>
                 <pickerView contentMode="scaleToFill" id="Ihw-Zf-uOK">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>

@@ -9,7 +9,11 @@
 import Foundation
 import CloudKit
 
-class PlannedExpense {
+class PlannedExpense: Equatable {
+    
+    static func ==(lhs: PlannedExpense, rhs: PlannedExpense) -> Bool {
+        return lhs.account == rhs.account && lhs.dueDate == rhs.dueDate && lhs.name == rhs.name && lhs.goalAmount == rhs.goalAmount && lhs.initialAmount == rhs.initialAmount
+    }
     
     // MARK: - Properties
     var recordID: CKRecordID

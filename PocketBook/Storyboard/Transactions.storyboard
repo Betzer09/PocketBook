@@ -203,7 +203,9 @@
         <scene sceneID="0XX-JJ-LDf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jgq-5c-Zwu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="transactionsIcon" id="Usm-NH-NbU"/>
+                    <tabBarItem key="tabBarItem" title="" image="transactionsIcon" id="Usm-NH-NbU">
+                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fek-wm-j8z">
@@ -225,7 +227,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="transactionsIcon" width="32" height="28"/>
+        <image name="transactionsIcon" width="40" height="36"/>
         <image name="transactions_empty_state_screen_1024" width="576" height="1024"/>
     </resources>
 </document>
