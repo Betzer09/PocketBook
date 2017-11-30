@@ -151,7 +151,8 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
-        return true
+        
+        return false
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -253,6 +254,8 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
         transferAmountTextField.delegate = self
         toPickerView.dataSource = self
         toPickerView.delegate = self
+        
+        nameTextField.delegate = self
     }
     
     func roundButtons() {

@@ -492,7 +492,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             guard let payee = payeeTextField.text,
                 let categoryName = categoryTextField.text,
                 let accountName = accountTextField.text,
-                !payee.isEmpty else {
+                !payee.isEmpty,
+                !accountName.isEmpty,
+                !categoryName.isEmpty else {
                     presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
                     return
             }
@@ -505,7 +507,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             // We want to create a planned Expense transaction
             guard let payee = payeeTextField.text,
                 let accountName = accountTextField.text,
-                !payee.isEmpty else {
+                !payee.isEmpty, !accountName.isEmpty else {
                     presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
                     return
             }
@@ -544,7 +546,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             type = .plannedExpense
         }
         
-        
         TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryNameToReturn , payee: payeeToReturn, transactionType: typeString, amount: amountToSave, account: accountNameToReturn, completion: { (transaction) in
             
             if self.plannedExpenseTransaction != nil {
@@ -565,22 +566,26 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         // We want to update
         guard let transaction = transaction,
             let payee = payeeTextField.text,
-            var categoryButton = categoryTextField.text,
-            let accountButton = accountTextField.text else {return}
+            var categoryName = categoryTextField.text,
+            let accountName = accountTextField.text,
+            !payee.isEmpty,
+            !categoryName.isEmpty,
+            !accountName.isEmpty else {return}
         
         let amountToSave = removeCharactersFromTextField(amountTextField)
         guard let amount = Double(amountToSave) else {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Amount textfield isn't a Double")
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "The amount you entered is invalid")
+            amountTextField.backgroundColor = UIColor.red
             return
             
         }
         
         if transaction.transactionType == TransactionType.plannedExpense.rawValue {
-            categoryButton = TransactionType.plannedExpense.rawValue
+            categoryName = TransactionType.plannedExpense.rawValue
             typeString = TransactionType.plannedExpense.rawValue
         }
         
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date),category: categoryButton, payee: payee, transactionType: typeString, amount: amount, account: accountButton, completion: { (_) in
+        TransactionController.shared.updateTransactionWith(transaction: transaction, date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date),category: categoryName, payee: payee, transactionType: typeString, amount: amount, account: accountName, completion: { (_) in
         })
     }
 }
