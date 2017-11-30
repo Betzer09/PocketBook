@@ -12,6 +12,7 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
     
     static let shared = AnaylsisPageViewController()
     
+  
     let pageControl = UIPageControl()
     
     lazy var orderedViewControllers: [UIViewController] = {
