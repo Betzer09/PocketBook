@@ -70,12 +70,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - Actions
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
-        saveTransaction()
         
         guard let navController = parent as? UINavigationController,
             let tabBarController = navController.parent as? UITabBarController else { return }
         
-        tabBarController.selectedIndex = 2
+        tabBarController.selectedIndex = 2git 
+        saveTransaction()
 
     }
     

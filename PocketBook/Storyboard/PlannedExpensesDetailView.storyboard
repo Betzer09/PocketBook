@@ -20,7 +20,7 @@
         <!--PLANNED EXPENSE-->
         <scene sceneID="mS3-sL-OMC">
             <objects>
-                <viewController id="WuS-7R-mpl" customClass="PlannedExpenseViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WuS-7R-mpl" customClass="PlannedExpenseDetailViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="t36-Yy-1VF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

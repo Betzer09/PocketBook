@@ -219,6 +219,7 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Methods
     func setUpUI() {
+        self.navigationController?.navigationBar.tintColor = .white
         
         setDelegates()
         roundButtons()
