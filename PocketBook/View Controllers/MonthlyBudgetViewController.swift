@@ -18,6 +18,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var plannedExpenseTotalLabel: UILabel!
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
+    @IBOutlet weak var incomeNotCurrentlyBudgetTitleLabel: UILabel!
     
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var legendView: UIView!
@@ -31,6 +32,14 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var noDataImage: UIImageView!
     
+    // MARK: - Notifications
+    
+    func runNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateIncomeNotCurrentlyBudgetedTitleLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+    }
+    
     // MARK: - Properties
     var projectedIncome: Double = 0.0 {
         didSet {
@@ -38,6 +47,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    var booleanCounterForTableViewAnimation: Bool = false
     let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
 
     // MARK: - View LifeCycle
@@ -51,11 +61,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
 //        UserDefaults.standard.synchronize()
 //        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+        runNotifications()
         updateUI()
         updatePieChartAndLegendView()
+        updateIncomeNotCurrentlyBudgetedTitleLabel()
         view.setNeedsDisplay()
     }
     
@@ -63,6 +72,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         super.viewWillAppear(animated)
         noDataImageSetup()
         reloadCategoryTableView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        booleanCounterForTableViewAnimation = true
     }
     
     func noDataImageSetup() {
@@ -244,8 +257,24 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpentOfBudget()))"
     }
     
+    @objc func updateIncomeNotCurrentlyBudgetedTitleLabel() {
+        
+        guard let user = UserController.shared.user else { return }
+        if user.projectedIncome <= 0.0 {
+            incomeNotCurrentlyBudgetTitleLabel.text = "Update your projected income"
+            incomeNotCurrentlyBudgetLabel.isHidden = true
+        } else {
+            incomeNotCurrentlyBudgetTitleLabel.text = "Income left to budget"
+            incomeNotCurrentlyBudgetLabel.isHidden = false
+        }
+    }
+    
     func updatePlannedExpenseLabel() {
-        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        guard let user = UserController.shared.user else { return }
+        if user.projectedIncome <= 0.0 {
+            plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+            
+        }
     }
     
     @objc func updateNotCurrentlyBudgetedLabel() {
@@ -259,7 +288,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             self.updateUI()
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
-            animateTableView(forTableView: self.categoryTableView)
+            animateTableView(forTableView: self.categoryTableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
         }
     }
     

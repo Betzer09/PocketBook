@@ -19,7 +19,7 @@ class TransactionTableViewCell: UITableViewCell {
     private func updateViews() {
         
         guard let transactions = transactions else { return }
-        self.payeeLabel.text = transactions.payee
+        self.payeeLabel.text = transactions.payee.lowercased().capitalized
         self.dateLabel.text = returnFormattedDate(fromdate: transactions.date)
         if transactions.transactionType == TransactionType.income.rawValue {
             self.amountLabel.text = "+ \(formatNumberToString(fromDouble: transactions.amount))"

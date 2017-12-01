@@ -10,9 +10,9 @@ import UIKit
 
 /*TO DO:
  
-txtAccountPicker.text - func
-Complete button -> Transaction
-
+ txtAccountPicker.text - func
+ Complete button -> Transaction
+ 
  * bonus: Ideal Monthly Contribution calculations
  
  */
@@ -58,7 +58,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             completeButton.isHidden = true
             self.navigationItem.rightBarButtonItem?.title = "Save"
         }
-       setUpUI()
+        setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,11 +129,15 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     }    
     
     // MARK: - Methods
-        
+    
     /// This function calculates the remaining amount needed to reach goal
     func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
         let difference = goalAmount - initialAmount
-        return difference
+        if difference >= 0 {
+            return difference
+        } else {
+            return 0.0
+        }
     }
     
     /// This function calculates the number of months between two dates
@@ -191,7 +195,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
                 return
             }
             
-
+            
             PlannedExpenseController.shared.createPlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, dueDate: returnFormattedDate(date: dueDateDatePicker.date), completion: nil)
         }
         
@@ -345,7 +349,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
         txtAccountPicker.text = account.name
         self.view.endEditing(true)
-
+        
     }
     
     @objc func cancelAccountPicker() {
@@ -481,9 +485,9 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if segue.identifier == "toTransactionDVC" {
-
+            
             guard let destinationDVC = segue.destination as? TransactionsDetailViewController else {return}
             guard let plannedExpense = plannedExpense else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "You have to create a Savings Goal before you can complete it.")

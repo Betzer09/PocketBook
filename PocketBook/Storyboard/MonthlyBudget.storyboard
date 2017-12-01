@@ -182,8 +182,8 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assumed Monthly Savings Contribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auD-fc-bOJ">
-                                                        <rect key="frame" x="8" y="9" width="270.5" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Savings Goal Contribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auD-fc-bOJ">
+                                                        <rect key="frame" x="8" y="9" width="180" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
@@ -215,7 +215,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCJ-fK-kg2">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="38.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income Not Currently Budgeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-hE-gYg">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income Not Currently Budgeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-hE-gYg" userLabel="Income Not Currently Budgeted Title">
                                                         <rect key="frame" x="8" y="9.5" width="232.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
                                                         <nil key="textColor"/>
@@ -317,6 +317,7 @@
                         <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
                         <outlet property="categoryTableView" destination="YtF-jv-d0C" id="pof-1s-DNV"/>
                         <outlet property="incomeNotCurrentlyBudgetLabel" destination="AaX-dQ-li4" id="YbT-gv-PDL"/>
+                        <outlet property="incomeNotCurrentlyBudgetTitleLabel" destination="bhw-hE-gYg" id="Wze-7q-j5i"/>
                         <outlet property="incomeNotCurrentlyBudgetedView" destination="4Ks-IO-gxk" id="UqD-To-LsE"/>
                         <outlet property="legendView" destination="lUB-63-ntz" id="cJG-gG-BE1"/>
                         <outlet property="noDataImage" destination="CIy-Lg-jiW" id="oDQ-q0-kjV"/>
@@ -359,7 +360,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="budget_items_empty_state_screen_1024" width="576" height="1024"/>
+        <image name="budget_items_empty_state_screen_1024" width="3814" height="6781"/>
         <image name="monthlyBudgetIcon" width="34" height="35"/>
     </resources>
 </document>

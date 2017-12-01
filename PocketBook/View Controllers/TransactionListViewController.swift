@@ -11,6 +11,7 @@ import UIKit
 class TransactionListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: Properties
+    var booleanCounterForTableViewAnimation: Bool = false
     var filteredTransactions: [Transaction] = [] // SOURCE OF TRUTH - Array contains all transactions
     
     // UIPicker Properties: All properties that are used by the UIPickers
@@ -33,7 +34,6 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
         configureUI()
-        self.setUpTableView()
         self.customizeSegmentedControl()
     }
     
@@ -42,15 +42,19 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setUpTableView()
         picker.reloadAllComponents()
         picker.setNeedsDisplay()
         self.customizeSegmentedControl()
+        setUpTableView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        booleanCounterForTableViewAnimation = true
     }
     
     @objc func reloadTableView() {
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.setUpTableView()
         }
     }
     
@@ -79,7 +83,7 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
         let filteredByAccount = filterByAccountIntoArray(forCategory: categorySelection, forThisArray: filteredByTimeFrame)
         let filteredByDate = filteredByAccount.sorted(by: { $0.date > $1.date })
         self.filteredTransactions = filteredByDate
-        animateTableView(forTableView: self.tableView)
+        animateTableView(forTableView: self.tableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
     }
     
     // Segmented Control Buttons Selected
