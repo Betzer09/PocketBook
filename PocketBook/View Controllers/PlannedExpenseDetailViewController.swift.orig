@@ -113,8 +113,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             txtDatePicker.text = returnFormattedDateString(date: plannedExpense.dueDate)
             
             let totalDeposited = plannedExpense.totalDeposited
-            let initialAmount = plannedExpense.initialAmount
-            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalDeposited + initialAmount),
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalDeposited),
                 let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return }
             
             
@@ -130,8 +129,12 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         }
     }    
     
+<<<<<<< HEAD
+    // MARK: - Methods        
+=======
     // MARK: - Methods
     
+>>>>>>> develop
     /// This function calculates the remaining amount needed to reach goal
     func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
         let difference = goalAmount - initialAmount
@@ -363,7 +366,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             dueDateDatePicker.date = Date()
         }
         dueDateDatePicker.datePickerMode = .date
-        dueDateDatePicker.minimumDate = Date()
+        
         // ToolBar
         let toolbar = UIToolbar();
         toolbar.sizeToFit()

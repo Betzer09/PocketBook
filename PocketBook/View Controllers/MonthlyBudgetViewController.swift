@@ -15,14 +15,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var amountTextField: UITextField!
     
-    @IBOutlet weak var plannedExpenseTotalLabel: UILabel!
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
-    @IBOutlet weak var incomeNotCurrentlyBudgetTitleLabel: UILabel!
+//    @IBOutlet weak var incomeNotCurrentlyBudgetTitleLabel: UILabel!
     
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var legendView: UIView!
-    @IBOutlet weak var plannedExpensesView: UIView!
+    
     @IBOutlet weak var projectedIncomeView: UIView!
     @IBOutlet weak var totalBudgetedIncomeView: UIView!
     @IBOutlet weak var incomeNotCurrentlyBudgetedView: UIView!
@@ -49,20 +48,23 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     var booleanCounterForTableViewAnimation: Bool = false
     let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
-
+    
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        This clears on the things saved to user defaults Wait a while to delete me
         
-//        let domain = Bundle.main.bundleIdentifier!
-//        UserDefaults.standard.removePersistentDomain(forName: domain)
-//        UserDefaults.standard.synchronize()
-//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+        //        This clears on the things saved to user defaults Wait a while to delete me
         
+        //        let domain = Bundle.main.bundleIdentifier!
+        //        UserDefaults.standard.removePersistentDomain(forName: domain)
+        //        UserDefaults.standard.synchronize()
+        //        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+        setUpUI()
         runNotifications()
-        updateUI()
         updatePieChartAndLegendView()
         updateIncomeNotCurrentlyBudgetedTitleLabel()
         view.setNeedsDisplay()
@@ -72,6 +74,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         super.viewWillAppear(animated)
         noDataImageSetup()
         reloadCategoryTableView()
+        updateUI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -96,17 +99,33 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - UITableViewDataSource Functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BudgetItemController.shared.budgetItems.count
+        return BudgetItemController.shared.budgetItems.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as? CategroyTableViewCell else {return UITableViewCell()}
         
-        let budgetItem = BudgetItemController.shared.budgetItems[indexPath.row]
-        cell.categoryNameLabel.text = budgetItem.name
-        cell.updateCell(budgetItem: budgetItem)
-        
-        return cell
+        if indexPath.row == BudgetItemController.shared.budgetItems.count {
+            
+            // This is the last cell
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "savingsGoalCell", for: indexPath) as? MonthlyBudgetStaticSavingsGoalCustomTableViewCell else {return UITableViewCell()}
+            
+            cell.updateCell()
+            
+            return cell
+            
+        } else {
+            
+            // These are the normal budget item cells
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as? CategroyTableViewCell else {return UITableViewCell()}
+            
+            let budgetItem = BudgetItemController.shared.budgetItems[indexPath.row]
+            cell.categoryNameLabel.text = budgetItem.name
+            cell.updateCell(budgetItem: budgetItem)
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -254,28 +273,22 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     /// This function updates the monthly budget label
     func updateMonthlyBudgetLabel() {
-        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpentOfBudget()))"
+        DispatchQueue.main.async {
+            self.totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: self.addUpTotalSpentOfBudget()))"
+        }
     }
     
     @objc func updateIncomeNotCurrentlyBudgetedTitleLabel() {
         
         guard let user = UserController.shared.user else { return }
         if user.projectedIncome <= 0.0 {
-            incomeNotCurrentlyBudgetTitleLabel.text = "Update your projected income"
             incomeNotCurrentlyBudgetLabel.isHidden = true
         } else {
-            incomeNotCurrentlyBudgetTitleLabel.text = "Income left to budget"
             incomeNotCurrentlyBudgetLabel.isHidden = false
         }
     }
     
-    func updatePlannedExpenseLabel() {
-        guard let user = UserController.shared.user else { return }
-        if user.projectedIncome <= 0.0 {
-            plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
-            
-        }
-    }
+
     
     @objc func updateNotCurrentlyBudgetedLabel() {
         DispatchQueue.main.async {
@@ -297,7 +310,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: - UI
-    private func updateUI() {
+    
+    
+    // MARK: - UI
+    func setUpUI() {
         configureNavigationBar()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -305,18 +321,21 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         setUpDelegatesAndDataSources()
         createPlusButton()
-        
-        // Update all three labels in the view below the budget items
-        updatePlannedExpenseLabel()
+    }
+    
+    private func updateUI() {
+        // Update all labels in the view below the budget items
         updateMonthlyBudgetLabel()
         updateNotCurrentlyBudgetedLabel()
         
         // If there is a projected income assign the value
         let projectedIncome = UserController.shared.user?.projectedIncome
         guard let projected = projectedIncome else {NSLog("There is no projected Income"); return}
+            
         amountTextField.text = formatNumberToString(fromDouble: projected)
         
-    }
+        }
+    
     
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
@@ -333,7 +352,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
         amountTextField.delegate = self
-
+        
     }
     
     func createPlusButton() {
@@ -363,7 +382,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     func createAndUpdateProjected(income: Double) {
         let defaults = UserDefaults.standard
         let hasLaunched = defaults.bool(forKey: hasLaunchedKey)
-
+        
         if !hasLaunched {
             defaults.set(true, forKey: hasLaunchedKey)
             UserController.shared.createUser(withProjectedIncome: income, completion: nil)

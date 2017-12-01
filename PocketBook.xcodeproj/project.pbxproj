@@ -39,6 +39,7 @@
 		92E6603F1FB5531500D871BE /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E6603E1FB5531500D871BE /* Test.swift */; };
 		D314F1301FB379A70051C5BE /* OverviewTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */; };
 		D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */; };
+		D36BFC491FD1DF9200750524 /* MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36BFC481FD1DF9200750524 /* MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift */; };
 		D38EF9651FB218620035B5E3 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95D1FB218610035B5E3 /* Transactions.storyboard */; };
 		D38EF9661FB218620035B5E3 /* TransactionsDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */; };
 		D38EF9671FB218620035B5E3 /* PlannedExpensesDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */; };
@@ -98,6 +99,7 @@
 		92E6603E1FB5531500D871BE /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		D314F12F1FB379A70051C5BE /* OverviewTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OverviewTabBar.storyboard; sourceTree = "<group>"; };
 		D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
+		D36BFC481FD1DF9200750524 /* MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift; sourceTree = "<group>"; };
 		D38EF95D1FB218610035B5E3 /* Transactions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
 		D38EF95E1FB218610035B5E3 /* TransactionsDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionsDetailView.storyboard; sourceTree = "<group>"; };
 		D38EF95F1FB218610035B5E3 /* PlannedExpensesDetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlannedExpensesDetailView.storyboard; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 		D38EF9861FB240850035B5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D36BFC481FD1DF9200750524 /* MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift */,
 				F5FF295A1FBE6AA30012AA24 /* CategoryTableViewCell.swift */,
 				23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */,
 				D3DB42D11FB63555000D717B /* plannedExpenseTableViewCell.swift */,
@@ -417,6 +420,7 @@
 				D38EF97B1FB230950035B5E3 /* AccountDetailsViewController.swift in Sources */,
 				92993C831FB4C44200D22373 /* PieChartViewController.swift in Sources */,
 				92993C891FB4C58300D22373 /* Keys.swift in Sources */,
+				D36BFC491FD1DF9200750524 /* MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift in Sources */,
 				D314F1321FB37BC20051C5BE /* CustomTabBarViewController.swift in Sources */,
 				9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */,
 				9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */,

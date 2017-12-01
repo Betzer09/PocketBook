@@ -78,6 +78,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         addTapGesture()
         updateTotalLabel()
         createPlusButton()
+        createQuestionMarkButton()
         roundButtons()
         configureNavigationBar()
     }
@@ -118,7 +119,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
             self.noDataImageSetup()
+<<<<<<< HEAD
+=======
             animateTableView(forTableView: self.tableView)
+>>>>>>> develop
         }
     }
     
@@ -227,12 +231,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 <<<<<<< HEAD
-        
-        guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
-        return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
-    }
-        
-=======
         let headerView = UIView()
         headerView.backgroundColor = UIColor.lightGray
         
@@ -247,6 +245,12 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         return headerView
     }
     
+=======
+        
+        guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
+        return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
+    }
+        
 >>>>>>> develop
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -378,11 +382,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-<<<<<<< HEAD
-        
-=======
   
->>>>>>> develop
         let pickerLabel = UILabel()
         let accounts = AccountController.shared.accounts
         let account = accounts[row]
@@ -606,6 +606,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    func createQuestionMarkButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "questionMark"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToInstructionVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+    }
+    
+    @objc func segueToInstructionVC() {
+        self.performSegue(withIdentifier: "toInstructionVC", sender: self)
     }
     
     @objc func segueToDetailVC() {

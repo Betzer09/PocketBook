@@ -287,7 +287,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let alertController = UIAlertController(title: "Delete Account", message: "Please confirm that you want to delete this account. Deleting this account will delete all corresponding transactions and planned expenses. If you want to preserve all current and historical data associated with this account, tap on the account and mark the account as closed. Deleting this account cannot be udone.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Delete Account", message: "Please confirm that you want to delete this account. Deleting this account will delete all corresponding transactions and planned expenses. Deleting this account cannot be undone.", preferredStyle: .alert)
             
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
                 

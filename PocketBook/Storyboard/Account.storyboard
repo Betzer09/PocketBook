@@ -402,9 +402,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
                         <barButtonItem key="backBarButtonItem" title="Back" id="CtS-Rs-sT9"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="ljQ-YX-hRS">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="HcN-4x-PZu">
                             <connections>
-                                <segue destination="U1D-AB-uT6" kind="show" identifier="toInstructionVC" id="GTz-hO-z40"/>
+                                <segue destination="U1D-AB-uT6" kind="show" identifier="toInstructionVC" id="Efb-BJ-fhf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
