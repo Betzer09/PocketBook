@@ -363,7 +363,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             dueDateDatePicker.date = Date()
         }
         dueDateDatePicker.datePickerMode = .date
-        
+        dueDateDatePicker.minimumDate = Date()
         // ToolBar
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
