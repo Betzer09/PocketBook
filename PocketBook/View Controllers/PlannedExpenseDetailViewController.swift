@@ -113,7 +113,8 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             txtDatePicker.text = returnFormattedDateString(date: plannedExpense.dueDate)
             
             let totalDeposited = plannedExpense.totalDeposited
-            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalDeposited),
+            let initialAmount = plannedExpense.initialAmount
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, initialAmount: totalDeposited + initialAmount),
                 let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return }
             
             
