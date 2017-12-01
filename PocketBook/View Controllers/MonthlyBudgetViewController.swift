@@ -259,7 +259,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             self.updateUI()
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
-            self.categoryTableView.reloadData()
+            animateTableView(forTableView: self.categoryTableView)
         }
     }
     

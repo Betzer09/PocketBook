@@ -356,4 +356,41 @@ func removeDuplicates(fromArray array: [String]) -> [String] {
     return result
 }
 
+/// This function formats tableView headers
+func setUpTableViewHeader(withTableView tableView: UITableView, withSection section: Int, withSectionHeaderTitle headerTitle: String) -> UIView {
+    
+    let headerView = UIView()
+    headerView.backgroundColor = UIColor.lightGray
+    let headerLabel = UILabel(frame: CGRect(x: 25, y: 4, width:
+        tableView.bounds.size.width, height: tableView.bounds.size.height))
+    headerLabel.font = UIFont(name: "Avenir", size: 16)
+    headerLabel.textColor = UIColor.charcoal
+    headerLabel.text = headerTitle
+    headerLabel.sizeToFit()
+    headerView.addSubview(headerLabel)
+    return headerView
+}
+
+/// This function animates and reloads a tableView
+func animateTableView(forTableView tableView: UITableView) {
+    
+    tableView.reloadData()
+    
+    let cells = tableView.visibleCells
+    let tableHeight: CGFloat = tableView.bounds.size.height
+    for cell in cells {
+        let cell: UITableViewCell = cell as UITableViewCell
+        cell.transform = CGAffineTransform(translationX: 0, y: tableHeight)
+    }
+    
+    var index = 0
+    for cell in cells {
+        let cell: UITableViewCell = cell as UITableViewCell
+        UIView.animate(withDuration: 1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+        index += 1
+    }
+}
+
 
