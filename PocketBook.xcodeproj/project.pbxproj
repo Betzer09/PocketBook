@@ -555,7 +555,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.Pocketbook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_REFLECTION_METADATA_LEVEL = none;
@@ -575,7 +575,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PocketBook/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.PocketBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Austin.Pocketbook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_REFLECTION_METADATA_LEVEL = none;
