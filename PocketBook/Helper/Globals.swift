@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Global Vars
 let calendar = Calendar.autoupdatingCurrent
