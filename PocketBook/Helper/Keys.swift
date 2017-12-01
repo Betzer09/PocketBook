@@ -58,4 +58,7 @@ struct Keys {
     
     // MARK: - User Defaults Keys
     static let dateDictionaryKey = "date"
+    
+    // MARK: - Font Keys
+    static let avenirNext = "Avenir Next"
 }

@@ -13,21 +13,13 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     // MARK: - Properties
     var timeFrame: String = "Past Year" {
         didSet {
-            guard let category = category else {return}
-            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
-            let totals = calculateTotalsArrays(fromPlannedExpenses: plannedExpenses, matchingCategory: category)
-            lineGraphView.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTotals: totals, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
-            view.setNeedsDisplay()
+            updateLineGraph()
         }
     }
     
     var category: String? {
         didSet {
-            guard let category = category else {return}
-            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
-            let totals = calculateTotalsArrays(fromPlannedExpenses: plannedExpenses, matchingCategory: category)
-            lineGraphView.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTotals: totals, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
-            view.setNeedsDisplay()
+            updateLineGraph()
         }
     }
     
@@ -74,6 +66,16 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         setUpCategoryVar()
         self.parent?.navigationItem.title = "Savings Goal Tracking".uppercased()
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateLineGraph()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateLineGraph()
     }
     
     // MARK: - Setup UI
@@ -149,7 +151,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         if component == 1 {
             pickerLabel.text = categories[row]
         }
-        pickerLabel.font = UIFont(name: "Arial", size: 15)
+        pickerLabel.font = UIFont(name: Keys.avenirNext, size: 15)
         pickerLabel.textAlignment = .center
         return pickerLabel
     }
@@ -173,6 +175,14 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
         let categoryString = categories[0]
         category = categoryString
         }
+    }
+    
+    func updateLineGraph() {
+        guard let category = category else {return}
+        let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+        let totals = calculateTotalsArrays(fromPlannedExpenses: plannedExpenses, matchingCategory: category)
+        lineGraphView.configureLineGraph(lineGraphView: lineGraphView, xView: xView, yView: yView, forTotals: totals, withTimeFrame: timeFrame, andCategory: category, viewControllerToPresentAlert: self)
+        view.setNeedsDisplay()
     }
     
 }
