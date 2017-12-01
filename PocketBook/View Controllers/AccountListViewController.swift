@@ -361,7 +361,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
+  
         let pickerLabel = UILabel()
         let accounts = AccountController.shared.accounts
         let account = accounts[row]
