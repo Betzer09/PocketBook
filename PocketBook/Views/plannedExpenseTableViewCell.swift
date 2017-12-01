@@ -38,7 +38,7 @@ class plannedExpenseTableViewCell: UITableViewCell {
     
     func configureProgressBar(withPlannedExpense plannedExpense: PlannedExpense) {
         self.PEProgressBar.progress = 0
-        self.PEProgressBar.progressTintColor = .blue7
+        self.PEProgressBar.progressTintColor = .blue3
         PEProgressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
         let totalSaved = plannedExpense.totalDeposited + plannedExpense.initialAmount
         self.PEProgressBar.progress = Float(totalSaved) / Float(plannedExpense.goalAmount)
