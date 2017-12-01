@@ -232,6 +232,7 @@ class LineGraphView: UIView {
             label.center = CGPoint(x: (count * segment), y: xView.bounds.midY)
             label.text = array[arrayCount]+"-"
             label.textColor = .black
+            label.font = UIFont(name: Keys.avenirNext, size: label.font.pointSize)
             label.textAlignment = .right
             label.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
             label.clipsToBounds = true
@@ -263,6 +264,7 @@ class LineGraphView: UIView {
         let frame = CGRect(x: 1, y: 1, width: view.bounds.width, height: 21)
         let label = UILabel(frame: frame)
         label.center = CGPoint(x: x, y: y)
+        label.font = UIFont(name: Keys.avenirNext, size: label.font.pointSize)
         label.text = "$"+name+"-"
         label.textColor = .black
         label.textAlignment = .right

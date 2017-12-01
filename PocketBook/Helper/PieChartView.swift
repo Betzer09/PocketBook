@@ -132,7 +132,7 @@ class PieChartView: UIView {
     }
     
     // MARK: - Setup PieChart
-    func formatPieChartViewAndLegend(withPieCharView pieChartView: PieChartView, andLegendView legendView: UIView, usingFilteredDictionary dictionary: [String:Double]){
+    func formatPieChartViewAndLegend(withPieCharView pieChartView: PieChartView, andLegendView legendView: UIView, usingFilteredDictionary dictionary: [String:Double], withFontSize fontSize: CGFloat){
         guard let nameStackView = legendView.subviews[0].subviews[0].subviews[0] as? UIStackView,
             let colorStackView = legendView.subviews[0].subviews[0].subviews[1] as? UIStackView,
             let nameStackView2 = legendView.subviews[0].subviews[1].subviews[0] as? UIStackView,
@@ -159,30 +159,31 @@ class PieChartView: UIView {
             segments.append(segment)
             
             if count % 2 == 0 {
-                addNameAndColorLabel(nameStackView: nameStackView, colorStackView: colorStackView, catagory: catagory, color: color)
+                addNameAndColorLabel(nameStackView: nameStackView, colorStackView: colorStackView, catagory: catagory, color: color, withFontSize: fontSize)
             }
             else {
-                addNameAndColorLabel(nameStackView: nameStackView2, colorStackView: colorStackView2, catagory: catagory, color: color)
+                addNameAndColorLabel(nameStackView: nameStackView2, colorStackView: colorStackView2, catagory: catagory, color: color, withFontSize: fontSize)
             }
             
             count += 1
         }
         
         if count % 2 != 0 {
-            addNameAndColorLabel(nameStackView: nameStackView2, colorStackView: colorStackView2, catagory: "", color: .white)
+            addNameAndColorLabel(nameStackView: nameStackView2, colorStackView: colorStackView2, catagory: "", color: .white, withFontSize: fontSize)
         }
         
         pieChartView.segments = segments
     }
     
     
-    func addNameAndColorLabel(nameStackView: UIStackView, colorStackView: UIStackView, catagory: String, color: UIColor) {
+    func addNameAndColorLabel(nameStackView: UIStackView, colorStackView: UIStackView, catagory: String, color: UIColor, withFontSize fontSize: CGFloat) {
         let frame = CGRect(x: 0, y: 0, width: 70, height: 30)
         
         let nameLabel = UILabel(frame: frame)
         nameStackView.addArrangedSubview(nameLabel)
         nameLabel.text = catagory
         nameLabel.textAlignment = .center
+        nameLabel.font = UIFont(name: Keys.avenirNext, size: fontSize)
         
         let colorLabel = UILabel(frame: frame)
         colorStackView.addArrangedSubview(colorLabel)

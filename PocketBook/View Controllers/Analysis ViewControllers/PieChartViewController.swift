@@ -14,14 +14,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var timeFrame: String? {
         
         didSet {
-            let transactions: [Transaction] = TransactionController.shared.transactions
-            guard let timeFrame = timeFrame else {return}
-            let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
-            let filteredByTime = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
-            let filteredDictionary = filterByCategoryIntoDictionary(forThisArray: filteredByTime)
-            PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
-            PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
-            legendView.setNeedsDisplay()
+            updatePieChart()
         }
     }
     
@@ -64,6 +57,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         super.viewWillAppear(animated)
         noDataImageSetup()
         self.parent?.navigationItem.title = "Total Spent by Budgeting Categories".uppercased()
+        updatePieChart()
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,9 +117,28 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         timeFrame = name
     }
     
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        pickerLabel.text = timeFrames[row]
+        pickerLabel.font = UIFont(name: Keys.avenirNext, size: 18)
+        pickerLabel.textAlignment = .center
+        return pickerLabel
+    }
+    
     // MARK: - Setup Vars and Reload Functions
     func setUpTimeFrameVar() {
         timeFrame = TimeFrame.pastYear.rawValue
+    }
+    
+    func updatePieChart() {
+        let transactions: [Transaction] = TransactionController.shared.transactions
+        guard let timeFrame = timeFrame else {return}
+        let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
+        let filteredByTime = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
+        let filteredDictionary = filterByCategoryIntoDictionary(forThisArray: filteredByTime)
+        PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary, withFontSize: 16)
+        PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
+        legendView.setNeedsDisplay()
     }
 
 }

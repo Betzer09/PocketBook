@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTt-wf-RtT">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="747" verticalCompressionResistancePriority="747" translatesAutoresizingMaskIntoConstraints="NO" id="xTt-wf-RtT">
                                 <rect key="frame" x="0.0" y="64" width="375" height="375"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wl3-tN-kgc" customClass="PieChartView" customModule="PocketBook" customModuleProvider="target">
@@ -65,8 +65,8 @@
                                     <constraint firstItem="wl3-tN-kgc" firstAttribute="centerX" secondItem="xTt-wf-RtT" secondAttribute="centerX" id="ieJ-RX-Fjh"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZY-P5-7gU">
-                                <rect key="frame" x="0.0" y="447" width="361" height="115"/>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="9ZY-P5-7gU">
+                                <rect key="frame" x="10" y="447" width="355" height="115"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-kY-hMg">
@@ -138,7 +138,7 @@
                             <constraint firstItem="0Wz-q2-BYV" firstAttribute="bottom" secondItem="tzE-sC-Yam" secondAttribute="bottom" id="1bq-i6-NLu"/>
                             <constraint firstItem="tzE-sC-Yam" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="2q8-Of-rMe"/>
                             <constraint firstItem="xTt-wf-RtT" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="NDG-nC-Uie"/>
-                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="NEn-pm-tZV"/>
+                            <constraint firstItem="9ZY-P5-7gU" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" constant="10" id="NEn-pm-tZV"/>
                             <constraint firstItem="9ZY-P5-7gU" firstAttribute="top" secondItem="xTt-wf-RtT" secondAttribute="bottom" constant="8" id="QP1-vc-G1F"/>
                             <constraint firstItem="xTt-wf-RtT" firstAttribute="top" secondItem="0Wz-q2-BYV" secondAttribute="top" id="Y1g-1j-ntQ"/>
                             <constraint firstItem="tzE-sC-Yam" firstAttribute="top" secondItem="0Wz-q2-BYV" secondAttribute="top" id="ala-Qw-g3o"/>
@@ -146,7 +146,7 @@
                             <constraint firstItem="gfD-kY-hMg" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="i4Q-NE-f1E"/>
                             <constraint firstItem="gfD-kY-hMg" firstAttribute="trailing" secondItem="0Wz-q2-BYV" secondAttribute="trailing" id="jsk-dK-Ih0"/>
                             <constraint firstItem="xTt-wf-RtT" firstAttribute="leading" secondItem="0Wz-q2-BYV" secondAttribute="leading" id="lhN-GH-wAa"/>
-                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="trailing" secondItem="9ZY-P5-7gU" secondAttribute="trailing" constant="14" id="uBr-GQ-LNE"/>
+                            <constraint firstItem="0Wz-q2-BYV" firstAttribute="trailing" secondItem="9ZY-P5-7gU" secondAttribute="trailing" constant="10" id="uBr-GQ-LNE"/>
                             <constraint firstItem="gfD-kY-hMg" firstAttribute="top" secondItem="9ZY-P5-7gU" secondAttribute="bottom" constant="10" id="utL-ZL-pvu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0Wz-q2-BYV"/>
@@ -359,13 +359,14 @@
                                             <constraint firstItem="Va8-W3-pb9" firstAttribute="leading" secondItem="oll-Zi-RoS" secondAttribute="trailing" constant="8" id="etI-ed-woq"/>
                                         </constraints>
                                     </view>
-                                    <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7QY-AB-PD6">
-                                        <rect key="frame" x="10" y="30" width="375" height="42.5"/>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QY-AB-PD6">
+                                        <rect key="frame" x="0.0" y="27.5" width="375" height="92.5"/>
                                     </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="7QY-AB-PD6" secondAttribute="trailing" id="8UM-W9-yql"/>
+                                    <constraint firstAttribute="bottom" secondItem="7QY-AB-PD6" secondAttribute="bottom" id="9qu-ZC-vQ0"/>
                                     <constraint firstAttribute="height" constant="120" id="F5N-L1-Ve9"/>
                                     <constraint firstItem="Ocj-pi-Xk1" firstAttribute="top" secondItem="2BA-fS-Ltx" secondAttribute="top" constant="4" id="Lxj-yY-V2o"/>
                                     <constraint firstItem="7QY-AB-PD6" firstAttribute="top" secondItem="Ocj-pi-Xk1" secondAttribute="bottom" id="Ngc-z9-htq"/>
@@ -379,7 +380,6 @@
                                     <constraint firstItem="rj5-5d-hM1" firstAttribute="centerX" secondItem="2BA-fS-Ltx" secondAttribute="centerX" id="kvn-54-gl1"/>
                                     <constraint firstItem="4pQ-dL-ADd" firstAttribute="leading" secondItem="2BA-fS-Ltx" secondAttribute="leading" id="p1g-J4-N1d"/>
                                     <constraint firstItem="Ocj-pi-Xk1" firstAttribute="width" secondItem="2BA-fS-Ltx" secondAttribute="width" multiplier="1/2" id="rvs-Ed-4gI"/>
-                                    <constraint firstItem="7QY-AB-PD6" firstAttribute="bottom" secondItem="2BA-fS-Ltx" secondAttribute="bottom" constant="-50" id="s4S-7q-R1p"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -456,7 +456,7 @@
                                 <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8S-ng-7HG">
-                                        <rect key="frame" x="0.0" y="27.5" width="375" height="42.5"/>
+                                        <rect key="frame" x="0.0" y="27.5" width="375" height="92.5"/>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Period:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-yt-cLe">
                                         <rect key="frame" x="0.0" y="4" width="187.5" height="23.5"/>
@@ -527,7 +527,7 @@
                                     <constraint firstItem="6gE-CS-UcN" firstAttribute="leading" secondItem="KJH-yt-cLe" secondAttribute="trailing" id="QBM-Rt-W5m"/>
                                     <constraint firstItem="6gE-CS-UcN" firstAttribute="width" secondItem="chd-ev-QwF" secondAttribute="width" multiplier="1/2" id="Xqu-wF-eVz"/>
                                     <constraint firstItem="fkx-18-P2Z" firstAttribute="centerX" secondItem="chd-ev-QwF" secondAttribute="centerX" id="abJ-Gx-PLw"/>
-                                    <constraint firstItem="o8S-ng-7HG" firstAttribute="bottom" secondItem="chd-ev-QwF" secondAttribute="bottom" constant="-50" id="cfu-tA-YeJ"/>
+                                    <constraint firstItem="o8S-ng-7HG" firstAttribute="bottom" secondItem="chd-ev-QwF" secondAttribute="bottom" id="cfu-tA-YeJ"/>
                                     <constraint firstAttribute="height" constant="120" id="f4V-Xb-boV"/>
                                     <constraint firstItem="KJH-yt-cLe" firstAttribute="top" secondItem="chd-ev-QwF" secondAttribute="top" constant="4" id="gLF-jN-z06"/>
                                     <constraint firstItem="KJH-yt-cLe" firstAttribute="leading" secondItem="chd-ev-QwF" secondAttribute="leading" id="oqP-3R-IJc"/>

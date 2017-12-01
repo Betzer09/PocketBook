@@ -318,7 +318,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             filteredDictionary[name] = amount
         }
         PieChartView.shared.createLegendView(fromView: legendView)
-        PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary)
+        PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary, withFontSize: 12)
         PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
     }
     
