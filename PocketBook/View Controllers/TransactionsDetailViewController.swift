@@ -32,6 +32,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     var plannedExpenseTransaction: PlannedExpense?
     var currentYShiftForKeyboard: CGFloat = 0
     var textFieldBeingEdited: UITextField?
+    var booleanCounterForTableViewAnimation: Bool = false
     
     let dueDatePicker = UIDatePicker()
     let accountPicker = UIPickerView()
@@ -50,6 +51,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        booleanCounterForTableViewAnimation = true
     }
     
     // MARK: - Setup UI
@@ -153,7 +158,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 if transaction != nil {
                     guard let transaction = transaction else {return}
                     amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
-                    payeeTextField.text = transaction.payee
+                    payeeTextField.text = transaction.payee.lowercased().capitalized
                     dateTextField.text = returnString(fromDate: transaction.date)
                     accountTextField.text = transaction.account
                 }
@@ -165,7 +170,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
                 
                 amountTextField.text = stringAmount
-                payeeTextField.text = plannedExpense.name
+                payeeTextField.text = plannedExpense.name.lowercased().capitalized
                 dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
                 accountTextField.text = plannedExpense.account
                 
@@ -189,7 +194,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             if transaction != nil {
                 guard let transaction = transaction else {return}
                 amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
-                payeeTextField.text = transaction.payee
+                payeeTextField.text = transaction.payee.lowercased().capitalized
                 dateTextField.text = returnString(fromDate: transaction.date)
                 accountTextField.text = transaction.account
             }
@@ -201,7 +206,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             
             amountTextField.text = stringAmount
-            payeeTextField.text = plannedExpense.name
+            payeeTextField.text = plannedExpense.name.lowercased().capitalized
             dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
             accountTextField.text = plannedExpense.account
 
@@ -214,7 +219,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             let stringAmount = formatNumberToString(fromDouble: transaction.amount)
             
             amountTextField.text = stringAmount
-            payeeTextField.text = transaction.payee
+            payeeTextField.text = transaction.payee.lowercased().capitalized
             dateTextField.text =  returnString(fromDate: transaction.date)
             accountTextField.text = transaction.account
             categoryTextField.text = transaction.category

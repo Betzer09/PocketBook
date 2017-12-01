@@ -129,8 +129,12 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         }
     }    
     
+<<<<<<< HEAD
+    // MARK: - Methods        
+=======
     // MARK: - Methods
     
+>>>>>>> develop
     /// This function calculates the remaining amount needed to reach goal
     func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
         let difference = goalAmount - initialAmount

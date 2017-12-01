@@ -30,7 +30,7 @@ class plannedExpenseTableViewCell: UITableViewCell {
     //MARK: - Functions
     func updateCell(plannedExpense: PlannedExpense) {
         let totalSaved = plannedExpense.totalDeposited + plannedExpense.initialAmount
-        plannedExpenseNameLabel.text = plannedExpense.name
+        plannedExpenseNameLabel.text = plannedExpense.name.lowercased().capitalized
         byDueDateLabel.text = returnFormattedDateString(date: plannedExpense.dueDate)
         configureProgressBar(withPlannedExpense: plannedExpense)
         progressBarLabel.text = "\(formatNumberToString(fromDouble: totalSaved)) / \(formatNumberToString(fromDouble: plannedExpense.goalAmount))"

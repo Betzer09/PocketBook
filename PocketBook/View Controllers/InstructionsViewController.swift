@@ -21,7 +21,8 @@ class InstructionsViewController: UIPageViewController, UIPageViewControllerDele
                 self.newVc(viewController: "analysisInstruction"),
                 self.newVc(viewController: "transactionsInstruction"),
                 self.newVc(viewController: "plannedExpensesInstruction"),
-                self.newVc(viewController: "budgetItemsInstruction")]
+                self.newVc(viewController: "budgetItemsInstruction"),
+                self.newVc(viewController: "privacyPolicyInstruction")]
     }()
     
     override func viewDidLoad() {

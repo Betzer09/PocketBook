@@ -12,6 +12,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Properties
     
+    var booleanCounterForTableViewAnimation: Bool = false
     var currentYShiftForKeyboard: CGFloat = 0
     var toAccount: Account?
     var fromAccount: Account?
@@ -61,12 +62,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.updateArrays()
-            self.reloadTableView()
+            animateTableView(forTableView: self.tableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
             self.noDataImageSetup()
         }
         setUpTransferFundsView()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        booleanCounterForTableViewAnimation = true
+    }
     // MARK: - Setup View
     
     func setUpUI() {
@@ -119,7 +123,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
             self.noDataImageSetup()
-            animateTableView(forTableView: self.tableView)
+            animateTableView(forTableView: self.tableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
         }
     }
     
@@ -272,7 +276,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
         
         let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
-        cell.textLabel?.text = account.name
+        cell.textLabel?.text = account.name.lowercased().capitalized
         
         let stringAmount = formatNumberToString(fromDouble: account.total)
         cell.detailTextLabel?.text = stringAmount

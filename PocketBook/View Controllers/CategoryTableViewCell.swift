@@ -17,7 +17,7 @@ class CategroyTableViewCell: UITableViewCell {
     
     func updateCell(budgetItem: BudgetItem) {
         guard let totalAlloted = budgetItem.totalAllotted else {return}
-        categoryNameLabel.text = budgetItem.name
+        categoryNameLabel.text = budgetItem.name.lowercased().capitalized
         configureProgressBar(withBudgetItem: budgetItem)
         progressBarDescriptionLabel.text = "\(formatNumberToString(fromDouble: budgetItem.spentTotal)) / \(formatNumberToString(fromDouble: totalAlloted))"
     }

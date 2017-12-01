@@ -17,6 +17,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
+//    @IBOutlet weak var incomeNotCurrentlyBudgetTitleLabel: UILabel!
     
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var legendView: UIView!
@@ -30,6 +31,14 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var noDataImage: UIImageView!
     
+    // MARK: - Notifications
+    
+    func runNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateIncomeNotCurrentlyBudgetedTitleLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+    }
+    
     // MARK: - Properties
     var projectedIncome: Double = 0.0 {
         didSet {
@@ -37,6 +46,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    var booleanCounterForTableViewAnimation: Bool = false
     let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
     
     // MARK: - View LifeCycle
@@ -54,7 +64,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
         setUpUI()
+        runNotifications()
         updatePieChartAndLegendView()
+        updateIncomeNotCurrentlyBudgetedTitleLabel()
         view.setNeedsDisplay()
     }
     
@@ -63,6 +75,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         noDataImageSetup()
         reloadCategoryTableView()
         updateUI()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        booleanCounterForTableViewAnimation = true
     }
     
     func noDataImageSetup() {
@@ -262,6 +278,18 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    @objc func updateIncomeNotCurrentlyBudgetedTitleLabel() {
+        
+        guard let user = UserController.shared.user else { return }
+        if user.projectedIncome <= 0.0 {
+            incomeNotCurrentlyBudgetLabel.isHidden = true
+        } else {
+            incomeNotCurrentlyBudgetLabel.isHidden = false
+        }
+    }
+    
+
+    
     @objc func updateNotCurrentlyBudgetedLabel() {
         DispatchQueue.main.async {
             self.incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: self.calculatedNotCurrentlyBudgetedTotal()))"
@@ -273,7 +301,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             self.updateUI()
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
-            animateTableView(forTableView: self.categoryTableView)
+            animateTableView(forTableView: self.categoryTableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
         }
     }
     
