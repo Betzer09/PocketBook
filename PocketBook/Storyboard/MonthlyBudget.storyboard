@@ -31,6 +31,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="budget_items_empty_state_screen_1024" translatesAutoresizingMaskIntoConstraints="NO" id="CIy-Lg-jiW">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" red="0.30009937286376953" green="0.49462205171585083" blue="0.76382464170455933" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nhh-Rl-UE2" userLabel="Graph Total View">
                                 <rect key="frame" x="7.5" y="64" width="360" height="167"/>
                                 <subviews>
@@ -116,9 +120,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YtF-jv-d0C">
                                 <rect key="frame" x="7.5" y="272" width="360" height="230.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <progressView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="Zn2-0R-uwA">
+                                    <rect key="frame" x="0.0" y="0.0" width="360" height="2"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="trackTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </progressView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="9EV-N8-YZg" customClass="CategroyTableViewCell" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="360" height="44"/>
+                                        <rect key="frame" x="0.0" y="30" width="360" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9EV-N8-YZg" id="j2y-8Z-NuH">
                                             <rect key="frame" x="0.0" y="0.0" width="360" height="43.5"/>
@@ -159,6 +168,51 @@
                                             <outlet property="categoryNameLabel" destination="Rnl-i1-Q5P" id="DVf-7b-pDO"/>
                                             <outlet property="progressBar" destination="Zin-aL-SOf" id="hBn-Ym-ioG"/>
                                             <outlet property="progressBarDescriptionLabel" destination="x7i-Ed-0c1" id="mP2-fT-pIM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savingsGoalCell" id="6UR-QY-WfF" customClass="MonthlyBudgetStaticSavingsGoalCustomTableViewCell" customModule="PocketBook" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="74" width="360" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6UR-QY-WfF" id="Dut-8E-FXz">
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mG5-hr-lcX">
+                                                    <rect key="frame" x="172" y="20" width="180" height="2"/>
+                                                    <color key="trackTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                </progressView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="x8s-7c-5XF" userLabel="Saving Goals">
+                                                    <rect key="frame" x="8" y="11" width="156" height="20.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="OUN-BH-fJm" userLabel="Progress Bar Description Label">
+                                                    <rect key="frame" x="172" y="28.5" width="180" height="11"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="11" id="GzW-b5-IGB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mG5-hr-lcX" firstAttribute="centerY" secondItem="Dut-8E-FXz" secondAttribute="centerY" id="5NT-mc-DLD"/>
+                                                <constraint firstItem="x8s-7c-5XF" firstAttribute="centerY" secondItem="Dut-8E-FXz" secondAttribute="centerY" id="Fns-0X-305"/>
+                                                <constraint firstItem="x8s-7c-5XF" firstAttribute="trailing" secondItem="mG5-hr-lcX" secondAttribute="leading" constant="-8" id="Ics-8K-gHp"/>
+                                                <constraint firstAttribute="trailing" secondItem="OUN-BH-fJm" secondAttribute="trailing" constant="8" id="eOG-8x-Yhf"/>
+                                                <constraint firstItem="OUN-BH-fJm" firstAttribute="trailing" secondItem="mG5-hr-lcX" secondAttribute="trailing" id="g57-HV-yqJ"/>
+                                                <constraint firstItem="mG5-hr-lcX" firstAttribute="width" secondItem="Dut-8E-FXz" secondAttribute="width" multiplier="0.5" id="jV0-P5-UhS"/>
+                                                <constraint firstItem="mG5-hr-lcX" firstAttribute="trailing" secondItem="Dut-8E-FXz" secondAttribute="trailingMargin" id="km9-ij-PXA"/>
+                                                <constraint firstAttribute="bottom" secondItem="OUN-BH-fJm" secondAttribute="bottom" constant="4" id="v6F-wp-SQR"/>
+                                                <constraint firstItem="x8s-7c-5XF" firstAttribute="leading" secondItem="Dut-8E-FXz" secondAttribute="leading" constant="8" id="vm4-cG-tFG"/>
+                                                <constraint firstItem="OUN-BH-fJm" firstAttribute="width" secondItem="mG5-hr-lcX" secondAttribute="width" id="yQI-lz-Yxz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="progressBar" destination="mG5-hr-lcX" id="Dt8-Li-m90"/>
+                                            <outlet property="progressBarDescriptionLabel" destination="OUN-BH-fJm" id="crg-LF-SY2"/>
+                                            <outlet property="savingsGoalLabel" destination="x8s-7c-5XF" id="t3A-oO-Ht1"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -279,10 +333,6 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="budget_items_empty_state_screen_1024" translatesAutoresizingMaskIntoConstraints="NO" id="CIy-Lg-jiW">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="0.30009937286376953" green="0.49462205171585083" blue="0.76382464170455933" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -359,7 +409,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="budget_items_empty_state_screen_1024" width="576" height="1024"/>
+        <image name="budget_items_empty_state_screen_1024" width="3814" height="6781"/>
         <image name="monthlyBudgetIcon" width="34" height="35"/>
     </resources>
 </document>

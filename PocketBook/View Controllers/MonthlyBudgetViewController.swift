@@ -39,17 +39,17 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
-
+    
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        This clears on the things saved to user defaults Wait a while to delete me
         
-//        let domain = Bundle.main.bundleIdentifier!
-//        UserDefaults.standard.removePersistentDomain(forName: domain)
-//        UserDefaults.standard.synchronize()
-//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+        //        This clears on the things saved to user defaults Wait a while to delete me
+        
+        //        let domain = Bundle.main.bundleIdentifier!
+        //        UserDefaults.standard.removePersistentDomain(forName: domain)
+        //        UserDefaults.standard.synchronize()
+        //        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
         
@@ -83,17 +83,34 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - UITableViewDataSource Functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BudgetItemController.shared.budgetItems.count
+        return BudgetItemController.shared.budgetItems.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as? CategroyTableViewCell else {return UITableViewCell()}
         
-        let budgetItem = BudgetItemController.shared.budgetItems[indexPath.row]
-        cell.categoryNameLabel.text = budgetItem.name
-        cell.updateCell(budgetItem: budgetItem)
-        
-        return cell
+        if indexPath.row == BudgetItemController.shared.budgetItems.count {
+            
+            // This is the last cell
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "savingsGoalCell", for: indexPath) as? MonthlyBudgetStaticSavingsGoalCustomTableViewCell else {return UITableViewCell()}
+            
+            let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
+            cell.updateCell(plannedExpense: plannedExpense)
+            
+            return cell
+            
+        } else {
+            
+            // These are the normal budget item cells
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as? CategroyTableViewCell else {return UITableViewCell()}
+            
+            let budgetItem = BudgetItemController.shared.budgetItems[indexPath.row]
+            cell.categoryNameLabel.text = budgetItem.name
+            cell.updateCell(budgetItem: budgetItem)
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -304,7 +321,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         categoryTableView.estimatedRowHeight = 50
         categoryTableView.rowHeight = UITableViewAutomaticDimension
         amountTextField.delegate = self
-
+        
     }
     
     func createPlusButton() {
@@ -334,7 +351,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     func createAndUpdateProjected(income: Double) {
         let defaults = UserDefaults.standard
         let hasLaunched = defaults.bool(forKey: hasLaunchedKey)
-
+        
         if !hasLaunched {
             defaults.set(true, forKey: hasLaunchedKey)
             UserController.shared.createUser(withProjectedIncome: income, completion: nil)
