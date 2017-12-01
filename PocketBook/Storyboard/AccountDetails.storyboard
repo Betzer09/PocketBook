@@ -203,7 +203,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8Q-mc-Dv0">
-                                <rect key="frame" x="131" y="362" width="113" height="30"/>
+                                <rect key="frame" x="102.5" y="362" width="170.5" height="30"/>
                                 <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="boj-pm-aBF"/>
@@ -234,6 +234,7 @@
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="3/4" id="wC2-ge-ddd"/>
                             <constraint firstItem="8VH-g8-CcS" firstAttribute="leading" secondItem="KOe-hC-lOV" secondAttribute="leading" constant="8" id="yP5-hJ-pXr"/>
                             <constraint firstItem="MUe-97-OrH" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="yus-pA-58M"/>
+                            <constraint firstItem="h8Q-mc-Dv0" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="5/11" id="zbg-2k-rj0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uk8-tI-VPd"/>
                     </view>
