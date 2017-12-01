@@ -227,12 +227,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 <<<<<<< HEAD
-        
-        guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
-        return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
-    }
-        
-=======
         let headerView = UIView()
         headerView.backgroundColor = UIColor.lightGray
         
@@ -247,7 +241,13 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         return headerView
     }
     
->>>>>>> develop
+=======
+        
+        guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
+        return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
+    }
+        
+>>>>>>> brianweissberg
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard let checkingArray = self.checkingArray,
@@ -379,10 +379,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
 <<<<<<< HEAD
-        
-=======
   
->>>>>>> develop
+=======
+        
+>>>>>>> brianweissberg
         let pickerLabel = UILabel()
         let accounts = AccountController.shared.accounts
         let account = accounts[row]
