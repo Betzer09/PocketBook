@@ -58,6 +58,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         setPickerDelegates()
         customizeSegmentedControl()
         customizePayeeLabel()
+        setUpDatePicker()
+    }
+    
+    func setUpDatePicker() {
+        dueDatePicker.maximumDate = Date()
     }
     
     func configureNavigationController() {
