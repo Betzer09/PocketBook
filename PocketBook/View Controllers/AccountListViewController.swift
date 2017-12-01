@@ -224,6 +224,21 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Setup TableView
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.lightGray
+        
+        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
+            tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.font = UIFont(name: "Avenir Next", size: 16)
+        headerLabel.textColor = UIColor.charcoal
+        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+        
+        return headerView
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard let checkingArray = self.checkingArray,
@@ -354,12 +369,13 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+  
         let pickerLabel = UILabel()
         let accounts = AccountController.shared.accounts
         let account = accounts[row]
         pickerLabel.text = account.name
-        pickerLabel.font = UIFont(name: "Arial", size: 15)
-        pickerLabel.textAlignment = .center
+        pickerLabel.textAlignment = .left
+        pickerLabel.font = UIFont(name: "Avenir Next", size: 14)
         return pickerLabel
     }
     

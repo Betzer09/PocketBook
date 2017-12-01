@@ -35,6 +35,18 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
     }
     
+    // MARK: - Actions
+    @IBAction func unwindToPlannedExpenseViewController(unwindSegue: UIStoryboardSegue) {
+        
+<<<<<<< HEAD
+        if let planedExpenseVC = unwindSegue.source as? PlannedExpenseViewController {
+=======
+        if let planedExpenseVC = unwindSegue.source as? PlannedExpenseDetailViewController {
+>>>>>>> develop
+            print("Coming from plannedExpnsesVC")
+        }
+    }
+    
     //MARK: - Functions
     func noDataImageSetup() {
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses
@@ -61,12 +73,6 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     @objc func updateViews() {
         let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
-<<<<<<< HEAD
-        if totalMonthlyContribution <= 0.0 {
-            amountLabel.text = "\("$0.00")"
-        } else {
-            amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
-=======
         DispatchQueue.main.async {
             if totalMonthlyContribution <= 0.0 {
                 self.amountLabel.text = "\("$0.00")"
@@ -74,7 +80,6 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
             } else {
                 self.amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
             }
->>>>>>> develop
         }
     }
     
@@ -128,25 +133,18 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     /// This function changes the calculatedContributionLabel text if there aren't any savings goals
     @objc func changeCalculatedContributionlabel() {
-<<<<<<< HEAD
-            amountLabel.isHidden = false
-            totalIdealMonthlyContributionLabel.text = "Total Ideal Monthly Contribution:"
-            totalIdealMonthlyContributionLabel.textColor = .black
-            totalIdealMonthlyContributionLabel.textAlignment = .left
-=======
         DispatchQueue.main.async {
             self.amountLabel.isHidden = false
             self.totalIdealMonthlyContributionLabel.text = "Total Ideal Monthly Contribution:"
             self.totalIdealMonthlyContributionLabel.textColor = .black
             self.totalIdealMonthlyContributionLabel.textAlignment = .left
         }
->>>>>>> develop
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPersistedPlannedExpenseSegue" {
-            guard let destinationVC = segue.destination as? PlannedExpenseViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let destinationVC = segue.destination as? PlannedExpenseDetailViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
             destinationVC.plannedExpense = plannedExpense
         }

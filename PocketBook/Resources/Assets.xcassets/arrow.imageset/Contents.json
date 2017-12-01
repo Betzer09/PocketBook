@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "arrow.jpg",
+      "filename" : "Arrow.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "arrow-1.jpg",
+      "filename" : "Arrow-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "arrow-2.jpg",
+      "filename" : "Arrow-2.png",
       "scale" : "3x"
     }
   ],

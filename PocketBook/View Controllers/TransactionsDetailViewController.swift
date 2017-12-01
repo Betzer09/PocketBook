@@ -79,8 +79,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         guard let navController = parent as? UINavigationController,
             let tabBarController = navController.parent as? UITabBarController else { return }
-        
         tabBarController.selectedIndex = 2
+        
         saveTransaction()
 
     }
@@ -494,7 +494,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         } else {
             createTransaction()
         }
+        if plannedExpenseTransaction != nil {
         performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     private func createTransaction() {
