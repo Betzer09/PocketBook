@@ -33,20 +33,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="accounts" translatesAutoresizingMaskIntoConstraints="NO" id="sPu-ve-hae">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Accounts Icon" translatesAutoresizingMaskIntoConstraints="NO" id="sPu-ve-hae">
                                 <rect key="frame" x="70" y="67" width="234" height="234"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="sPu-ve-hae" secondAttribute="height" multiplier="1:1" id="bzC-od-tDX"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbH-xG-yRA" userLabel="Header Text">
-                                <rect key="frame" x="71" y="346" width="234" height="33"/>
+                                <rect key="frame" x="71" y="321" width="234" height="33"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Pocketbook! Get started by entering your checking, savings &amp; credit accounts." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3O-Tf-D1J" userLabel="Description Text">
-                                <rect key="frame" x="27.5" y="424" width="321" height="70"/>
+                                <rect key="frame" x="27.5" y="374" width="321" height="70"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -68,12 +68,12 @@
                         <constraints>
                             <constraint firstItem="mbH-xG-yRA" firstAttribute="centerX" secondItem="QCx-nJ-ZNa" secondAttribute="centerX" id="52x-05-jlf"/>
                             <constraint firstItem="sPu-ve-hae" firstAttribute="width" secondItem="QCx-nJ-ZNa" secondAttribute="width" multiplier="5/8" id="6aZ-cr-v7A"/>
-                            <constraint firstItem="mbH-xG-yRA" firstAttribute="top" secondItem="sPu-ve-hae" secondAttribute="bottom" constant="45" id="EDk-fh-wto"/>
+                            <constraint firstItem="mbH-xG-yRA" firstAttribute="top" secondItem="sPu-ve-hae" secondAttribute="bottom" constant="20" id="EDk-fh-wto"/>
                             <constraint firstItem="nTd-eh-8VM" firstAttribute="centerX" secondItem="QCx-nJ-ZNa" secondAttribute="centerX" id="HVT-Mv-9ri"/>
                             <constraint firstItem="t3O-Tf-D1J" firstAttribute="width" secondItem="QCx-nJ-ZNa" secondAttribute="width" multiplier="6/7" id="LT0-FD-Hg0"/>
                             <constraint firstItem="lcE-4W-wcn" firstAttribute="bottom" secondItem="nTd-eh-8VM" secondAttribute="bottom" constant="70" id="V6Y-Fr-hfq"/>
                             <constraint firstItem="sPu-ve-hae" firstAttribute="centerX" secondItem="QCx-nJ-ZNa" secondAttribute="centerX" id="YTR-mn-kNA"/>
-                            <constraint firstItem="t3O-Tf-D1J" firstAttribute="top" secondItem="mbH-xG-yRA" secondAttribute="bottom" constant="45" id="ejc-97-vwf"/>
+                            <constraint firstItem="t3O-Tf-D1J" firstAttribute="top" secondItem="mbH-xG-yRA" secondAttribute="bottom" constant="20" id="ejc-97-vwf"/>
                             <constraint firstItem="mbH-xG-yRA" firstAttribute="width" secondItem="QCx-nJ-ZNa" secondAttribute="width" multiplier="5/8" id="toA-JG-I54"/>
                             <constraint firstItem="sPu-ve-hae" firstAttribute="top" secondItem="lcE-4W-wcn" secondAttribute="top" constant="47" id="u2w-9r-oSu"/>
                             <constraint firstItem="t3O-Tf-D1J" firstAttribute="centerX" secondItem="QCx-nJ-ZNa" secondAttribute="centerX" id="v6a-1n-drh"/>
@@ -94,20 +94,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="analysis" translatesAutoresizingMaskIntoConstraints="NO" id="aJc-wN-69A">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Analysis Icon" translatesAutoresizingMaskIntoConstraints="NO" id="aJc-wN-69A">
                                 <rect key="frame" x="70" y="67" width="234" height="234"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aJc-wN-69A" secondAttribute="height" multiplier="1:1" id="QjG-qC-1NO"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analysis" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBE-dD-t23" userLabel="Header Text">
-                                <rect key="frame" x="71" y="346" width="234" height="33"/>
+                                <rect key="frame" x="71" y="321" width="234" height="33"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analyze your finances with intuitive charts and graphs. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lp6-mP-eDk" userLabel="Description Text">
-                                <rect key="frame" x="27.5" y="424" width="321" height="46.5"/>
+                                <rect key="frame" x="27.5" y="374" width="321" height="46.5"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -129,8 +129,8 @@
                         <constraints>
                             <constraint firstItem="U3Z-PR-tGE" firstAttribute="bottom" secondItem="vHH-L1-vzV" secondAttribute="bottom" constant="70" id="0uL-8M-hog"/>
                             <constraint firstItem="mBE-dD-t23" firstAttribute="centerX" secondItem="mhL-0H-dIh" secondAttribute="centerX" id="7d5-AO-0EF"/>
-                            <constraint firstItem="mBE-dD-t23" firstAttribute="top" secondItem="aJc-wN-69A" secondAttribute="bottom" constant="45" id="Awn-Ru-grf"/>
-                            <constraint firstItem="lp6-mP-eDk" firstAttribute="top" secondItem="mBE-dD-t23" secondAttribute="bottom" constant="45" id="Sbi-bH-wx1"/>
+                            <constraint firstItem="mBE-dD-t23" firstAttribute="top" secondItem="aJc-wN-69A" secondAttribute="bottom" constant="20" id="Awn-Ru-grf"/>
+                            <constraint firstItem="lp6-mP-eDk" firstAttribute="top" secondItem="mBE-dD-t23" secondAttribute="bottom" constant="20" id="Sbi-bH-wx1"/>
                             <constraint firstItem="aJc-wN-69A" firstAttribute="width" secondItem="mhL-0H-dIh" secondAttribute="width" multiplier="5/8" id="YrJ-rb-csh"/>
                             <constraint firstItem="aJc-wN-69A" firstAttribute="centerX" secondItem="mhL-0H-dIh" secondAttribute="centerX" id="ZaC-Ig-tXZ"/>
                             <constraint firstItem="vHH-L1-vzV" firstAttribute="centerX" secondItem="mhL-0H-dIh" secondAttribute="centerX" id="ar4-8G-V3o"/>
@@ -155,20 +155,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="transactions" translatesAutoresizingMaskIntoConstraints="NO" id="RsL-YO-J8I">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Transactions Icon" translatesAutoresizingMaskIntoConstraints="NO" id="RsL-YO-J8I">
                                 <rect key="frame" x="70" y="67" width="234" height="234"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="RsL-YO-J8I" secondAttribute="height" multiplier="1:1" id="DW1-oK-W6k"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transactions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-aq-YUS" userLabel="Header Text">
-                                <rect key="frame" x="71" y="346" width="234" height="33"/>
+                                <rect key="frame" x="71" y="321" width="234" height="33"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your income and expenses. These transactions will be reflected thoughout the application. Use transactions to " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amx-Ch-zkq" userLabel="Description Text">
-                                <rect key="frame" x="27.5" y="424" width="321" height="70"/>
+                                <rect key="frame" x="27.5" y="374" width="321" height="70"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -189,11 +189,11 @@
                         <color key="backgroundColor" red="0.22745098039215686" green="0.4823529411764706" blue="0.76862745098039209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ff5-Df-ymU" firstAttribute="bottom" secondItem="xGU-pd-TEe" secondAttribute="bottom" constant="70" id="DrC-Ed-iZG"/>
-                            <constraint firstItem="a9R-aq-YUS" firstAttribute="top" secondItem="RsL-YO-J8I" secondAttribute="bottom" constant="45" id="K3l-zp-yvo"/>
+                            <constraint firstItem="a9R-aq-YUS" firstAttribute="top" secondItem="RsL-YO-J8I" secondAttribute="bottom" constant="20" id="K3l-zp-yvo"/>
                             <constraint firstItem="RsL-YO-J8I" firstAttribute="centerX" secondItem="YVw-hI-xDk" secondAttribute="centerX" id="Lvr-LP-YlX"/>
                             <constraint firstItem="RsL-YO-J8I" firstAttribute="top" secondItem="ff5-Df-ymU" secondAttribute="top" constant="47" id="RqK-5h-3Ug"/>
                             <constraint firstItem="a9R-aq-YUS" firstAttribute="width" secondItem="YVw-hI-xDk" secondAttribute="width" multiplier="5/8" id="dix-vE-zb9"/>
-                            <constraint firstItem="amx-Ch-zkq" firstAttribute="top" secondItem="a9R-aq-YUS" secondAttribute="bottom" constant="45" id="fEg-d2-Cgx"/>
+                            <constraint firstItem="amx-Ch-zkq" firstAttribute="top" secondItem="a9R-aq-YUS" secondAttribute="bottom" constant="20" id="fEg-d2-Cgx"/>
                             <constraint firstItem="RsL-YO-J8I" firstAttribute="width" secondItem="YVw-hI-xDk" secondAttribute="width" multiplier="5/8" id="hCr-UY-kDJ"/>
                             <constraint firstItem="amx-Ch-zkq" firstAttribute="centerX" secondItem="YVw-hI-xDk" secondAttribute="centerX" id="ib6-Yb-0YB"/>
                             <constraint firstItem="amx-Ch-zkq" firstAttribute="width" secondItem="YVw-hI-xDk" secondAttribute="width" multiplier="6/7" id="nXP-9b-sTV"/>
@@ -224,20 +224,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plannedExpenses" translatesAutoresizingMaskIntoConstraints="NO" id="4JQ-XC-4tV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Savings Goals Icon" translatesAutoresizingMaskIntoConstraints="NO" id="4JQ-XC-4tV">
                                 <rect key="frame" x="70" y="67" width="234" height="234"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="4JQ-XC-4tV" secondAttribute="height" multiplier="1:1" id="ziE-nu-6ga"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Savings Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oor-Ee-CEv" userLabel="Header Text">
-                                <rect key="frame" x="71" y="346" width="234" height="33"/>
+                                <rect key="frame" x="71" y="321" width="234" height="33"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking to buy a new car or go on a trip? Start today and turn your goals in realities!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGB-rK-Rfo" userLabel="Description Text">
-                                <rect key="frame" x="27.5" y="424" width="321" height="70"/>
+                                <rect key="frame" x="27.5" y="374" width="321" height="70"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -257,9 +257,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.18431372549019609" green="0.36862745098039218" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="OGB-rK-Rfo" firstAttribute="top" secondItem="oor-Ee-CEv" secondAttribute="bottom" constant="45" id="04E-bZ-K9h"/>
+                            <constraint firstItem="OGB-rK-Rfo" firstAttribute="top" secondItem="oor-Ee-CEv" secondAttribute="bottom" constant="20" id="04E-bZ-K9h"/>
                             <constraint firstItem="oor-Ee-CEv" firstAttribute="width" secondItem="OqW-g7-7i3" secondAttribute="width" multiplier="5/8" id="C5Z-ge-8fb"/>
-                            <constraint firstItem="oor-Ee-CEv" firstAttribute="top" secondItem="4JQ-XC-4tV" secondAttribute="bottom" constant="45" id="I4X-mm-RMS"/>
+                            <constraint firstItem="oor-Ee-CEv" firstAttribute="top" secondItem="4JQ-XC-4tV" secondAttribute="bottom" constant="20" id="I4X-mm-RMS"/>
                             <constraint firstItem="4JQ-XC-4tV" firstAttribute="width" secondItem="OqW-g7-7i3" secondAttribute="width" multiplier="5/8" id="J0t-x2-eyX"/>
                             <constraint firstItem="4JQ-XC-4tV" firstAttribute="top" secondItem="FTf-ly-QWG" secondAttribute="top" constant="47" id="S4Z-N2-tTm"/>
                             <constraint firstItem="4JQ-XC-4tV" firstAttribute="centerX" secondItem="OqW-g7-7i3" secondAttribute="centerX" id="TBO-Hq-dMs"/>
@@ -285,20 +285,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="budgetItems" translatesAutoresizingMaskIntoConstraints="NO" id="PhM-IL-5Id">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Budget Items Icon" translatesAutoresizingMaskIntoConstraints="NO" id="PhM-IL-5Id">
                                 <rect key="frame" x="70" y="67" width="234" height="234"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PhM-IL-5Id" secondAttribute="height" multiplier="1:1" id="RH4-b3-jmc"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget Items" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ewl-ZM-9jn" userLabel="Header Text">
-                                <rect key="frame" x="71" y="346" width="234" height="33"/>
+                                <rect key="frame" x="71" y="321" width="234" height="33"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage your monthly income and expenses. Create budget items to organize your finances." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTo-sa-eKN" userLabel="Description Text">
-                                <rect key="frame" x="27.5" y="424" width="321" height="70"/>
+                                <rect key="frame" x="27.5" y="374" width="321" height="70"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -326,9 +326,9 @@
                             <constraint firstItem="DTo-sa-eKN" firstAttribute="width" secondItem="PfV-b0-ieE" secondAttribute="width" multiplier="6/7" id="REC-53-ENC"/>
                             <constraint firstItem="Mub-Zb-iR3" firstAttribute="bottom" secondItem="xsy-hD-lP8" secondAttribute="bottom" constant="70" id="X0v-NZ-yyN"/>
                             <constraint firstItem="Ewl-ZM-9jn" firstAttribute="centerX" secondItem="PfV-b0-ieE" secondAttribute="centerX" id="cXO-Op-ovB"/>
-                            <constraint firstItem="Ewl-ZM-9jn" firstAttribute="top" secondItem="PhM-IL-5Id" secondAttribute="bottom" constant="45" id="dy0-C4-Gbi"/>
+                            <constraint firstItem="Ewl-ZM-9jn" firstAttribute="top" secondItem="PhM-IL-5Id" secondAttribute="bottom" constant="20" id="dy0-C4-Gbi"/>
                             <constraint firstItem="PhM-IL-5Id" firstAttribute="width" secondItem="PfV-b0-ieE" secondAttribute="width" multiplier="5/8" id="oVB-Dq-FjI"/>
-                            <constraint firstItem="DTo-sa-eKN" firstAttribute="top" secondItem="Ewl-ZM-9jn" secondAttribute="bottom" constant="45" id="tOm-Cw-IQw"/>
+                            <constraint firstItem="DTo-sa-eKN" firstAttribute="top" secondItem="Ewl-ZM-9jn" secondAttribute="bottom" constant="20" id="tOm-Cw-IQw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Mub-Zb-iR3"/>
                     </view>
@@ -340,13 +340,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Accounts Icon" width="2065" height="2065"/>
+        <image name="Analysis Icon" width="2065" height="2065"/>
+        <image name="Budget Items Icon" width="2065" height="2065"/>
         <image name="Get Started Button" width="396" height="120"/>
+        <image name="Savings Goals Icon" width="2065" height="2065"/>
         <image name="Skip Tutorial Button" width="396" height="120"/>
-        <image name="accounts" width="1020" height="1020"/>
-        <image name="analysis" width="881" height="716"/>
-        <image name="budgetItems" width="989" height="1025"/>
-        <image name="plannedExpenses" width="1010" height="912"/>
-        <image name="transactions" width="1001" height="876"/>
+        <image name="Transactions Icon" width="2065" height="2065"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IVI-UX-jqS"/>
