@@ -14,13 +14,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var categoryTableView: UITableView!
     
     @IBOutlet weak var amountTextField: UITextField!
-
+    
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
     
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var legendView: UIView!
-
+    
     @IBOutlet weak var projectedIncomeView: UIView!
     @IBOutlet weak var totalBudgetedIncomeView: UIView!
     @IBOutlet weak var incomeNotCurrentlyBudgetedView: UIView!
@@ -53,7 +53,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
-        updateUI()
+        setUpUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
     }
@@ -62,6 +62,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         super.viewWillAppear(animated)
         noDataImageSetup()
         reloadCategoryTableView()
+        updateUI()
     }
     
     func noDataImageSetup() {
@@ -257,7 +258,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     /// This function updates the monthly budget label
     func updateMonthlyBudgetLabel() {
         DispatchQueue.main.async {
-        self.totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: self.addUpTotalSpentOfBudget()))"
+            self.totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: self.addUpTotalSpentOfBudget()))"
         }
     }
     
@@ -281,7 +282,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: - UI
-    private func updateUI() {
+    
+    
+    // MARK: - UI
+    func setUpUI() {
         configureNavigationBar()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -289,7 +293,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         setUpDelegatesAndDataSources()
         createPlusButton()
-        
+    }
+    
+    private func updateUI() {
         // Update all labels in the view below the budget items
         updateMonthlyBudgetLabel()
         updateNotCurrentlyBudgetedLabel()
@@ -297,9 +303,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         // If there is a projected income assign the value
         let projectedIncome = UserController.shared.user?.projectedIncome
         guard let projected = projectedIncome else {NSLog("There is no projected Income"); return}
+            
         amountTextField.text = formatNumberToString(fromDouble: projected)
         
-    }
+        }
+    
     
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
