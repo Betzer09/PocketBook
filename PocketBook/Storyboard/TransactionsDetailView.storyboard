@@ -25,9 +25,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-dq-dXZ">
-                                <rect key="frame" x="47" y="87" width="281" height="29"/>
+                                <rect key="frame" x="47" y="87" width="281" height="36"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="fvz-wc-8xZ"/>
+                                    <constraint firstAttribute="height" constant="35" id="fvz-wc-8xZ"/>
                                 </constraints>
                                 <segments>
                                     <segment title="Expense"/>

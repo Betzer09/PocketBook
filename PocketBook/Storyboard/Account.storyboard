@@ -70,7 +70,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fnQ-QE-6Te" userLabel="transferFundsPayDayView">
-                                <rect key="frame" x="0.0" y="144" width="414" height="33"/>
+                                <rect key="frame" x="0.0" y="141" width="414" height="33"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="F9T-JD-7ar" userLabel="transferPayDayButtonsStack">
                                         <rect key="frame" x="41.333333333333343" y="0.0" width="331.33333333333326" height="33"/>
@@ -107,7 +107,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bZY-8O-oaH">
-                                <rect key="frame" x="0.0" y="189" width="414" height="143"/>
+                                <rect key="frame" x="0.0" y="191" width="414" height="141"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="accountCell" textLabel="30S-KD-sDY" detailTextLabel="3Dn-7b-x4q" style="IBUITableViewCellStyleValue1" id="ZPd-Wt-hJ9">
@@ -379,7 +379,7 @@
                         <constraints>
                             <constraint firstItem="15v-U6-hPc" firstAttribute="top" secondItem="bZY-8O-oaH" secondAttribute="bottom" id="16m-0a-lCf"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="bottom" constant="-65" id="3T8-EW-qu9"/>
-                            <constraint firstItem="fnQ-QE-6Te" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="bottom" constant="15" id="4XD-iP-lqr"/>
+                            <constraint firstItem="fnQ-QE-6Te" firstAttribute="top" secondItem="1Zk-6j-btM" secondAttribute="bottom" constant="12" id="4XD-iP-lqr"/>
                             <constraint firstItem="1Zk-6j-btM" firstAttribute="width" secondItem="eAT-kI-dVx" secondAttribute="width" id="Cvu-dU-nvI"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="bottom" secondItem="NM0-bL-iJi" secondAttribute="bottom" id="G5k-UV-SC8"/>
                             <constraint firstItem="fnQ-QE-6Te" firstAttribute="width" secondItem="eAT-kI-dVx" secondAttribute="width" id="K1r-nK-bA4"/>
@@ -388,7 +388,7 @@
                             <constraint firstItem="F9T-JD-7ar" firstAttribute="centerX" secondItem="eAT-kI-dVx" secondAttribute="centerX" id="SSX-is-E8x"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="bottom" secondItem="15v-U6-hPc" secondAttribute="bottom" constant="10" id="Vcx-bp-3zv"/>
                             <constraint firstItem="NM0-bL-iJi" firstAttribute="top" secondItem="eAT-kI-dVx" secondAttribute="top" id="YGR-ZJ-EUi"/>
-                            <constraint firstItem="bZY-8O-oaH" firstAttribute="top" secondItem="fnQ-QE-6Te" secondAttribute="bottom" constant="12" id="a22-Od-fSg"/>
+                            <constraint firstItem="bZY-8O-oaH" firstAttribute="top" secondItem="fnQ-QE-6Te" secondAttribute="bottom" constant="17" id="a22-Od-fSg"/>
                             <constraint firstItem="bZY-8O-oaH" firstAttribute="leading" secondItem="eAT-kI-dVx" secondAttribute="leading" id="c2E-hg-zoK"/>
                             <constraint firstItem="eAT-kI-dVx" firstAttribute="trailing" secondItem="15v-U6-hPc" secondAttribute="trailing" constant="5" id="dUZ-aC-u55"/>
                             <constraint firstItem="15v-U6-hPc" firstAttribute="leading" secondItem="eAT-kI-dVx" secondAttribute="leading" constant="5" id="jhD-Vv-tQZ"/>

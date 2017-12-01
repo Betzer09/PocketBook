@@ -37,9 +37,9 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="167"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FkZ-U8-GW8">
-                                        <rect key="frame" x="46.5" y="8" width="281" height="29"/>
+                                        <rect key="frame" x="46.5" y="23" width="281" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="ItI-ly-FBA"/>
+                                            <constraint firstAttribute="height" constant="35" id="ItI-ly-FBA"/>
                                         </constraints>
                                         <segments>
                                             <segment title="All"/>
@@ -52,18 +52,18 @@
                                         </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-92-19L">
-                                        <rect key="frame" x="8" y="44" width="359" height="123"/>
+                                        <rect key="frame" x="8" y="58" width="359" height="109"/>
                                     </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="FkZ-U8-GW8" firstAttribute="width" secondItem="Kig-Fo-tr9" secondAttribute="width" multiplier="3/4" id="4TK-NR-1Pk"/>
                                     <constraint firstItem="yb3-92-19L" firstAttribute="leading" secondItem="Kig-Fo-tr9" secondAttribute="leading" constant="8" id="KzW-LN-jSR"/>
-                                    <constraint firstItem="yb3-92-19L" firstAttribute="top" secondItem="FkZ-U8-GW8" secondAttribute="bottom" constant="8" id="LKV-Or-TA7"/>
+                                    <constraint firstItem="yb3-92-19L" firstAttribute="top" secondItem="FkZ-U8-GW8" secondAttribute="bottom" id="LKV-Or-TA7"/>
                                     <constraint firstAttribute="bottom" secondItem="yb3-92-19L" secondAttribute="bottom" id="QXW-y7-2Tc"/>
                                     <constraint firstItem="FkZ-U8-GW8" firstAttribute="centerX" secondItem="Kig-Fo-tr9" secondAttribute="centerX" id="oLa-Dk-Zkc"/>
                                     <constraint firstAttribute="trailing" secondItem="yb3-92-19L" secondAttribute="trailing" constant="8" id="pBR-E2-6t0"/>
-                                    <constraint firstItem="FkZ-U8-GW8" firstAttribute="top" secondItem="Kig-Fo-tr9" secondAttribute="top" constant="8" id="pnm-YH-grf"/>
+                                    <constraint firstItem="FkZ-U8-GW8" firstAttribute="top" secondItem="Kig-Fo-tr9" secondAttribute="top" constant="23" id="pnm-YH-grf"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aVP-go-vDU">
@@ -178,6 +178,6 @@
     </scenes>
     <resources>
         <image name="transactionsIcon" width="40" height="36"/>
-        <image name="transactions_empty_state_screen_1024" width="576" height="1024"/>
+        <image name="transactions_empty_state_screen_1024" width="3814" height="6781"/>
     </resources>
 </document>
