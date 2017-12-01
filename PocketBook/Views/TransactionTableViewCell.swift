@@ -21,7 +21,12 @@ class TransactionTableViewCell: UITableViewCell {
         guard let transactions = transactions else { return }
         self.payeeLabel.text = transactions.payee
         self.dateLabel.text = returnFormattedDate(fromdate: transactions.date)
-        self.amountLabel.text = "\(formatNumberToString(fromDouble: transactions.amount))"
+        if transactions.transactionType == TransactionType.income.rawValue {
+            self.amountLabel.text = "+ \(formatNumberToString(fromDouble: transactions.amount))"
+        } else {
+            self.amountLabel.text = "- \(formatNumberToString(fromDouble: transactions.amount))"
+
+        }
     }
     
     var transactions: Transaction? {

@@ -103,7 +103,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             
             initialAmountTextField.isHidden = true
             initalAmountLabel.isHidden = true
-            
+
             guard let plannedExpense = plannedExpense else {return}
             
             txtAccountPicker.text = plannedExpense.account
@@ -122,9 +122,10 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
                 calculatedContributionlabel.text = "\(formatNumberToString(fromDouble: monthlyContribution))"
             } else {
                 idealMonthlyContributionAmountLabel.text = "Congratulations! You have reached your goal!"
-                calculatedContributionlabel.isHidden = true
-                idealMonthlyContributionAmountLabel.isHidden = true
             }
+        } else {
+            calculatedContributionlabel.isHidden = true
+            idealMonthlyContributionAmountLabel.isHidden = true
         }
     }    
     

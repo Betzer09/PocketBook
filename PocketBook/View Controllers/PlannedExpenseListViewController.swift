@@ -29,7 +29,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
+        animateTableView(forTableView: self.tableView)
         noDataImageSetup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)

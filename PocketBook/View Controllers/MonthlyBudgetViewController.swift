@@ -32,7 +32,12 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var noDataImage: UIImageView!
     
     // MARK: - Properties
-    var projectedIncome: Double?
+    var projectedIncome: Double = 0.0 {
+        didSet {
+            NotificationCenter.default.post(name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+        }
+    }
+    
     let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
 
     // MARK: - View LifeCycle
@@ -47,6 +52,8 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
 //        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
         updateUI()
         updatePieChartAndLegendView()
         view.setNeedsDisplay()
@@ -241,8 +248,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
-    func updateNotCurrentlyBudgetedLabel() {
-       incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: calculatedNotCurrentlyBudgetedTotal()))"
+    @objc func updateNotCurrentlyBudgetedLabel() {
+        DispatchQueue.main.async {
+            self.incomeNotCurrentlyBudgetLabel.text = "\(formatNumberToString(fromDouble: self.calculatedNotCurrentlyBudgetedTotal()))"
+        }
     }
     
     @objc func reloadCategoryTableView() {
@@ -250,7 +259,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             self.updateUI()
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
-            self.categoryTableView.reloadData()
+            animateTableView(forTableView: self.categoryTableView)
         }
     }
     
@@ -274,9 +283,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         updateNotCurrentlyBudgetedLabel()
         
         // If there is a projected income assign the value
-        projectedIncome = UserController.shared.user?.projectedIncome
-        guard let projectedIncome = projectedIncome else {NSLog("There is no projected Income"); return}
-        amountTextField.text = formatNumberToString(fromDouble: projectedIncome)
+        let projectedIncome = UserController.shared.user?.projectedIncome
+        guard let projected = projectedIncome else {NSLog("There is no projected Income"); return}
+        amountTextField.text = formatNumberToString(fromDouble: projected)
         
     }
     
@@ -332,8 +341,8 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         } else {
             guard let user = UserController.shared.user else {NSLog("There is no User"); return}
             UserController.shared.updateUserWith(projectedIncome: income, user: user, completion: { (_) in })
+            self.projectedIncome = income
         }
-
     }
 }
 

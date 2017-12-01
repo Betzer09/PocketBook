@@ -21,7 +21,6 @@ class UserController {
         didSet {
             NotificationCenter.default.post(name: Notifications.userWasUpdatedNotification, object: nil)
         }
-
     }
     
     init() {

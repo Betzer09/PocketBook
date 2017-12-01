@@ -79,7 +79,7 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
         let filteredByAccount = filterByAccountIntoArray(forCategory: categorySelection, forThisArray: filteredByTimeFrame)
         let filteredByDate = filteredByAccount.sorted(by: { $0.date > $1.date })
         self.filteredTransactions = filteredByDate
-        self.tableView.reloadData()
+        animateTableView(forTableView: self.tableView)
     }
     
     // Segmented Control Buttons Selected
@@ -172,6 +172,12 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let date = TransactionController.shared.returnDictionary(fromArray: filteredTransactions)[section].0
         return returnString(fromDate: date)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
+        return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

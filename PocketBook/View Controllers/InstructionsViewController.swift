@@ -26,6 +26,8 @@ class InstructionsViewController: UIPageViewController, UIPageViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = .white
+
         self.dataSource = self
         self.delegate = self
         
@@ -42,12 +44,12 @@ class InstructionsViewController: UIPageViewController, UIPageViewControllerDele
     func configurePageControl() {
         
         // The total number of pages that are available is based on number view controllers
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 150,width: UIScreen.main.bounds.width,height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 100,width: UIScreen.main.bounds.width,height: 50))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.darkGray
-        self.pageControl.pageIndicatorTintColor = UIColor.darkGray
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
+        self.pageControl.tintColor = UIColor.white
+        self.pageControl.pageIndicatorTintColor = UIColor.white
+        self.pageControl.currentPageIndicatorTintColor = UIColor.darkGray
         self.view.addSubview(pageControl)
     }
     
