@@ -12,8 +12,6 @@ import UIKit
 
 class LineGraphView: UIView {
     
-    static let shared = LineGraphView()
-    
     var dots: [UIView] = []
     
     override init(frame: CGRect) {

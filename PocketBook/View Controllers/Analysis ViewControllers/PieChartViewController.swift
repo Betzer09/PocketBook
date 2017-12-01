@@ -45,7 +45,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        PieChartView.shared.createLegendView(fromView: legendView)
+        pieChartView.createLegendView(fromView: legendView)
         setUpPickerViews()
         setUpTimeFrameVar()
         view.setNeedsDisplay()
@@ -136,8 +136,8 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let filteredTransactionType = filterByTransactionType(byThisType: TransactionType.expense.rawValue, forThisArray: transactions)
         let filteredByTime = filterByTimeFrame(withTimeVariable: timeFrame, forThisArray: filteredTransactionType)
         let filteredDictionary = filterByCategoryIntoDictionary(forThisArray: filteredByTime)
-        PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary, withFontSize: 16)
-        PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
+        pieChartView.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary, withFontSize: 16)
+        pieChartView.formatInnerCircle(fromPieChartView: whiteCircle)
         legendView.setNeedsDisplay()
     }
 

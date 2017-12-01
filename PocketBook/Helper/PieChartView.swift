@@ -12,8 +12,6 @@ import UIKit
 
 class PieChartView: UIView {
     
-    static let shared = PieChartView()
-    
     /// An array of structs representing the segments of the pie chart
     var segments = [Segment]() {
         didSet {

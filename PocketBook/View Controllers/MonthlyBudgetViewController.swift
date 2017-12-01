@@ -326,9 +326,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             let amount = budgetItem.spentTotal
             filteredDictionary[name] = amount
         }
-        PieChartView.shared.createLegendView(fromView: legendView)
-        PieChartView.shared.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary, withFontSize: 12)
-        PieChartView.shared.formatInnerCircle(fromPieChartView: whiteCircle)
+        pieChartView.createLegendView(fromView: legendView)
+        pieChartView.formatPieChartViewAndLegend(withPieCharView: pieChartView, andLegendView: legendView, usingFilteredDictionary: filteredDictionary, withFontSize: 12)
+        pieChartView.formatInnerCircle(fromPieChartView: whiteCircle)
     }
     
     func createAndUpdateProjected(income: Double) {
