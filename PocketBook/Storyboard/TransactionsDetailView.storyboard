@@ -34,6 +34,9 @@
                                     <segment title="Income"/>
                                 </segments>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="segmentedControlPressed:" destination="g7B-q7-SZN" eventType="valueChanged" id="9zi-DJ-Dw4"/>
+                                </connections>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="UdT-V3-1bS">
                                 <rect key="frame" x="19.5" y="247" width="337.5" height="174"/>

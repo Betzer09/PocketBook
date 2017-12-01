@@ -57,6 +57,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         configureNavigationController()
         setPickerDelegates()
         customizeSegmentedControl()
+        customizePayeeLabel()
     }
     
     func configureNavigationController() {
@@ -69,6 +70,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - Actions
+    
+    @IBAction func segmentedControlPressed(_ sender: Any) {
+        customizePayeeLabel()
+    }
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -301,6 +306,15 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     
     // MARK: - Methods
+    
+    func customizePayeeLabel() {
+        if transactionType.selectedSegmentIndex == 0 {
+            payeeLabel.text = "Vendor"
+        } else {
+            payeeLabel.text = "Payer"
+        }
+    }
+    
     ///Checks to see which segment should be highlighted
     private func updateTransactionType() -> Int {
         
@@ -403,7 +417,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         self.view.endEditing(true)
     }
     
-    // MARK: - Save Button Pressede
+    // MARK: - Save Button Pressed
     private func saveTransaction() {
         
         if transaction != nil {

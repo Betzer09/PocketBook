@@ -185,6 +185,6 @@
     </scenes>
     <resources>
         <image name="plannedExpensesIcon" width="38" height="34"/>
-        <image name="savings_goals_empty_state_screen_1024" width="576" height="1024"/>
+        <image name="savings_goals_empty_state_screen_1024" width="3814" height="6781"/>
     </resources>
 </document>
