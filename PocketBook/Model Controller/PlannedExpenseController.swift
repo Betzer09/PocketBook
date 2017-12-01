@@ -30,6 +30,18 @@ class PlannedExpenseController {
         self.cloudKitManager = CloudKitManager()
     }
     
+    //MARK: Total Deposited in Savings Goals
+    /// This function adds up the total of all current planned expense savings goals
+    func addUpTotalDepositedToSavings() -> Double {
+        
+        var totalDepositedToGoal: Double = 0.0
+        for plannedExpense in PlannedExpenseController.shared.plannedExpenses {
+            totalDepositedToGoal += plannedExpense.totalDeposited
+        }
+        return totalDepositedToGoal
+    }
+    
+    
     // MARK: Ideal Monthly Contribution
     
     /// This function calculates the total monthly contribtion needed for all planned expenses

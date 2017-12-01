@@ -14,14 +14,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var categoryTableView: UITableView!
     
     @IBOutlet weak var amountTextField: UITextField!
-    
-    @IBOutlet weak var plannedExpenseTotalLabel: UILabel!
+
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
     
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var legendView: UIView!
-    @IBOutlet weak var plannedExpensesView: UIView!
+
     @IBOutlet weak var projectedIncomeView: UIView!
     @IBOutlet weak var totalBudgetedIncomeView: UIView!
     @IBOutlet weak var incomeNotCurrentlyBudgetedView: UIView!
@@ -94,8 +93,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "savingsGoalCell", for: indexPath) as? MonthlyBudgetStaticSavingsGoalCustomTableViewCell else {return UITableViewCell()}
             
-            let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
-            cell.updateCell(plannedExpense: plannedExpense)
+            cell.updateCell()
             
             return cell
             
@@ -258,11 +256,9 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     /// This function updates the monthly budget label
     func updateMonthlyBudgetLabel() {
-        totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: addUpTotalSpentOfBudget()))"
-    }
-    
-    func updatePlannedExpenseLabel() {
-        plannedExpenseTotalLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        DispatchQueue.main.async {
+        self.totalBudgetedIncomLabel.text = "\(formatNumberToString(fromDouble: self.addUpTotalSpentOfBudget()))"
+        }
     }
     
     @objc func updateNotCurrentlyBudgetedLabel() {
@@ -294,8 +290,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         setUpDelegatesAndDataSources()
         createPlusButton()
         
-        // Update all three labels in the view below the budget items
-        updatePlannedExpenseLabel()
+        // Update all labels in the view below the budget items
         updateMonthlyBudgetLabel()
         updateNotCurrentlyBudgetedLabel()
         

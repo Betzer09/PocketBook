@@ -16,17 +16,17 @@ class MonthlyBudgetStaticSavingsGoalCustomTableViewCell: UITableViewCell {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var progressBarDescriptionLabel: UILabel!
     
-    func updateCell(plannedExpense: PlannedExpense) {
+    func updateCell() {
         savingsGoalLabel.text = "Savings Goals"
-        configureProgressBar(withPlannedExpense: plannedExpense)
-        progressBarDescriptionLabel.text = "\(formatNumberToString(fromDouble: plannedExpense.totalDeposited)) / \(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        configureProgressBar()
+        progressBarDescriptionLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.addUpTotalDepositedToSavings())) / \(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
     }
     
-    func configureProgressBar(withPlannedExpense plannedExpense: PlannedExpense) {
+    func configureProgressBar() {
         self.progressBar.progress = 0
         self.progressBar.progressTintColor = .blue7
         progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
-        self.progressBar.progress = Float(plannedExpense.totalDeposited) / Float(PlannedExpenseController.shared.calculateTotalMonthlyContribution())
+        self.progressBar.progress = Float(PlannedExpenseController.shared.addUpTotalDepositedToSavings()) / Float(PlannedExpenseController.shared.calculateTotalMonthlyContribution())
     }
     
 }

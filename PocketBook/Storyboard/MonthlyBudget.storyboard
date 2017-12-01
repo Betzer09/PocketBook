@@ -120,14 +120,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YtF-jv-d0C">
                                 <rect key="frame" x="7.5" y="272" width="360" height="230.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <progressView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="Zn2-0R-uwA">
-                                    <rect key="frame" x="0.0" y="0.0" width="360" height="2"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="trackTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                </progressView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="9EV-N8-YZg" customClass="CategroyTableViewCell" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30" width="360" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="360" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9EV-N8-YZg" id="j2y-8Z-NuH">
                                             <rect key="frame" x="0.0" y="0.0" width="360" height="43.5"/>
@@ -171,7 +166,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savingsGoalCell" id="6UR-QY-WfF" customClass="MonthlyBudgetStaticSavingsGoalCustomTableViewCell" customModule="PocketBook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="74" width="360" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="360" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6UR-QY-WfF" id="Dut-8E-FXz">
                                             <rect key="frame" x="0.0" y="0.0" width="360" height="43.5"/>
@@ -226,42 +221,6 @@
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3E5-Gr-p5T">
                                         <rect key="frame" x="0.0" y="0.0" width="360" height="38.5"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55k-NO-Kkx">
-                                                <rect key="frame" x="0.0" y="0.0" width="360" height="38.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Oh-zf-c1r">
-                                                        <rect key="frame" x="314" y="9.5" width="38" height="20.5"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assumed Monthly Savings Contribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auD-fc-bOJ">
-                                                        <rect key="frame" x="8" y="9" width="270.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fca-4e-bCe">
-                                                        <rect key="frame" x="8" y="37" width="352" height="1"/>
-                                                        <color key="backgroundColor" red="0.75686274509803919" green="0.75294117647058822" blue="0.77254901960784317" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="EOq-bN-Obb"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="fca-4e-bCe" secondAttribute="trailing" id="49f-wJ-PoN"/>
-                                                    <constraint firstItem="9Oh-zf-c1r" firstAttribute="centerY" secondItem="55k-NO-Kkx" secondAttribute="centerY" id="5Hv-UL-8ce"/>
-                                                    <constraint firstItem="fca-4e-bCe" firstAttribute="leading" secondItem="55k-NO-Kkx" secondAttribute="leading" constant="8" id="Cfv-QV-DtP"/>
-                                                    <constraint firstAttribute="bottom" secondItem="fca-4e-bCe" secondAttribute="bottom" constant="0.5" id="JSH-8g-71X"/>
-                                                    <constraint firstItem="auD-fc-bOJ" firstAttribute="centerY" secondItem="55k-NO-Kkx" secondAttribute="centerY" id="UUU-5w-qtO"/>
-                                                    <constraint firstItem="auD-fc-bOJ" firstAttribute="leading" secondItem="55k-NO-Kkx" secondAttribute="leading" constant="8" id="y2q-3q-Kaf"/>
-                                                    <constraint firstAttribute="trailing" secondItem="9Oh-zf-c1r" secondAttribute="trailing" constant="8" id="y7S-1k-sKd"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="35A-Ze-XDo">
                                         <rect key="frame" x="0.0" y="38.5" width="360" height="38.5"/>
@@ -371,8 +330,6 @@
                         <outlet property="legendView" destination="lUB-63-ntz" id="cJG-gG-BE1"/>
                         <outlet property="noDataImage" destination="CIy-Lg-jiW" id="oDQ-q0-kjV"/>
                         <outlet property="pieChartView" destination="9VW-0y-fKM" id="bue-Rl-yli"/>
-                        <outlet property="plannedExpenseTotalLabel" destination="9Oh-zf-c1r" id="uCm-NQ-NUf"/>
-                        <outlet property="plannedExpensesView" destination="55k-NO-Kkx" id="0NN-QM-97L"/>
                         <outlet property="projectedIncomeView" destination="3xL-vg-YrL" id="hEy-aO-x4m"/>
                         <outlet property="superView" destination="2st-oS-GKC" id="xEe-6p-SdO"/>
                         <outlet property="totalBudgetedIncomLabel" destination="z9f-jT-Nyt" id="4jS-uv-KbZ"/>
