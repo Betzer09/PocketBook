@@ -78,6 +78,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         addTapGesture()
         updateTotalLabel()
         createPlusButton()
+        createQuestionMarkButton()
         roundButtons()
         configureNavigationBar()
     }
@@ -108,7 +109,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.updateArrays()
-            self.tableView.reloadData()
+          //  self.tableView.reloadData()
             self.fromPickerView.reloadAllComponents()
             self.toPickerView.reloadAllComponents()
             self.payDayPickerView.reloadAllComponents()
@@ -118,6 +119,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
             self.noDataImageSetup()
+            animateTableView(forTableView: self.tableView)
         }
     }
     
@@ -169,7 +171,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     var creditArray: [Account]?
     
     func updateArrays() {
-
+        
         self.checkingArray = returnAccountArray(withType: SegmentedControlType.checking.rawValue)
         self.savingsArray = returnAccountArray(withType: SegmentedControlType.saving.rawValue)
         self.creditArray = returnAccountArray(withType: SegmentedControlType.credit.rawValue)
@@ -225,20 +227,11 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Setup TableView
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.lightGray
         
-        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
-            tableView.bounds.size.width, height: tableView.bounds.size.height))
-        headerLabel.font = UIFont(name: "Avenir Next", size: 16)
-        headerLabel.textColor = UIColor.charcoal
-        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
-        headerLabel.sizeToFit()
-        headerView.addSubview(headerLabel)
-        
-        return headerView
+        guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
+        return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
     }
-    
+        
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard let checkingArray = self.checkingArray,
@@ -277,7 +270,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
-    
+        
         let account = self.returnAllAccounts()[indexPath.section][indexPath.row]
         cell.textLabel?.text = account.name
         
@@ -435,18 +428,18 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         if transferButton.point(inside: recognizer.location(in: transferButton), with: nil) {
             transferButton.sendActions(for: .touchUpInside)
         }
-
+        
         if incomeDetailCancelButton.point(inside: recognizer.location(in: incomeDetailCancelButton), with: nil) {
             incomeDetailCancelButton.sendActions(for: .touchUpInside)
         }
-
+        
         if transferViewCancelButton.point(inside: recognizer.location(in: transferViewCancelButton), with: nil) {
             transferViewCancelButton.sendActions(for: .touchUpInside)
         }
         
         view.endEditing(true)
     }
-
+    
     func stopEditingTextField() {
         view.endEditing(true)
     }
@@ -595,6 +588,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         self.navigationItem.rightBarButtonItem = barButton
     }
     
+    func createQuestionMarkButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "questionMark"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToInstructionVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+    }
+    
+    @objc func segueToInstructionVC() {
+        self.performSegue(withIdentifier: "toInstructionVC", sender: self)
+    }
+    
     @objc func segueToDetailVC() {
         self.performSegue(withIdentifier: "toAccountDetail", sender: self)
     }
@@ -711,7 +718,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             guard let destinationVC = segue.destination as? AccountDetailsViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
             
             destinationVC.account = self.returnAllAccounts()[indexPath.section][indexPath.row]
-
+            
         }
     }
 }

@@ -402,14 +402,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Accounts" id="eLI-yv-osM">
                         <barButtonItem key="backBarButtonItem" title="Back" id="CtS-Rs-sT9"/>
-<<<<<<< HEAD
                         <barButtonItem key="leftBarButtonItem" title="Item" image="questionMark" id="75E-Xf-M1O">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-=======
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="ljQ-YX-hRS">
->>>>>>> develop
                             <connections>
-                                <segue destination="U1D-AB-uT6" kind="show" identifier="toInstructionVC" id="GTz-hO-z40"/>
+                                <segue destination="U1D-AB-uT6" kind="show" id="gzo-zo-n3i"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -471,14 +467,9 @@
         </scene>
     </scenes>
     <resources>
-<<<<<<< HEAD
-        <image name="accounts_empty_state_screen_1024" width="576" height="1024"/>
-        <image name="arrow" width="13" height="7"/>
-        <image name="questionMark" width="20" height="20"/>
-=======
         <image name="accounts_empty_state_screen_1024" width="3814" height="6781"/>
         <image name="arrow" width="13" height="7"/>
->>>>>>> develop
+        <image name="questionMark" width="20" height="20"/>
         <image name="spacedAccounts" width="23" height="24"/>
     </resources>
 </document>
