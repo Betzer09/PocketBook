@@ -26,6 +26,8 @@ class InstructionsViewController: UIPageViewController, UIPageViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = .white
+
         self.dataSource = self
         self.delegate = self
         

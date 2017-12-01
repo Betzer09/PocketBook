@@ -78,6 +78,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         addTapGesture()
         updateTotalLabel()
         createPlusButton()
+        createQuestionMarkButton()
         roundButtons()
         configureNavigationBar()
     }
@@ -585,6 +586,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    func createQuestionMarkButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "questionMark"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToInstructionVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+    }
+    
+    @objc func segueToInstructionVC() {
+        self.performSegue(withIdentifier: "toInstructionVC", sender: self)
     }
     
     @objc func segueToDetailVC() {
