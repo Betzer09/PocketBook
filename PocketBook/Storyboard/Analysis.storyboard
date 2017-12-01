@@ -567,6 +567,6 @@
     </scenes>
     <resources>
         <image name="analysisIcon" width="49" height="36"/>
-        <image name="analysis_empty_state_screen_1024" width="576" height="1024"/>
+        <image name="analysis_empty_state_screen_1024" width="3814" height="6781"/>
     </resources>
 </document>
