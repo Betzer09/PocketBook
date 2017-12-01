@@ -122,6 +122,9 @@ class BudgetItemController {
     /// Configures the monthly budget for the budgetItem
     public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem?, difference: Double = 0 ) {
         
+        // We want to check the current date with transaction date for both planned Expenses and transactions
+        
+        
         if transactionType == .plannedExpense {
             account.total -= difference
             AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
