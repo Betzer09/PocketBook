@@ -171,6 +171,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         
         alertController.addTextField { (textField) in
             textField.placeholder = "ex: Gas, Rent, Food"
+            textField.autocorrectionType = UITextAutocorrectionType.yes
             textField.autocapitalizationType = .words
             nameTextField = textField
         }
@@ -223,6 +224,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         alertController.addTextField { (textField) in
             textField.text = budgetItem.name
             textField.autocapitalizationType = .words
+            textField.autocorrectionType = UITextAutocorrectionType.yes
             nameTextField = textField
         }
         alertController.addTextField { (textField) in
@@ -234,7 +236,10 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             
             guard let name = nameTextField.text,
                 let allottedAmount = allotedAmountTextField.text,
-                let allottedAmountAsDouble = Double(allottedAmount) else { return }
+                let allottedAmountAsDouble = Double(allottedAmount) else {
+                    presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "We couldn't update your Budget Item because the amount you enter was invalid")
+                    return
+            }
             budgetItem.name = name
             budgetItem.totalAllotted = allottedAmountAsDouble
             guard let totalAllotted = budgetItem.totalAllotted else { return }
