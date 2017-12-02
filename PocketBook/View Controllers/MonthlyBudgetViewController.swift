@@ -139,6 +139,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+            return false
+        }
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }

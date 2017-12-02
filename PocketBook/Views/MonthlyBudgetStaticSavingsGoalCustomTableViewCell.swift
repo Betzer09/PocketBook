@@ -26,7 +26,14 @@ class MonthlyBudgetStaticSavingsGoalCustomTableViewCell: UITableViewCell {
         self.progressBar.progress = 0
         self.progressBar.progressTintColor = .blue3
         progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
-        self.progressBar.progress = Float(PlannedExpenseController.shared.addUpTotalDepositedToSavings()) / Float(PlannedExpenseController.shared.calculateTotalMonthlyContribution())
+        
+        let one = PlannedExpenseController.shared.addUpTotalDepositedToSavings()
+        let two = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+        if (one / two).isNaN {
+            self.progressBar.progress = 0.0 / 100.0
+        } else {
+        self.progressBar.progress = Float(PlannedExpenseController.shared.addUpTotalDepositedToSavings()) / Float(PlannedExpenseController.shared.calculateTotalMonthlyContribution())  
+        }
     }
     
 }
