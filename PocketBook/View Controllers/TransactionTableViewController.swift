@@ -223,9 +223,7 @@ class TransactionTableViewController: UITableViewController, UIPickerViewDelegat
     @objc func segueToDetailVC() {
         self.performSegue(withIdentifier: "toTransactionDVC", sender: self)
     }
-    
 
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
