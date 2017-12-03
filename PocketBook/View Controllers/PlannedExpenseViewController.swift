@@ -287,10 +287,6 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
         return account.name
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //        var stringArray = AccountController.shared.accounts.map { $0.name }
-    }
-    
     func setPickerDelegates() {
         accountPickerView.dataSource = self
         accountPickerView.delegate = self
@@ -453,16 +449,16 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "toTransactionDVC" {
-            
+
             guard let destinationDVC = segue.destination as? TransactionsDetailViewController else {return}
             guard let plannedExpense = plannedExpense else {
                 // FIXME: Delete Me if you want
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have not made any Planned Expenses")
                 return
             }
-            
+
             destinationDVC.plannedExpenseTransaction = plannedExpense
         }
     }

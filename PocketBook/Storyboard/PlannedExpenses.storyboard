@@ -115,13 +115,7 @@
                             <outlet property="delegate" destination="XPD-kt-MPp" id="3pO-my-MuH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="PLANNED EXPENSES" id="Iad-FC-BqR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="8rM-wP-aj8">
-                            <connections>
-                                <segue destination="kvr-uy-p7k" kind="show" id="Ob3-9p-065"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="PLANNED EXPENSES" id="Iad-FC-BqR"/>
                     <connections>
                         <outlet property="amountLabel" destination="Byk-zx-5eK" id="apg-cx-Npo"/>
                     </connections>
@@ -162,7 +156,4 @@
             <point key="canvasLocation" x="-2376.8000000000002" y="-304.4977511244378"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Ob3-9p-065"/>
-    </inferredMetricsTieBreakers>
 </document>

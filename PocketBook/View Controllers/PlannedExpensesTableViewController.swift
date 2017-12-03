@@ -29,6 +29,7 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
         super.viewDidLoad()
         updateViews()
         amountLabel.text = "\(formatNumberToString(fromDouble: PlannedExpenseController.shared.calculateTotalMonthlyContribution()))"
+        createPlusButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +43,20 @@ class PlannedExpensesTableViewController: UITableViewController, PlannedExpenseT
 //        guard let plannedExpense = plannedExpense else { return }
 //         totalIdealMonthlyContributionLabel.text = plannedExpense
         
+    }
+    
+    func createPlusButton() {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc func segueToDetailVC() {
+        self.performSegue(withIdentifier: "toPersistedPlannedExpenseSegue", sender: self)
     }
     
     // MARK: - Table view data source
