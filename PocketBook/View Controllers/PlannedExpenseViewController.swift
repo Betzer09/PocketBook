@@ -35,6 +35,11 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     //MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let plannedExpense = plannedExpense {
+            self.navigationItem.title = plannedExpense.name
+        } else {
+            self.navigationItem.title = "Create New Planned Expense"
+        }
         setPickerDelegates()
         showDatePicker()
         showAccountPicker()

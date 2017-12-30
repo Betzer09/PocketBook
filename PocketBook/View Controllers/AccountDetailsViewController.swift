@@ -37,6 +37,11 @@ class AccountDetailsViewController: UIViewController {
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let account = account {
+            self.navigationItem.title = account.name
+        } else {
+            self.navigationItem.title = "Create New Account"
+        }
         setUpUI()
     }
     
