@@ -296,6 +296,9 @@ class PlannedExpenseViewController: UIViewController, UIPickerViewDelegate, UIPi
     /*NOTE - if we want to make the PICKER to be month & year only, it has to be a custom picker, not a date picker*/
     
     func showDatePicker(){
+        if plannedExpense == nil {
+            dueDateDatePicker.date = Date()
+        }
         dueDateDatePicker.datePickerMode = .date
         
         // ToolBar
