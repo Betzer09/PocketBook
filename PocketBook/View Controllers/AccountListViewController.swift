@@ -40,14 +40,13 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         loadAndCheckDate()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
-        toPickerView.delegate = self
-        toPickerView.dataSource = self
-        fromPickerView.dataSource = self
-        fromPickerView.delegate = self
-        payDayPickerView.dataSource = self
-        payDayPickerView.delegate = self
-        tableView.dataSource = self
-        tableView.delegate = self
+        
+        setUpUI()
+        
+        let cloudKitManager = CloudKitManager()
+        if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -236,6 +235,18 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         cancelButton.isHidden = true
         transferFundsButton.isHidden = false
         payDayButton.isHidden = false
+    }
+    
+    // MARK: - Methods
+    func setUpUI() {
+        toPickerView.delegate = self
+        toPickerView.dataSource = self
+        fromPickerView.dataSource = self
+        fromPickerView.delegate = self
+        payDayPickerView.dataSource = self
+        payDayPickerView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
