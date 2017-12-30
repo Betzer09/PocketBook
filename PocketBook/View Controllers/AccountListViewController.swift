@@ -33,6 +33,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var payDayViews: [UIView]!
     @IBOutlet weak var payDayButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var accountsTotalLabel: UILabel!
     
     // MARK: - View LifeCyles
     override func viewDidLoad() {
@@ -51,16 +52,11 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.fromPickerView.reloadAllComponents()
-            self.toPickerView.reloadAllComponents()
-            self.payDayPickerView.reloadAllComponents()
-            self.fromPickerView.reloadInputViews()
-            self.toPickerView.reloadInputViews()
-            self.payDayPickerView.reloadInputViews()
+            self.reloadTableView()
         }
         setUpTransferFundsView()
-        
+        let total = totalFundsCalc()
+        accountsTotalLabel.text = "$\(total)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,6 +76,14 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.fromPickerView.reloadAllComponents()
+            self.toPickerView.reloadAllComponents()
+            self.payDayPickerView.reloadAllComponents()
+            self.fromPickerView.reloadInputViews()
+            self.toPickerView.reloadInputViews()
+            self.payDayPickerView.reloadInputViews()
+            let total = self.totalFundsCalc()
+            self.accountsTotalLabel.text = "$\(total)"
         }
     }
     
@@ -242,6 +246,20 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             
             destinationVC.account = AccountController.shared.accounts[indexPath.row]
         }
+    }
+    
+    // MARK: - Calculations
+    func totalFundsCalc() -> Double {
+        let accounts = AccountController.shared.accounts
+        var total: Double = 0.0
+        for account in accounts {
+            if account.accountType == AccountType.CreditCard.rawValue {
+                total -= account.total
+            } else {
+            total += account.total
+            }
+        }
+        return total
     }
     
     // MARK: - Alert Methods
