@@ -80,6 +80,17 @@ class BudgetItemController {
         }
     }
     
+    // MARK: - Reset BudgetItems SpentTotal
+    func resetSpentTotal() {
+        let budgetItems = BudgetItemController.shared.budgetItems
+        for budgetItem in budgetItems {
+           budgetItem.spentTotal = 0
+            updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in
+                //TODO: FIX ME
+            })
+        }
+    }
+    
     
     // MARK: - Fetching Data from cloudKit
     func fetchBugetItemFromCloudKit() {
@@ -149,8 +160,8 @@ class BudgetItemController {
         
         AccountController.shared.modifyAccountTotalFor(account: account, transaction: transaction, transactionType: transactionType)
     }
+    
 }
-
 
 
 

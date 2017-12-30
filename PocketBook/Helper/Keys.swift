@@ -50,4 +50,7 @@ struct Keys {
     /**/    static let amountDepositedKey = "amountDeposited"
     /**/    static let amountWithdrawnKey = "amountWithdrawn"
     static let totalSavedKey = "totalSaved"
+    
+    // MARK: - User Defaults Keys
+    static let dateDictionaryKey = "date"
 }
