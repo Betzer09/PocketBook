@@ -64,9 +64,9 @@
                                 </subviews>
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PN8-1D-Bnn">
-                                <rect key="frame" x="47" y="28" width="281" height="29"/>
+                                <rect key="frame" x="47" y="43" width="281" height="36"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="AnI-Z3-955"/>
+                                    <constraint firstAttribute="height" constant="35" id="AnI-Z3-955"/>
                                 </constraints>
                                 <segments>
                                     <segment title="Checking"/>
@@ -203,7 +203,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8Q-mc-Dv0">
-                                <rect key="frame" x="131" y="362" width="113" height="30"/>
+                                <rect key="frame" x="102.5" y="362" width="170.5" height="30"/>
                                 <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="boj-pm-aBF"/>
@@ -227,13 +227,14 @@
                             <constraint firstItem="h8Q-mc-Dv0" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="LYn-0c-jGl"/>
                             <constraint firstItem="gz3-T0-Tw3" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="MIq-Ak-PON"/>
                             <constraint firstItem="WC9-C9-0Jz" firstAttribute="centerY" secondItem="KOe-hC-lOV" secondAttribute="centerY" multiplier="2/3" id="MUm-IR-KlW"/>
-                            <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="8" id="XOl-Qf-uzX"/>
+                            <constraint firstItem="PN8-1D-Bnn" firstAttribute="top" secondItem="Uk8-tI-VPd" secondAttribute="top" constant="23" id="XOl-Qf-uzX"/>
                             <constraint firstItem="h8Q-mc-Dv0" firstAttribute="top" secondItem="iqJ-75-klp" secondAttribute="bottom" constant="72" id="arn-0v-HRZ"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="centerX" secondItem="KOe-hC-lOV" secondAttribute="centerX" id="ey5-1e-zUx"/>
                             <constraint firstItem="MGX-pC-33a" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="sVn-MB-1G6"/>
                             <constraint firstItem="PN8-1D-Bnn" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="3/4" id="wC2-ge-ddd"/>
                             <constraint firstItem="8VH-g8-CcS" firstAttribute="leading" secondItem="KOe-hC-lOV" secondAttribute="leading" constant="8" id="yP5-hJ-pXr"/>
                             <constraint firstItem="MUe-97-OrH" firstAttribute="centerX" secondItem="Uk8-tI-VPd" secondAttribute="centerX" id="yus-pA-58M"/>
+                            <constraint firstItem="h8Q-mc-Dv0" firstAttribute="width" secondItem="KOe-hC-lOV" secondAttribute="width" multiplier="5/11" id="zbg-2k-rj0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uk8-tI-VPd"/>
                     </view>
@@ -263,6 +264,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow" width="112" height="112"/>
+        <image name="arrow" width="20" height="11"/>
     </resources>
 </document>

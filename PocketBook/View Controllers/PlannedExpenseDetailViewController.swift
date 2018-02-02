@@ -83,6 +83,12 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         completeButton.layer.cornerRadius = completeButton.frame.height/4
     }
     
+    func resizeButtonTitles() {
+        completeButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        depositButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        withdrawButton.titleLabel?.adjustsFontSizeToFitWidth = true
+    }
+    
     /// Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
     func dropFirstCharacterFrom(textField: UITextField) -> String? {
         
