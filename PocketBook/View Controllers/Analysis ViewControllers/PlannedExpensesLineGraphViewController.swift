@@ -89,11 +89,11 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     }
     
     func configurePageControl() {
-        pcSelectedView.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.5)
+        pcSelectedView.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
         pcSelectedView.layer.cornerRadius = pcSelectedView.frame.height/2
-        pcOtherView1.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.15)
+        pcOtherView1.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.9)
         pcOtherView1.layer.cornerRadius = pcOtherView1.frame.height/2
-        pcOtherView2.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.15)
+        pcOtherView2.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.9)
         pcOtherView2.layer.cornerRadius = pcOtherView2.frame.height/2
     }
     
