@@ -355,7 +355,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
                            NSAttributedStringKey.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = self.navigationItem.title?.uppercased()
+        self.navigationItem.title = self.navigationItem.title
     }
     
     func setUpDelegatesAndDataSources() {

@@ -52,7 +52,10 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         noDataImageSetup()
-        self.parent?.navigationItem.title = "Total Spent by Budgeting Categories".uppercased()
+        
+        // Uses to be "Total Spent by Budgeting Categories"
+        // Percentage of total spent
+        self.parent?.navigationItem.title = "Total Spent"
         updatePieChart()
     }
     
@@ -67,7 +70,7 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
                            NSAttributedStringKey.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = self.navigationItem.title?.uppercased()
+        self.navigationItem.title = self.navigationItem.title
     }
     
     func noDataImageSetup() {

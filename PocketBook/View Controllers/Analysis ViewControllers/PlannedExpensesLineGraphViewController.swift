@@ -58,7 +58,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpCategoryVar()
-        self.parent?.navigationItem.title = "Savings Goal Tracking".uppercased()
+        self.parent?.navigationItem.title = "Savings Goal Tracking"
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
     }
     
@@ -79,7 +79,7 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
                            NSAttributedStringKey.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = self.navigationItem.title?.uppercased()
+        self.navigationItem.title = self.navigationItem.title
     }
     
     // MARK: - Setup PickerViews

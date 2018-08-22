@@ -49,10 +49,10 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         if let plannedExpense = plannedExpense {
-            self.navigationItem.title = plannedExpense.name.uppercased()
+            self.navigationItem.title = plannedExpense.name
             self.navigationItem.rightBarButtonItem?.title = "Update"
         } else {
-            self.navigationItem.title = "Create New Savings Goal".uppercased()
+            self.navigationItem.title = "New Savings Goal"
             depositButton.isHidden = true
             withdrawButton.isHidden = true
             completeButton.isHidden = true

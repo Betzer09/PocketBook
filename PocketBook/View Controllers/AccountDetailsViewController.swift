@@ -53,9 +53,9 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
         customizeSegmentedControl()
         super.viewDidLoad()
         if let account = account {
-            self.navigationItem.title = account.name.uppercased()
+            self.navigationItem.title = account.name
         } else {
-            self.navigationItem.title = "Create New Account".uppercased()
+            self.navigationItem.title = "New Account"
         }
         setUpUI()
     }

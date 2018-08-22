@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7vX-lX-jh0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7vX-lX-jh0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Avenir.ttc">
-            <string>Avenir-Book</string>
-        </array>
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-Bold</string>
-            <string>AvenirNext-DemiBoldItalic</string>
-            <string>AvenirNext-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
-        <!--MONTHLY BUDGET-->
+        <!--Monthly Budget-->
         <scene sceneID="Uva-vO-4FI">
             <objects>
                 <viewController id="TwU-2Z-FC8" customClass="MonthlyBudgetViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -320,7 +310,7 @@
                     <tabBarItem key="tabBarItem" title="" image="monthlyBudgetIcon" id="hLa-MI-VYn">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="MONTHLY BUDGET" id="jbG-cf-NOp"/>
+                    <navigationItem key="navigationItem" title="Monthly Budget" id="jbG-cf-NOp"/>
                     <connections>
                         <outlet property="amountTextField" destination="WSz-Hc-83i" id="KPI-T0-wmM"/>
                         <outlet property="categoryTableView" destination="YtF-jv-d0C" id="pof-1s-DNV"/>
@@ -365,7 +355,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="budget_items_empty_state_screen_1024" width="3814" height="6781"/>
+        <image name="budget_items_empty_state_screen_1024" width="320" height="568"/>
         <image name="monthlyBudgetIcon" width="34" height="35"/>
     </resources>
 </document>

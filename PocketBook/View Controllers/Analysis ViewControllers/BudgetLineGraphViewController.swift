@@ -56,7 +56,7 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpCategoryVar()
-        self.parent?.navigationItem.title = "Spending By Budget Category".uppercased()
+        self.parent?.navigationItem.title = "Spending By Budget Category"
         setUpPickerViews()
         super.viewWillAppear(animated)
         NotificationCenter.default.post(name: Notifications.viewControllerHasFinishedLoading, object: nil, userInfo: nil)
@@ -80,7 +80,7 @@ class BudgetLineGraphViewController: UIViewController, UIPickerViewDelegate, UIP
                            NSAttributedStringKey.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = self.navigationItem.title?.uppercased()
+        self.navigationItem.title = self.navigationItem.title
     }
     
     // MARK: - Setup PickerViews

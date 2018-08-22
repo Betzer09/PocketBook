@@ -73,9 +73,9 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     func configureNavigationController() {
         self.navigationController?.navigationBar.tintColor = .white
         if transaction != nil {
-            self.navigationItem.title = "Transaction Details".uppercased()
+            self.navigationItem.title = "Transaction Details"
         } else {
-            self.navigationItem.title = "Create New Transaction".uppercased()
+            self.navigationItem.title = "Create New Transaction"
         }
     }
     
