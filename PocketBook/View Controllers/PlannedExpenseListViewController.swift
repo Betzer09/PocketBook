@@ -44,7 +44,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     // MARK: - Actions
     @IBAction func unwindToPlannedExpenseViewController(unwindSegue: UIStoryboardSegue) {
         
-        if let planedExpenseVC = unwindSegue.source as? PlannedExpenseDetailViewController {
+        if let _ = unwindSegue.source as? PlannedExpenseDetailViewController {
             print("Coming from plannedExpnsesVC")
         }
     }

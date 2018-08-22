@@ -112,7 +112,7 @@ class BudgetItemController {
             
             guard let records = records else {return}
             // Send the accounts through the cloudKit Initilizer
-            let bugetItems = records.flatMap( {BudgetItem(cloudKitRecord: $0)})
+            let bugetItems = records.compactMap( {BudgetItem(cloudKitRecord: $0)})
             self.budgetItems = bugetItems
         }
     }

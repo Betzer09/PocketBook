@@ -162,7 +162,7 @@ class PlannedExpenseController {
             guard let records = records else {return}
             
             // Send the accounts through the cloudKit Initilizer
-            let plannedExpense = records.flatMap( { PlannedExpense(cloudKitRecord: $0)})
+            let plannedExpense = records.compactMap( { PlannedExpense(cloudKitRecord: $0)})
             
             self.plannedExpenses = plannedExpense
         }

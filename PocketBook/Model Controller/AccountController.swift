@@ -132,7 +132,7 @@ class AccountController {
             guard let records = records else {return}
             
             // Send the accounts through the cloudKit Initilizer
-            let accounts = records.flatMap( {Account(cloudKitRecord: $0)})
+            let accounts = records.compactMap( {Account(cloudKitRecord: $0)})
             
             self.accounts = accounts
         }

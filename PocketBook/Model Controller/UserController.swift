@@ -102,7 +102,7 @@ class UserController {
             guard let records = records else {NSLog("There were no User Records found \(#file)");  return}
             
             // There should only ever be one user
-            let user = records.flatMap({User(cloudKitRecord: $0)})
+            let user = records.compactMap({User(cloudKitRecord: $0)})
             
             // Assign the value with the user that comes back
             self.user = user.first

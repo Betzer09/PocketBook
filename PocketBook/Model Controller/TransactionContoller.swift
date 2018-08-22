@@ -136,7 +136,7 @@ class TransactionController {
             guard let records = records else {return}
             
             // Send the accounts through the cloudKit Initilizer
-            let transaction = records.flatMap( {Transaction(cloudKitRecord: $0)})
+            let transaction = records.compactMap( {Transaction(cloudKitRecord: $0)})
             
             self.transactions = transaction
         }

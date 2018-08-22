@@ -200,7 +200,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             allAccounts.append(creditArray)
         }
         
-        return allAccounts.flatMap({ $0 })
+        return allAccounts.compactMap({ $0 })
     }
     
     /// This function checks to see if there is anything in the array for each type of account. It then returns an array with section names. This function is needed so that the tableview can count the number of sections.
