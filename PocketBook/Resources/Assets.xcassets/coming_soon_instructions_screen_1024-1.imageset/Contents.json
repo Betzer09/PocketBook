@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "coming_soon_instructions_screen_1024-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "coming_soon_instructions_screen_1024-1@2x.png",
       "scale" : "2x"
     },
     {

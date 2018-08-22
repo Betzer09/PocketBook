@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Accounts Instructions Screen.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Accounts Instructions Screen@2x.png",
       "scale" : "2x"
     },
     {

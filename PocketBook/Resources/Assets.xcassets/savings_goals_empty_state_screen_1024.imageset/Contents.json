@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "savings_goals_empty_state_screen_1024.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "savings_goals_empty_state_screen_1024@2x.png",
       "scale" : "2x"
     },
     {
