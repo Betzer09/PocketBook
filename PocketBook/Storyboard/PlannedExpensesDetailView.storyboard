@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WuS-7R-mpl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WuS-7R-mpl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="AvenirNext.ttc">
-            <string>AvenirNext-DemiBold</string>
-            <string>AvenirNext-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--PLANNED EXPENSE-->
         <scene sceneID="mS3-sL-OMC">
             <objects>
                 <viewController id="WuS-7R-mpl" customClass="PlannedExpenseDetailViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="t36-Yy-1VF">
+                    <view key="view" contentMode="scaleToFill" id="t36-Yy-1VF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J62-AG-vIK">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J62-AG-vIK">
                                 <rect key="frame" x="0.0" y="64" width="375" height="100.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a7A-1n-np7" userLabel="Buttons">
-                                        <rect key="frame" x="62.5" y="8" width="250" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a7A-1n-np7" userLabel="Buttons">
+                                        <rect key="frame" x="62.5" y="23" width="250" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDK-J2-hYe">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDK-J2-hYe">
                                                 <rect key="frame" x="0.0" y="0.0" width="78" height="30"/>
                                                 <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
@@ -42,7 +36,7 @@
                                                     <action selector="depositButtonTapped:" destination="WuS-7R-mpl" eventType="touchUpInside" id="sjd-Nd-hBM"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sze-7i-kRf">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sze-7i-kRf">
                                                 <rect key="frame" x="86" y="0.0" width="78" height="30"/>
                                                 <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
@@ -53,7 +47,7 @@
                                                     <action selector="withdrawButtonTapped:" destination="WuS-7R-mpl" eventType="touchUpInside" id="dEh-i4-Y06"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkh-xN-lHQ">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkh-xN-lHQ">
                                                 <rect key="frame" x="172" y="0.0" width="78" height="30"/>
                                                 <color key="backgroundColor" red="0.23529411764705882" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
@@ -70,29 +64,16 @@
                                             <constraint firstAttribute="height" constant="30" id="zwB-l0-2ml"/>
                                         </constraints>
                                     </stackView>
-                                    <pickerView hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uaH-jr-Qpj">
-                                        <rect key="frame" x="27.5" y="42.5" width="320" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="EtT-ma-Tkc"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="dataSource" destination="WuS-7R-mpl" id="wph-AB-gtf"/>
-                                            <outlet property="delegate" destination="WuS-7R-mpl" id="T09-bn-gFc"/>
-                                        </connections>
-                                    </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="a7A-1n-np7" firstAttribute="top" secondItem="J62-AG-vIK" secondAttribute="top" constant="23" id="1n0-gz-4Xh"/>
                                     <constraint firstItem="a7A-1n-np7" firstAttribute="width" secondItem="J62-AG-vIK" secondAttribute="width" multiplier="2/3" id="Ep0-Pe-bJN"/>
-                                    <constraint firstItem="uaH-jr-Qpj" firstAttribute="top" secondItem="a7A-1n-np7" secondAttribute="bottom" constant="8" id="Rak-sV-oBj"/>
-                                    <constraint firstAttribute="bottom" secondItem="uaH-jr-Qpj" secondAttribute="bottom" constant="8" id="Tkt-Ua-E7n"/>
-                                    <constraint firstItem="uaH-jr-Qpj" firstAttribute="centerX" secondItem="J62-AG-vIK" secondAttribute="centerX" id="lI2-om-q9U"/>
                                     <constraint firstItem="a7A-1n-np7" firstAttribute="centerX" secondItem="J62-AG-vIK" secondAttribute="centerX" id="lhi-ze-Bb3"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JQs-J3-bi0" userLabel="InputStacksView">
-                                <rect key="frame" x="23" y="242" width="328.5" height="182"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JQs-J3-bi0" userLabel="InputStacksView">
+                                <rect key="frame" x="23" y="193" width="328.5" height="280"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9J8-nP-pC1">
                                         <rect key="frame" x="0.0" y="0.0" width="328.5" height="280"/>
@@ -106,7 +87,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Name" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7O0-Jt-8Y3">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Name" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="7O0-Jt-8Y3">
                                                         <rect key="frame" x="120.5" y="0.0" width="208" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
@@ -126,7 +107,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Trip to Hawaii" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B8L-43-vGx">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Trip to Hawaii" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="B8L-43-vGx">
                                                         <rect key="frame" x="120.5" y="0.0" width="208" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
@@ -146,7 +127,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: $2000" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nbm-EE-qx0">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: $2000" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nbm-EE-qx0">
                                                         <rect key="frame" x="120.5" y="0.0" width="208" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
@@ -166,7 +147,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Due Date" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-N0-afl">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Due Date" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-N0-afl">
                                                         <rect key="frame" x="120.5" y="0.0" width="208" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
@@ -186,7 +167,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount You've Already Saved" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xwx-tP-EA3">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount You've Already Saved" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xwx-tP-EA3">
                                                         <rect key="frame" x="120.5" y="0.0" width="208" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
