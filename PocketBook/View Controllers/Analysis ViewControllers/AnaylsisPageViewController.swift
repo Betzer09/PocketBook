@@ -22,7 +22,6 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
             UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.plannedExpensesGraphVCIdentifer)
         ]
     }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -39,6 +38,8 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
                 view.frame = UIScreen.main.bounds
             } else if view is UIPageControl {
                 view.backgroundColor = UIColor.clear
+                (view as! UIPageControl).currentPageIndicatorTintColor = .black
+                (view as! UIPageControl).pageIndicatorTintColor = .gray
             }
         }
     }

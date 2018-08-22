@@ -36,9 +36,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var whiteCircle: PieChartView!
     @IBOutlet weak var noDataImageView: UIImageView!
     
-    @IBOutlet weak var pcSelectedView: UIView!
-    @IBOutlet weak var pcOtherView1: UIView!
-    @IBOutlet weak var pcOtherView2: UIView!
     // MARK: - Actions
 
     
@@ -50,7 +47,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
         setUpTimeFrameVar()
         view.setNeedsDisplay()
         configureNavigationBar()
-        configurePageControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,15 +68,6 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title?.uppercased()
-    }
-    
-    func configurePageControl() {
-        pcSelectedView.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.5)
-        pcSelectedView.layer.cornerRadius = pcSelectedView.frame.height/2
-        pcOtherView1.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.15)
-        pcOtherView1.layer.cornerRadius = pcOtherView1.frame.height/2
-        pcOtherView2.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.15)
-        pcOtherView2.layer.cornerRadius = pcOtherView2.frame.height/2
     }
     
     func noDataImageSetup() {

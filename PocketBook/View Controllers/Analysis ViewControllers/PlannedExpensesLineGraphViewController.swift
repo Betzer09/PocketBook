@@ -44,11 +44,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     @IBOutlet weak var xView: UIView!
     @IBOutlet weak var lineGraphView: LineGraphView!
     @IBOutlet weak var pickerView: UIPickerView!
-    @IBOutlet weak var pcOtherView1: UIView!
-    @IBOutlet weak var pcOtherView2: UIView!
-    @IBOutlet weak var pcSelectedView: UIView!
-    
-    
     // MARK: - Actions
 
     
@@ -56,7 +51,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPickerViews()
-        configurePageControl()
         configureNavigationBar()
         // Do any additional setup after loading the view.
     }
@@ -86,15 +80,6 @@ class PlannedExpensesLineGraphViewController: UIViewController, UIPickerViewDele
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title?.uppercased()
-    }
-    
-    func configurePageControl() {
-        pcSelectedView.backgroundColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
-        pcSelectedView.layer.cornerRadius = pcSelectedView.frame.height/2
-        pcOtherView1.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.9)
-        pcOtherView1.layer.cornerRadius = pcOtherView1.frame.height/2
-        pcOtherView2.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.9)
-        pcOtherView2.layer.cornerRadius = pcOtherView2.frame.height/2
     }
     
     // MARK: - Setup PickerViews
