@@ -357,7 +357,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
 
     }
-    
+
     func showDatePicker() {
         if transaction == nil {
             dueDatePicker.date = Date()
