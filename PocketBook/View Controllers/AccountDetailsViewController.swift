@@ -2,19 +2,14 @@
 //  AccountDetailsViewController.swift
 //  PocketBook
 //
-//  Created by Laura O'Brien on 11/6/17.
+//  Created by Austin Betzer on 11/7/17.
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
-
-
-//NOTE: Text field heights and Account picker height are not adjusted for iPad v. iPhone aspects. All other label font sizes will adjust appropriately.
 
 
 //NOTE: save button to OverviewVC segue is called "saveAccountChangeSegue"
 //NOTE: cancel button to OverviewVC segue is called "cancelAccountChangeSegue"
 
-
-// fix me
 
 import UIKit
 
@@ -219,7 +214,10 @@ class AccountDetailsViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - Methods
     func setUpUI() {
-        self.navigationController?.navigationBar.tintColor = .white
+        
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.tintColor = .white            
+        }
         
         setDelegates()
         roundButtons()

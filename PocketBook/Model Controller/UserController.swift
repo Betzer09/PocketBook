@@ -2,7 +2,7 @@
 //  UsersController.swift
 //  PocketBook
 //
-//  Created by Brian Weissberg on 11/16/17.
+//  Created by Austin Betzer on 11/7/17.
 //  Copyright © 2017 SPARQ. All rights reserved.
 
 

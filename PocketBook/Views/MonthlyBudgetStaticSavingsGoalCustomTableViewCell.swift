@@ -2,7 +2,7 @@
 //  MonthlyBudgetStaticSavingsGoalCustomTableViewCell.swift
 //  PocketBook
 //
-//  Created by Laura O'Brien on 12/1/17.
+//  Created by Austin Betzer on 11/7/17.
 //  Copyright © 2017 SPARQ. All rights reserved.
 //
 

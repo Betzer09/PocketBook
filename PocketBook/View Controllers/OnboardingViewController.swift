@@ -2,7 +2,7 @@
 //  OnboadingViewController.swift
 //  Onboarding Application
 //
-//  Created by Brian Weissberg on 11/27/17.
+//  Created by Austin Betzer on 11/7/17.
 //  Copyright © 2017 Brian Weissberg. All rights reserved.
 //
 

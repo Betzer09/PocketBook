@@ -29,8 +29,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var incomeDetailView: UIView!
     @IBOutlet weak var transferMoneyView: UIView!
     
-    @IBOutlet weak var toPickerView: UIPickerView!
-    @IBOutlet weak var fromPickerView: UIPickerView!
+    @IBOutlet weak var toPickerTxtView: UITextField!
+    @IBOutlet weak var fromPickerTxtView: UITextField!
     
     @IBOutlet weak var transferFundsButton: UIButton!
     @IBOutlet weak var transferViewCancelButton: UIButton!
@@ -90,7 +90,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         configureNavigationBar()
     }
     
-    func showAccountPicker() {
+    func showAccountPickerfor(txtfield: UITextField) {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -99,8 +99,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(stopEditingTextField))
         
         toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
-        paydayAccountTextField.inputAccessoryView = toolbar
-        paydayAccountTextField.inputView = accountPickerView
+        txtfield.inputAccessoryView = toolbar
+        txtfield.inputView = accountPickerView
         
         
     }
@@ -131,10 +131,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.updateArrays()
-            self.fromPickerView.reloadAllComponents()
-            self.toPickerView.reloadAllComponents()
-            self.fromPickerView.reloadInputViews()
-            self.toPickerView.reloadInputViews()
+            self.fromPickerTxtView.reloadInputViews()
+            self.toPickerTxtView.reloadInputViews()
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
             self.noDataImageSetup()
@@ -363,20 +361,22 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == accountPickerView {
+        
+        switch textFieldBeingEdited {
+        case paydayAccountTextField:
             let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
             paydayAccountTextField.text = account.name
             payDayAccount = account
-        }
-        if pickerView == toPickerView {
+        case toPickerTxtView:
             let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
+            toPickerTxtView.text = account.name
             toAccount = account
-        }
-        if pickerView == fromPickerView {
+        default:
             let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
+            fromPickerTxtView.text = account.name
             fromAccount = account
         }
     }
@@ -476,8 +476,13 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        if textField == paydayAccountTextField {
-            self.showAccountPicker()
+        switch textField {
+        case paydayAccountTextField:
+            showAccountPickerfor(txtfield: paydayAccountTextField)
+        case toPickerTxtView:
+            showAccountPickerfor(txtfield: toPickerTxtView)
+        default:
+            showAccountPickerfor(txtfield: fromPickerTxtView)
         }
         textFieldBeingEdited = textField
     }
@@ -493,14 +498,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
         transferMoneyView.isHidden = false
         incomeDetailView.isHidden = true
-        let indexTo = toPickerView.selectedRow(inComponent: 0)
-        let accountTo =  AccountController.shared.accounts[indexTo]
-        toPickerView.setNeedsDisplay()
-        toAccount = accountTo
-        let indexFrom = fromPickerView.selectedRow(inComponent: 0)
-        let accountFrom =  AccountController.shared.accounts[indexFrom]
-        fromPickerView.setNeedsDisplay()
-        fromAccount = accountFrom
     }
     
     @IBAction func payDayButtonTapped(_ sender: UIButton) {
@@ -510,14 +507,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func incomeDetailsCancelButtonTapped(_ sender: UIButton) {
         resetIncomeDetailView()
+        resetTransferMoneyVariables()
     }
     
     @IBAction func transferMoneyCancelButtonTapped(_ sender: UIButton) {
         resetTransferMoneyView()
+        resetTransferMoneyVariables()
     }
     
     @IBAction func depostiButtonTapped(_ sender: UIButton) {
-        // TODO: ADDED SIMPLE ARE YOU SURE ALERT
         guard let amountString = payDayAmountTextField.text, amountString != "",
             let amount = Double(amountString),
             let account = payDayAccount else {return}
@@ -529,10 +527,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             // Nothing to do.
         }
         resetIncomeDetailView()
+        resetTransferMoneyVariables()
     }
     
     @IBAction func transferButtonTapped(_ sender: UIButton) {
-        // TODO: ADDED SIMPLE ARE YOU SURE ALERT
         guard let amountString = transferAmountTextField.text, amountString != "",
             let amount = Double(amountString),
             let toAccount = toAccount,
@@ -550,6 +548,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             // TODO: DELETE THIS CLOSURE
         })
         resetTransferMoneyView()
+        resetTransferMoneyVariables()
     }
     
     // MARK: Button Functions
@@ -561,8 +560,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     func resetTransferMoneyView() {
         transferMoneyView.isHidden = true
         transferAmountTextField.text = ""
-        toPickerView.reloadAllComponents()
-        fromPickerView.reloadAllComponents()
+    }
+    
+    func resetTransferMoneyVariables() {
+        fromPickerTxtView.text = ""
+        toPickerTxtView.text = ""
+        paydayAccountTextField.text = ""
+        payDayAccount = nil
+        fromAccount = nil
+        toAccount = nil
     }
     
     // MARK: - Methods
@@ -580,16 +586,14 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func setUpDelegates() {
-        toPickerView.delegate = self
-        toPickerView.dataSource = self
-        fromPickerView.dataSource = self
-        fromPickerView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
         transferAmountTextField.delegate = self
         payDayAmountTextField.delegate = self
         accountPickerView.dataSource = self
         accountPickerView.delegate = self
+        toPickerTxtView.delegate = self
+        fromPickerTxtView.delegate = self
         
     }
     
@@ -630,7 +634,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: - Objective C Methods
-    
     @objc func doneAccountPicker() {
         let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
         paydayAccountTextField.text = account.name
