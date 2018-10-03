@@ -29,8 +29,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var incomeDetailView: UIView!
     @IBOutlet weak var transferMoneyView: UIView!
     
-    @IBOutlet weak var toPickerTxtView: UITextField!
-    @IBOutlet weak var fromPickerTxtView: UITextField!
+    @IBOutlet weak var toAccountTxtField: UITextField!
+    @IBOutlet weak var fromAccountTxtField: UITextField!
     
     @IBOutlet weak var transferFundsButton: UIButton!
     @IBOutlet weak var transferViewCancelButton: UIButton!
@@ -131,8 +131,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @objc func reloadTableView() {
         DispatchQueue.main.async {
             self.updateArrays()
-            self.fromPickerTxtView.reloadInputViews()
-            self.toPickerTxtView.reloadInputViews()
+            self.fromAccountTxtField.reloadInputViews()
+            self.toAccountTxtField.reloadInputViews()
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
             self.noDataImageSetup()
@@ -368,15 +368,15 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let account =  AccountController.shared.accounts[index]
             paydayAccountTextField.text = account.name
             payDayAccount = account
-        case toPickerTxtView:
+        case toAccountTxtField:
             let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
-            toPickerTxtView.text = account.name
+            toAccountTxtField.text = account.name
             toAccount = account
         default:
             let index = pickerView.selectedRow(inComponent: component)
             let account =  AccountController.shared.accounts[index]
-            fromPickerTxtView.text = account.name
+            fromAccountTxtField.text = account.name
             fromAccount = account
         }
     }
@@ -475,16 +475,17 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+
+        textFieldBeingEdited = textField
         
         switch textField {
         case paydayAccountTextField:
             showAccountPickerfor(txtfield: paydayAccountTextField)
-        case toPickerTxtView:
-            showAccountPickerfor(txtfield: toPickerTxtView)
+        case toAccountTxtField:
+            showAccountPickerfor(txtfield: toAccountTxtField)
         default:
-            showAccountPickerfor(txtfield: fromPickerTxtView)
+            showAccountPickerfor(txtfield: fromAccountTxtField)
         }
-        textFieldBeingEdited = textField
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -496,11 +497,13 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Actions
     
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
+        resetTransferMoneyVariables()
         transferMoneyView.isHidden = false
         incomeDetailView.isHidden = true
     }
     
     @IBAction func payDayButtonTapped(_ sender: UIButton) {
+        resetTransferMoneyVariables()
         incomeDetailView.isHidden = false
         transferMoneyView.isHidden = true
     }
@@ -563,8 +566,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func resetTransferMoneyVariables() {
-        fromPickerTxtView.text = ""
-        toPickerTxtView.text = ""
+        fromAccountTxtField.text = ""
+        toAccountTxtField.text = ""
         paydayAccountTextField.text = ""
         payDayAccount = nil
         fromAccount = nil
@@ -592,8 +595,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         payDayAmountTextField.delegate = self
         accountPickerView.dataSource = self
         accountPickerView.delegate = self
-        toPickerTxtView.delegate = self
-        fromPickerTxtView.delegate = self
+        toAccountTxtField.delegate = self
+        fromAccountTxtField.delegate = self
         
     }
     
@@ -636,7 +639,18 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Objective C Methods
     @objc func doneAccountPicker() {
         let account = AccountController.shared.accounts[accountPickerView.selectedRow(inComponent: 0)]
-        paydayAccountTextField.text = account.name
+        
+        switch textFieldBeingEdited {
+        case paydayAccountTextField:
+            paydayAccountTextField.text = account.name
+            payDayAccount = account
+        case fromAccountTxtField:
+            fromAccountTxtField.text = account.name
+            fromAccount = account
+        default:
+            toAccountTxtField.text = account.name
+            toAccount = account
+        }
         payDayAccount = account
         self.view.endEditing(true)
     }
