@@ -17,7 +17,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var totalBudgetedIncomLabel: UILabel!
     @IBOutlet weak var incomeNotCurrentlyBudgetLabel: UILabel!
-//    @IBOutlet weak var incomeNotCurrentlyBudgetTitleLabel: UILabel!
     
     @IBOutlet weak var superView: UIView!
     @IBOutlet weak var legendView: UIView!
@@ -33,12 +32,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Notifications
     
-    func runNotifications() {
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(updateIncomeNotCurrentlyBudgetedTitleLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
-    }
-    
     // MARK: - Properties
     var projectedIncome: Double = 0.0 {
         didSet {
@@ -46,25 +39,13 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    var booleanCounterForTableViewAnimation: Bool = false
     let hasLaunchedKey = "ProjectedIncomeHasBeenCreated"
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        This clears on the things saved to user defaults Wait a while to delete me
-        
-        //        let domain = Bundle.main.bundleIdentifier!
-        //        UserDefaults.standard.removePersistentDomain(forName: domain)
-        //        UserDefaults.standard.synchronize()
-        //        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableView), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
         setUpUI()
-        runNotifications()
+        addPropertyObservers()
         updatePieChartAndLegendView()
         updateIncomeNotCurrentlyBudgetedTitleLabel()
         view.setNeedsDisplay()
@@ -73,17 +54,11 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         noDataImageSetup()
-        reloadCategoryTableView()
-        updateUI()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        booleanCounterForTableViewAnimation = true
+        reloadCategoryTableViewAndUI()
     }
     
     func noDataImageSetup() {
-        let budgetItems = BudgetItemController.shared.budgetItems
-        if budgetItems.count == 0 {
+        if BudgetItemController.shared.budgetItems.count == 0 {
             noDataImage.isHidden = false
         } else {
             noDataImage.isHidden = true
@@ -158,7 +133,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     @objc private func createBudgetItemAlert() {
         let budgetItems: [BudgetItem] = BudgetItemController.shared.budgetItems
         // Limit user to 16 monthly budget items
-        let numberOfBudgetItems = BudgetItemController.shared.budgetItems.count
+        let numberOfBudgetItems = budgetItems.count
         if numberOfBudgetItems >= 16 {
             presentSimpleAlert(controllerToPresentAlert:self, title: "Budget Category Limit", message: "You may only have 16 different budget categories.")
             return
@@ -200,6 +175,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
                 }
             }
             BudgetItemController.shared.createBudgetItemWith(name: name, spentTotal: 0, allottedAmount: allottedAmount, completion: nil)
+            self.reloadCategoryTableViewAndUI()
             self.noDataImageSetup()
         }
         
@@ -228,6 +204,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             nameTextField = textField
         }
         alertController.addTextField { (textField) in
+            textField.keyboardType = .decimalPad
             textField.text = "\(totalAllotted)"
             allotedAmountTextField = textField
         }
@@ -244,7 +221,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             budgetItem.totalAllotted = allottedAmountAsDouble
             guard let totalAllotted = budgetItem.totalAllotted else { return }
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name , spentTotal: budgetItem.spentTotal, allottedAmount: totalAllotted, budgetItem: budgetItem, completion: { (_) in })
-            self.categoryTableView.reloadData()
+            self.reloadCategoryTableViewAndUI()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -255,6 +232,20 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: - Methods
+
+    /// This will clear all the information in User Defaults this is used for testing...
+    func clearAllDataInUserDefaults() {
+                let domain = Bundle.main.bundleIdentifier!
+                UserDefaults.standard.removePersistentDomain(forName: domain)
+                UserDefaults.standard.synchronize()
+                print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+    }
+    
+    func addPropertyObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCategoryTableViewAndUI), name: Notifications.budgetItemWasUpdatedNotifaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNotCurrentlyBudgetedLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateIncomeNotCurrentlyBudgetedTitleLabel), name: Notifications.projectedIncomeWasUpdatedNotification, object: nil)
+    }
     
     /// This function adds up the total of all current monthly budget items
     func addUpTotalSpentOfBudget() -> Double {
@@ -308,20 +299,18 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    @objc func reloadCategoryTableView() {
+    @objc func reloadCategoryTableViewAndUI() {
         DispatchQueue.main.async {
             self.updateUI()
             self.updatePieChartAndLegendView()
             self.view.setNeedsDisplay()
-            animateTableView(forTableView: self.categoryTableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
+            self.categoryTableView.reloadData()
         }
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    // MARK: - UI
     
     
     // MARK: - UI

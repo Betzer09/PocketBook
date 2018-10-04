@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
 
@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TransactionController.shared.fetchTransActionsFromCloudKit()
         PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
         UserController.shared.fetchUserFromCloudKit()
+        UserNotificationHelper.shared.authorizeNotification()
+        
         
         UserDefaults.standard.register(defaults: ["onboarding" : false])
         self.window = UIWindow(frame: UIScreen.main.bounds)

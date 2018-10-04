@@ -371,32 +371,6 @@ func setUpTableViewHeader(withTableView tableView: UITableView, withSection sect
     return headerView
 }
 
-/// This function animates and reloads a tableView
-func animateTableView(forTableView tableView: UITableView, withBooleanCounter boolean: Bool) {
-    
-    if boolean == true {
-        tableView.reloadData()
-    } else if boolean == false {
-        tableView.reloadData()
-        
-        let cells = tableView.visibleCells
-        let tableHeight: CGFloat = tableView.bounds.size.height
-        for cell in cells {
-            let cell: UITableViewCell = cell as UITableViewCell
-            cell.transform = CGAffineTransform(translationX: 0, y: tableHeight)
-        }
-        
-        var index = 0
-        for cell in cells {
-            let cell: UITableViewCell = cell as UITableViewCell
-            UIView.animate(withDuration: 1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                cell.transform = CGAffineTransform.identity
-            }, completion: nil)
-            index += 1
-        }
-    }
-}
-
 // MARK: - Image Design
 
 /// Resizes cirlc images

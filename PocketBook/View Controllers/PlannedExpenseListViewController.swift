@@ -11,7 +11,6 @@ import UIKit
 class PlannedExpenseListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PlannedExpenseTableViewCellDelegate {
 
     // MARK: - Properties
-    var booleanCounterForTableViewAnimation: Bool = false
     
     //MARK: - Outlets
     
@@ -31,14 +30,9 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        animateTableView(forTableView: self.tableView, withBooleanCounter: booleanCounterForTableViewAnimation)
         noDataImageSetup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        booleanCounterForTableViewAnimation = true
     }
     
     // MARK: - Actions
@@ -82,6 +76,10 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
             } else {
                 self.amountLabel.text = "\(formatNumberToString(fromDouble: totalMonthlyContribution))"
             }
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()            
         }
     }
     

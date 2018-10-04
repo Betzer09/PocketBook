@@ -17,6 +17,7 @@ struct Keys {
     
     // MARK: - Notification Dictionary Keys
     static let timeFrameKey = "timeFrame"
+    static let notificationKey = "hasRegisteredForNotifications"
     
     // MARK: - Transaction Model Keys
     static let recordTransactionType = "Transaction"

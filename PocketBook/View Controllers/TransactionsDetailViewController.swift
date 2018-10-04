@@ -32,7 +32,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     var plannedExpenseTransaction: PlannedExpense?
     var currentYShiftForKeyboard: CGFloat = 0
     var textFieldBeingEdited: UITextField?
-    var booleanCounterForTableViewAnimation: Bool = false
     
     let dueDatePicker = UIDatePicker()
     let accountPicker = UIPickerView()
@@ -51,10 +50,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        booleanCounterForTableViewAnimation = true
     }
     
     // MARK: - Setup UI

@@ -21,6 +21,7 @@
 		23DD433F1FB25A33008DCE5B /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */; };
 		23DD43441FB263D4008DCE5B /* PlannedExpenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */; };
 		23DD43461FB26E39008DCE5B /* BudgetItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43451FB26E39008DCE5B /* BudgetItemController.swift */; };
+		23E261BB21646D160043E20D /* UserNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E261BA21646D160043E20D /* UserNotificationHelper.swift */; };
 		23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */; };
 		9255C3A01FBA8024002EBE5D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255C39F1FBA8024002EBE5D /* Theme.swift */; };
 		9255C3A41FBB5DFB002EBE5D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9255C3A31FBB5DFB002EBE5D /* Globals.swift */; };
@@ -81,6 +82,7 @@
 		23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		23DD43431FB263D4008DCE5B /* PlannedExpenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpenseController.swift; sourceTree = "<group>"; };
 		23DD43451FB26E39008DCE5B /* BudgetItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItemController.swift; sourceTree = "<group>"; };
+		23E261BA21646D160043E20D /* UserNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationHelper.swift; sourceTree = "<group>"; };
 		23EE8A031FB65032008928D4 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		9255C39F1FBA8024002EBE5D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9255C3A31FBB5DFB002EBE5D /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
 				23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */,
 				F551BE881FCCD2690000CFC5 /* Extensions.swift */,
+				23E261BA21646D160043E20D /* UserNotificationHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				F566313C1FCF11F90082FF70 /* InstructionsViewController.swift in Sources */,
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
+				23E261BB21646D160043E20D /* UserNotificationHelper.swift in Sources */,
 				F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */,
 				92B122B41FD05620003E4ECF /* PlannedExpenseListViewController.swift in Sources */,
 				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,

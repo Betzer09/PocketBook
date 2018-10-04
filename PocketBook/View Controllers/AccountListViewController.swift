@@ -11,8 +11,6 @@ import UIKit
 class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
-    
-    var booleanCounterForTableViewAnimation: Bool = false
     var currentYShiftForKeyboard: CGFloat = 0
     var toAccount: Account?
     var fromAccount: Account?
@@ -63,15 +61,11 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.updateArrays()
-            animateTableView(forTableView: self.tableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
             self.noDataImageSetup()
         }
         setUpTransferFundsView()
         updateTotalLabel()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        booleanCounterForTableViewAnimation = true
+        reloadTableView()
     }
     // MARK: - Setup View
     
@@ -136,7 +130,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let total = self.totalFundsCalc()
             self.updateAccountsTotalLabel(fromTotal: total)
             self.noDataImageSetup()
-            animateTableView(forTableView: self.tableView, withBooleanCounter: self.booleanCounterForTableViewAnimation)
+            self.tableView.reloadData()
         }
     }
     
