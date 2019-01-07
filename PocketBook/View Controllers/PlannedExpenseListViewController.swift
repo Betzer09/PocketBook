@@ -94,7 +94,11 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     }
     
     @objc func segueToDetailVC() {
-        self.performSegue(withIdentifier: "toPersistedPlannedExpenseSegue", sender: self)
+        if AccountController.shared.accounts.count >= 1 {
+            self.performSegue(withIdentifier: "toPersistedPlannedExpenseSegue", sender: self)
+        } else {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Create Accounts", message: "Before you can create any Savings Goals you need to add an account first.")
+        }
     }
     
     // MARK: - Table view data source

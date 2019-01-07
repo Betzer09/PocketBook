@@ -257,7 +257,11 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     @objc func segueToDetailVC() {
-        self.performSegue(withIdentifier: "toTransactionDVC", sender: self)
+        if AccountController.shared.accounts.count >= 1 {
+            self.performSegue(withIdentifier: "toTransactionDVC", sender: self)
+        } else {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Create Accounts", message: "Before you can create any transactions you need to add an account first.")
+        }
     }
     
     // MARK: - Navigation
