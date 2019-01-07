@@ -65,6 +65,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         checkIfUserIsSignedIntoCloudKit()
         loadAndCheckDate()
         setUpUI()
+        // Register for silent notifications
+        UserNotificationHelper.shared.checkIfUserHasSubscribedForSilentNotifications()
     }
     
     // MARK: - Setup View

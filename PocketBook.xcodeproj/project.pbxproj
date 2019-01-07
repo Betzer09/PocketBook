@@ -164,7 +164,6 @@
 				D38EF96F1FB22FBB0035B5E3 /* View Controllers */,
 				D38EF9861FB240850035B5E3 /* Views */,
 				23DD43191FB21253008DCE5B /* Storyboard */,
-				23DD433D1FB25A33008DCE5B /* Other Controller */,
 				23DD43181FB21250008DCE5B /* Resources */,
 			);
 			path = PocketBook;
@@ -231,14 +230,6 @@
 			path = "Model Controller";
 			sourceTree = "<group>";
 		};
-		23DD433D1FB25A33008DCE5B /* Other Controller */ = {
-			isa = PBXGroup;
-			children = (
-				23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */,
-			);
-			path = "Other Controller";
-			sourceTree = "<group>";
-		};
 		92993C4A1FB3936C00D22373 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +244,7 @@
 				23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */,
 				F551BE881FCCD2690000CFC5 /* Extensions.swift */,
 				23E261BA21646D160043E20D /* UserNotificationHelper.swift */,
+				23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -331,6 +323,9 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};

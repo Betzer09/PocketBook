@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         TransactionController.shared.fetchTransActionsFromCloudKit()
         PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
         UserController.shared.fetchUserFromCloudKit()
-//        UserNotificationHelper.shared.authorizeNotification()
+        
         
         
         UserDefaults.standard.register(defaults: ["onboarding" : false])
@@ -45,8 +45,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         guard let font2 = UIFont(name: "Avenir Next", size: 14) else {return false}
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font2], for: .normal)
-
+        application.registerForRemoteNotifications()
         return true
+    }
+    
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Received Notification")
+        
+        
+        AccountController.shared.fetchAccountsFromCloudKit()
+        PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
+        TransactionController.shared.fetchTransActionsFromCloudKit()
+        UserController.shared.fetchUserFromCloudKit()
+        BudgetItemController.shared.fetchBugetItemFromCloudKit()
+        
+        
+        
+        completionHandler(.newData)
     }
 }
 

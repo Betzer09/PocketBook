@@ -27,11 +27,6 @@ class UserNotificationHelper: NSObject {
         case user = "User"
     }
     
-    let cloudSunscriptions: [String] = [
-        Keys.recordAccountType, Keys.recordTransactionType,
-        Keys.recordPlannedExpenseType, Keys.recordBudgetItemType, Keys.recordUserType
-    ]
-    
     func authorizeNotification() {
         let options : UNAuthorizationOptions = [.sound, .badge, .alert]
         unCenter.requestAuthorization(options: options) { (authorized, error) in
@@ -47,7 +42,7 @@ class UserNotificationHelper: NSObject {
     }
     
     func configureNotifiaction() {
-        unCenter.delegate = self
+//        unCenter.delegate = self
         
         let application = UIApplication.shared
         application.registerForRemoteNotifications()
@@ -56,99 +51,82 @@ class UserNotificationHelper: NSObject {
             let value = UserDefaults.standard.object(forKey: Keys.notificationKey)
             if settings.alertSetting == .enabled && value == nil {
                 UserDefaults.standard.set(true, forKey: Keys.notificationKey)
-                self.registerForNotifcations()
                 self.startDailyReminderNotification()
             }
         }
         
     }
 
+    // Makes it so if something changes in the cloud the user has updated information.
     
-    func registerForNotifcations() {
+    let subscriptionKey = "HasSubscribedToSilentNotifications"
+    func checkIfUserHasSubscribedForSilentNotifications() {
+        let defaults = UserDefaults.standard
+        let hasSubscribed = defaults.value(forKey: subscriptionKey) as? Bool
         
-        for subscription in cloudSunscriptions {
-            self.registerForSubscriptionWith(documentKey: subscription)
+        if let hasSubscribed = hasSubscribed {
+            if hasSubscribed == false {
+                registerForNotifcationsSubscriptions()
+            } else {
+                return
+            }
+        } else {
+            registerForNotifcationsSubscriptions()
         }
     }
     
-    func removeNotificationsSubsriptions() {
-        for subscription in cloudSunscriptions {
-            privateDBContainer.delete(withSubscriptionID: subscription) { (responce, error ) in
-                guard let error = error else {return}
-                NSLog("Error removing subscription :\(error)")
+    func registerForNotifcationsSubscriptions() {
+        UserDefaults.standard .set(true, forKey: subscriptionKey)
+        
+        registerForSubscriptionWith(documentKey: CloudSubscriptions.account.rawValue) { (done) in
+            guard done else {return}
+            self.registerForSubscriptionWith(documentKey: CloudSubscriptions.transaciton.rawValue) { (done) in
+                guard done else {return}
+                self.registerForSubscriptionWith(documentKey: CloudSubscriptions.budgetItem.rawValue) { (done) in
+                    guard done else {return}
+                    self.registerForSubscriptionWith(documentKey: CloudSubscriptions.user.rawValue) { (done) in
+                        guard done else {return}
+                        self.registerForSubscriptionWith(documentKey: CloudSubscriptions.plannedExpense.rawValue) { (done) in
+                            guard done else {return}
+                            
+                        }
+                    }
+                }
             }
         }
     }
     
-    func registerForSubscriptionWith(documentKey key: String) {
+    func registerForSubscriptionWith(documentKey key: String, completion: @escaping(_ success: Bool) -> Void) {
         let subscription = CKQuerySubscription(recordType: key, predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate, .firesOnRecordCreation, .firesOnRecordDeletion])
         
         
         let info = CKNotificationInfo()
-        
-        switch key {
-        case Keys.recordAccountType:
-            info.category = CloudSubscriptions.account.rawValue
-        case Keys.recordTransactionType:
-            info.category = CloudSubscriptions.transaciton.rawValue
-        case Keys.recordBudgetItemType:
-            info.category = CloudSubscriptions.budgetItem.rawValue
-        case Keys.recordPlannedExpenseType:
-            info.category = CloudSubscriptions.plannedExpense.rawValue
-        default:
-            info.category = CloudSubscriptions.user.rawValue
-        }
-        
-        info.soundName = "default"
-        info.shouldBadge = false
+        info.shouldSendContentAvailable = true
         subscription.notificationInfo = info
         
         
         privateDBContainer.save(subscription) { (savedSubscription, error) in
             if let error = error {
                 NSLog(error.localizedDescription)
+                completion(false)
             }
             
-            guard let savedSubscription = savedSubscription else {return}
+            guard let savedSubscription = savedSubscription else {
+                completion(false)
+                return
+            }
             // save the subscription id?
             print("\(savedSubscription.subscriptionID)")
+            completion(true)
             
         }
         
     }
 }
 
-extension UserNotificationHelper: UNUserNotificationCenterDelegate {
+extension UserNotificationHelper {
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        removeOldNotifications()
-        completionHandler()
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        let subscirptionIdentifer = notification.request.content.categoryIdentifier
-        
-        switch subscirptionIdentifer {
-        case CloudSubscriptions.account.rawValue:
-            AccountController.shared.fetchAccountsFromCloudKit()
-        case CloudSubscriptions.transaciton.rawValue:
-            TransactionController.shared.fetchTransActionsFromCloudKit()
-        case CloudSubscriptions.budgetItem.rawValue:
-            BudgetItemController.shared.fetchBugetItemFromCloudKit()
-        case CloudSubscriptions.plannedExpense.rawValue:
-            PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
-        case CloudSubscriptions.user.rawValue:
-            UserController.shared.fetchUserFromCloudKit()
-        default:
-            // Daily notificaiton
-            print("this is the daily notification..")
-        }
-        
-        completionHandler([])
-    }
-    
-    
+    // TODO: - For verision 2.0
     func removeOldNotifications() {
         
         var count: Int = 0
