@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         TransactionController.shared.fetchTransActionsFromCloudKit()
         PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
         UserController.shared.fetchUserFromCloudKit()
-        UserNotificationHelper.shared.authorizeNotification()
+//        UserNotificationHelper.shared.authorizeNotification()
         
         
         UserDefaults.standard.register(defaults: ["onboarding" : false])

@@ -52,8 +52,8 @@ class AccountDetailsViewController: UIViewController, UIGestureRecognizerDelegat
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
-        customizeSegmentedControl()
         super.viewDidLoad()
+        customizeSegmentedControl()
         setupUI()
         setDelegates()
         addTapGesture()
@@ -123,6 +123,7 @@ class AccountDetailsViewController: UIViewController, UIGestureRecognizerDelegat
         
         if account == nil {
             transferFundsButton.isHidden = true
+            transferMoneyView.isHidden = true
         }
         // Check to see if there is an account
         guard let account = account else {return}
