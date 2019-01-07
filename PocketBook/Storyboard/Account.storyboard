@@ -149,8 +149,8 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTJ-qS-eQQ">
-                                                <rect key="frame" x="0.0" y="38" width="80.666666666666671" height="40"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="WTJ-qS-eQQ">
+                                                <rect key="frame" x="0.0" y="38" width="101" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="vF9-xY-rGE"/>
                                                 </constraints>
@@ -159,7 +159,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hVr-hX-hqf">
-                                                <rect key="frame" x="88.666666666666657" y="84" width="307.33333333333337" height="34"/>
+                                                <rect key="frame" x="109" y="84" width="287" height="34"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -176,8 +176,8 @@
                                                     <action selector="depostiButtonTapped:" destination="vla-F5-8dR" eventType="touchUpInside" id="nfB-gK-Heo"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrc-Wb-ZdE">
-                                                <rect key="frame" x="0.0" y="86" width="80.666666666666671" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="lrc-Wb-ZdE">
+                                                <rect key="frame" x="0.0" y="86" width="101" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="uXK-sp-s4w"/>
                                                 </constraints>
@@ -197,7 +197,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E2m-aO-tDy">
-                                                <rect key="frame" x="88.666666666666657" y="41" width="307.33333333333337" height="34"/>
+                                                <rect key="frame" x="109" y="41" width="287" height="34"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -208,7 +208,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="lrc-Wb-ZdE" firstAttribute="width" secondItem="pCf-qz-5tX" secondAttribute="width" multiplier="1/5" id="4Zb-2L-SLT"/>
+                                            <constraint firstItem="lrc-Wb-ZdE" firstAttribute="width" secondItem="pCf-qz-5tX" secondAttribute="width" multiplier="1/4" id="4Zb-2L-SLT"/>
                                             <constraint firstAttribute="trailing" secondItem="iAF-It-OgQ" secondAttribute="trailing" id="5bz-qN-xRP"/>
                                             <constraint firstAttribute="trailing" secondItem="LUY-6m-pQe" secondAttribute="trailing" id="5qL-bb-P5a"/>
                                             <constraint firstItem="WTJ-qS-eQQ" firstAttribute="top" secondItem="iAF-It-OgQ" secondAttribute="bottom" constant="8" id="7Rr-e3-di4"/>
@@ -217,7 +217,7 @@
                                             <constraint firstItem="hVr-hX-hqf" firstAttribute="height" secondItem="E2m-aO-tDy" secondAttribute="height" id="BzS-wH-wgl"/>
                                             <constraint firstItem="lrc-Wb-ZdE" firstAttribute="top" secondItem="WTJ-qS-eQQ" secondAttribute="bottom" constant="8" id="CSt-aY-R2N"/>
                                             <constraint firstItem="hVr-hX-hqf" firstAttribute="width" secondItem="E2m-aO-tDy" secondAttribute="width" id="Dbf-0L-Ym4"/>
-                                            <constraint firstItem="WTJ-qS-eQQ" firstAttribute="width" secondItem="pCf-qz-5tX" secondAttribute="width" multiplier="1/5" id="E5U-SX-kf1"/>
+                                            <constraint firstItem="WTJ-qS-eQQ" firstAttribute="width" secondItem="pCf-qz-5tX" secondAttribute="width" multiplier="1/4" id="E5U-SX-kf1"/>
                                             <constraint firstItem="WTJ-qS-eQQ" firstAttribute="leading" secondItem="pCf-qz-5tX" secondAttribute="leading" id="EUw-Iv-Z7w"/>
                                             <constraint firstItem="hVr-hX-hqf" firstAttribute="leading" secondItem="lrc-Wb-ZdE" secondAttribute="trailing" constant="8" id="Gn0-eT-vSi"/>
                                             <constraint firstAttribute="height" constant="155" id="GrJ-KK-NDc"/>
@@ -300,14 +300,14 @@
                                                     <action selector="transferMoneyCancelButtonTapped:" destination="vla-F5-8dR" eventType="touchUpInside" id="pXU-KV-Xf3"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:AhV-eU-hcb:image" translatesAutoresizingMaskIntoConstraints="NO" id="AhV-eU-hcb">
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:AhV-eU-hcb:image" translatesAutoresizingMaskIntoConstraints="NO" id="AhV-eU-hcb">
                                                 <rect key="frame" x="187" y="60.666666666666629" width="30" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="cKn-iS-Je1"/>
                                                     <constraint firstAttribute="width" constant="30" id="cqW-SC-tY8"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgQ-dX-unV" userLabel="From Style Text Field">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pick Account" textAlignment="center" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="dgQ-dX-unV" userLabel="From Style Text Field">
                                                 <rect key="frame" x="0.0" y="68" width="187" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -328,7 +328,7 @@
                                                     <action selector="transferButtonTapped:" destination="vla-F5-8dR" eventType="touchUpInside" id="7X9-sg-enp"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GNg-3J-f6u" userLabel="To Account txtview">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pick Account" textAlignment="center" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="GNg-3J-f6u" userLabel="To Account txtview">
                                                 <rect key="frame" x="217" y="68" width="187" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -371,7 +371,7 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="accounts_empty_state_screen_1024" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-bL-iJi">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="accounts_empty_state_screen_1024" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-bL-iJi">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <color key="backgroundColor" red="0.6103445291519165" green="0.7420918345451355" blue="0.88695830106735229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>

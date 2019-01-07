@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     var currentYShiftForKeyboard: CGFloat = 0
@@ -95,7 +95,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         txtfield.inputAccessoryView = toolbar
         txtfield.inputView = accountPickerView
-        
         
     }
     
@@ -339,157 +338,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    // MARK: - Picker View Delegate and DataSource
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let accounts = AccountController.shared.accounts.count
-        return accounts
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let accounts = AccountController.shared.accounts
-        return accounts[row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        switch textFieldBeingEdited {
-        case paydayAccountTextField:
-            let index = pickerView.selectedRow(inComponent: component)
-            let account =  AccountController.shared.accounts[index]
-            paydayAccountTextField.text = account.name
-            payDayAccount = account
-        case toAccountTxtField:
-            let index = pickerView.selectedRow(inComponent: component)
-            let account =  AccountController.shared.accounts[index]
-            toAccountTxtField.text = account.name
-            toAccount = account
-        default:
-            let index = pickerView.selectedRow(inComponent: component)
-            let account =  AccountController.shared.accounts[index]
-            fromAccountTxtField.text = account.name
-            fromAccount = account
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
-        let pickerLabel = UILabel()
-        let accounts = AccountController.shared.accounts
-        let account = accounts[row]
-        var size: CGFloat = 14.0
-        
-        switch pickerView {
-        case accountPickerView:
-            size = 18
-            pickerLabel.textAlignment = .center
-        default:
-            pickerLabel.textAlignment = .left
-        }
-        
-        pickerLabel.font = UIFont(name: "Avenir Next", size: size)
-        pickerLabel.text = account.name
-        
-        return pickerLabel
-    }
-    
-    // MARK: - TextFields
-    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
-        
-        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
-        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
-        
-        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
-        let maximumY = self.view.frame.height - keyboardHeight
-        
-        if textFieldBottomY > maximumY {
-            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
-            return textFieldBottomY - maximumY + 60
-        } else {
-            // It would go off the screen if moved, and it won't be obscured by the keyboard.
-            return 0
-        }
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        var keyboardSize: CGRect = .zero
-        
-        if let keyboardRect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
-            keyboardRect.height != 0 {
-            keyboardSize = keyboardRect
-        } else if let keyboardRect = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect {
-            keyboardSize = keyboardRect
-        }
-        
-        if let textField = textFieldBeingEdited {
-            if self.view.frame.origin.y == 0 {
-                
-                let yShift = yShiftWhenKeyboardAppearsFor(textField: textField, keyboardHeight: keyboardSize.height, nextY: keyboardSize.height)
-                self.currentYShiftForKeyboard = yShift
-                self.view.frame.origin.y -= yShift
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        
-        if self.view.frame.origin.y != 0 {
-            
-            self.view.frame.origin.y += currentYShiftForKeyboard
-        }
-        stopEditingTextField()
-    }
-    
-    @objc func dismissKeyboard(recognizer: UITapGestureRecognizer) {
-        if depositButton.point(inside: recognizer.location(in: depositButton), with: nil) {
-            depositButton.sendActions(for: .touchUpInside)
-        }
-        
-        if transferButton.point(inside: recognizer.location(in: transferButton), with: nil) {
-            transferButton.sendActions(for: .touchUpInside)
-        }
-        
-        if incomeDetailCancelButton.point(inside: recognizer.location(in: incomeDetailCancelButton), with: nil) {
-            incomeDetailCancelButton.sendActions(for: .touchUpInside)
-        }
-        
-        if transferViewCancelButton.point(inside: recognizer.location(in: transferViewCancelButton), with: nil) {
-            transferViewCancelButton.sendActions(for: .touchUpInside)
-        }
-        
-        view.endEditing(true)
-    }
-    
-    @objc func stopEditingTextField() {
-        view.endEditing(true)
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-
-        textFieldBeingEdited = textField
-        
-        switch textField {
-        case paydayAccountTextField:
-            showAccountPickerfor(txtfield: paydayAccountTextField)
-        case toAccountTxtField:
-            showAccountPickerfor(txtfield: toAccountTxtField)
-        default:
-            showAccountPickerfor(txtfield: fromAccountTxtField)
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
     
     // MARK: - Actions
-    
     @IBAction func transferButtonFundsTapped(_ sender: UIButton) {
         resetTransferMoneyVariables()
         transferMoneyView.isHidden = false
@@ -774,3 +624,157 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     }
 }
 
+
+// MARK: - Picker View Delegate and DataSource
+extension AccountListViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        let accounts = AccountController.shared.accounts.count
+        return accounts
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let accounts = AccountController.shared.accounts
+        return accounts[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        switch textFieldBeingEdited {
+        case paydayAccountTextField:
+            let index = pickerView.selectedRow(inComponent: component)
+            let account =  AccountController.shared.accounts[index]
+            paydayAccountTextField.text = account.name
+            payDayAccount = account
+        case toAccountTxtField:
+            let index = pickerView.selectedRow(inComponent: component)
+            let account =  AccountController.shared.accounts[index]
+            toAccountTxtField.text = account.name
+            toAccount = account
+        default:
+            let index = pickerView.selectedRow(inComponent: component)
+            let account =  AccountController.shared.accounts[index]
+            fromAccountTxtField.text = account.name
+            fromAccount = account
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        let pickerLabel = UILabel()
+        let accounts = AccountController.shared.accounts
+        let account = accounts[row]
+        var size: CGFloat = 14.0
+        
+        switch pickerView {
+        case accountPickerView:
+            size = 18
+            pickerLabel.textAlignment = .center
+        default:
+            pickerLabel.textAlignment = .left
+        }
+        
+        pickerLabel.font = UIFont(name: "Avenir Next", size: size)
+        pickerLabel.text = account.name
+        
+        return pickerLabel
+    }
+}
+
+
+extension AccountListViewController: UITextFieldDelegate {
+    // MARK: - TextFields
+    func yShiftWhenKeyboardAppearsFor(textField: UITextField, keyboardHeight: CGFloat, nextY: CGFloat) -> CGFloat {
+        
+        let textFieldOrigin = self.view.convert(textField.frame, from: textField.superview!).origin.y
+        let textFieldBottomY = textFieldOrigin + textField.frame.size.height
+        
+        // This is the y point that the textField's bottom can be at before it gets covered by the keyboard
+        let maximumY = self.view.frame.height - keyboardHeight
+        
+        if textFieldBottomY > maximumY {
+            // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
+            return textFieldBottomY - maximumY + 60
+        } else {
+            // It would go off the screen if moved, and it won't be obscured by the keyboard.
+            return 0
+        }
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        var keyboardSize: CGRect = .zero
+        
+        if let keyboardRect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
+            keyboardRect.height != 0 {
+            keyboardSize = keyboardRect
+        } else if let keyboardRect = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect {
+            keyboardSize = keyboardRect
+        }
+        
+        if let textField = textFieldBeingEdited {
+            if self.view.frame.origin.y == 0 {
+                
+                let yShift = yShiftWhenKeyboardAppearsFor(textField: textField, keyboardHeight: keyboardSize.height, nextY: keyboardSize.height)
+                self.currentYShiftForKeyboard = yShift
+                self.view.frame.origin.y -= yShift
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        if self.view.frame.origin.y != 0 {
+            
+            self.view.frame.origin.y += currentYShiftForKeyboard
+        }
+        stopEditingTextField()
+    }
+    
+    @objc func dismissKeyboard(recognizer: UITapGestureRecognizer) {
+        if depositButton.point(inside: recognizer.location(in: depositButton), with: nil) {
+            depositButton.sendActions(for: .touchUpInside)
+        }
+        
+        if transferButton.point(inside: recognizer.location(in: transferButton), with: nil) {
+            transferButton.sendActions(for: .touchUpInside)
+        }
+        
+        if incomeDetailCancelButton.point(inside: recognizer.location(in: incomeDetailCancelButton), with: nil) {
+            incomeDetailCancelButton.sendActions(for: .touchUpInside)
+        }
+        
+        if transferViewCancelButton.point(inside: recognizer.location(in: transferViewCancelButton), with: nil) {
+            transferViewCancelButton.sendActions(for: .touchUpInside)
+        }
+        
+        view.endEditing(true)
+    }
+    
+    @objc func stopEditingTextField() {
+        view.endEditing(true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textFieldBeingEdited = textField
+        
+        switch textField {
+        case paydayAccountTextField:
+            showAccountPickerfor(txtfield: paydayAccountTextField)
+        case toAccountTxtField:
+            showAccountPickerfor(txtfield: toAccountTxtField)
+        default:
+            showAccountPickerfor(txtfield: fromAccountTxtField)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+}
