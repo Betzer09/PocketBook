@@ -154,7 +154,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                     guard let transaction = transaction else {return}
                     amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
                     payeeTextField.text = transaction.payee.lowercased().capitalized
-                    dateTextField.text = returnString(fromDate: transaction.date)
+                    dateTextField.text = returnFormattedDateAsString(date: transaction.date)
                     accountTextField.text = transaction.account
                 }
                 
@@ -166,7 +166,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 
                 amountTextField.text = stringAmount
                 payeeTextField.text = plannedExpense.name.lowercased().capitalized
-                dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
+                dateTextField.text = returnFormattedDateAsString(date: plannedExpense.dueDate)
                 accountTextField.text = plannedExpense.account
                 
                 let budgetItems = BudgetItemController.shared.budgetItems
@@ -190,7 +190,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
                 guard let transaction = transaction else {return}
                 amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
                 payeeTextField.text = transaction.payee.lowercased().capitalized
-                dateTextField.text = returnString(fromDate: transaction.date)
+                dateTextField.text = returnFormattedDateAsString(date: transaction.date)
                 accountTextField.text = transaction.account
             }
             
@@ -202,7 +202,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             amountTextField.text = stringAmount
             payeeTextField.text = plannedExpense.name.lowercased().capitalized
-            dateTextField.text = returnString(fromDate: plannedExpense.dueDate)
+            dateTextField.text = returnFormattedDateAsString(date: plannedExpense.dueDate)
             accountTextField.text = plannedExpense.account
 
         }
@@ -215,7 +215,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             
             amountTextField.text = stringAmount
             payeeTextField.text = transaction.payee.lowercased().capitalized
-            dateTextField.text =  returnString(fromDate: transaction.date)
+            dateTextField.text =  returnFormattedDateAsString(date: transaction.date)
             accountTextField.text = transaction.account
             categoryTextField.text = transaction.category
             transactionType.selectedSegmentIndex = updateTransactionType()
@@ -311,6 +311,15 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     
     // MARK: - Methods
+    
+    /// Takes in a date and returns a string formated Jan 7, 2019
+    func returnFormattedDateAsString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        let string = dateFormatter.string(from: date)
+        return string
+
+    }
     
     func customizePayeeLabel() {
         if transactionType.selectedSegmentIndex == 0 {
@@ -417,7 +426,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     @objc func doneDatePicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
+        formatter.dateFormat = "MMM d, yyyy"
         dateTextField.text = formatter.string(from: dueDatePicker.date)
         self.view.endEditing(true)
     }

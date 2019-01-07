@@ -51,13 +51,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var noDataImage: UIImageView!
     
     // MARK: - View LifeCyles
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        checkIfUserIsSignedIntoCloudKit()
-        loadAndCheckDate()
-        setUpUI()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.updateArrays()
@@ -67,6 +60,13 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         updateTotalLabel()
         reloadTableView()
     }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        checkIfUserIsSignedIntoCloudKit()
+        loadAndCheckDate()
+        setUpUI()
+    }
+    
     // MARK: - Setup View
     
     func setUpUI() {
@@ -597,7 +597,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     func checkIfUserIsSignedIntoCloudKit() {
         let cloudKitManager = CloudKitManager()
         if cloudKitManager.checkIfUserIsSignedIntoCloudKit() == false {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are not signed into iCloud, which means your data will not be saved! Go into settings and turn on iCloud.")
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are either not signed into iCloud or you are out of iCloud space, which means your data will not be saved!")
         }
     }
     
