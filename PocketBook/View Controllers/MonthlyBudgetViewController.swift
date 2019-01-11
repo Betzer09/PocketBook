@@ -111,6 +111,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             BudgetItemController.shared.budgetItems.remove(at: indexPath.row)
             BudgetItemController.shared.delete(budgetItem: budgetItem)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
         }
     }
     
@@ -126,7 +127,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentAlertToUpdateMonthlyBudgetItem(atIndexPath: indexPath)
+        presentBudgetItemUpdateOptionActionSheetOn(indexpath: indexPath)
     }
     
     // MARK: - Alerts
@@ -185,51 +186,120 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
+        
     }
     
-    /// This function presents an alert to the user and allows the user to update a monthly budget item
-    private func presentAlertToUpdateMonthlyBudgetItem(atIndexPath indexPathSelected: IndexPath) {
+    /// Allows the user to decide if they want to update the total amount budgeted or the amount they've spent.
+    private func presentBudgetItemUpdateOptionActionSheetOn(indexpath: IndexPath) {
+        let alert = UIAlertController(title: "Update Budget Category", message: "Choose \"Total Spent\" if your budget is incorrect, or choose \"Total Allotted\" to update the max amount you would be willing to pay in a budget category.", preferredStyle: .actionSheet)
         
-        var nameTextField: UITextField!
-        var allotedAmountTextField: UITextField!
-        let budgetItem = BudgetItemController.shared.budgetItems[indexPathSelected.row]
-        guard let totalAllotted = budgetItem.totalAllotted else { return }
+        let btnBudgetName = UIAlertAction(title: "Update Name", style: .default) { (_) in
+            self.presentUpdateBudgetNameAlertAt(indexpath: indexpath)
+        }
         
-        let alertController = UIAlertController(title: "Update Budget Category", message: "Please update your budget", preferredStyle: .alert)
+        let btnTotalSpent = UIAlertAction(title: "Total Spent", style: .default) { (_) in
+            self.presentUpdateTotalSpentAlertAt(indexpath: indexpath)
+        }
         
-        alertController.addTextField { (textField) in
+        let btnAmountAlloted = UIAlertAction(title: "Total Allotted", style: .default) { (_) in
+            self.presentUpdateTotalAllottedAt(indexpath: indexpath)
+        }
+        
+        alert.addAction(btnTotalSpent)
+        alert.addAction(btnAmountAlloted)
+        alert.addAction(btnBudgetName)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func presentUpdateBudgetNameAlertAt(indexpath: IndexPath) {
+        let alert = UIAlertController(title: "Update Budget Name", message: "", preferredStyle: .alert)
+        let budgetItem = BudgetItemController.shared.budgetItems[indexpath.row]
+        
+        var txtNamefield: UITextField!
+        
+        alert.addTextField { (textField) in
             textField.text = budgetItem.name
             textField.autocapitalizationType = .words
             textField.autocorrectionType = UITextAutocorrectionType.yes
-            nameTextField = textField
-        }
-        alertController.addTextField { (textField) in
-            textField.keyboardType = .decimalPad
-            textField.text = "\(totalAllotted)"
-            allotedAmountTextField = textField
-        }
-        
-        let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
-            
-            guard let name = nameTextField.text,
-                let allottedAmount = allotedAmountTextField.text,
-                let allottedAmountAsDouble = Double(allottedAmount) else {
-                    presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "We couldn't update your Budget Item because the amount you enter was invalid")
-                    return
-            }
-            budgetItem.name = name
-            budgetItem.totalAllotted = allottedAmountAsDouble
-            guard let totalAllotted = budgetItem.totalAllotted else { return }
-            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name , spentTotal: budgetItem.spentTotal, allottedAmount: totalAllotted, budgetItem: budgetItem, completion: { (_) in })
-            self.reloadCategoryTableViewAndUI()
+            txtNamefield = textField
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
+            guard let newName = txtNamefield.text, !newName.isEmpty,  let totalAllotted = budgetItem.totalAllotted else {
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "We couldn't update your Budget because the field is empty")
+                return
+            }
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name , spentTotal: budgetItem.spentTotal, allottedAmount: totalAllotted, budgetItem: budgetItem, completion: { (_) in
+                self.reloadCategoryTableViewAndUI()
+            })
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
+
     }
+    
+    private func presentUpdateTotalSpentAlertAt(indexpath: IndexPath) {
+        let alert = UIAlertController(title: "Update Total Spent", message: "This should be the amount you think you've spent this month, you should only change this number if your 100% confident it's wrong.", preferredStyle: .alert)
+        let budgetItem = BudgetItemController.shared.budgetItems[indexpath.row]
+        
+        var txtTotalSpent: UITextField!
+        
+        alert.addTextField { (textField) in
+            textField.text = "\(budgetItem.spentTotal)"
+            textField.keyboardType = .decimalPad
+            txtTotalSpent = textField
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .destructive) { (_) in
+            guard let totalSpent = txtTotalSpent.text, let spentTotaltAsDouble = Double(totalSpent)else {
+                    presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "We couldn't update your Budget because you enter an invalid amount.")
+                    return
+            }
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name , spentTotal: spentTotaltAsDouble, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in
+                self.reloadCategoryTableViewAndUI()
+            })
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    private func presentUpdateTotalAllottedAt(indexpath: IndexPath) {
+        let alert = UIAlertController(title: "Update Total Allotted", message: "This should be the MAX you're willing to spend in a certain category per month.", preferredStyle: .alert)
+        let budgetItem = BudgetItemController.shared.budgetItems[indexpath.row]
+        
+        var txtTotalAlloted: UITextField!
+        
+        alert.addTextField { (textField) in
+            guard let totalAllotted = budgetItem.totalAllotted else {fatalError("No amount has been allotted.")}
+            textField.text = "\(totalAllotted)"
+            textField.keyboardType = .decimalPad
+            txtTotalAlloted = textField
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .destructive) { (_) in
+            guard let totalAlloted = txtTotalAlloted.text, let totalAllotedAsDouble = Double(totalAlloted)else {
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "We couldn't update your Budget because you enter an invalid amount.")
+                return
+            }
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name , spentTotal: budgetItem.spentTotal, totalAlloted: totalAllotedAsDouble, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in
+                self.reloadCategoryTableViewAndUI()
+            })
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     // MARK: - Methods
 

@@ -364,7 +364,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         resetTransferMoneyVariables()
     }
     
-    @IBAction func depostiButtonTapped(_ sender: UIButton) {
+    @IBAction func depositButtonTapped(_ sender: UIButton) {
+        resetIncomeDetailView()
+        resetTransferMoneyVariables()
+        
         guard let amountString = payDayAmountTextField.text, amountString != "",
             let amount = Double(amountString),
             let account = payDayAccount else {return}
@@ -373,10 +376,17 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         setUpUI()
         tableView.reloadData()
         AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
-            // Nothing to do.
+            self.createDepositTransaction(with: amount, account: account, completion: { (_) in
+            })
         }
-        resetIncomeDetailView()
-        resetTransferMoneyVariables()
+    }
+    
+    func createDepositTransaction(with amount: Double, account: Account, completion: @escaping(_ success: Bool) -> Void) {
+        let todaysdate = Date()
+        
+        TransactionController.shared.createTransactionWith(date: todaysdate, monthYearDate: returnFormattedDate(date: todaysdate), category: nil, payee: "Payday", transactionType: TransactionType.income.rawValue, amount: amount, account: account.name) { (_) in
+            completion(true)
+        }
     }
     
     @IBAction func transferButtonTapped(_ sender: UIButton) {
@@ -402,22 +412,28 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Button Functions
     func resetIncomeDetailView() {
-        incomeDetailView.isHidden = true
-        payDayAmountTextField.text = ""
+        DispatchQueue.main.async {
+            self.incomeDetailView.isHidden = true
+            self.payDayAmountTextField.text = ""
+        }
     }
     
     func resetTransferMoneyView() {
-        transferMoneyView.isHidden = true
-        transferAmountTextField.text = ""
+        DispatchQueue.main.async {
+            self.transferMoneyView.isHidden = true
+            self.transferAmountTextField.text = ""
+        }
     }
     
     func resetTransferMoneyVariables() {
-        fromAccountTxtField.text = ""
-        toAccountTxtField.text = ""
-        paydayAccountTextField.text = ""
-        payDayAccount = nil
-        fromAccount = nil
-        toAccount = nil
+        DispatchQueue.main.async {
+            self.fromAccountTxtField.text = ""
+            self.toAccountTxtField.text = ""
+            self.paydayAccountTextField.text = ""
+            self.payDayAccount = nil
+            self.fromAccount = nil
+            self.toAccount = nil
+        }
     }
     
     // MARK: - Methods

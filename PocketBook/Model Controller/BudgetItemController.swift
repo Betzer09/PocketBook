@@ -48,11 +48,15 @@ class BudgetItemController {
     }
     
     // MARK: - Modificiation / Update
-    func updateBudgetWith(name: String, spentTotal: Double, allottedAmount: Double, budgetItem: BudgetItem, completion: @escaping(BudgetItem?) -> Void) {
+    
+    func updateBudgetWith(name: String, spentTotal: Double, totalAlloted: Double? = nil, allottedAmount: Double, budgetItem: BudgetItem, completion: @escaping(BudgetItem?) -> Void) {
         
         budgetItem.name = name
         budgetItem.spentTotal = spentTotal
         budgetItem.allottedAmount = allottedAmount
+        if let totalAlloted = totalAlloted {
+            budgetItem.totalAllotted = totalAlloted
+        }
         
         cloudKitManager.modifyRecords([budgetItem.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
             if let error = error {
@@ -120,7 +124,8 @@ class BudgetItemController {
     // MARK: - Methods
     
     /// Configures the monthly budget for the budgetItem
-    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem?, difference: Double = 0 ) {
+    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem?, difference: Double = 0,
+                                                            completion: @escaping (_ success: Bool) -> Void = {_ in} ) {
         
         // We want to check the current date with transaction date for both planned Expenses and transactions
         let transactionMonth = dateComponentMonth(date: transaction.date)
@@ -129,76 +134,61 @@ class BudgetItemController {
         
         if transactionType == .plannedExpense {
             account.total -= difference
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (account) in
+                guard let _ = account else {completion(false); return}
+                completion(true)
+            })
             return
         }
         
         if transactionType == .removePlannedExpense {
             account.total += transaction.amount
-            
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (account) in
+                guard let _ = account else {completion(false); return}
+                completion(true)
+            })
             return
         }
         
-        ////////////////
         guard let budgetItem = budgetItem else {return}
+        
         if transactionType == .expense {
-            // This mean transaction is switching form Income to an Expense
-            if transaction.transactionType != transactionType.rawValue {
-                // This checks the date of the transaction
-                if transactionMonth == currentMonth {
-                    
-                    // Adds to the budgetItem spent total
-                    budgetItem.spentTotal += transaction.amount
-                    // Subtracts the totalAlloted by the transaction amount
-                    guard let totalAlloted = budgetItem.totalAllotted else {return}
-                    budgetItem.totalAllotted = totalAlloted - transaction.amount
-                }
-                // Subtract double the transaction type to the account total
-                account.total -= (transaction.amount * 2)
-                
-            } else {
-                
-                // This means we are updating something else on the transaction
-                account.total -= transaction.amount
-                
-                if transactionMonth == currentMonth {
-                    budgetItem.spentTotal += transaction.amount
-                }
+            account.total -= difference
+            
+            if transactionMonth == currentMonth {
+                budgetItem.spentTotal += difference
             }
-            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
-            }
+            
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (updatedBudgetItem) in
+                guard let _ = updatedBudgetItem else {
+                    completion(false)
+                    return
+                }
+                AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (account) in
+                    guard let _ = account else {completion(false); return}
+                    completion(true)
+                }
+            })
             
         }
         
         if transactionType == .income {
+            account.total += transaction.amount
+            if transactionMonth == currentMonth {
+                guard let totalAlloted = budgetItem.totalAllotted else {return}
+                budgetItem.totalAllotted = totalAlloted + transaction.amount
+            }
             
-            // This means the transaction type in switiching from an Expense to an Income
-            if transaction.transactionType != transactionType.rawValue {
-                if transactionMonth == currentMonth {
-                    // Subtracts the budgetItem spent total
-                    budgetItem.spentTotal -= transaction.amount - difference
-                    // Adds to the totalAlloted by the transaction amount
-                    guard let totalAlloted = budgetItem.totalAllotted else {return}
-                    budgetItem.totalAllotted = totalAlloted + transaction.amount
-                }
-                // Adds double the transaction type to the account total
-                account.total += (transaction.amount * 2)
+            
+            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (updatedBudgetItem) in
                 
-            } else {
-                account.total += transaction.amount
-                if transactionMonth == currentMonth {
-                    
-                    guard let totalAlloted = budgetItem.totalAllotted else {return}
-                    budgetItem.totalAllotted = totalAlloted + transaction.amount
+                guard let _ = updatedBudgetItem else {completion(false) ;return}
+                AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (account) in
+                    guard let _ = account else {return}
+                    completion(true)
                 }
-            }
+            })
             
-            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
-            
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (_) in
-            }
         }
         
         if transactionType == .removeIncome {
@@ -208,7 +198,9 @@ class BudgetItemController {
                 BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
             }
             account.total -= transaction.amount
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in
+                completion(true)
+            })
         }
         
         if transactionType == .removeExpense {
@@ -217,7 +209,9 @@ class BudgetItemController {
                 BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
             }
             account.total += transaction.amount
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in
+                completion(true)
+            })
         }
         
     }

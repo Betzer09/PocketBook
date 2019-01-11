@@ -10,7 +10,12 @@ import Foundation
 import CloudKit
 
 
-class Transaction: Hashable, Equatable { //
+class Transaction: Hashable, Equatable {
+    
+    // Equatable
+    static func ==(lhs: Transaction, rhs: Transaction) -> Bool {
+        return lhs.recordID == rhs.recordID
+    }
     
     // MARK: - Properties
     var date: Date
@@ -26,7 +31,7 @@ class Transaction: Hashable, Equatable { //
         }
     }
     
-    init(date: Date, monthYearDate: Date, category: String, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
+    init(date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: TransactionType.RawValue, amount: Double, account: String) {
         self.date = date
         self.monthYearDate = monthYearDate
         self.category = category
@@ -56,7 +61,7 @@ class Transaction: Hashable, Equatable { //
     init?(cloudKitRecord: CKRecord) {
         guard let date = cloudKitRecord[Keys.dateKey] as? Date,
             let monthYearDate = cloudKitRecord[Keys.monthYearDateKey] as? Date,
-            let budget = cloudKitRecord[Keys.catagoryKey] as? String,
+            let budget = cloudKitRecord[Keys.catagoryKey] as? String?,
             let payee = cloudKitRecord[Keys.payeeKey] as? String,
             let transactionType = cloudKitRecord[Keys.transactionTypeKey] as? String,
             let amount = cloudKitRecord[Keys.amountKey] as? Double,
@@ -71,9 +76,4 @@ class Transaction: Hashable, Equatable { //
         self.account = account
         self.recordID = cloudKitRecord.recordID
     }
-}
-
-// Equatable
-func ==(lhs: Transaction, rhs: Transaction) -> Bool {
-    return lhs.recordID == rhs.recordID
 }

@@ -29,7 +29,7 @@ class TransactionController {
     }
     
     // MARK: - Save Data
-    func createTransactionWith(date: Date, monthYearDate: Date, category: String, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
+    func createTransactionWith(date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
         
         let transaction = Transaction(date: date, monthYearDate: monthYearDate, category: category, payee: payee, transactionType: transactionType, amount: amount, account: account)
         transactions.append(transaction)
@@ -75,23 +75,34 @@ class TransactionController {
     }
     
     // MARK: - Delete
-    func delete(transaction: Transaction) {
+    func delete(transaction: Transaction, completion: @escaping(_ success: Bool) -> Void = {_ in}) {
         
         cloudKitManager.deleteRecordWithID(transaction.recordID) { (recordID, error) in
             
             if let error = error {
                 print("Error deleting Transaction: \(error.localizedDescription) in file: \(#file)")
+                completion(false)
                 return
             }
             
-            guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == transaction.account }) else {return}
+            guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == transaction.account }) else {
+                completion(false)
+                return
+            }
             let account = AccountController.shared.accounts[indexForAccount]
             
             var budgetItem: BudgetItem?
             
             if transaction.transactionType != TransactionType.plannedExpense.rawValue {
                 guard let indexForBudgetItem = BudgetItemController.shared.budgetItems.index(where: { $0.name == transaction.category }) else {
-                    print("Error!")
+                    if transaction.transactionType == TransactionType.expense.rawValue {
+                        account.total += transaction.amount
+                    } else {
+                        account.total -= transaction.amount
+                    }
+                    
+                    AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in })
+                    completion(false)
                     return
                 }
                 budgetItem = BudgetItemController.shared.budgetItems[indexForBudgetItem]
@@ -107,12 +118,19 @@ class TransactionController {
                 type = TransactionType.removePlannedExpense
             }
             
-            guard let returnType = type else {return}
+            guard let returnType = type else {
+                completion(false)
+                return
+            }
             
-            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: returnType, account: account, budgetItem: budgetItem)
-            
+            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: returnType, account: account, budgetItem: budgetItem, completion: { (success) in
+                
+                guard success else {completion(false); return}
+                guard let indexOfDeletedTransaction = self.transactions.firstIndex(of: transaction) else {return}
+                self.transactions.remove(at: indexOfDeletedTransaction)
+                completion(true)
+            })
         }
-        
     }
     
     // MARK: - Fetch Data from CloudKit

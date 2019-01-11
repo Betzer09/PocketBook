@@ -433,84 +433,20 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Save Button Pressed
     private func saveTransaction() {
-        
-        if transaction != nil {
-            
-            var convertedAmount: Double?
-            var difference: Double?
-            guard let transaction = transaction else { return }
-            
-            let amountString = removeCharactersFromTextField(amountTextField)
-            guard let amount = Double(amountString) else {
-                presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "\(#function)")
+        if plannedExpenseTransaction != nil {
+            performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
+        } else {
+            guard let oldTransaction = transaction else {
+                self.createTransaction()
+                navigationController?.popViewController(animated: true)
                 return
             }
-            convertedAmount = amount
-            
-            // Since the amounts are the same we want to update everything except the amount
-            if transaction.amount == convertedAmount {
-                var type: TransactionType
-                let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-                
-                if plannedExpenseTransaction != nil || transaction.transactionType == TransactionType.plannedExpense.rawValue {
-                    type = .plannedExpense
-                } else {
-                    type = convertStringToTransactionType(string: typeString)
-                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                }
-                
-                let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem)
-                
-            } else {
-                // Update everything including the amount  
-                var type: TransactionType
-                let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-                
-                if plannedExpenseTransaction != nil || transaction.transactionType == TransactionType.plannedExpense.rawValue {
-                    type = .plannedExpense
-                } else {
-                    type = convertStringToTransactionType(string: typeString)
-                }
-                let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-                
-                // This means the transaction Type is changing and we want to keep the full total
-                if transaction.transactionType != type.rawValue {
-                    // We don't want the transaciton amount to be changed
-                    guard let convertedAmount = convertedAmount else {return}
-                    difference = convertedAmount - transaction.amount
-                    guard let difference = difference else {return}
-                    transaction.amount += difference
-                    
-                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                    guard let budgetItem = budgetItem else {return}
-                    BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem, difference: difference)
-
-                } else {
-                    // Update everything including the amount
-                    guard let convertedAmount = convertedAmount else {return}
-                    transaction.amount = convertedAmount - transaction.amount
-                    
-                    if plannedExpenseTransaction == nil {
-                    self.budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-                    }
-                    guard let budgetItem = budgetItem else {return}
-                    difference = transaction.amount
-                    guard let difference = difference else {return}
-                    print("Difference: \(difference)")
-                    BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: budgetItem, difference: difference)
-
+            TransactionController.shared.delete(transaction: oldTransaction) { (success) in
+                guard success else {return}
+                DispatchQueue.main.async {
+                    self.createTransaction()
                 }
             }
-            updateTransaction()
-            
-        } else {
-            createTransaction()
-        }
-        if plannedExpenseTransaction != nil {
-        performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
-        } else {
             navigationController?.popViewController(animated: true)
         }
     }
@@ -600,37 +536,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
         })
         
-    }
-    
-    private func updateTransaction() {
-        
-        var typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-        
-        
-        // We want to update
-        guard let transaction = transaction,
-            let payee = payeeTextField.text,
-            var categoryName = categoryTextField.text,
-            let accountName = accountTextField.text,
-            !payee.isEmpty,
-            !categoryName.isEmpty,
-            !accountName.isEmpty else {return}
-        
-        let amountToSave = removeCharactersFromTextField(amountTextField)
-        guard let amount = Double(amountToSave) else {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "The amount you entered is invalid")
-            amountTextField.backgroundColor = UIColor.lightPink
-            return
-            
-        }
-        
-        if transaction.transactionType == TransactionType.plannedExpense.rawValue {
-            categoryName = TransactionType.plannedExpense.rawValue
-            typeString = TransactionType.plannedExpense.rawValue
-        }
-        
-        TransactionController.shared.updateTransactionWith(transaction: transaction, date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date),category: categoryName, payee: payee, transactionType: typeString, amount: amount, account: accountName, completion: { (_) in
-        })
     }
 }
 
