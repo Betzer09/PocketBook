@@ -191,7 +191,8 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     /// Allows the user to decide if they want to update the total amount budgeted or the amount they've spent.
     private func presentBudgetItemUpdateOptionActionSheetOn(indexpath: IndexPath) {
-        let alert = UIAlertController(title: "Update Budget Category", message: "Choose \"Total Spent\" if your budget is incorrect, or choose \"Total Allotted\" to update the max amount you would be willing to pay in a budget category.", preferredStyle: .actionSheet)
+        let budgetItem = BudgetItemController.shared.budgetItems[indexpath.row]
+        let alert = UIAlertController(title: "Update \"\(budgetItem.name)\" Category", message: "Choose \"Total Spent\" if your budget is incorrect, or choose \"Total Allotted\" to update the max amount you would be willing to pay in a budget category.", preferredStyle: .actionSheet)
         
         let btnBudgetName = UIAlertAction(title: "Update Name", style: .default) { (_) in
             self.presentUpdateBudgetNameAlertAt(indexpath: indexpath)
@@ -205,9 +206,12 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             self.presentUpdateTotalAllottedAt(indexpath: indexpath)
         }
         
+        let btnCancel = UIAlertAction(title: "Cancel" , style: .cancel, handler: nil)
+        
         alert.addAction(btnTotalSpent)
         alert.addAction(btnAmountAlloted)
         alert.addAction(btnBudgetName)
+        alert.addAction(btnCancel)
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -319,12 +323,12 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     /// This function adds up the total of all current monthly budget items
     func addUpTotalSpentOfBudget() -> Double {
-        let plannedExpenseMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
+//        let plannedExpenseMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
         var totalSpentOfBudget: Double = 0.0
         for budgetItem in BudgetItemController.shared.budgetItems {
             totalSpentOfBudget += budgetItem.spentTotal
         }
-        return totalSpentOfBudget + plannedExpenseMonthlyContribution
+        return totalSpentOfBudget
     }
     
     func calculatedNotCurrentlyBudgetedTotal() -> Double {

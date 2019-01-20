@@ -29,7 +29,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - Properties
     var transaction: Transaction?
     var budgetItem: BudgetItem?
-    var plannedExpenseTransaction: PlannedExpense?
     var currentYShiftForKeyboard: CGFloat = 0
     var textFieldBeingEdited: UITextField?
     
@@ -102,7 +101,8 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return AccountController.shared.accounts.count
         case categoryPicker:
             let category = BudgetItemController.shared.budgetItems
-            return category.count
+            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+            return category.count + plannedExpenses.count
             
         default:
             print("There was a problem displaying information for the picker: \(#file)")
@@ -119,7 +119,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         case categoryPicker:
             // Category is a combination between planned expense and budgetItem names
             let category = BudgetItemController.shared.budgetItems.map( { $0.name } )
-            return category[row]
+            let plannedExpenses = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+            
+            let names = category + plannedExpenses
+            return names[row]
             
         default:
             print("There was a problem displaying information for the picker: \(#file)")
@@ -140,72 +143,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         showCategoryPicker()
         showDatePicker()
         showAccountPicker()
-        
-        // Checks to see if the transaction is a Planned Expense
-        guard let transactionTypeToCheck = transaction?.transactionType else {
-            
-            if plannedExpenseTransaction != nil {
-                
-                transactionType.isHidden = true
-                categoryTextField.isHidden = true
-                categoryLabel.isHidden = true
-                
-                if transaction != nil {
-                    guard let transaction = transaction else {return}
-                    amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
-                    payeeTextField.text = transaction.payee.lowercased().capitalized
-                    dateTextField.text = returnFormattedDateAsString(date: transaction.date)
-                    accountTextField.text = transaction.account
-                }
-                
-                guard let plannedExpense = plannedExpenseTransaction else { return }
-                    let plannedExpenseDouble = plannedExpense.totalDeposited + plannedExpense.initialAmount
-                
-                let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
-                
-                
-                amountTextField.text = stringAmount
-                payeeTextField.text = plannedExpense.name.lowercased().capitalized
-                dateTextField.text = returnFormattedDateAsString(date: plannedExpense.dueDate)
-                accountTextField.text = plannedExpense.account
-                
-                let budgetItems = BudgetItemController.shared.budgetItems
-                guard let selectedBugetItem = budgetItems.index(where: { $0.name == plannedExpense.account }) else {return}
-                categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
-                
-                let accounts = AccountController.shared.accounts
-                guard let selectedAccount = accounts.index(where: { $0.name == plannedExpense.name }) else {return}
-                accountPicker.selectRow(selectedAccount, inComponent: 0, animated: true)
-                
-            }
-            return
-        }
-        
-        if transactionTypeToCheck == TransactionType.plannedExpense.rawValue {
-            transactionType.isHidden = true
-            categoryTextField.isHidden = true
-            categoryLabel.isHidden = true
-            
-            if transaction != nil {
-                guard let transaction = transaction else {return}
-                amountTextField.text = formatNumberToString(fromDouble: transaction.amount)
-                payeeTextField.text = transaction.payee.lowercased().capitalized
-                dateTextField.text = returnFormattedDateAsString(date: transaction.date)
-                accountTextField.text = transaction.account
-            }
-            
-            guard let plannedExpense = plannedExpenseTransaction else { return }
-            
-            let plannedExpenseDouble = plannedExpense.totalDeposited
-            let stringAmount = formatNumberToString(fromDouble: plannedExpenseDouble)
-            
-            
-            amountTextField.text = stringAmount
-            payeeTextField.text = plannedExpense.name.lowercased().capitalized
-            dateTextField.text = returnFormattedDateAsString(date: plannedExpense.dueDate)
-            accountTextField.text = plannedExpense.account
-
-        }
         
         // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction date
         if transaction != nil {
@@ -405,8 +342,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return
         }
         
-        let category = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-        categoryTextField.text = category.name
+        let category = BudgetItemController.shared.budgetItems.map({ $0.name })
+        let plannedExpens = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
+        
+        let names = category + plannedExpens
+
+        categoryTextField.text = names[categoryPicker.selectedRow(inComponent: 0)]
         self.view.endEditing(true)
     }
     
@@ -433,56 +374,29 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     // MARK: - Save Button Pressed
     private func saveTransaction() {
-        if plannedExpenseTransaction != nil {
-            performSegue(withIdentifier: "unwindToPlannedExpenseVC", sender: self)
-        } else {
-            guard let oldTransaction = transaction else {
-                self.createTransaction()
-                navigationController?.popViewController(animated: true)
-                return
-            }
+        
+        // Check for an old transaction
+        if let oldTransaction = transaction {
             TransactionController.shared.delete(transaction: oldTransaction) { (success) in
                 guard success else {return}
                 DispatchQueue.main.async {
                     self.createTransaction()
                 }
             }
-            navigationController?.popViewController(animated: true)
+        } else {
+            self.createTransaction()
         }
+            navigationController?.popViewController(animated: true)
     }
     
     private func createTransaction() {
         
-        var categoryNameToReturn: String = ""
-        var accountNameToReturn: String
-        var payeeToReturn: String
-        
-        if plannedExpenseTransaction == nil {
-            // We want to create a normal transaction
-            guard let payee = payeeTextField.text,
-                let categoryName = categoryTextField.text,
-                let accountName = accountTextField.text,
-                !payee.isEmpty,
-                !accountName.isEmpty,
-                !categoryName.isEmpty else {
-                    presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
-                    return
-            }
-            
-            categoryNameToReturn = categoryName
-            payeeToReturn = payee
-            accountNameToReturn = accountName
-            
-        } else {
-            // We want to create a planned Expense transaction
-            guard let payee = payeeTextField.text,
-                let accountName = accountTextField.text,
-                !payee.isEmpty, !accountName.isEmpty else {
-                    presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
-                    return
-            }
-            payeeToReturn = payee
-            accountNameToReturn = accountName
+        // We want to create a normal transaction
+        guard let payee = payeeTextField.text, !payee.isEmpty,
+            let categoryName = categoryTextField.text, !categoryName.isEmpty,
+            let accountName = accountTextField.text, !accountName.isEmpty else {
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Couldn't Save Data!", message: "Make sure all the fields have been filled")
+                return
         }
         
         let amount = removeCharactersFromTextField(amountTextField)
@@ -505,37 +419,28 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
        
         
-        let typeString: String = checkWhichControlIsPressed(segmentedControl: transactionType, type1: .all, type2: .income, type3: .expense)
-        var type = convertStringToTransactionType(string: typeString)
+        var typestring: TransactionType
+        if transactionType.titleForSegment(at: 0) == TransactionType.expense.rawValue {
+            typestring = TransactionType.expense
+        } else {
+            typestring = TransactionType.income
+        }
+        
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
         
         
-        if plannedExpenseTransaction == nil {
-            budgetItem = BudgetItemController.shared.budgetItems[categoryPicker.selectedRow(inComponent: 0)]
-        } else {
-            type = .plannedExpense
-        }
-        
-        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryNameToReturn , payee: payeeToReturn, transactionType: typeString, amount: amountToSave, account: accountNameToReturn, completion: { (transaction) in
+        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryName , payee: payee, transactionType: typestring.rawValue, amount: amountToSave, account: accountName, completion: { (transaction) in
             
-            // This creates a planned Expense Transaction
-            if self.plannedExpenseTransaction != nil {
-                // Set the type of transaction
-                transaction.transactionType = TransactionType.plannedExpense.rawValue
-                // Updates the transactions type
-                TransactionController.shared.updateTransactionWith(transaction: transaction, date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: transaction.transactionType, amount: transaction.amount, account: transaction.account, completion: { (_) in })
-                // Now we want to remove the planned Expense and keep it as a normal planned expense transaction instead of a planned expense
-                guard let plannedExpense = self.plannedExpenseTransaction else {return}
-                PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
+            if let _ = transaction.category {
+                // This is a transaction
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: typestring, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
                 
-                // Now we need to remove it from the array of planned expenses
-                guard let plannedExpenseIndex = PlannedExpenseController.shared.plannedExpenses.index(of: plannedExpense) else {NSLog("Coudn't find Planned Expense to remove") ;return}
-                PlannedExpenseController.shared.plannedExpenses.remove(at: plannedExpenseIndex)
+            } else {
+                // this is a planned expense
+                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: typestring, account: account, budgetItem: nil, difference: transaction.amount)
+                
             }
-            // This will create a normal transaction
-            BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: type, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
         })
-        
     }
 }
 

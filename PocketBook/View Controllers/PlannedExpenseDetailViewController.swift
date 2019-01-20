@@ -20,8 +20,6 @@ import UIKit
 class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     //MARK: - Outlets
-    @IBOutlet weak var depositButton: UIButton!
-    @IBOutlet weak var withdrawButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var txtAccountPicker: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
@@ -53,9 +51,6 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             self.navigationItem.rightBarButtonItem?.title = "Update"
         } else {
             self.navigationItem.title = "New Savings Goal"
-            depositButton.isHidden = true
-            withdrawButton.isHidden = true
-            completeButton.isHidden = true
             self.navigationItem.rightBarButtonItem?.title = "Save"
         }
         setUpUI()
@@ -78,15 +73,12 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     }
     
     func roundButtons() {
-        withdrawButton.layer.cornerRadius = withdrawButton.frame.height/4
-        depositButton.layer.cornerRadius = depositButton.frame.height/4
+
         completeButton.layer.cornerRadius = completeButton.frame.height/4
     }
     
     func resizeButtonTitles() {
         completeButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        depositButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        withdrawButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     /// Check to see if the user deletes or keeps the "$" when updating account. Drop first character if the user chooses not the delete the "$".
@@ -128,6 +120,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             if monthlyContribution > 0 {
                 calculatedContributionlabel.text = "\(formatNumberToString(fromDouble: monthlyContribution))"
             } else {
+                completeButton.isHidden = false
                 idealMonthlyContributionAmountLabel.text = "Congratulations! You have reached your goal!"
             }
         } else {
@@ -210,16 +203,9 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func depositButtonTapped(_ sender: Any) {
-        presentDepositAlert()
-    }
-    
-    @IBAction func withdrawButtonTapped(_ sender: Any) {
-        presentWithdrawalAlert()
-    }
-    
     @IBAction func completeButtonTapped(_ sender: Any) {
-        //        >Creates a transaction, segues to DVC
+        guard let plannedExpense = plannedExpense else {return}
+        PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
     }
     
     //MARK: - ALERT CONTROLLERS
@@ -493,16 +479,6 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toTransactionDVC" {
-            
-            guard let destinationDVC = segue.destination as? TransactionsDetailViewController else {return}
-            guard let plannedExpense = plannedExpense else {
-                presentSimpleAlert(controllerToPresentAlert: self, title: "Warning", message: "You have to create a Savings Goal before you can complete it.")
-                return
-            }
-            
-            destinationDVC.plannedExpenseTransaction = plannedExpense
-        }
     }
 }
 

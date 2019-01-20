@@ -131,16 +131,6 @@ class BudgetItemController {
         let transactionMonth = dateComponentMonth(date: transaction.date)
         let currentMonth = dateComponentMonth(date: Date())
         
-        
-        if transactionType == .plannedExpense {
-            account.total -= difference
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (account) in
-                guard let _ = account else {completion(false); return}
-                completion(true)
-            })
-            return
-        }
-        
         if transactionType == .removePlannedExpense {
             account.total += transaction.amount
             AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (account) in
