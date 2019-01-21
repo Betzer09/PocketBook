@@ -49,7 +49,7 @@ to ensure we always had a clean look.
 
 Version 1.2 is currently underway (Tentative Release date Feb. 16, 2019)
 - Implementing Silent Notifications to ensure everything is consistent across devices. 
-- Fixing issues with transactions charging an account 2. 
+- Fixing issues with transactions charging an account twice. 
 - Adding the option to update a budget category in case you think it is wrong.
 - Fixing the layout across all device sizes. 
 - Adding better user experience for people with credit cards.
