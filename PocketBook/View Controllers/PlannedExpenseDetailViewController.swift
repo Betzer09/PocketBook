@@ -186,6 +186,11 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
                 return
             }
             
+            if PlannedExpenseController.shared.plannedExpenses.contains(where: { $0.name == name }) {
+                presentSimpleAlert(controllerToPresentAlert: self, title: "Duplicate Name", message: "You have already planned an expense with this name. Names must be unique!")
+            }
+            
+            
             guard let goalAmount = Double(removeCharactersFromTextField(goalAmountTextField)) else {
                 goalAmountTextField.backgroundColor = UIColor.lightPink
                 return

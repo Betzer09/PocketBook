@@ -130,6 +130,7 @@ class BudgetItemController {
         // We want to check the current date with transaction date for both planned Expenses and transactions
         let transactionMonth = dateComponentMonth(date: transaction.date)
         let currentMonth = dateComponentMonth(date: Date())
+        let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
         
         if transactionType == .removePlannedExpense {
             account.total += transaction.amount
@@ -140,7 +141,14 @@ class BudgetItemController {
             return
         }
         
-        guard let budgetItem = budgetItem else {return}
+        guard let budgetItem = budgetItem else {
+            guard let category = transaction.category else {return}
+            if checkForPlannedExpenseWith(name: category) {
+                guard let plannedexpense = plannedExpenses.first(where: { $0.name == category }) else {return}
+                handlePlannedExpenseTransaction(transaction: transaction, account: account, plannedexpense: plannedexpense)
+            }
+            return
+        }
         
         if transactionType == .expense {
             account.total -= difference
@@ -148,6 +156,8 @@ class BudgetItemController {
             if transactionMonth == currentMonth {
                 budgetItem.spentTotal += difference
             }
+            
+            
             
             BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (updatedBudgetItem) in
                 guard let _ = updatedBudgetItem else {
@@ -206,5 +216,24 @@ class BudgetItemController {
         
     }
     
+    func checkForPlannedExpenseWith(name: String) -> Bool {
+        let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
+        let indexOfPlannedExpense = plannedExpenses.firstIndex(where: { $0.name == name })
+        if indexOfPlannedExpense == nil {
+            return false
+        }
+        return true
+    }
+    
+    func handlePlannedExpenseTransaction(transaction: Transaction, account: Account, plannedexpense: PlannedExpense) {
+        // Subtract transaction amount from total
+        let updatedAccount = account.total - transaction.amount
+        
+        // Add amount to savings goal
+        
+        // Create Transaction
+        
+
+    }
 }
 

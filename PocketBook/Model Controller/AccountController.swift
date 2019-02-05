@@ -77,7 +77,7 @@ class AccountController {
     }
     
     // MARK: - Update
-    func updateAccountWith(name: String, type: String, total: Double, account: Account, completion: @escaping (Account?) -> Void) {
+    func updateAccountWith(name: String, type: String, total: Double, account: Account, completion: @escaping (Account?) -> Void = {_ in}) {
         
         account.name = name
         account.accountType = type
@@ -136,6 +136,13 @@ class AccountController {
             
             self.accounts = accounts
         }
+    }
+    
+    /// Adds the amount to the account and then saves it to CloudKit
+    func addAmountToAccountWith(amount: Double, account: Account) {
+        account.total += amount
+        
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: nil)
     }
 }
 

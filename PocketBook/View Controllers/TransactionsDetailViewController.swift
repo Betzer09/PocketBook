@@ -9,9 +9,9 @@
 import UIKit
 
 class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
- 
+    
     // MARK: - Outlets
-
+    
     @IBOutlet weak var transactionType: UISegmentedControl!
     @IBOutlet weak var payeeTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
@@ -39,7 +39,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-       setUpUI()
+        setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +86,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         tabBarController.selectedIndex = 2
         
         saveTransaction()
-
+        
     }
     
     // MARK: - Account Picker Delegates
@@ -242,7 +242,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         stopEditingTextField()
     }
     
-   @objc func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
@@ -255,7 +255,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         dateFormatter.dateFormat = "MMM d, yyyy"
         let string = dateFormatter.string(from: date)
         return string
-
+        
     }
     
     func customizePayeeLabel() {
@@ -291,14 +291,14 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneCategoryPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissKeyboard))
-     
+        
         toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         categoryTextField.inputAccessoryView = toolbar
         categoryTextField.inputView = categoryPicker
         
-
+        
     }
-
+    
     func showDatePicker() {
         if transaction == nil {
             dueDatePicker.date = Date()
@@ -345,9 +345,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let category = BudgetItemController.shared.budgetItems.map({ $0.name })
         let plannedExpens = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         
-        let names = category + plannedExpens
-
-        categoryTextField.text = names[categoryPicker.selectedRow(inComponent: 0)]
+        let categories = category + plannedExpens
+        let categoryname = categories[categoryPicker.selectedRow(inComponent: 0)]
+    
+        
+        categoryTextField.text = categoryname
+        
+        self.budgetItem = BudgetItemController.shared.budgetItems.first(where: { $0.name == categoryname })
         self.view.endEditing(true)
     }
     
@@ -386,7 +390,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         } else {
             self.createTransaction()
         }
-            navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     private func createTransaction() {
@@ -405,19 +409,19 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please re-enter amount using numbers")
             return
         }
-
+        
         
         if categoryTextField.text == "Choose Category" && accountTextField.text == "Choose Account" {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions")
-                return
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions.")
+            return
         } else if categoryTextField.text == "Choose Category" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category. If you haven't created categories yet, please create at least one category before creating a transaction")
-                return
+            return
         } else if accountTextField.text == "Choose Account" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select an account. If you haven't created an account yet, you must create at least one account before you can create transactions")
-                return
+            return
         }
-       
+        
         
         var typestring: TransactionType
         if transactionType.titleForSegment(at: 0) == TransactionType.expense.rawValue {

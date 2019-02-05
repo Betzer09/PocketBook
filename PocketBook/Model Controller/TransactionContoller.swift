@@ -29,7 +29,7 @@ class TransactionController {
     }
     
     // MARK: - Save Data
-    func createTransactionWith(date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? ) {
+    func createTransactionWith(date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? = {_ in}) {
         
         let transaction = Transaction(date: date, monthYearDate: monthYearDate, category: category, payee: payee, transactionType: transactionType, amount: amount, account: account)
         transactions.append(transaction)
