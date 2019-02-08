@@ -141,8 +141,12 @@ class AccountController {
     /// Adds the amount to the account and then saves it to CloudKit
     func addAmountToAccountWith(amount: Double, account: Account) {
         account.total += amount
-        
-        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: nil)
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account)
+    }
+    
+    func substractAmountFromAccountWith(amount: Double, account: Account) {
+        account.total -= amount
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account)
     }
 }
 

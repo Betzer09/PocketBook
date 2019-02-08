@@ -96,7 +96,7 @@ class PlannedExpenseController {
     
     
     // MARK: - Update an existing plannedExpense
-    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void) {
+    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void = {_ in}) {
         
         plannedExpense.name = name
         plannedExpense.account = account
@@ -118,6 +118,16 @@ class PlannedExpenseController {
         
     }
     
+    func addAmountToPlannedExpenseAmountDeposited(amount: Double, plannedexpense: PlannedExpense, account: Account) {
+        plannedexpense.amountDeposited += amount
+        updatePlannedExpenseWith(name: plannedexpense.name, account: account.name, initialAmount: plannedexpense.initialAmount, goalAmount: plannedexpense.goalAmount, amountDeposited: plannedexpense.amountDeposited, amountWithdrawn: plannedexpense.amountWithdrawn, totalDeposited: plannedexpense.totalDeposited, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
+    }
+    
+    func subtractAmountToPlannedExpenseAmountDeposited(amount: Double, plannedexpense: PlannedExpense, account: Account) {
+        plannedexpense.amountDeposited -= amount
+        updatePlannedExpenseWith(name: plannedexpense.name, account: account.name, initialAmount: plannedexpense.initialAmount, goalAmount: plannedexpense.goalAmount, amountDeposited: plannedexpense.amountDeposited, amountWithdrawn: plannedexpense.amountWithdrawn, totalDeposited: plannedexpense.totalDeposited, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
+    }
+    
     // MARK: - Delete plannedExpense
     func delete(plannedExpense: PlannedExpense) {
         cloudKitManager.deleteRecordWithID(plannedExpense.recordID) { (_, error) in
@@ -125,7 +135,6 @@ class PlannedExpenseController {
                 print("Error deleting Planned Expense \(error.localizedDescription) in file: \(#file)")
                 return
             } else {
-                // FIXME: Modify the account
                 guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == plannedExpense.account }) else {return}
                 let account = AccountController.shared.accounts[indexForAccount]
                 

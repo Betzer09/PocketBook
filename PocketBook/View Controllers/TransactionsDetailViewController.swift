@@ -410,19 +410,48 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return
         }
         
+        // If fields aren't acceptable return
+        guard !checkTransactionFields() else {return}
         
-        if categoryTextField.text == "Choose Category" && accountTextField.text == "Choose Account" {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions.")
-            return
-        } else if categoryTextField.text == "Choose Category" {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category. If you haven't created categories yet, please create at least one category before creating a transaction")
-            return
-        } else if accountTextField.text == "Choose Account" {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select an account. If you haven't created an account yet, you must create at least one account before you can create transactions")
+        
+        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+        
+        // Create a transaction and adjust budget item
+        let transactiontype = checkTransactionType()
+        
+        guard let budgetItem = budgetItem else {
+            // If we fall in here we have a planned expense transaction
+            guard let plannedexpense = findPlannedExpenseWith(category: categoryName) else {return}
+            PlannedExpenseController.shared.addAmountToPlannedExpenseAmountDeposited(amount: amountToSave, plannedexpense: plannedexpense, account: account)
             return
         }
         
+        if transactiontype == TransactionType.income {
+            AccountController.shared.addAmountToAccountWith(amount: amountToSave, account: account)
+            BudgetItemController.shared.addAmountToBudgetItem(amount: amountToSave, budgetItem: budgetItem)
+            TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: <#T##String?#>, payee: <#T##String#>, transactionType: <#T##String#>, amount: <#T##Double#>, account: <#T##String#>)
+        } else {
+            AccountController.shared.substractAmountFromAccountWith(amount: amountToSave, account: account)
+            BudgetItemController.shared.substractAmountFromBudgetItem(amount: amountToSave, budgetItem: budgetItem)
+        }
+    }
+    
+    func checkTransactionFields() -> Bool {
+        var areFieldsAcceptable = false
+        if categoryTextField.text == "Choose Category" && accountTextField.text == "Choose Account" {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions.")
+        } else if categoryTextField.text == "Choose Category" {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category. If you haven't created categories yet, please create at least one category before creating a transaction")
+        } else if accountTextField.text == "Choose Account" {
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select an account. If you haven't created an account yet, you must create at least one account before you can create transactions")
+        } else {
+            areFieldsAcceptable = true
+        }
         
+        return areFieldsAcceptable
+    }
+    
+    func checkTransactionType() -> TransactionType {
         var typestring: TransactionType
         if transactionType.titleForSegment(at: 0) == TransactionType.expense.rawValue {
             typestring = TransactionType.expense
@@ -430,21 +459,11 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             typestring = TransactionType.income
         }
         
-        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-        
-        
-        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryName , payee: payee, transactionType: typestring.rawValue, amount: amountToSave, account: accountName, completion: { (transaction) in
-            
-            if let _ = transaction.category {
-                // This is a transaction
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: typestring, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
-                
-            } else {
-                // this is a planned expense
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: typestring, account: account, budgetItem: nil, difference: transaction.amount)
-                
-            }
-        })
+        return typestring
+    }
+    
+    func findPlannedExpenseWith(category name: String) -> PlannedExpense? {
+        return PlannedExpenseController.shared.plannedExpenses.first(where: { $0.name.lowercased() == name.lowercased() })
     }
 }
 
