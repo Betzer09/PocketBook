@@ -23,15 +23,10 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noDataImage: UIImageView!
     
-    // MARK: - Customize Segmented Control
-    func customizeSegmentedControl() {
-        segmentedControl.customizeSegmentedControl()
-    }
-    
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
+        setupObserverNotificaiton()
         configureUI()
         self.customizeSegmentedControl()
     }
@@ -43,7 +38,6 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
     override func viewDidAppear(_ animated: Bool) {
         picker.reloadAllComponents()
         picker.setNeedsDisplay()
-        self.customizeSegmentedControl()
         setUpTableView()
     }
     
@@ -52,8 +46,6 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
             self.setUpTableView()
         }
     }
-    
-    // MARK: - Actions
     
     // MARK: - UISetup
     func noDataImageSetup() {
@@ -173,6 +165,10 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
         return returnString(fromDate: date)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
@@ -227,6 +223,14 @@ class TransactionListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Methods
+    
+    func setupObserverNotificaiton() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.transactionWasUpdatedNotification, object: nil)
+    }
+    
+    func customizeSegmentedControl() {
+        segmentedControl.customizeSegmentedControl()
+    }
     
     func configureUI() {
         self.picker.dataSource = self

@@ -238,6 +238,10 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Setup TableView
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
@@ -384,7 +388,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     func createDepositTransaction(with amount: Double, account: Account, completion: @escaping(_ success: Bool) -> Void) {
         let todaysdate = Date()
         
-        TransactionController.shared.createTransactionWith(date: todaysdate, monthYearDate: returnFormattedDate(date: todaysdate), category: nil, payee: "Payday", transactionType: TransactionType.income.rawValue, amount: amount, account: account.name) { (_) in
+        TransactionController.shared.createTransactionWith(date: todaysdate, monthYearDate: returnFormattedDate(date: todaysdate), category: nil, payee: "Payday", transactionType: TransactionType.income, amount: amount, account: account.name) { (_) in
             completion(true)
         }
     }

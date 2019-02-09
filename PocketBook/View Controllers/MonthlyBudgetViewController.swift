@@ -72,7 +72,6 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     // MARK: - UITableViewDataSource Functions
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return BudgetItemController.shared.budgetItems.count + 1
     }
@@ -128,6 +127,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presentBudgetItemUpdateOptionActionSheetOn(indexpath: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Alerts

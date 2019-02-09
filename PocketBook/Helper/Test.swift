@@ -34,7 +34,7 @@ func createTransaction() {
     let account = accounts[Int(arc4random_uniform(UInt32(accounts.count)))]
     let name = account.name
     
-    TransactionController.shared.createTransactionWith(date: date, monthYearDate: monthYearDate, category: category, payee: payee, transactionType: transActionType, amount: amount, account: name) 
+//    TransactionController.shared.createTransactionWith(date: date, monthYearDate: monthYearDate, category: category, payee: payee, transactionType: transActionType, amount: amount, account: name)
 }
 
 func loop(number: Int, transform: () -> ()) {

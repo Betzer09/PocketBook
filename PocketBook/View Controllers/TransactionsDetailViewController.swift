@@ -45,7 +45,6 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUIWhenTheViewLoads()
-        customizeSegmentedControl()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -423,19 +422,14 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         guard let budgetItem = budgetItem else {
             // If we fall in here we have a planned expense transaction
-            TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: nil, payee: payee, transactionType: transactiontype.rawValue, amount: amountToSave, account: account.name)
+            let transaction = Transaction(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: nil, payee: categoryName, transactionType: TransactionType.expense.rawValue , amount: amountToSave, account: account.name)
+            PlannedExpenseController.shared.createPlannedExpenseTransaction(transaction: transaction, account: account, categoryName: categoryName)
             return
         }
         
-        if transactiontype == TransactionType.income {
-            AccountController.shared.addAmountToAccountWith(amount: amountToSave, account: account)
-            BudgetItemController.shared.addTotalAllotedAmountToBudgetItem(amount: amountToSave, budgetItem: budgetItem)
-        } else {
-            AccountController.shared.substractAmountFromAccountWith(amount: amountToSave, account: account)
-            BudgetItemController.shared.addSpentTotalAmountToBudgetItem(amount: amountToSave, budgetItem: budgetItem)
-        }
+        TransactionController.shared.handleIncomeAndExpenseTransaction(transactiontype: transactiontype, amount: amountToSave, account: account, budgetItem: budgetItem)
         
-        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: categoryName, payee: payee, transactionType: transactiontype.rawValue, amount: amountToSave, account: account.name)
+        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: categoryName, payee: payee, transactionType: transactiontype , amount: amountToSave, account: account.name)
     }
     
     func checkTransactionFields() -> Bool {

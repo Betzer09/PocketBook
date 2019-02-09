@@ -8,15 +8,6 @@
 
 import UIKit
 
-/*TO DO:
- 
- txtAccountPicker.text - func
- Complete button -> Transaction
- 
- * bonus: Ideal Monthly Contribution calculations
- 
- */
-
 class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     //MARK: - Outlets
@@ -37,6 +28,13 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     var currentYShiftForKeyboard: CGFloat = 0
     var textFieldBeingEdited: UITextField?
     
+    // For Deposit and Withdraw Alerts
+    var depositAmountTextField: UITextField?
+    var withdrawalAmountTextField: UITextField?
+    
+    var depositAmount: Double?
+    var withdrawAmount: Double?
+    
     var plannedExpense: PlannedExpense? {
         didSet {
             if isViewLoaded { configureUIWhenPlannedExpenseCellIsPressed() }
@@ -44,8 +42,28 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     }
     
     //MARK: - View Lifecycles
+    override func viewWillAppear(_ animated: Bool) {
+        configureUIWhenPlannedExpenseCellIsPressed()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupKeyboardNotificaitonObservers()
+        setUpUI()
+    }
+    
+    // MARK: - Setup UI
+    func setUpUI() {
+        setupNavBar()
+        setPickerDelegates()
+        showDatePicker()
+        showAccountPicker()
+        hideKeyboard()
+        roundButtons()
+    }
+    
+    func setupNavBar() {
+        self.navigationController?.navigationBar.tintColor = .white
         if let plannedExpense = plannedExpense {
             self.navigationItem.title = plannedExpense.name
             self.navigationItem.rightBarButtonItem?.title = "Update"
@@ -53,23 +71,6 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             self.navigationItem.title = "New Savings Goal"
             self.navigationItem.rightBarButtonItem?.title = "Save"
         }
-        setUpUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        configureUIWhenPlannedExpenseCellIsPressed()
-    }
-    
-    // MARK: - Setup UI
-    func setUpUI() {
-        self.navigationController?.navigationBar.tintColor = .white
-        setPickerDelegates()
-        showDatePicker()
-        showAccountPicker()
-        hideKeyboard()
-        roundButtons()
     }
     
     func roundButtons() {
@@ -129,7 +130,12 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         }
     }    
     
-    // MARK: - Methods
+    // MARK: - Functions
+    
+    func setupKeyboardNotificaitonObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
     
     /// This function calculates the remaining amount needed to reach goal
     func amountDifference(goalAmount: Double, initialAmount: Double) -> Double? {
@@ -188,6 +194,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             
             if PlannedExpenseController.shared.plannedExpenses.contains(where: { $0.name == name }) {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Duplicate Name", message: "You have already planned an expense with this name. Names must be unique!")
+                return
             }
             
             
@@ -213,16 +220,36 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
     }
     
-    //MARK: - ALERT CONTROLLERS
-    var depositAmountTextField: UITextField?
-    var withdrawalAmountTextField: UITextField?
+    @IBAction func DepositButtonPressed(_ sender: Any) {
+        
+        presentDepositAlert { (done) in
+            guard done, let accountString = self.plannedExpense?.account, let despositAmount = self.depositAmount,
+                let account = AccountController.shared.accounts.first(where: { $0.name == accountString }), let payee = self.plannedExpense?.name else {return}
+            
+            
+            let transaction = Transaction(date: Date(), monthYearDate: Date(), category: nil, payee: payee, transactionType: TransactionType.expense.rawValue, amount: despositAmount, account: accountString)
+            
+            PlannedExpenseController.shared.createPlannedExpenseTransaction(transaction: transaction, account: account, categoryName: payee)
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    
+    @IBAction func WithdrawButtonPressed(_ sender: Any) {
+        presentWithdrawalAlert()
+//        let transaction = Transaction(date: Date(), monthYearDate: Date(), category: nil, payee: "\(accountString)", transactionType: TransactionType.expense.rawValue, amount: despositAmount, account: accountString)
+        
+    }
+    
     
     //Deposit Alert
-    func presentDepositAlert() {
-        
+    func presentDepositAlert(completion: @escaping(_ done: Bool) -> Void) {
         var depositAmount: UITextField!
         
         let depositAlertController = UIAlertController(title: "Deposit", message: "How much money do you want to deposit into your planned expense?", preferredStyle: .alert)
+        
+        
         depositAlertController.addTextField { (textField) in
             textField.placeholder = "Enter amount here"
             textField.text = "+"
@@ -231,28 +258,24 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
         
         let addAction = UIAlertAction(title: "Deposit", style: .default) { (_) in
             
-            guard let StringAmount = depositAmount.text?.dropFirst() else {
-                return
-            }
-            
+            guard let StringAmount = depositAmount.text?.dropFirst() else { completion(false);return }
+        
             guard let amountDeposited = Double(StringAmount) else {
                 presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "You have entered an invalid amount!")
+                   completion(false)
                 return
             }
-            guard let plannedExpense = self.plannedExpense else {return}
-            plannedExpense.totalDeposited += amountDeposited
             
-            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
-            
-            self.navigationController?.popViewController(animated: true)
+            self.depositAmount = amountDeposited
+            completion(true)
         }
-        
-        depositAlertController.addAction(addAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
             self.view.endEditing(true)
+            completion(false)
         }
         
+        depositAlertController.addAction(addAction)
         depositAlertController.addAction(cancelAction)
         present(depositAlertController, animated: true, completion: nil)
     }
@@ -282,25 +305,22 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
                 
             }
             
-            guard let plannedExpense = self.plannedExpense else {return}
-            plannedExpense.totalDeposited -= amount
-            
-            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
+            self.withdrawAmount = amount
             
             self.navigationController?.popViewController(animated: true)
         }
         
-        withdrawalAlertController.addAction(addAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
             self.view.endEditing(true)
         }
         
+        withdrawalAlertController.addAction(addAction)
         withdrawalAlertController.addAction(cancelAction)
         present(withdrawalAlertController, animated: true, completion: nil)
     }
     
-    //MARK: - ACCOUNT PICKER
+    //MARK: - Account Picker
     //Delegates & Setup
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -376,9 +396,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
     }
     
     @objc func donedatePicker() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
-        txtDatePicker.text = formatter.string(from: dueDateDatePicker.date)
+        txtDatePicker.text = returnFormattedDateString(date: dueDateDatePicker.date)
         self.view.endEditing(true)
     }
     

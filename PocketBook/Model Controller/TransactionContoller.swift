@@ -29,9 +29,9 @@ class TransactionController {
     }
     
     // MARK: - Save Data
-    func createTransactionWith(date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: String, amount: Double, account: String, completion: ((Transaction) -> Void)? = {_ in}) {
+    func createTransactionWith(date: Date, monthYearDate: Date, category: String?, payee: String, transactionType: TransactionType, amount: Double, account: String, completion: ((Transaction) -> Void)? = {_ in}) {
         
-        let transaction = Transaction(date: date, monthYearDate: returnFormattedDate(date: monthYearDate), category: category, payee: payee, transactionType: transactionType, amount: amount, account: account)
+        let transaction = Transaction(date: date, monthYearDate: returnFormattedDate(date: monthYearDate), category: category, payee: payee, transactionType: transactionType.rawValue, amount: amount, account: account)
         transactions.append(transaction)
         
         cloudKitManager.saveRecord(transaction.cloudKitRecord) { (record, error) in
@@ -85,20 +85,45 @@ class TransactionController {
                 return
             }
             
-            // Remove transaction from local storage
-            guard let transactionToRemove = self.transactions.firstIndex(of: transaction) else {return}
-            self.transactions.remove(at: transactionToRemove)
-            
             guard let account = AccountController.shared.accounts.first(where: { $0.name == transaction.account })
                 else { completion(false) ;return }
             
             let budgetItems = BudgetItemController.shared.budgetItems
             
-            self.handleIncomeAndExpenseTransactionsWith(budgetItems: budgetItems, transaction: transaction, account: account)
-            self.handlePaydayTransaction(transaction: transaction, account: account)
+            if budgetItems.contains(where: { $0.name == transaction.category }) {
+                self.handleIncomeAndExpenseTransactionsWith(budgetItems: budgetItems, transaction: transaction, account: account)
+            } else if transaction.category == nil && transaction.payee == "Payday"{
+                self.handlePaydayTransaction(transaction: transaction, account: account)
+            } else {
+                self.handlePlannedExpenseDepositDeletion(category: transaction.payee, transaction: transaction.amount, account: account)
+            }
             
             completion(true)
-            }
+        }
+    }
+    
+    func handlePlannedExpenseDepositDeletion(category: String, transaction amount: Double, account: Account) {
+        guard let plannedexpense = PlannedExpenseController.shared.plannedExpenses.first(where: { $0.name == category })
+            else {return}
+        
+        AccountController.shared.addAmountToAccountWith(amount: amount, account: account)
+        PlannedExpenseController.shared.subtractAmountoTotalDeposited(amount: amount, plannedexpense: plannedexpense)
+    }
+    func handleIncomeAndExpenseTransaction(transactiontype: TransactionType, amount: Double, account: Account, budgetItem: BudgetItem) {
+        if transactiontype == TransactionType.income {
+            AccountController.shared.addAmountToAccountWith(amount: amount, account: account)
+            BudgetItemController.shared.addTotalAllotedAmountToBudgetItem(amount: amount, budgetItem: budgetItem)
+        } else {
+            AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account)
+            BudgetItemController.shared.addSpentTotalAmountToBudgetItem(amount: amount, budgetItem: budgetItem)
+        }
+    }
+    
+    func handlePlannedExpenseTransactionWtih(plannedexpense name: String, amount: Double, account: Account) {
+        guard let plannedexpense = PlannedExpenseController.shared.plannedExpenses.first(where: { $0.name == name }) else {return}
+        
+        AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account)
+        PlannedExpenseController.shared.addAmountToTotalDeposited(amount: amount, plannedexpense: plannedexpense)
     }
     
     // MARK: - Fetch Data from CloudKit
@@ -128,43 +153,16 @@ class TransactionController {
     }
     
     // MARK: - Methods
-    
-    func handleIncomeAndExpenseTransactionsWith(budgetItems: [BudgetItem], transaction: Transaction, account: Account) {
-        // Check to see if the category is a budget Item
-        for budgetItem in budgetItems {
-            if budgetItem.name == transaction.category {
-                // This is a BudgetItem
-                if transaction.transactionType == TransactionType.income.rawValue {
-                    // Remove income
-                    
-                    // Subtract amount from account
-                    AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: account)
-                    // Subtract amount from BudgetIem
-                    BudgetItemController.shared.substractTotalAllotedAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
-                } else {
-                    // Expense
-                    
-                    // Add amount to account
-                    AccountController.shared.addAmountToAccountWith(amount: transaction.amount, account: account)
-                    // Subtract from account
-                    BudgetItemController.shared.substractSpentTotalAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
-                }
-            }
+    func handlePlannedExpense(transaction: Transaction, account: Account) {
+        var transactionType: TransactionType
+        
+        if transaction.transactionType == TransactionType.income.rawValue {
+            transactionType = TransactionType.income
+        } else {
+            transactionType = TransactionType.expense
         }
-    }
-    
-    func handlePaydayTransaction(transaction: Transaction, account: Account) {
-        if transaction.category == nil && transaction.payee == "Payday"{
-            // This should be a payday
-            AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: account)
-        }
-    }
-    
-    func handlePlannedExpense(transaction: Transaction) {
-        if transaction.category == nil {
-            // TODO: - Implement this
-            
-        }
+        
+        createTransactionWith(date: transaction.date, monthYearDate: transaction.monthYearDate, category: nil, payee: transaction.payee, transactionType: transactionType, amount: transaction.amount, account: account.name)
     }
     
     /// This function takes a transaction and returns the index value of that transaction out of the TransactionController.shared.transactions array
@@ -203,10 +201,49 @@ class TransactionController {
         guard let finalDictionary = dictionary else { return [] }
         return finalDictionary
     }
-        
+    
     func monthYearTuple(fromDate date: Date) -> (Int, Int) {
         let month = Calendar.current.component(.month, from: Date())
         let year = Calendar.current.component(.year, from: Date())
         return (month, year)
     }
+
+    
+    // MARK: - Functions
+    
+    private func handleIncomeAndExpenseTransactionsWith(budgetItems: [BudgetItem], transaction: Transaction, account: Account) {
+
+        // Check to see if the category is a budget Item
+        for budgetItem in budgetItems {
+            if budgetItem.name == transaction.category {
+                // This is a BudgetItem
+                if transaction.transactionType == TransactionType.income.rawValue {
+                    // Remove income
+                    
+                    // Subtract amount from account
+                    AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: account)
+                    // Subtract amount from BudgetIem
+                    BudgetItemController.shared.substractTotalAllotedAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
+                } else {
+                    // Expense
+                    
+                    // Add amount to account
+                    AccountController.shared.addAmountToAccountWith(amount: transaction.amount, account: account)
+                    // Subtract from account
+                    BudgetItemController.shared.substractSpentTotalAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
+                }
+            }
+        }
+    }
+    
+    private func handlePaydayTransaction(transaction: Transaction, account: Account) {
+        AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: account)
+    }
+    
+    private func handlePlannedExpense(transaction: Transaction) {
+        if transaction.category == nil {
+            
+        }
+    }
+    
 }

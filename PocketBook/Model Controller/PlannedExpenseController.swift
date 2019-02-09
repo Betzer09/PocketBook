@@ -30,7 +30,7 @@ class PlannedExpenseController {
         self.cloudKitManager = CloudKitManager()
     }
     
-    //MARK: Total Deposited in Savings Goals
+    // MARK: - Methods
     /// This function adds up the total of all current planned expense savings goals
     func addUpTotalDepositedToSavings() -> Double {
         
@@ -42,7 +42,6 @@ class PlannedExpenseController {
     }
     
     
-    // MARK: Ideal Monthly Contribution
     
     /// This function calculates the total monthly contribtion needed for all planned expenses
     func calculateTotalMonthlyContribution() -> Double {
@@ -95,7 +94,13 @@ class PlannedExpenseController {
     }
     
     
-    // MARK: - Update an existing plannedExpense
+    // MARK: - Update
+    
+    func createPlannedExpenseTransaction(transaction: Transaction, account: Account, categoryName: String) {
+        TransactionController.shared.createTransactionWith(date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: TransactionType.expense , amount: transaction.amount, account: account.name)
+        TransactionController.shared.handlePlannedExpenseTransactionWtih(plannedexpense: categoryName, amount: transaction.amount, account: account)
+    }
+    
     func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void = {_ in}) {
         
         plannedExpense.name = name
@@ -106,14 +111,25 @@ class PlannedExpenseController {
         plannedExpense.dueDate = dueDate
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
-            
-            // Get the first record
             guard let record = records?.first else {return}
             let updatedPlannedExpense = PlannedExpense(cloudKitRecord: record)
             completion(updatedPlannedExpense)
             
         }
         
+    }
+    
+    func addAmountToTotalDeposited(amount: Double, plannedexpense: PlannedExpense) {
+        let total = plannedexpense.totalDeposited + amount
+        
+        updatePlannedExpenseWith(name: plannedexpense.name, account: plannedexpense.account, initialAmount: plannedexpense.initialAmount, goalAmount: plannedexpense.goalAmount, totalDeposited: total, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
+        
+    }
+    
+    func subtractAmountoTotalDeposited(amount: Double, plannedexpense: PlannedExpense) {
+        let total = plannedexpense.totalDeposited - amount
+        
+        updatePlannedExpenseWith(name: plannedexpense.name, account: plannedexpense.account, initialAmount: plannedexpense.initialAmount, goalAmount: plannedexpense.goalAmount, totalDeposited: total, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
     }
     
     // MARK: - Delete plannedExpense

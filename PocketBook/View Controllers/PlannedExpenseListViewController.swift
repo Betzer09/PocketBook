@@ -23,7 +23,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegates()
-        updateViews()
+        setupNotificationObservers()
         createPlusButton()
         changeCalculatedContributionlabel()
         configureNavigationBar()
@@ -31,19 +31,23 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     override func viewWillAppear(_ animated: Bool) {
         noDataImageSetup()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+        updateViews()
     }
     
     // MARK: - Actions
     @IBAction func unwindToPlannedExpenseViewController(unwindSegue: UIStoryboardSegue) {
-        
         if let _ = unwindSegue.source as? PlannedExpenseDetailViewController {
             print("Coming from plannedExpnsesVC")
         }
     }
     
     //MARK: - Functions
+    
+    func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViews), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeCalculatedContributionlabel), name: Notifications.plannedExpenseWasUpdatedNotification, object: nil)
+    }
+    
     func noDataImageSetup() {
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses
         if plannedExpense.count == 0 {
@@ -106,8 +110,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         return PlannedExpenseController.shared.plannedExpenses.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0;
     }
     
@@ -122,7 +125,10 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
-    // >>Ability to Delete Cells
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
