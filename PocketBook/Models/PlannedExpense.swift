@@ -22,8 +22,6 @@ class PlannedExpense: Equatable {
     var dueDate: Date
     var initialAmount: Double
     var goalAmount: Double
-    var amountDeposited: Double
-    var amountWithdrawn: Double
     /// initial amount Plus the income for the planned expense -> income dictionary
     var totalDeposited: Double
     var monthlyTotals: [Double] = []
@@ -39,8 +37,6 @@ class PlannedExpense: Equatable {
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
-        self.amountDeposited = amountDeposited
-        self.amountWithdrawn = amountWithdrawn
         self.totalDeposited = totalDeposited
         self.recordID = CKRecordID(recordName: UUID().uuidString)
         
@@ -56,8 +52,6 @@ class PlannedExpense: Equatable {
         record.setValue(dueDate, forKey: Keys.dueDateKey)
         record.setValue(initialAmount, forKey: Keys.initialAmountKey)
         record.setValue(goalAmount, forKey: Keys.goalAmountKey)
-        record.setValue(amountDeposited, forKey: Keys.amountDepositedKey)
-        record.setValue(amountWithdrawn, forKey: Keys.amountWithdrawnKey)
         record.setValue(totalDeposited, forKey: Keys.totalDepositedKey)
         
         return record
@@ -72,8 +66,6 @@ class PlannedExpense: Equatable {
             let dueDate = cloudKitRecord[Keys.dueDateKey] as? Date,
             let initialAmount = cloudKitRecord[Keys.initialAmountKey] as? Double,
             let goalAmount = cloudKitRecord[Keys.goalAmountKey] as? Double,
-            let amountDeposited = cloudKitRecord[Keys.amountDepositedKey] as? Double,
-            let amountWithdrawn = cloudKitRecord[Keys.amountWithdrawnKey] as? Double,
             let totalDeposited = cloudKitRecord[Keys.totalDepositedKey] as? Double else {return nil}
         
         self.name = name
@@ -81,8 +73,6 @@ class PlannedExpense: Equatable {
         self.dueDate = dueDate
         self.initialAmount = initialAmount
         self.goalAmount = goalAmount
-        self.amountDeposited = amountDeposited
-        self.amountWithdrawn = amountWithdrawn
         self.totalDeposited = totalDeposited
         self.recordID = cloudKitRecord.recordID
     }

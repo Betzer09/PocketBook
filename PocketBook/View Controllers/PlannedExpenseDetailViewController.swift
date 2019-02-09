@@ -175,7 +175,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             let dueDate = returnFormattedDate(date: dueDateDatePicker.date)
             let account = AccountController.shared.accounts[ accountPickerView.selectedRow(inComponent: 0)].name
             
-            PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, amountDeposited: plannedExpense.amountDeposited, amountWithdrawn: plannedExpense.amountWithdrawn, totalDeposited: plannedExpense.totalDeposited, dueDate: dueDate , plannedExpense: plannedExpense, completion: { (_) in})
+            PlannedExpenseController.shared.updatePlannedExpenseWith(name: name, account: account, initialAmount: initialAmount, goalAmount: goalAmount, totalDeposited: plannedExpense.totalDeposited, dueDate: dueDate , plannedExpense: plannedExpense, completion: { (_) in})
             
         } else {
             // Create
@@ -242,7 +242,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             guard let plannedExpense = self.plannedExpense else {return}
             plannedExpense.totalDeposited += amountDeposited
             
-            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, amountDeposited: amountDeposited, amountWithdrawn: 0.0, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
+            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
             
             self.navigationController?.popViewController(animated: true)
         }
@@ -285,7 +285,7 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
             guard let plannedExpense = self.plannedExpense else {return}
             plannedExpense.totalDeposited -= amount
             
-            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, amountDeposited: 0.0, amountWithdrawn: amount, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
+            PlannedExpenseController.shared.updatePlannedExpenseWith(name: plannedExpense.name, account: plannedExpense.account, initialAmount: plannedExpense.initialAmount, goalAmount: plannedExpense.goalAmount, totalDeposited: plannedExpense.totalDeposited, dueDate: plannedExpense.dueDate, plannedExpense: plannedExpense, completion: { (_) in })
             
             self.navigationController?.popViewController(animated: true)
         }

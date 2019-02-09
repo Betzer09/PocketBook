@@ -96,14 +96,12 @@ class PlannedExpenseController {
     
     
     // MARK: - Update an existing plannedExpense
-    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void = {_ in}) {
+    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void = {_ in}) {
         
         plannedExpense.name = name
         plannedExpense.account = account
         plannedExpense.initialAmount = initialAmount
         plannedExpense.goalAmount = goalAmount
-        plannedExpense.amountDeposited = amountDeposited
-        plannedExpense.amountWithdrawn = amountWithdrawn
         plannedExpense.totalDeposited = totalDeposited
         plannedExpense.dueDate = dueDate
         
@@ -116,16 +114,6 @@ class PlannedExpenseController {
             
         }
         
-    }
-    
-    func addAmountToPlannedExpenseAmountDeposited(amount: Double, plannedexpense: PlannedExpense, account: Account) {
-        plannedexpense.amountDeposited += amount
-        updatePlannedExpenseWith(name: plannedexpense.name, account: account.name, initialAmount: plannedexpense.initialAmount, goalAmount: plannedexpense.goalAmount, amountDeposited: plannedexpense.amountDeposited, amountWithdrawn: plannedexpense.amountWithdrawn, totalDeposited: plannedexpense.totalDeposited, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
-    }
-    
-    func subtractAmountToPlannedExpenseAmountDeposited(amount: Double, plannedexpense: PlannedExpense, account: Account) {
-        plannedexpense.amountDeposited -= amount
-        updatePlannedExpenseWith(name: plannedexpense.name, account: account.name, initialAmount: plannedexpense.initialAmount, goalAmount: plannedexpense.goalAmount, amountDeposited: plannedexpense.amountDeposited, amountWithdrawn: plannedexpense.amountWithdrawn, totalDeposited: plannedexpense.totalDeposited, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
     }
     
     // MARK: - Delete plannedExpense

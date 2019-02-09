@@ -16,7 +16,7 @@ class BudgetItem {
     var spentTotal: Double
     var name: String // Category
     
-    /// This should only be modified by the user not the developer! If changes need to be made do it to the totalAllotted.
+    /// This should only be modified by the user not the developer! If changes need to be made do it to the totalAllotted becuase each month this variable will be reset back to whatever amount the user set it to origanally.
     var allottedAmount: Double
     var totalAllotted: Double?
     
@@ -28,7 +28,7 @@ class BudgetItem {
         self.recordID = CKRecordID(recordName: UUID().uuidString)
     }
     
-    // MARK: - cloudKitRecord PUT
+    // MARK: - cloudKitRecord PUTm
     var cloudKitRecord: CKRecord {
         let record = CKRecord(recordType: Keys.recordBudgetItemType, recordID: recordID)
         

@@ -49,7 +49,7 @@ class BudgetItemController {
     
     // MARK: - Modificiation / Update
     
-    func updateBudgetWith(name: String, spentTotal: Double, totalAlloted: Double? = nil, allottedAmount: Double, budgetItem: BudgetItem, completion: @escaping(BudgetItem?) -> Void ={_ in}) {
+    func updateBudgetWith(name: String, spentTotal: Double, totalAlloted: Double? = nil, allottedAmount: Double, budgetItem: BudgetItem, completion: @escaping(BudgetItem?) -> Void = {_ in}) {
         
         budgetItem.name = name
         budgetItem.spentTotal = spentTotal
@@ -89,9 +89,7 @@ class BudgetItemController {
         let budgetItems = BudgetItemController.shared.budgetItems
         for budgetItem in budgetItems {
             budgetItem.spentTotal = 0
-            updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in
-                //TODO: FIX ME
-            })
+            updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
         }
     }
     
@@ -122,15 +120,31 @@ class BudgetItemController {
     }
     
     // MARK: - Methods
-    func addAmountToBudgetItem(amount: Double, budgetItem: BudgetItem) {
+    func addSpentTotalAmountToBudgetItem(amount: Double, budgetItem: BudgetItem) {
         budgetItem.spentTotal += amount
         updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
     }
     
-    func substractAmountFromBudgetItem(amount: Double, budgetItem: BudgetItem) {
+    /// Subtracts whatever the amount is from the spent total
+    func substractSpentTotalAmountFromBudgetItem(amount: Double, budgetItem: BudgetItem) {
         budgetItem.spentTotal -= amount
         updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
     }
     
+    
+    func addTotalAllotedAmountToBudgetItem(amount: Double, budgetItem: BudgetItem) {
+        guard let totalAlloted = budgetItem.totalAllotted else {return}
+        let newTotal = totalAlloted + amount
+        budgetItem.totalAllotted = newTotal
+        updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
+    }
+    
+    /// Subtracts whatever the amount is from the totalAlloted
+    func substractTotalAllotedAmountFromBudgetItem(amount: Double, budgetItem: BudgetItem) {
+        guard let totalAlloted = budgetItem.totalAllotted else {return}
+        let newTotal = totalAlloted - amount
+        budgetItem.totalAllotted = newTotal
+        updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
+    }
 }
 

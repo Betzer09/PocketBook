@@ -160,6 +160,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             let budgetItems = BudgetItemController.shared.budgetItems
             guard let selectedBugetItem = budgetItems.index(where: { $0.name == transaction.category }) else {return}
             categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
+            self.budgetItem = budgetItems[selectedBugetItem]
             
             let accounts = AccountController.shared.accounts
             guard let selectedAccount = accounts.index(where: { $0.name == transaction.account }) else {return}
@@ -411,7 +412,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         }
         
         // If fields aren't acceptable return
-        guard !checkTransactionFields() else {return}
+        guard checkTransactionFields() else {return}
         
         
         let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
@@ -419,21 +420,22 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         // Create a transaction and adjust budget item
         let transactiontype = checkTransactionType()
         
+        
         guard let budgetItem = budgetItem else {
             // If we fall in here we have a planned expense transaction
-            guard let plannedexpense = findPlannedExpenseWith(category: categoryName) else {return}
-            PlannedExpenseController.shared.addAmountToPlannedExpenseAmountDeposited(amount: amountToSave, plannedexpense: plannedexpense, account: account)
+            TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: nil, payee: payee, transactionType: transactiontype.rawValue, amount: amountToSave, account: account.name)
             return
         }
         
         if transactiontype == TransactionType.income {
             AccountController.shared.addAmountToAccountWith(amount: amountToSave, account: account)
-            BudgetItemController.shared.addAmountToBudgetItem(amount: amountToSave, budgetItem: budgetItem)
-            TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: <#T##String?#>, payee: <#T##String#>, transactionType: <#T##String#>, amount: <#T##Double#>, account: <#T##String#>)
+            BudgetItemController.shared.addTotalAllotedAmountToBudgetItem(amount: amountToSave, budgetItem: budgetItem)
         } else {
             AccountController.shared.substractAmountFromAccountWith(amount: amountToSave, account: account)
-            BudgetItemController.shared.substractAmountFromBudgetItem(amount: amountToSave, budgetItem: budgetItem)
+            BudgetItemController.shared.addSpentTotalAmountToBudgetItem(amount: amountToSave, budgetItem: budgetItem)
         }
+        
+        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: categoryName, payee: payee, transactionType: transactiontype.rawValue, amount: amountToSave, account: account.name)
     }
     
     func checkTransactionFields() -> Bool {
@@ -453,7 +455,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     func checkTransactionType() -> TransactionType {
         var typestring: TransactionType
-        if transactionType.titleForSegment(at: 0) == TransactionType.expense.rawValue {
+        if transactionType.selectedSegmentIndex == 0 {
             typestring = TransactionType.expense
         } else {
             typestring = TransactionType.income
