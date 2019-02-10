@@ -10,7 +10,6 @@ import UIKit
 
 class PlannedExpenseListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PlannedExpenseTableViewCellDelegate {
 
-    // MARK: - Properties
     
     //MARK: - Outlets
     
@@ -50,11 +49,15 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     func noDataImageSetup() {
         let plannedExpense = PlannedExpenseController.shared.plannedExpenses
-        if plannedExpense.count == 0 {
-            noDataImage.isHidden = false
-        } else {
-            noDataImage.isHidden = true
+        
+        DispatchQueue.main.async {
+            if plannedExpense.count == 0 {
+                self.noDataImage.isHidden = false
+            } else {
+                self.noDataImage.isHidden = true
+            }
         }
+        
     }
     
     func setDelegates() {
@@ -72,6 +75,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     }
     
     @objc func updateViews() {
+        self.noDataImageSetup()
         let totalMonthlyContribution = PlannedExpenseController.shared.calculateTotalMonthlyContribution()
         DispatchQueue.main.async {
             if totalMonthlyContribution <= 0.0 {
@@ -133,13 +137,35 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         if editingStyle == .delete {
             
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]
-            PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
-            PlannedExpenseController.shared.plannedExpenses.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            confirmSavingsGoalDeletion(plannedexpense: plannedExpense) { (responce) in
+                PlannedExpenseController.shared.delete(plannedExpense: plannedExpense)
+                
+                PlannedExpenseController.shared.plannedExpenses.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+            }
+            
         }
     }
     
     // MARK: - Methods
+    
+    func confirmSavingsGoalDeletion(plannedexpense: PlannedExpense, completion: @escaping (_ responce: Bool) -> Void) {
+        let alert = UIAlertController(title: "Delete \(plannedexpense.name)?", message: "Are you sure you want to delete your Savings Goal? Everything you have contribued will go back into your account.", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            completion(true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            completion(false)
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
     /// This function changes the calculatedContributionLabel text if there aren't any savings goals
     @objc func changeCalculatedContributionlabel() {

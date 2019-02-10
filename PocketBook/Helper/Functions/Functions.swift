@@ -14,11 +14,13 @@ let view = UIView()
 
 
 // MARK: - Alert function
-func presentSimpleAlert(controllerToPresentAlert vc: UIViewController, title: String, message: String) {
+func presentSimpleAlert(controllerToPresentAlert vc: UIViewController, title: String, message: String, completion: @escaping (_ done: Bool) -> Void = {_ in}) {
     
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     
-    let dismissAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    let dismissAction = UIAlertAction(title: "OK", style: .default) { (_) in
+        completion(true)
+    }
     
     alert.addAction(dismissAction)
     
@@ -94,7 +96,7 @@ func removeCharactersFromTextField(_ textField: UITextField?) -> String {
     return finalString
 }
 
-/// Formats string to a double 
+/// Formats string to a double
 func formatNumberToString(fromDouble double: Double) -> String {
     
     var formattedNumber: String = ""

@@ -44,7 +44,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureUIWhenTheViewLoads()
+        setupView()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -131,7 +131,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - UI Preperation
-    func configureUIWhenTheViewLoads() {
+    func setupView() {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -146,6 +146,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction date
         if transaction != nil {
             guard let transaction = transaction else { return }
+            
+            if transaction.category == nil {
+                categoryLabel.isHidden = true
+                categoryTextField.isHidden = true
+            }
+            
             
             let stringAmount = formatNumberToString(fromDouble: transaction.amount)
             
@@ -204,7 +210,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         if textFieldBottomY > maximumY {
             // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
-            return textFieldBottomY - maximumY + 60
+            return textFieldBottomY - maximumY + 100
         } else {
             // It would go off the screen if moved, and it won't be obscured by the keyboard.
             return 0
