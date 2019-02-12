@@ -50,6 +50,4 @@ extension UISegmentedControl{
         UIGraphicsEndImageContext()
         return image!
     }
-    
-    
 }

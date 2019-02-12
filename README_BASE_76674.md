@@ -9,15 +9,6 @@ and often ask for your personal information. We don't believe in just being an a
 we want to be the place where you regularly interact and see the progress your making. By having to input every single transaction you input
 in a day, you will notice how much your spending and definitely start spending less.
 
-## Coming in version 1.2
-Version 1.2 is currently underway (Tentative Release date Feb. 28, 2019)
-- Implementing Silent Notifications to ensure everything is consistent across devices. 
-- Fixing issues with transactions charging an account twice. 
-- Adding the option to update a budget category in case you think it is wrong.
-- Fixing the layout across all device sizes. 
-- If you're using the app across multiple devices you won't be asked 100 times to reset you monthly budget because you already did it!!! 
-- Daily notifications to remind you to add your transactions for the day, and you get to pick the time!
-
 ## Privacy Policy
 Your information is yours alone and is stored safely under your iCloud account. No one has access to your information except you, so 
 be sure to keep everything up to date.
@@ -56,3 +47,9 @@ amount of information that could be shown. In the case of our Monthly Budget tab
 So, instead of guessing or forcing constraints for our labels and graphs we used programmatic constraints
 to ensure we always had a clean look. 
 
+Version 1.2 is currently underway (Tentative Release date Feb. 16, 2019)
+- Implementing Silent Notifications to ensure everything is consistent across devices. 
+- Fixing issues with transactions charging an account 2. 
+- Adding the option to update a budget category in case you think it is wrong.
+- Fixing the layout across all device sizes. 
+- Adding better user experience for people with credit cards.

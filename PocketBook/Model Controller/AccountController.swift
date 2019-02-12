@@ -77,7 +77,7 @@ class AccountController {
     }
     
     // MARK: - Update
-    func updateAccountWith(name: String, type: String, total: Double, account: Account, completion: @escaping (Account?) -> Void) {
+    func updateAccountWith(name: String, type: String, total: Double, account: Account, completion: @escaping (Account?) -> Void = {_ in}) {
         
         account.name = name
         account.accountType = type
@@ -93,7 +93,7 @@ class AccountController {
             }
             
             // Update the first Account that comes back
-            guard let record = records?.first else {return}
+            guard let record = records?.first else {completion(nil); return}
             let updatedAccount = Account(cloudKitRecord: record)
             completion(updatedAccount)
         })
@@ -135,6 +135,23 @@ class AccountController {
             let accounts = records.compactMap( {Account(cloudKitRecord: $0)})
             
             self.accounts = accounts
+        }
+    }
+    
+    /// Adds the amount to the account and then saves it to CloudKit
+    func addAmountToAccountWith(amount: Double, account: Account, completion: @escaping(_ complete: Bool) -> Void) {
+        account.total += amount
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (updatedAccount) in
+            guard updatedAccount != nil else {completion(false) ;return}
+            completion(true)
+        }
+    }
+    
+    func substractAmountFromAccountWith(amount: Double, account: Account, completion: @escaping(_ complete: Bool) -> Void = {_ in}) {
+        account.total -= amount
+        updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (updatedAccount) in
+            guard updatedAccount != nil else {completion(false) ;return}
+            completion(true)
         }
     }
 }

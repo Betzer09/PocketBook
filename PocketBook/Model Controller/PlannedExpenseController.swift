@@ -30,7 +30,7 @@ class PlannedExpenseController {
         self.cloudKitManager = CloudKitManager()
     }
     
-    //MARK: Total Deposited in Savings Goals
+    // MARK: - Methods
     /// This function adds up the total of all current planned expense savings goals
     func addUpTotalDepositedToSavings() -> Double {
         
@@ -42,14 +42,13 @@ class PlannedExpenseController {
     }
     
     
-    // MARK: Ideal Monthly Contribution
     
     /// This function calculates the total monthly contribtion needed for all planned expenses
     func calculateTotalMonthlyContribution() -> Double {
         
         var totalIdealContribution: Double = 0.0
         for plannedExpense in plannedExpenses {
-            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, currentAmount: plannedExpense.totalDeposited + plannedExpense.initialAmount),
+            guard let amountDifference = amountDifference(goalAmount: plannedExpense.goalAmount, currentAmount: plannedExpense.totalDeposited),
                 let calculatedMonthsToDueDate = calculatedMonthsToDueDate(dueDate: plannedExpense.dueDate, currentDate: Date()) else { return 0.0 }
             let monthlyContribution = (amountDifference / Double(calculatedMonthsToDueDate))
             totalIdealContribution += monthlyContribution
@@ -78,8 +77,8 @@ class PlannedExpenseController {
     }
 
     // MARK: - Create / Save
-    func createPlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, dueDate: Date, completion: ((PlannedExpense)-> Void)? ) {
-        let plannedExpense = PlannedExpense(name: name, account: account, dueDate: dueDate, initialAmount: initialAmount, goalAmount: goalAmount)
+    func createPlannedExpenseWith(name: String, account: String, goalAmount: Double, dueDate: Date, totalDeposited: Double, completion: ((PlannedExpense)-> Void)? ) {
+        let plannedExpense = PlannedExpense(name: name, account: account, dueDate: dueDate, goalAmount: goalAmount, totalDeposited: totalDeposited)
         plannedExpenses.append(plannedExpense)
         
         cloudKitManager.saveRecord(plannedExpense.cloudKitRecord) { (record, error) in
@@ -95,21 +94,26 @@ class PlannedExpenseController {
     }
     
     
-    // MARK: - Update an existing plannedExpense
-    func updatePlannedExpenseWith(name: String, account: String, initialAmount: Double, goalAmount: Double, amountDeposited: Double, amountWithdrawn: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void) {
+    // MARK: - Update
+    
+    func createPlannedExpenseTransaction(transaction: Transaction, account: Account, categoryName: String) {
+        TransactionController.shared.createTransactionWith(date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: TransactionType.expense , amount: transaction.amount, account: account.name)
+        TransactionController.shared.handlePlannedExpenseTransactionWtih(plannedexpense: categoryName, amount: transaction.amount, account: account)
+    }
+    
+    func updatePlannedExpenseWith(name: String, account: String, goalAmount: Double, totalDeposited: Double, dueDate: Date, plannedExpense: PlannedExpense, completion: @escaping (PlannedExpense?) -> Void = {_ in}) {
         
         plannedExpense.name = name
         plannedExpense.account = account
-        plannedExpense.initialAmount = initialAmount
         plannedExpense.goalAmount = goalAmount
-        plannedExpense.amountDeposited = amountDeposited
-        plannedExpense.amountWithdrawn = amountWithdrawn
-        plannedExpense.totalDeposited = totalDeposited
         plannedExpense.dueDate = dueDate
+        if totalDeposited < 0 {
+            plannedExpense.totalDeposited = 0
+        } else {
+            plannedExpense.totalDeposited = totalDeposited            
+        }
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
-            
-            // Get the first record
             guard let record = records?.first else {return}
             let updatedPlannedExpense = PlannedExpense(cloudKitRecord: record)
             completion(updatedPlannedExpense)
@@ -118,14 +122,37 @@ class PlannedExpenseController {
         
     }
     
+    func addAmountToTotalDeposited(amount: Double, plannedexpense: PlannedExpense) {
+        let total = plannedexpense.totalDeposited + amount
+        
+        updatePlannedExpenseWith(name: plannedexpense.name, account: plannedexpense.account, goalAmount: plannedexpense.goalAmount, totalDeposited: total, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
+        
+    }
+    
+    func subtractAmountoTotalDeposited(amount: Double, plannedexpense: PlannedExpense) {
+        let total = plannedexpense.totalDeposited - amount
+        
+        updatePlannedExpenseWith(name: plannedexpense.name, account: plannedexpense.account, goalAmount: plannedexpense.goalAmount, totalDeposited: total, dueDate: plannedexpense.dueDate, plannedExpense: plannedexpense)
+    }
+    
     // MARK: - Delete plannedExpense
+    // Removes Planned Expense when it has been completed
+    func remove(plannedexpense: PlannedExpense) {
+        cloudKitManager.deleteRecordWithID(plannedexpense.recordID) { (_, error) in
+            if let error = error {
+                debugPrint(error.localizedDescription)
+            }
+            
+            guard let index = self.plannedExpenses.firstIndex(of: plannedexpense) else {return}
+            self.plannedExpenses.remove(at: index)
+        }
+    }
     func delete(plannedExpense: PlannedExpense) {
         cloudKitManager.deleteRecordWithID(plannedExpense.recordID) { (_, error) in
             if let error = error {
                 print("Error deleting Planned Expense \(error.localizedDescription) in file: \(#file)")
                 return
             } else {
-                // FIXME: Modify the account
                 guard let indexForAccount = AccountController.shared.accounts.index(where: { $0.name == plannedExpense.account }) else {return}
                 let account = AccountController.shared.accounts[indexForAccount]
                 

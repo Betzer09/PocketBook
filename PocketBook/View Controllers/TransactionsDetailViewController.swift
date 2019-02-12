@@ -9,9 +9,9 @@
 import UIKit
 
 class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
- 
+    
     // MARK: - Outlets
-
+    
     @IBOutlet weak var transactionType: UISegmentedControl!
     @IBOutlet weak var payeeTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
@@ -39,13 +39,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - View LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-       setUpUI()
+        setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureUIWhenTheViewLoads()
-        customizeSegmentedControl()
+        setupView()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -86,7 +85,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         tabBarController.selectedIndex = 2
         
         saveTransaction()
-
+        
     }
     
     // MARK: - Account Picker Delegates
@@ -132,7 +131,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     // MARK: - UI Preperation
-    func configureUIWhenTheViewLoads() {
+    func setupView() {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -148,6 +147,12 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         if transaction != nil {
             guard let transaction = transaction else { return }
             
+            if transaction.category == nil {
+                categoryLabel.isHidden = true
+                categoryTextField.isHidden = true
+            }
+            
+            
             let stringAmount = formatNumberToString(fromDouble: transaction.amount)
             
             amountTextField.text = stringAmount
@@ -160,6 +165,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             let budgetItems = BudgetItemController.shared.budgetItems
             guard let selectedBugetItem = budgetItems.index(where: { $0.name == transaction.category }) else {return}
             categoryPicker.selectRow(selectedBugetItem, inComponent: 0, animated: true)
+            self.budgetItem = budgetItems[selectedBugetItem]
             
             let accounts = AccountController.shared.accounts
             guard let selectedAccount = accounts.index(where: { $0.name == transaction.account }) else {return}
@@ -207,7 +213,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             return textFieldBottomY - maximumY + 60
         } else {
             // It would go off the screen if moved, and it won't be obscured by the keyboard.
-            return 0
+            return 30
         }
     }
     
@@ -242,7 +248,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         stopEditingTextField()
     }
     
-   @objc func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
@@ -255,7 +261,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         dateFormatter.dateFormat = "MMM d, yyyy"
         let string = dateFormatter.string(from: date)
         return string
-
+        
     }
     
     func customizePayeeLabel() {
@@ -291,14 +297,14 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneCategoryPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissKeyboard))
-     
+        
         toolbar.setItems([cancelButton, spaceButton,doneButton], animated: false)
         categoryTextField.inputAccessoryView = toolbar
         categoryTextField.inputView = categoryPicker
         
-
+        
     }
-
+    
     func showDatePicker() {
         if transaction == nil {
             dueDatePicker.date = Date()
@@ -345,9 +351,13 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         let category = BudgetItemController.shared.budgetItems.map({ $0.name })
         let plannedExpens = PlannedExpenseController.shared.plannedExpenses.map({ $0.name })
         
-        let names = category + plannedExpens
-
-        categoryTextField.text = names[categoryPicker.selectedRow(inComponent: 0)]
+        let categories = category + plannedExpens
+        let categoryname = categories[categoryPicker.selectedRow(inComponent: 0)]
+    
+        
+        categoryTextField.text = categoryname
+        
+        self.budgetItem = BudgetItemController.shared.budgetItems.first(where: { $0.name == categoryname })
         self.view.endEditing(true)
     }
     
@@ -377,7 +387,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         // Check for an old transaction
         if let oldTransaction = transaction {
-            TransactionController.shared.delete(transaction: oldTransaction) { (success) in
+            TransactionController.shared.delete(transaction: oldTransaction, removeFromSourceOfTruth: true) { (success) in
                 guard success else {return}
                 DispatchQueue.main.async {
                     self.createTransaction()
@@ -386,7 +396,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         } else {
             self.createTransaction()
         }
-            navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     private func createTransaction() {
@@ -405,42 +415,57 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please re-enter amount using numbers")
             return
         }
-
         
+        // If fields aren't acceptable return
+        guard checkTransactionFields() else {return}
+        
+        
+        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
+        
+        // Create a transaction and adjust budget item
+        let transactiontype = checkTransactionType()
+        
+        
+        guard let budgetItem = budgetItem else {
+            // If we fall in here we have a planned expense transaction
+            let transaction = Transaction(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: nil, payee: categoryName, transactionType: TransactionType.expense.rawValue , amount: amountToSave, account: account.name)
+            PlannedExpenseController.shared.createPlannedExpenseTransaction(transaction: transaction, account: account, categoryName: categoryName)
+            return
+        }
+        
+        TransactionController.shared.handleIncomeAndExpenseTransaction(transactiontype: transactiontype, amount: amountToSave, account: account, budgetItem: budgetItem)
+        
+        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: dueDatePicker.date, category: categoryName, payee: payee, transactionType: transactiontype , amount: amountToSave, account: account.name)
+    }
+    
+    func checkTransactionFields() -> Bool {
+        var areFieldsAcceptable = false
         if categoryTextField.text == "Choose Category" && accountTextField.text == "Choose Account" {
-            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions")
-                return
+            presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category and an account. If you haven't created categories or accounts yet, you must create both before you can start creating transactions.")
         } else if categoryTextField.text == "Choose Category" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select a category. If you haven't created categories yet, please create at least one category before creating a transaction")
-                return
         } else if accountTextField.text == "Choose Account" {
             presentSimpleAlert(controllerToPresentAlert: self, title: "Error", message: "Please select an account. If you haven't created an account yet, you must create at least one account before you can create transactions")
-                return
+        } else {
+            areFieldsAcceptable = true
         }
-       
         
+        return areFieldsAcceptable
+    }
+    
+    func checkTransactionType() -> TransactionType {
         var typestring: TransactionType
-        if transactionType.titleForSegment(at: 0) == TransactionType.expense.rawValue {
+        if transactionType.selectedSegmentIndex == 0 {
             typestring = TransactionType.expense
         } else {
             typestring = TransactionType.income
         }
         
-        let account = AccountController.shared.accounts[accountPicker.selectedRow(inComponent: 0)]
-        
-        
-        TransactionController.shared.createTransactionWith(date: dueDatePicker.date, monthYearDate: returnFormattedDate(date: dueDatePicker.date), category: categoryName , payee: payee, transactionType: typestring.rawValue, amount: amountToSave, account: accountName, completion: { (transaction) in
-            
-            if let _ = transaction.category {
-                // This is a transaction
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: typestring, account: account, budgetItem: self.budgetItem, difference: transaction.amount)
-                
-            } else {
-                // this is a planned expense
-                BudgetItemController.shared.configureMonthlyBudgetExpensesForBudgetItem(transaction: transaction, transactionType: typestring, account: account, budgetItem: nil, difference: transaction.amount)
-                
-            }
-        })
+        return typestring
+    }
+    
+    func findPlannedExpenseWith(category name: String) -> PlannedExpense? {
+        return PlannedExpenseController.shared.plannedExpenses.first(where: { $0.name.lowercased() == name.lowercased() })
     }
 }
 

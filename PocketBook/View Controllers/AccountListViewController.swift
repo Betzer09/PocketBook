@@ -82,7 +82,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         updateTotalLabel()
         createPlusButton()
         createQuestionMarkButton()
-        roundButtons()
         configureNavigationBar()
     }
     
@@ -238,12 +237,16 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Setup TableView
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let titleSectionHeader = self.tableView(self.tableView, titleForHeaderInSection: section) else { return nil }
         return setUpTableViewHeader(withTableView: tableView, withSection: section, withSectionHeaderTitle: titleSectionHeader)
     }
-        
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard let checkingArray = self.checkingArray,
@@ -384,7 +387,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     func createDepositTransaction(with amount: Double, account: Account, completion: @escaping(_ success: Bool) -> Void) {
         let todaysdate = Date()
         
-        TransactionController.shared.createTransactionWith(date: todaysdate, monthYearDate: returnFormattedDate(date: todaysdate), category: nil, payee: "Payday", transactionType: TransactionType.income.rawValue, amount: amount, account: account.name) { (_) in
+        TransactionController.shared.createTransactionWith(date: todaysdate, monthYearDate: returnFormattedDate(date: todaysdate), category: nil, payee: "Payday", transactionType: TransactionType.income, amount: amount, account: account.name) { (_) in
             completion(true)
         }
     }
@@ -468,16 +471,6 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             presentSimpleAlert(controllerToPresentAlert: self, title: "Warning!", message: "You are either not signed into iCloud or you are out of iCloud space, which means your data will not be saved!")
         }
     }
-    
-    func roundButtons() {
-        transferFundsButton.layer.cornerRadius = transferFundsButton.frame.height/4
-        payDayButton.layer.cornerRadius = payDayButton.frame.height/4
-        incomeDetailCancelButton.layer.cornerRadius = incomeDetailCancelButton.frame.height/4
-        depositButton.layer.cornerRadius = depositButton.frame.height/4
-        transferButton.layer.cornerRadius = transferButton.frame.height/4
-        transferViewCancelButton.layer.cornerRadius = transferViewCancelButton.frame.height/4
-    }
-    
     func createPlusButton() {
         let button = UIButton()
         button.clipsToBounds = true
@@ -596,7 +589,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             presentResetMonthlyBudgetAlert()
             let plannedExpenses = PlannedExpenseController.shared.plannedExpenses
             for plannedExpense in plannedExpenses {
-                plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited + plannedExpense.initialAmount)
+                plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited)
             }
         }
         if dateMonth < currentMonth {
@@ -607,9 +600,9 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             for plannedExpense in plannedExpenses {
                 if plannedExpense.monthlyTotals.count == 12 {
                     plannedExpense.monthlyTotals.remove(at: 11)
-                    plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited + plannedExpense.initialAmount)
+                    plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited)
                 } else {
-                    plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited + plannedExpense.initialAmount)
+                    plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited)
                 }
             }
         } else {

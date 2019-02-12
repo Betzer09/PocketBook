@@ -16,17 +16,27 @@ class CategroyTableViewCell: UITableViewCell {
     @IBOutlet weak var progressBarDescriptionLabel: UILabel!
     
     func updateCell(budgetItem: BudgetItem) {
-        guard let totalAlloted = budgetItem.totalAllotted else {return}
         categoryNameLabel.text = budgetItem.name.lowercased().capitalized
         configureProgressBar(withBudgetItem: budgetItem)
-        progressBarDescriptionLabel.text = "\(formatNumberToString(fromDouble: budgetItem.spentTotal)) / \(formatNumberToString(fromDouble: totalAlloted))"
+        let total = decideWhichTotalToUseWith(budgetItem: budgetItem)
+        progressBarDescriptionLabel.text = "\(formatNumberToString(fromDouble: budgetItem.spentTotal)) / \(formatNumberToString(fromDouble: total))"
     }
     
     func configureProgressBar(withBudgetItem budgetItem: BudgetItem ) {
         self.progressBar.progress = 0
         self.progressBar.progressTintColor = .blue3
         progressBar.transform = CGAffineTransform.init(scaleX: 1, y: 10)
-        self.progressBar.progress = Float(budgetItem.spentTotal) / Float(budgetItem.allottedAmount)
+        let total = decideWhichTotalToUseWith(budgetItem: budgetItem)
+        self.progressBar.progress = Float(budgetItem.spentTotal) / Float(total)
+    }
+    
+    func decideWhichTotalToUseWith(budgetItem: BudgetItem) -> Double {
+        guard let totalAllotted = budgetItem.totalAllotted else {fatalError()}
+        var total = budgetItem.allottedAmount
+        if totalAllotted > budgetItem.allottedAmount{
+            total = totalAllotted
+        }
+        return total
     }
         
 }

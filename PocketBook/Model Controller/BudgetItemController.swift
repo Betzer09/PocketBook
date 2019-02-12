@@ -49,7 +49,7 @@ class BudgetItemController {
     
     // MARK: - Modificiation / Update
     
-    func updateBudgetWith(name: String, spentTotal: Double, totalAlloted: Double? = nil, allottedAmount: Double, budgetItem: BudgetItem, completion: @escaping(BudgetItem?) -> Void) {
+    func updateBudgetWith(name: String, spentTotal: Double, totalAlloted: Double? = nil, allottedAmount: Double, budgetItem: BudgetItem, completion: @escaping(BudgetItem?) -> Void = {_ in}) {
         
         budgetItem.name = name
         budgetItem.spentTotal = spentTotal
@@ -65,7 +65,7 @@ class BudgetItemController {
                 return
             }
             
-            guard let record = records?.first else {return}
+            guard let record = records?.first else {completion(nil) ;return}
             let updatedBudgetItem = BudgetItem(cloudKitRecord: record)
             completion(updatedBudgetItem)
         }
@@ -89,9 +89,7 @@ class BudgetItemController {
         let budgetItems = BudgetItemController.shared.budgetItems
         for budgetItem in budgetItems {
             budgetItem.spentTotal = 0
-            updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in
-                //TODO: FIX ME
-            })
+            updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
         }
     }
     
@@ -122,89 +120,31 @@ class BudgetItemController {
     }
     
     // MARK: - Methods
-    
-    /// Configures the monthly budget for the budgetItem
-    public func configureMonthlyBudgetExpensesForBudgetItem(transaction: Transaction, transactionType: TransactionType, account: Account, budgetItem: BudgetItem?, difference: Double = 0,
-                                                            completion: @escaping (_ success: Bool) -> Void = {_ in} ) {
-        
-        // We want to check the current date with transaction date for both planned Expenses and transactions
-        let transactionMonth = dateComponentMonth(date: transaction.date)
-        let currentMonth = dateComponentMonth(date: Date())
-        
-        if transactionType == .removePlannedExpense {
-            account.total += transaction.amount
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (account) in
-                guard let _ = account else {completion(false); return}
-                completion(true)
-            })
-            return
-        }
-        
-        guard let budgetItem = budgetItem else {return}
-        
-        if transactionType == .expense {
-            account.total -= difference
-            
-            if transactionMonth == currentMonth {
-                budgetItem.spentTotal += difference
-            }
-            
-            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (updatedBudgetItem) in
-                guard let _ = updatedBudgetItem else {
-                    completion(false)
-                    return
-                }
-                AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (account) in
-                    guard let _ = account else {completion(false); return}
-                    completion(true)
-                }
-            })
-            
-        }
-        
-        if transactionType == .income {
-            account.total += transaction.amount
-            if transactionMonth == currentMonth {
-                guard let totalAlloted = budgetItem.totalAllotted else {return}
-                budgetItem.totalAllotted = totalAlloted + transaction.amount
-            }
-            
-            
-            BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (updatedBudgetItem) in
-                
-                guard let _ = updatedBudgetItem else {completion(false) ;return}
-                AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (account) in
-                    guard let _ = account else {return}
-                    completion(true)
-                }
-            })
-            
-        }
-        
-        if transactionType == .removeIncome {
-            if transactionMonth == currentMonth {
-                guard let totalAllotted = budgetItem.totalAllotted else {return}
-                budgetItem.totalAllotted = totalAllotted - transaction.amount
-                BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
-            }
-            account.total -= transaction.amount
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in
-                completion(true)
-            })
-        }
-        
-        if transactionType == .removeExpense {
-            if transactionMonth == currentMonth {
-                budgetItem.spentTotal -= transaction.amount
-                BudgetItemController.shared.updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem, completion: { (_) in })
-            }
-            account.total += transaction.amount
-            AccountController.shared.updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account, completion: { (_) in
-                completion(true)
-            })
-        }
-        
+    func addSpentTotalAmountToBudgetItem(amount: Double, budgetItem: BudgetItem) {
+        budgetItem.spentTotal += amount
+        updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
     }
     
+    /// Subtracts whatever the amount is from the spent total
+    func substractSpentTotalAmountFromBudgetItem(amount: Double, budgetItem: BudgetItem) {
+        budgetItem.spentTotal -= amount
+        updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
+    }
+    
+    
+    func addTotalAllotedAmountToBudgetItem(amount: Double, budgetItem: BudgetItem) {
+        guard let totalAlloted = budgetItem.totalAllotted else {return}
+        let newTotal = totalAlloted + amount
+        budgetItem.totalAllotted = newTotal
+        updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
+    }
+    
+    /// Subtracts whatever the amount is from the totalAlloted
+    func substractTotalAllotedAmountFromBudgetItem(amount: Double, budgetItem: BudgetItem) {
+        guard let totalAlloted = budgetItem.totalAllotted else {return}
+        let newTotal = totalAlloted - amount
+        budgetItem.totalAllotted = newTotal
+        updateBudgetWith(name: budgetItem.name, spentTotal: budgetItem.spentTotal, allottedAmount: budgetItem.allottedAmount, budgetItem: budgetItem)
+    }
 }
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */; };
+		232840ED220FB91C004121DF /* ButtonTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232840EC220FB91C004121DF /* ButtonTheme.swift */; };
 		23DD43071FB210FA008DCE5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD43061FB210FA008DCE5B /* AppDelegate.swift */; };
 		23DD430E1FB210FA008DCE5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430D1FB210FA008DCE5B /* Assets.xcassets */; };
 		23DD43111FB210FA008DCE5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23DD430F1FB210FA008DCE5B /* LaunchScreen.storyboard */; };
@@ -65,7 +65,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardFunctions.swift; sourceTree = "<group>"; };
+		232840EC220FB91C004121DF /* ButtonTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTheme.swift; sourceTree = "<group>"; };
 		23DD43031FB210FA008DCE5B /* PocketBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DD43061FB210FA008DCE5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23DD430D1FB210FA008DCE5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,6 +137,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232840EE220FB92A004121DF /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				9255C39F1FBA8024002EBE5D /* Theme.swift */,
+				232840EC220FB91C004121DF /* ButtonTheme.swift */,
+				F551BE881FCCD2690000CFC5 /* Extensions.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		232840EF220FB99A004121DF /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				92993C4D1FB3AF0000D22373 /* LineGraphView.swift */,
+				92993C4F1FB3AF2300D22373 /* PieChartView.swift */,
+				92993C881FB4C58300D22373 /* Keys.swift */,
+				92993C8A1FB4E1FA00D22373 /* Notifications.swift */,
+				23E261BA21646D160043E20D /* UserNotificationHelper.swift */,
+			);
+			path = Graphs;
+			sourceTree = "<group>";
+		};
+		232840F0220FB9AA004121DF /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				92E6603E1FB5531500D871BE /* Test.swift */,
+				9291F09B1FBA1AD700114CD1 /* Functions.swift */,
+				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
+				23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */,
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
 		23DD42FA1FB210FA008DCE5B = {
 			isa = PBXGroup;
 			children = (
@@ -233,18 +266,9 @@
 		92993C4A1FB3936C00D22373 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				92993C4D1FB3AF0000D22373 /* LineGraphView.swift */,
-				92993C4F1FB3AF2300D22373 /* PieChartView.swift */,
-				92993C881FB4C58300D22373 /* Keys.swift */,
-				92993C8A1FB4E1FA00D22373 /* Notifications.swift */,
-				92E6603E1FB5531500D871BE /* Test.swift */,
-				9291F09B1FBA1AD700114CD1 /* Functions.swift */,
-				9255C39F1FBA8024002EBE5D /* Theme.swift */,
-				9255C3A31FBB5DFB002EBE5D /* Globals.swift */,
-				23BEFDFC1FBD0D8300A37552 /* KeyBoardFunctions.swift */,
-				F551BE881FCCD2690000CFC5 /* Extensions.swift */,
-				23E261BA21646D160043E20D /* UserNotificationHelper.swift */,
-				23DD433E1FB25A33008DCE5B /* CloudKitManager.swift */,
+				232840EE220FB92A004121DF /* Design */,
+				232840EF220FB99A004121DF /* Graphs */,
+				232840F0220FB9AA004121DF /* Functions */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -266,14 +290,14 @@
 				92993C7F1FB4C3EE00D22373 /* Analysis ViewControllers */,
 				928722121FBD00D200DD0555 /* AccountListViewController.swift */,
 				D38EF9721FB230950035B5E3 /* AccountDetailsViewController.swift */,
+				92B122B11FCF8D3E003E4ECF /* TransactionListViewController.swift */,
+				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
+				92B122B31FD05620003E4ECF /* PlannedExpenseListViewController.swift */,
+				D38EF97A1FB230950035B5E3 /* PlannedExpenseDetailViewController.swift */,
 				D38EF9741FB230950035B5E3 /* MonthlyBudgetViewController.swift */,
 				D314F1311FB37BC20051C5BE /* CustomTabBarViewController.swift */,
-				D38EF97A1FB230950035B5E3 /* PlannedExpenseDetailViewController.swift */,
-				D38EF9781FB230950035B5E3 /* TransactionsDetailViewController.swift */,
 				F56631351FCCF55D0082FF70 /* OnboardingViewController.swift */,
 				F566313B1FCF11F90082FF70 /* InstructionsViewController.swift */,
-				92B122B11FCF8D3E003E4ECF /* TransactionListViewController.swift */,
-				92B122B31FD05620003E4ECF /* PlannedExpenseListViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -382,7 +406,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23BEFDFD1FBD0D8300A37552 /* KeyBoardFunctions.swift in Sources */,
 				D38EF9831FB230950035B5E3 /* PlannedExpenseDetailViewController.swift in Sources */,
 				23EE8A041FB65032008928D4 /* TransactionTableViewCell.swift in Sources */,
 				928722131FBD00D200DD0555 /* AccountListViewController.swift in Sources */,
@@ -408,6 +431,7 @@
 				D3DB42D21FB63555000D717B /* plannedExpenseTableViewCell.swift in Sources */,
 				92993C851FB4C45600D22373 /* BudgetLineGraphViewController.swift in Sources */,
 				23E261BB21646D160043E20D /* UserNotificationHelper.swift in Sources */,
+				232840ED220FB91C004121DF /* ButtonTheme.swift in Sources */,
 				F56631361FCCF55D0082FF70 /* OnboardingViewController.swift in Sources */,
 				92B122B41FD05620003E4ECF /* PlannedExpenseListViewController.swift in Sources */,
 				F5FF295B1FBE6AA30012AA24 /* CategoryTableViewCell.swift in Sources */,
