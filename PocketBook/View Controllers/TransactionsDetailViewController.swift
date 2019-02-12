@@ -210,10 +210,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         if textFieldBottomY > maximumY {
             // This makes the view shift the right amount to have the text field being edited 60 points above they keyboard if it would have been covered by the keyboard.
-            return textFieldBottomY - maximumY + 100
+            return textFieldBottomY - maximumY + 60
         } else {
             // It would go off the screen if moved, and it won't be obscured by the keyboard.
-            return 0
+            return 30
         }
     }
     
