@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a7c-RU-71q">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Loading Screen View Controller-->
+        <scene sceneID="DeW-bg-6Wn">
+            <objects>
+                <viewController storyboardIdentifier="LoadingVC" id="a7c-RU-71q" customClass="LoadingScreenViewController" customModule="PocketBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aqS-ka-GzU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pocketbookIcon" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-Vp-ASl">
+                                <rect key="frame" x="112.66666666666669" y="350" width="150" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="112" id="87h-e5-MEh"/>
+                                    <constraint firstAttribute="width" constant="150" id="nvz-KS-MIu"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are getting things ready. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="oHE-nn-Trd">
+                                <rect key="frame" x="37.666666666666657" y="478" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="biT-kV-QSg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.49999988079071045" green="0.7811623215675354" blue="0.99317485094070435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="QFf-Vp-ASl" firstAttribute="centerX" secondItem="aqS-ka-GzU" secondAttribute="centerX" id="AEs-Qm-kC6"/>
+                            <constraint firstItem="oHE-nn-Trd" firstAttribute="top" secondItem="QFf-Vp-ASl" secondAttribute="bottom" constant="16" id="WGk-Sp-GN5"/>
+                            <constraint firstItem="oHE-nn-Trd" firstAttribute="width" secondItem="QFf-Vp-ASl" secondAttribute="width" multiplier="2" id="hSZ-bi-PVg"/>
+                            <constraint firstItem="QFf-Vp-ASl" firstAttribute="centerY" secondItem="aqS-ka-GzU" secondAttribute="centerY" id="j6P-Xa-fdL"/>
+                            <constraint firstItem="oHE-nn-Trd" firstAttribute="centerX" secondItem="aqS-ka-GzU" secondAttribute="centerX" id="x19-El-pi8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yJY-v1-Kr8"/>
+                    </view>
+                    <connections>
+                        <outlet property="lblGettingThingsReady" destination="oHE-nn-Trd" id="rXH-nA-AiT"/>
+                        <outlet property="pocketbookView" destination="QFf-Vp-ASl" id="yUd-iS-RXo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vHh-v0-06i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-63" y="299"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pocketbookIcon" width="664" height="495"/>
+    </resources>
+</document>

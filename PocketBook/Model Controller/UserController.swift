@@ -49,9 +49,10 @@ class UserController {
     }
     
     // MARK: - Update
-    func updateUserWith(projectedIncome: Double, user: User, completion: @escaping (User?) -> Void) {
+    func updateUserWith(projectedIncome: Double, user: User, hasResetMonthBudget: Bool?, completion: @escaping (User?) -> Void = {_ in}) {
         
         user.projectedIncome = projectedIncome
+        user.hasResetMonthlyBudget = hasResetMonthBudget
         
         cloudKitManager.modifyRecords([user.cloudKitRecord], perRecordCompletion: nil, completion: { (records, error) in
             
@@ -69,6 +70,24 @@ class UserController {
         })
     }
     
+    func update(hasResetMontlyBudget: Bool) {
+        guard let user = user else {
+            return
+            
+        }
+        user.hasResetMonthlyBudget = hasResetMontlyBudget
+        
+        cloudKitManager.modifyRecords([user.cloudKitRecord], perRecordCompletion: nil, completion: { (_, error) in
+            
+            // Check for an error
+            if let error = error {
+                print("Error saving new records: \(error.localizedDescription) in file: \(#file)")
+                return
+            }
+        })
+        
+    }
+    
     // MARK: - Delete
     func delete(user: User) {
         
@@ -83,7 +102,7 @@ class UserController {
     }
     
     // MARK: - Fetch the data from cloudKit
-    func fetchUserFromCloudKit() {
+    func fetchUserFromCloudKit(completion: @escaping(_ complete: Bool) -> Void = {_ in}) {
         
         // Get all of the users
         let predicate = NSPredicate(value: true)
@@ -97,15 +116,17 @@ class UserController {
             // Check for an error
             if let error = error {
                 print("Error fetching the Users Data: \(error.localizedDescription) in file: \(#file)")
+                completion(false)
             }
             
-            guard let records = records else {NSLog("There were no User Records found \(#file)");  return}
+            guard let records = records else {NSLog("There were no User Records found \(#file)");  completion(false) ;return}
             
             // There should only ever be one user
             let user = records.compactMap({User(cloudKitRecord: $0)})
             
             // Assign the value with the user that comes back
             self.user = user.first
+            completion(true)
             
         }
     }

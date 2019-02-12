@@ -14,6 +14,7 @@ class User {
     // MARK: - Properties
     var projectedIncome: Double
     let recordID: CKRecordID
+    var hasResetMonthlyBudget: Bool?
     
     init(projectedIncome: Double) {
         self.projectedIncome = projectedIncome
@@ -25,14 +26,17 @@ class User {
         
         let record = CKRecord(recordType: Keys.recordUserType, recordID: recordID)
         record.setValue(projectedIncome, forKey: Keys.projectedIncomeKey)
+        record.setValue(hasResetMonthlyBudget, forKey: Keys.hasResetMonthlyBudget)
         return record
     }
     
     // MARK: - Failiable initializer with cloudKitRecord
     init?(cloudKitRecord: CKRecord) {
         
-        guard let projectedIncome = cloudKitRecord[Keys.projectedIncomeKey] as? Double else { return nil }
+        guard let projectedIncome = cloudKitRecord[Keys.projectedIncomeKey] as? Double,
+        let hasResetMonthlyBudget = cloudKitRecord[Keys.hasResetMonthlyBudget] as? Bool? else { return nil }
         self.projectedIncome = projectedIncome
+        self.hasResetMonthlyBudget = hasResetMonthlyBudget
         self.recordID = cloudKitRecord.recordID
     }
 }

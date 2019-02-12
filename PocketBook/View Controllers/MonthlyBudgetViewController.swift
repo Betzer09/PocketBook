@@ -463,7 +463,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
             UserController.shared.createUser(withProjectedIncome: income, completion: nil)
         } else {
             guard let user = UserController.shared.user else {NSLog("There is no User"); return}
-            UserController.shared.updateUserWith(projectedIncome: income, user: user, completion: { (_) in })
+            UserController.shared.updateUserWith(projectedIncome: income, user: user, hasResetMonthBudget: user.hasResetMonthlyBudget ?? nil, completion: { (_) in })
             self.projectedIncome = income
         }
     }

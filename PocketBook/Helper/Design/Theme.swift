@@ -30,6 +30,10 @@ var colors: [UIColor] = [
 
 extension UIColor {
     
+    static var backgroundBlue: UIColor {
+        return UIColor(red: 127 / 255, green: 199 / 255, blue: 253 / 255, alpha: 1)
+    }
+    
     static var  blue1: UIColor {
         return UIColor(red: 44.0/255.0, green: 52.0/255.0, blue: 87.0/255.0, alpha: 1.0)
     }

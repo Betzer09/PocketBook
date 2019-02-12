@@ -534,9 +534,12 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Alert Methods
     func presentResetMonthlyBudgetAlert() {
         let alertController = UIAlertController(title: "Reset Budget Categories", message: "It is a new Month! Would you like to reset each of your budget categories to show no money spent?", preferredStyle: .alert)
+        guard let user = UserController.shared.user else {return}
         
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (_) in
             BudgetItemController.shared.resetSpentTotal()
+            
+            UserController.shared.updateUserWith(projectedIncome: user.projectedIncome, user: user, hasResetMonthBudget: true)
         }
         let noAction = UIAlertAction(title: "No", style: .default) { (_) in
             var monthString = ""
@@ -559,6 +562,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
                 //"yyyy-MM-dd"
                 print(date)
                 
+                UserController.shared.updateUserWith(projectedIncome: user.projectedIncome, user: user, hasResetMonthBudget: true)
                 self.saveDate(date: date)
             }
         }
@@ -573,17 +577,22 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     func loadAndCheckDate() {
         let userDefaults = UserDefaults.standard
         guard let dateDictionary = userDefaults.object(forKey: Keys.dateDictionaryKey) as? [String: Date],
-            let date = dateDictionary[Keys.dateDictionaryKey] else {
+            let date = dateDictionary[Keys.dateDictionaryKey], let user = UserController.shared.user, let hasResetMonthlyBudget = user.hasResetMonthlyBudget else {
                 let lastTimeAppWasOpened = Date()
+                UserController.shared.update(hasResetMontlyBudget: false)
                 saveDate(date: lastTimeAppWasOpened)
-                return}
+                return
+        }
+        
         let currentDate = Date()
         let currentMonth = dateComponentMonth(date: currentDate)
         let currentYear = dateComponentYear(date: currentDate)
         let dateMonth = dateComponentMonth(date: date)
         let dateYear = dateComponentYear(date: date)
         
-        if dateYear < currentYear {
+        // Checks to see if we are in a new year
+        print(hasResetMonthlyBudget)
+        if dateYear < currentYear && hasResetMonthlyBudget == false {
             let lastTimeAppWasOpened = Date()
             saveDate(date: lastTimeAppWasOpened)
             presentResetMonthlyBudgetAlert()
@@ -592,7 +601,9 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
                 plannedExpense.monthlyTotals.append(plannedExpense.totalDeposited)
             }
         }
-        if dateMonth < currentMonth {
+        
+        // Checks to see if we are in a new month
+        if dateMonth < currentMonth && hasResetMonthlyBudget == false {
             presentResetMonthlyBudgetAlert()
             let lastTimeAppWasOpened = Date()
             saveDate(date: lastTimeAppWasOpened)

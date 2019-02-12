@@ -54,6 +54,7 @@ struct Keys {
     
     // MARK: - Users Model Keys
     static let projectedIncomeKey = "projectedIncome"
+    static let hasResetMonthlyBudget = "hasResetMonthlyBudget"
     static let recordUserType = "User"
     
     // MARK: - User Defaults Keys

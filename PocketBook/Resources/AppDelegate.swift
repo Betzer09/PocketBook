@@ -14,19 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        AccountController.shared.fetchAccountsFromCloudKit()
-        BudgetItemController.shared.fetchBugetItemFromCloudKit()
-        TransactionController.shared.fetchTransActionsFromCloudKit()
-        PlannedExpenseController.shared.fetchPlannedExpensesFromCloudKit()
-        UserController.shared.fetchUserFromCloudKit()
-        
-        
-        
+                
         UserDefaults.standard.register(defaults: ["onboarding" : false])
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let onboardingStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
-        let mainStoryboard = UIStoryboard(name: "OverviewTabBar", bundle: nil)
+        let loadingScreenVC = UIStoryboard(name: "LoadingScreen", bundle: nil)
         var viewController: UIViewController
 
         if (UserDefaults.standard.bool(forKey: "onboarding")) == false {
@@ -36,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             viewController = onboardingStoryboard.instantiateViewController(withIdentifier: "Onboarding")
         } else {
             // Show main screen
-            viewController = mainStoryboard.instantiateInitialViewController()!
+            viewController = loadingScreenVC.instantiateInitialViewController()!
         }
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()

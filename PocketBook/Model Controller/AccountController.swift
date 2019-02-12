@@ -113,7 +113,7 @@ class AccountController {
     }
     
     // MARK: - Fetch the data from cloudKit
-    func fetchAccountsFromCloudKit() {
+    func fetchAccountsFromCloudKit(completion: @escaping(_ complete: Bool) -> Void = {_ in}) {
         
         // Get all of the accounts
         let predicate = NSPredicate(value: true)
@@ -127,14 +127,16 @@ class AccountController {
             // Check for an errror
             if let error = error {
                 print("Error fetching the Accounts Data: \(error.localizedDescription) in file: \(#file)")
+                completion(false)
             }
             
-            guard let records = records else {return}
+            guard let records = records else {completion(false) ;return}
             
             // Send the accounts through the cloudKit Initilizer
             let accounts = records.compactMap( {Account(cloudKitRecord: $0)})
             
             self.accounts = accounts
+            completion(true)
         }
     }
     
