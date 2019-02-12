@@ -65,7 +65,7 @@ class BudgetItemController {
                 return
             }
             
-            guard let record = records?.first else {return}
+            guard let record = records?.first else {completion(nil) ;return}
             let updatedBudgetItem = BudgetItem(cloudKitRecord: record)
             completion(updatedBudgetItem)
         }

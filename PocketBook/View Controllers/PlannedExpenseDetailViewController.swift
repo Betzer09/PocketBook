@@ -258,8 +258,10 @@ class PlannedExpenseDetailViewController: UIViewController, UIPickerViewDelegate
                 return
             }
             
-            PlannedExpenseController.shared.subtractAmountoTotalDeposited(amount: withdrawAmount, plannedexpense: plannedexpense)
-            AccountController.shared.addAmountToAccountWith(amount: withdrawAmount, account: account)
+            AccountController.shared.addAmountToAccountWith(amount: withdrawAmount, account: account) { (complete) in
+                guard complete else {return}
+                PlannedExpenseController.shared.subtractAmountoTotalDeposited(amount: withdrawAmount, plannedexpense: plannedexpense)
+            }
             
             
             presentSimpleAlert(controllerToPresentAlert: self, title: "Success",

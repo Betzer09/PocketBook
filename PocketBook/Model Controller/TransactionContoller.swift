@@ -75,7 +75,7 @@ class TransactionController {
     }
     
     // MARK: - Delete
-    func delete(transaction: Transaction, completion: @escaping(_ success: Bool) -> Void = {_ in}) {
+    func delete(transaction: Transaction, removeFromSourceOfTruth: Bool = false, completion: @escaping(_ success: Bool) -> Void = {_ in}) {
         
         cloudKitManager.deleteRecordWithID(transaction.recordID) { (_, error) in
             
@@ -85,20 +85,29 @@ class TransactionController {
                 return
             }
             
+            if removeFromSourceOfTruth {
+                guard let index = self.transactions.firstIndex(of: transaction) else {completion(false) ;return}
+                self.transactions.remove(at: index)
+            }
+            
             guard let account = AccountController.shared.accounts.first(where: { $0.name == transaction.account })
                 else { completion(false) ;return }
             
             let budgetItems = BudgetItemController.shared.budgetItems
             
             if budgetItems.contains(where: { $0.name == transaction.category }) {
-                self.handleIncomeAndExpenseTransactionsWith(budgetItems: budgetItems, transaction: transaction, account: account)
+                self.handleIncomeAndExpenseTransactionsWith(budgetItems: budgetItems, transaction: transaction, account: account, completion: { (complete) in
+                    guard complete else {completion(false) ;return}
+                    completion(true)
+                })
             } else if transaction.category == nil && transaction.payee == "Payday"{
                 self.handlePaydayTransaction(transaction: transaction, account: account)
+                completion(true)
             } else {
                 self.handlePlannedExpenseDepositDeletion(category: transaction.payee, transaction: transaction.amount, account: account)
+                completion(true)
             }
             
-            completion(true)
         }
     }
     
@@ -106,24 +115,31 @@ class TransactionController {
         guard let plannedexpense = PlannedExpenseController.shared.plannedExpenses.first(where: { $0.name == category })
             else {return}
         
-        AccountController.shared.addAmountToAccountWith(amount: amount, account: account)
-        PlannedExpenseController.shared.subtractAmountoTotalDeposited(amount: amount, plannedexpense: plannedexpense)
+        AccountController.shared.addAmountToAccountWith(amount: amount, account: account) { (complete) in
+            guard complete else {return}
+            PlannedExpenseController.shared.subtractAmountoTotalDeposited(amount: amount, plannedexpense: plannedexpense)
+        }
     }
     func handleIncomeAndExpenseTransaction(transactiontype: TransactionType, amount: Double, account: Account, budgetItem: BudgetItem) {
         if transactiontype == TransactionType.income {
-            AccountController.shared.addAmountToAccountWith(amount: amount, account: account)
-            BudgetItemController.shared.addTotalAllotedAmountToBudgetItem(amount: amount, budgetItem: budgetItem)
+            AccountController.shared.addAmountToAccountWith(amount: amount, account: account) { (complete) in
+                guard complete else {return}
+                BudgetItemController.shared.addTotalAllotedAmountToBudgetItem(amount: amount, budgetItem: budgetItem)
+            }
         } else {
-            AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account)
-            BudgetItemController.shared.addSpentTotalAmountToBudgetItem(amount: amount, budgetItem: budgetItem)
+            AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account) { (complete) in
+                guard complete else {return}
+                BudgetItemController.shared.addSpentTotalAmountToBudgetItem(amount: amount, budgetItem: budgetItem)
+            }
         }
     }
     
     func handlePlannedExpenseTransactionWtih(plannedexpense name: String, amount: Double, account: Account) {
         guard let plannedexpense = PlannedExpenseController.shared.plannedExpenses.first(where: { $0.name == name }) else {return}
-        
-        AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account)
-        PlannedExpenseController.shared.addAmountToTotalDeposited(amount: amount, plannedexpense: plannedexpense)
+        AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account) { (complete) in
+            guard complete else {return}
+            PlannedExpenseController.shared.addAmountToTotalDeposited(amount: amount, plannedexpense: plannedexpense)
+        }
     }
     
     // MARK: - Fetch Data from CloudKit
@@ -211,7 +227,7 @@ class TransactionController {
     
     // MARK: - Functions
     
-    private func handleIncomeAndExpenseTransactionsWith(budgetItems: [BudgetItem], transaction: Transaction, account: Account) {
+    private func handleIncomeAndExpenseTransactionsWith(budgetItems: [BudgetItem], transaction: Transaction, account: Account, completion: @escaping (_ complete: Bool) -> Void) {
 
         // Check to see if the category is a budget Item
         for budgetItem in budgetItems {
@@ -221,16 +237,22 @@ class TransactionController {
                     // Remove income
                     
                     // Subtract amount from account
-                    AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: account)
-                    // Subtract amount from BudgetIem
-                    BudgetItemController.shared.substractTotalAllotedAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
+                    AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: account) { (complete) in
+                        guard complete else {return}
+                        // Subtract amount from BudgetIem
+                        BudgetItemController.shared.substractTotalAllotedAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
+                        completion(true)
+                    }
                 } else {
                     // Expense
                     
                     // Add amount to account
-                    AccountController.shared.addAmountToAccountWith(amount: transaction.amount, account: account)
-                    // Subtract from account
-                    BudgetItemController.shared.substractSpentTotalAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
+                    AccountController.shared.addAmountToAccountWith(amount: transaction.amount, account: account) { (complete) in
+                        guard complete else {return}
+                        // Subtract from account
+                        BudgetItemController.shared.substractSpentTotalAmountFromBudgetItem(amount: transaction.amount, budgetItem: budgetItem)
+                        completion(true)
+                    }
                 }
             }
         }

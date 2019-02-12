@@ -106,8 +106,12 @@ class PlannedExpenseController {
         plannedExpense.name = name
         plannedExpense.account = account
         plannedExpense.goalAmount = goalAmount
-        plannedExpense.totalDeposited = totalDeposited
         plannedExpense.dueDate = dueDate
+        if totalDeposited < 0 {
+            plannedExpense.totalDeposited = 0
+        } else {
+            plannedExpense.totalDeposited = totalDeposited            
+        }
         
         cloudKitManager.modifyRecords([plannedExpense.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
             guard let record = records?.first else {return}

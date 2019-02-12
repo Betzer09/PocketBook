@@ -387,7 +387,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         
         // Check for an old transaction
         if let oldTransaction = transaction {
-            TransactionController.shared.delete(transaction: oldTransaction) { (success) in
+            TransactionController.shared.delete(transaction: oldTransaction, removeFromSourceOfTruth: true) { (success) in
                 guard success else {return}
                 DispatchQueue.main.async {
                     self.createTransaction()
