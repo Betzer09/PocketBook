@@ -16,7 +16,7 @@ class PlannedExpense: Equatable {
     }
     
     // MARK: - Properties
-    var recordID: CKRecordID
+    var recordID: CKRecord.ID
     var name: String
     var account: String
     var dueDate: Date
@@ -36,7 +36,7 @@ class PlannedExpense: Equatable {
         self.dueDate = dueDate
         self.goalAmount = goalAmount
         self.totalDeposited = totalDeposited
-        self.recordID = CKRecordID(recordName: UUID().uuidString)
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
         
     }
     

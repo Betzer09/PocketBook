@@ -104,7 +104,7 @@ class PieChartView: UIView {
         createNameAndColorStacks(inSuperView: stackView2, withFrame: frame)
     }
     
-    func configureStackView(stackView: UIStackView, distribution: UIStackViewDistribution) {
+    func configureStackView(stackView: UIStackView, distribution: UIStackView.Distribution) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 8.0

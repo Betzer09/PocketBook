@@ -100,7 +100,7 @@ class UserNotificationHelper: NSObject {
         let subscription = CKQuerySubscription(recordType: key, predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate, .firesOnRecordCreation, .firesOnRecordDeletion])
         
         
-        let info = CKNotificationInfo()
+        let info = CKSubscription.NotificationInfo()
         info.shouldSendContentAvailable = true
         subscription.notificationInfo = info
         
@@ -148,7 +148,7 @@ extension UserNotificationHelper {
         dateComponents.minute = 40
         
         let notification = UNMutableNotificationContent()
-        notification.sound = UNNotificationSound.default()
+        notification.sound = UNNotificationSound.default
         notification.title = "Daily Reminder"
         notification.body = "Don't forget to add your transactions for the day!"
         

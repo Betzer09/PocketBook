@@ -18,21 +18,21 @@ extension UISegmentedControl{
         
         guard let avenirFont = UIFont(name: "Avenir Next", size: 12.0) else {NSLog("Coundn't find Avenir Next font: \(#file)"); return}
 
-        let attr = NSDictionary(object: avenirFont, forKey: NSAttributedStringKey.font as NSCopying)
-        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
+        let attr = NSDictionary(object: avenirFont, forKey: NSAttributedString.Key.font as NSCopying)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] as [NSObject : AnyObject] as? [NSAttributedString.Key : Any] , for: .normal)
         
         let selected: NSDictionary = [
-            NSAttributedStringKey.foregroundColor: UIColor.black,
-            NSAttributedStringKey.font: avenirFont
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: avenirFont
         ]
         
         let notSelected: NSDictionary = [
-            NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.font: avenirFont
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: avenirFont
         ]
 
-        setTitleTextAttributes(selected as [NSObject : AnyObject], for: .selected)
-        setTitleTextAttributes(notSelected as [NSObject : AnyObject], for: .normal)
+        setTitleTextAttributes(selected as [NSObject : AnyObject] as [NSObject : AnyObject] as? [NSAttributedString.Key : Any], for: .selected)
+        setTitleTextAttributes(notSelected as [NSObject : AnyObject] as [NSObject : AnyObject] as? [NSAttributedString.Key : Any], for: .normal)
 
         
     }

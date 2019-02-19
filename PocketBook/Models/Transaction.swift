@@ -25,7 +25,7 @@ class Transaction: Hashable, Equatable {
     var transactionType: String
     var amount: Double
     var account: String
-    var recordID: CKRecordID
+    var recordID: CKRecord.ID
     var hashValue: Int { get {
         return recordID.hashValue
         }
@@ -39,7 +39,7 @@ class Transaction: Hashable, Equatable {
         self.transactionType = transactionType
         self.amount = amount
         self.account = account
-        self.recordID = CKRecordID(recordName: UUID().uuidString)
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUT

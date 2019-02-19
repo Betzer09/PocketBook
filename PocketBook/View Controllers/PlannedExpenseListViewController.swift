@@ -67,8 +67,8 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
     
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
-        let attributes = [ NSAttributedStringKey.font: font,
-                           NSAttributedStringKey.foregroundColor : UIColor.white,
+        let attributes = [ NSAttributedString.Key.font: font,
+                           NSAttributedString.Key.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title
@@ -96,7 +96,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         button.clipsToBounds = true
         button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
         button.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControl.Event.touchUpInside)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
     }
@@ -133,7 +133,7 @@ class PlannedExpenseListViewController: UIViewController, UITableViewDataSource,
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             let plannedExpense = PlannedExpenseController.shared.plannedExpenses[indexPath.row]

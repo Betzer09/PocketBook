@@ -72,8 +72,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Setup View
     
     func setUpUI() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notifications.accountWasUpdatedNotification, object: nil)
         
         setUpDelegates()
@@ -110,8 +110,8 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
-        let attributes = [ NSAttributedStringKey.font: font,
-                           NSAttributedStringKey.foregroundColor : UIColor.white,
+        let attributes = [ NSAttributedString.Key.font: font,
+                           NSAttributedString.Key.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title
@@ -295,7 +295,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             let alertController = UIAlertController(title: "Delete Account", message: "Please confirm that you want to delete this account. Deleting this account will delete all corresponding transactions and planned expenses. Deleting this account cannot be undone.", preferredStyle: .alert)
@@ -476,7 +476,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         button.clipsToBounds = true
         button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
         button.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(segueToDetailVC), for: UIControl.Event.touchUpInside)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
     }
@@ -486,7 +486,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         button.clipsToBounds = true
         button.setImage(#imageLiteral(resourceName: "questionMark"), for: .normal)
         button.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(segueToInstructionVC), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(segueToInstructionVC), for: UIControl.Event.touchUpInside)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = barButton
     }
@@ -731,7 +731,7 @@ extension AccountListViewController: UITextFieldDelegate {
         
         var keyboardSize: CGRect = .zero
         
-        if let keyboardRect = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
+        if let keyboardRect = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect,
             keyboardRect.height != 0 {
             keyboardSize = keyboardRect
         } else if let keyboardRect = notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect {

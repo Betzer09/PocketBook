@@ -66,8 +66,8 @@ class PieChartViewController: UIViewController, UIPickerViewDataSource, UIPicker
     // MARK: - Setup UI
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
-        let attributes = [ NSAttributedStringKey.font: font,
-                           NSAttributedStringKey.foregroundColor : UIColor.white,
+        let attributes = [ NSAttributedString.Key.font: font,
+                           NSAttributedString.Key.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title

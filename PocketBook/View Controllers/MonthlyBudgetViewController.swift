@@ -102,7 +102,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             
@@ -414,8 +414,8 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
     
     func configureNavigationBar() {
         guard let font = UIFont(name: "Avenir Next", size: 17) else {return}
-        let attributes = [ NSAttributedStringKey.font: font,
-                           NSAttributedStringKey.foregroundColor : UIColor.white,
+        let attributes = [ NSAttributedString.Key.font: font,
+                           NSAttributedString.Key.foregroundColor : UIColor.white,
                            ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = self.navigationItem.title
@@ -425,7 +425,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         categoryTableView.delegate = self
         categoryTableView.dataSource = self
         categoryTableView.estimatedRowHeight = 50
-        categoryTableView.rowHeight = UITableViewAutomaticDimension
+        categoryTableView.rowHeight = UITableView.automaticDimension
         amountTextField.delegate = self
         
     }
@@ -435,7 +435,7 @@ class MonthlyBudgetViewController: UIViewController, UITableViewDataSource, UITa
         button.clipsToBounds = true
         button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
         button.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(createBudgetItemAlert), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(createBudgetItemAlert), for: UIControl.Event.touchUpInside)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
     }

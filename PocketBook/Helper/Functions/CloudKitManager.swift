@@ -49,14 +49,14 @@ class CloudKitManager {
     
     // MARK: - Delete
     
-    func deleteRecordWithID(_ recordID: CKRecordID, completion: ((_ recordID: CKRecordID?, _ error: Error?) -> Void)?) {
+    func deleteRecordWithID(_ recordID: CKRecord.ID, completion: ((_ recordID: CKRecord.ID?, _ error: Error?) -> Void)?) {
         
         privateDataBase.delete(withRecordID: recordID) { (recordID, error) in
             completion?(recordID, error)
         }
     }
     
-    func deleteRecordsWithID(_ recordIDs: [CKRecordID], completion: ((_ records: [CKRecord]?, _ recordIDs: [CKRecordID]?, _ error: Error?) -> Void)?) {
+    func deleteRecordsWithID(_ recordIDs: [CKRecord.ID], completion: ((_ records: [CKRecord]?, _ recordIDs: [CKRecord.ID]?, _ error: Error?) -> Void)?) {
         
         let operation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: recordIDs)
         operation.savePolicy = .ifServerRecordUnchanged

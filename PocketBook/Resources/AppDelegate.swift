@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                 
         UserDefaults.standard.register(defaults: ["onboarding" : false])
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         UINavigationBar.appearance().barTintColor = UIColor(red: 4.0/255.0, green: 45.0/255.0, blue: 75.0/255.0, alpha: 1.0)
         
         guard let font2 = UIFont(name: "Avenir Next", size: 14) else {return false}
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font2], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font2], for: .normal)
         application.registerForRemoteNotifications()
         return true
     }

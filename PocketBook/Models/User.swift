@@ -13,12 +13,12 @@ class User {
     
     // MARK: - Properties
     var projectedIncome: Double
-    let recordID: CKRecordID
+    let recordID: CKRecord.ID
     var hasResetMonthlyBudget: Bool?
     
     init(projectedIncome: Double) {
         self.projectedIncome = projectedIncome
-        self.recordID = CKRecordID(recordName: UUID().uuidString)
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUT

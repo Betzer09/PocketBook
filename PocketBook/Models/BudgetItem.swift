@@ -12,7 +12,7 @@ import CloudKit
 class BudgetItem {
     
     // MARK: - Properties
-    let recordID: CKRecordID
+    let recordID: CKRecord.ID
     var spentTotal: Double
     var name: String // Category
     
@@ -25,7 +25,7 @@ class BudgetItem {
         self.name = name
         self.allottedAmount = allottedAmount
         self.totalAllotted = allottedAmount
-        self.recordID = CKRecordID(recordName: UUID().uuidString)
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUTm

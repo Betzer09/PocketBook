@@ -15,13 +15,13 @@ class Account {
     var accountType: String
     var name: String
     var total: Double
-    var recordID: CKRecordID
+    var recordID: CKRecord.ID
     
     init(name: String, total: Double, accountType: AccountType.RawValue) {
         self.accountType = accountType
         self.name = name
         self.total = total
-        self.recordID = CKRecordID(recordName: UUID().uuidString)
+        self.recordID = CKRecord.ID(recordName: UUID().uuidString)
     }
     
     // MARK: - cloudKitRecord PUT
