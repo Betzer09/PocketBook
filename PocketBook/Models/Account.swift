@@ -12,10 +12,12 @@ import CloudKit
 class Account {
     
     // MARK: - Properties
+    private var _name: String = ""
+    
     var accountType: String
-    var name: String
     var total: Double
     var recordID: CKRecord.ID
+    var name: String
     
     init(name: String, total: Double, accountType: AccountType.RawValue) {
         self.accountType = accountType

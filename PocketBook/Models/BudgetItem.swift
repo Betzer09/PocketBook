@@ -14,7 +14,7 @@ class BudgetItem {
     // MARK: - Properties
     let recordID: CKRecord.ID
     var spentTotal: Double
-    var name: String // Category
+    var name: String
     
     /// This should only be modified by the user not the developer! If changes need to be made do it to the totalAllotted becuase each month this variable will be reset back to whatever amount the user set it to origanally.
     var allottedAmount: Double
@@ -22,7 +22,7 @@ class BudgetItem {
     
     init(spentTotal: Double, name: String, allottedAmount: Double) {
         self.spentTotal = spentTotal
-        self.name = name
+        self.name = name.removeWhiteSpaces()
         self.allottedAmount = allottedAmount
         self.totalAllotted = allottedAmount
         self.recordID = CKRecord.ID(recordName: UUID().uuidString)

@@ -56,7 +56,7 @@ class TransactionController {
         transaction.payee = payee
         transaction.transactionType = transactionType
         transaction.amount = amount
-        transaction.account = account
+        transaction.account = account.removeWhiteSpaces()
         
         cloudKitManager.modifyRecords([transaction.cloudKitRecord], perRecordCompletion: nil) { (records, error) in
             
@@ -90,12 +90,12 @@ class TransactionController {
                 self.transactions.remove(at: index)
             }
             
-            guard let account = AccountController.shared.accounts.first(where: { $0.name == transaction.account })
+            guard let account = AccountController.shared.accounts.first(where: { $0.name.removeWhiteSpaces() == transaction.account.removeWhiteSpaces() })
                 else { completion(false) ;return }
             
             let budgetItems = BudgetItemController.shared.budgetItems
             
-            if budgetItems.contains(where: { $0.name == transaction.category }) {
+            if budgetItems.contains(where: { $0.name.removeWhiteSpaces() == transaction.category?.removeWhiteSpaces() }) {
                 self.handleIncomeAndExpenseTransactionsWith(budgetItems: budgetItems, transaction: transaction, account: account, completion: { (complete) in
                     guard complete else {completion(false) ;return}
                     completion(true)
@@ -103,11 +103,32 @@ class TransactionController {
             } else if transaction.category == nil && transaction.payee == "Payday"{
                 self.handlePaydayTransaction(transaction: transaction, account: account)
                 completion(true)
-            } else {
+            } else if PlannedExpenseController.shared.plannedExpenses.contains(where: { $0.name == transaction.category }) {
                 self.handlePlannedExpenseDepositDeletion(category: transaction.payee, transaction: transaction.amount, account: account)
+                completion(true)
+            } else {
+                // This is a account transfer transaction
+                self.handleAccountTransferTransactionWith(transaction: transaction)
                 completion(true)
             }
             
+        }
+    }
+    
+    /// Takes in the payer and splits the accounts up.
+    private func handleAccountTransferTransactionWith(transaction: Transaction) {
+        // checkings -> savings
+        if transaction.payee.contains("->") {
+            // subtract amount from transaction account
+            guard let firstAccount = AccountController.shared.accounts.first(where: { $0.name.removeWhiteSpaces() == transaction.account.removeWhiteSpaces() }) else {return}
+            AccountController.shared.substractAmountFromAccountWith(amount: transaction.amount, account: firstAccount)
+            
+            // increment index by one to remove the space on the left side
+        
+            let secondHalfOfString = transaction.payee.split(whereSeparator: { $0 == "-" })
+            guard let secondAccountSubString = secondHalfOfString.first, let secondAccount = AccountController.shared.accounts.first(where: { $0.name.removeWhiteSpaces() == String(secondAccountSubString).removeWhiteSpaces() }) else {return}
+            
+            AccountController.shared.addAmountToAccountWith(amount: transaction.amount, account: secondAccount)
         }
     }
     
@@ -139,6 +160,18 @@ class TransactionController {
         AccountController.shared.substractAmountFromAccountWith(amount: amount, account: account) { (complete) in
             guard complete else {return}
             PlannedExpenseController.shared.addAmountToTotalDeposited(amount: amount, plannedexpense: plannedexpense)
+        }
+    }
+    
+    func transferMoneyTo(account: Account, fromAccount: Account, withTransfer amount: Double, completion: @escaping (_ success: Bool) -> Void) {
+        // add amount to account
+        AccountController.shared.addAmountToAccountWith(amount: amount, account: account) { (success) in
+            guard success else {completion(false); return}            
+            TransactionController.shared.createTransactionWith(date: Date(), monthYearDate: Date(), category: nil, payee: "\(fromAccount.name ) -> \(account.name)", transactionType: .income, amount: amount, account: account.name, completion: { (transaction) in
+                AccountController.shared.substractAmountFromAccountWith(amount: amount, account: fromAccount, completion: { (success) in
+                    completion(true)
+                })
+            })
         }
     }
     

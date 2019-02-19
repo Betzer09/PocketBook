@@ -51,3 +51,12 @@ extension UISegmentedControl{
         return image!
     }
 }
+
+extension String {
+    
+    /// Removes the white space from both the beginning and end of the string.
+    func removeWhiteSpaces() -> String {
+        return self.trimmingCharacters(in: .whitespaces)
+    }
+    
+}

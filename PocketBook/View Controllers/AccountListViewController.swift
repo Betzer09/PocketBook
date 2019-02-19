@@ -399,18 +399,12 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
             let fromAccount = fromAccount else {
                 return
         }
-        
-        fromAccount.total -= amount
-        toAccount.total += amount
-        tableView.reloadData()
-        AccountController.shared.updateAccountWith(name: toAccount.name, type: toAccount.accountType, total: toAccount.total, account: toAccount, completion:  { (_) in
-            // TODO: DELETE THIS CLOSURE
-        })
-        AccountController.shared.updateAccountWith(name: fromAccount.name, type: fromAccount.accountType, total: fromAccount.total, account: fromAccount, completion: { (_) in
-            // TODO: DELETE THIS CLOSURE
-        })
-        resetTransferMoneyView()
-        resetTransferMoneyVariables()
+        TransactionController.shared.transferMoneyTo(account: toAccount, fromAccount: fromAccount, withTransfer: amount) { (complete) in
+            guard complete else {return}
+            self.resetTransferMoneyView()
+            self.resetTransferMoneyVariables()
+            self.reloadTableView()
+        }
     }
     
     // MARK: Button Functions
@@ -462,6 +456,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         accountPickerView.delegate = self
         toAccountTxtField.delegate = self
         fromAccountTxtField.delegate = self
+        
         
     }
     
@@ -591,7 +586,7 @@ class AccountListViewController: UIViewController, UITableViewDelegate, UITableV
         let dateYear = dateComponentYear(date: date)
         
         // Checks to see if we are in a new year
-        print(hasResetMonthlyBudget)
+        print("Has monthly budget Reset? : \(hasResetMonthlyBudget)")
         if dateYear < currentYear && hasResetMonthlyBudget == false {
             let lastTimeAppWasOpened = Date()
             saveDate(date: lastTimeAppWasOpened)

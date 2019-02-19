@@ -26,8 +26,9 @@ class Transaction: Hashable, Equatable {
     var amount: Double
     var account: String
     var recordID: CKRecord.ID
-    var hashValue: Int { get {
-        return recordID.hashValue
+    var hashValue: Int {
+        get {
+            return recordID.hashValue
         }
     }
     
@@ -35,10 +36,10 @@ class Transaction: Hashable, Equatable {
         self.date = date
         self.monthYearDate = monthYearDate
         self.category = category
-        self.payee = payee
+        self.payee = payee.removeWhiteSpaces()
         self.transactionType = transactionType
         self.amount = amount
-        self.account = account
+        self.account = account.removeWhiteSpaces()
         self.recordID = CKRecord.ID(recordName: UUID().uuidString)
     }
     

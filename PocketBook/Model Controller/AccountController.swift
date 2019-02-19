@@ -141,7 +141,7 @@ class AccountController {
     }
     
     /// Adds the amount to the account and then saves it to CloudKit
-    func addAmountToAccountWith(amount: Double, account: Account, completion: @escaping(_ complete: Bool) -> Void) {
+    func addAmountToAccountWith(amount: Double, account: Account, completion: @escaping(_ complete: Bool) -> Void = {_ in}) {
         account.total += amount
         updateAccountWith(name: account.name, type: account.accountType, total: account.total, account: account) { (updatedAccount) in
             guard updatedAccount != nil else {completion(false) ;return}

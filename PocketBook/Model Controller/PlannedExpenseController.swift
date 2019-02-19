@@ -97,6 +97,8 @@ class PlannedExpenseController {
     // MARK: - Update
     
     func createPlannedExpenseTransaction(transaction: Transaction, account: Account, categoryName: String) {
+        // If the inital amount isn't greater than zero there is no point in creating a transaction.
+        guard transaction.amount != 0 else {return}
         TransactionController.shared.createTransactionWith(date: transaction.date, monthYearDate: transaction.monthYearDate, category: transaction.category, payee: transaction.payee, transactionType: TransactionType.expense , amount: transaction.amount, account: account.name)
         TransactionController.shared.handlePlannedExpenseTransactionWtih(plannedexpense: categoryName, amount: transaction.amount, account: account)
     }

@@ -31,7 +31,7 @@ class LoadingScreenViewController: UIViewController {
     
     func animateImage() {
         guard viewHasDisapperaed == false else {return}
-        pocketbookView.transform = CGAffineTransform(rotationAngle: 3)
+        pocketbookView.transform = CGAffineTransform(rotationAngle: -3)
         
         UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
             self.pocketbookView.transform = .identity

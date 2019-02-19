@@ -59,6 +59,20 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         setUpDatePicker()
     }
     
+    func setupTextFields() {
+        DispatchQueue.main.async {
+            guard self.transaction?.category != nil else {
+                self.payeeTextField.isEnabled = false
+                self.amountTextField.isEnabled = false
+                self.accountTextField.isEnabled = false
+                self.dateTextField.isEnabled = false
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+                return
+            }
+        }
+        
+    }
+    
     func setUpDatePicker() {
         dueDatePicker.maximumDate = Date()
     }
@@ -142,6 +156,7 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
         showCategoryPicker()
         showDatePicker()
         showAccountPicker()
+        setupTextFields()
         
         // Checks to see if there is a transaction and if there is a transactions, all fields will auto-populate with the transaction date
         if transaction != nil {
