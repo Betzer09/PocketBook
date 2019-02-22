@@ -60,17 +60,27 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     func setupTextFields() {
-        DispatchQueue.main.async {
-            guard self.transaction?.category != nil else {
-                self.payeeTextField.isEnabled = false
-                self.amountTextField.isEnabled = false
-                self.accountTextField.isEnabled = false
-                self.dateTextField.isEnabled = false
-                self.navigationItem.rightBarButtonItem?.isEnabled = false
-                return
-            }
-        }
+        guard let payee = transaction?.payee else {return}
         
+        if payee == "Payday" {
+            makeTextFieldsUneditable()
+        }
+    }
+    
+    func makeTextFieldsUneditable() {
+        dateTextField.isEnabled = false
+        accountTextField.isEnabled = false
+        amountTextField.isEnabled = false
+        payeeTextField.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func makeFieldsEditable() {
+        dateTextField.isEnabled = true
+        accountTextField.isEnabled = true
+        amountTextField.isEnabled = true
+        payeeTextField.isEnabled = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func setUpDatePicker() {
