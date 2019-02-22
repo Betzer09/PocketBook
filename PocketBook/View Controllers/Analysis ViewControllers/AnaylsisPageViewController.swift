@@ -19,7 +19,7 @@ class AnaylsisPageViewController: UIPageViewController, UIPageViewControllerDele
         return [
             UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.pieCharVCIdentifier),
             UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.budgetLineGraphVCIdentifier),
-            UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.plannedExpensesGraphVCIdentifer)
+//            UIStoryboard(name: "Analysis", bundle: nil).instantiateViewController(withIdentifier: Keys.plannedExpensesGraphVCIdentifer)
         ]
     }()
     override func viewDidLoad() {
