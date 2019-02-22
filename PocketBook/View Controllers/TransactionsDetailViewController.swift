@@ -62,9 +62,10 @@ class TransactionsDetailViewController: UIViewController, UIPickerViewDelegate, 
     func setupTextFields() {
         guard let payee = transaction?.payee else {return}
         
-        if payee == "Payday" {
+        if payee == "Payday" || payee.contains("->") {
             makeTextFieldsUneditable()
         }
+        
     }
     
     func makeTextFieldsUneditable() {
